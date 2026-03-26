@@ -1,0 +1,11 @@
+Model/Adapter,Mean Win Rate
+DALL-E 2 3.5B,0.941
+Dreamlike Photoreal v2.0 1B,0.748
+Stable Diffusion v1.4 1B,0.723
+Safe Stable Diffusion strong 1B,0.63
+DALL-E mega 2.6B,0.6
+Openjourney v1 1B,0.586
+Dreamlike Diffusion v1.0 1B,0.56
+Promptist + Stable Diffusion v1.4 1B,0.551
+MultiFusion 13B,0.543
+DeepFloyd IF X-Large 4.3B,0.537

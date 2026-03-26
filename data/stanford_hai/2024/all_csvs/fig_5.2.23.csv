@@ -1,0 +1,37 @@
+Model A,Model B,Human rank,COMET rank
+GPT-4 (32k + MR),GPT-4 (32k + MR),,
+GPT-4 (32k + MR),GPT-4 (32k),0.48,0.5
+GPT-4 (32k + MR),GPT-4 (2k),0.56,0.52
+GPT-4 (32k + MR),Vicuña-13B (2k),0.73,0.66
+GPT-4 (32k + MR),Vicuña-7B (2k),0.71,0.63
+GPT-4 (32k + MR),MPT-7B-Instruct (2k),0.82,0.79
+GPT-4 (32k),GPT-4 (32k + MR),0.52,0.5
+GPT-4 (32k),GPT-4 (32k),,
+GPT-4 (32k),GPT-4 (2k),0.58,0.51
+GPT-4 (32k),Vicuña-13B (2k),0.72,0.63
+GPT-4 (32k),Vicuña-7B (2k),0.74,0.58
+GPT-4 (32k),MPT-7B-Instruct (2k),0.81,0.77
+GPT-4 (2k),GPT-4 (32k + MR),0.44,0.48
+GPT-4 (2k),GPT-4 (32k),0.42,0.49
+GPT-4 (2k),GPT-4 (2k),,
+GPT-4 (2k),Vicuña-13B (2k),0.67,0.66
+GPT-4 (2k),Vicuña-7B (2k),0.7,0.61
+GPT-4 (2k),MPT-7B-Instruct (2k),0.76,0.79
+Vicuña-13B (2k),GPT-4 (32k + MR),0.27,0.34
+Vicuña-13B (2k),GPT-4 (32k),0.28,0.37
+Vicuña-13B (2k),GPT-4 (2k),0.33,0.34
+Vicuña-13B (2k),Vicuña-13B (2k),,
+Vicuña-13B (2k),Vicuña-7B (2k),0.5,0.49
+Vicuña-13B (2k),MPT-7B-Instruct (2k),0.63,0.7
+Vicuña-7B (2k),GPT-4 (32k + MR),0.29,0.37
+Vicuña-7B (2k),GPT-4 (32k),0.26,0.42
+Vicuña-7B (2k),GPT-4 (2k),0.3,0.39
+Vicuña-7B (2k),Vicuña-13B (2k),0.5,0.51
+Vicuña-7B (2k),Vicuña-7B (2k),,
+Vicuña-7B (2k),MPT-7B-Instruct (2k),0.64,0.71
+MPT-7B-Instruct (2k),GPT-4 (32k + MR),0.18,0.21
+MPT-7B-Instruct (2k),GPT-4 (32k),0.19,0.23
+MPT-7B-Instruct (2k),GPT-4 (2k),0.24,0.21
+MPT-7B-Instruct (2k),Vicuña-13B (2k),0.37,0.3
+MPT-7B-Instruct (2k),Vicuña-7B (2k),0.36,0.29
+MPT-7B-Instruct (2k),MPT-7B-Instruct (2k),,

@@ -1,0 +1,8 @@
+model,year,TB,TB∧FB
+text-davinci-003,2022,0.27,0.25
+GPT-3.5-turbo,2022,0.35,0.31
+LLaMA-65,2023,0.43,0.41
+Claude-2,2023,0.55,0.52
+Claude,2023,0.62,0.59
+GPT-4-0314,2023,0.91,0.9
+Human performance,2023,0.9875,0.975

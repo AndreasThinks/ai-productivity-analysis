@@ -1,0 +1,15 @@
+Algorithm,Instruction length,Label
+Sort 3,17,AlphaDev
+Sort 4,28,AlphaDev
+Sort 5,42,AlphaDev
+VarSort3,21,AlphaDev
+VarSort4,37,AlphaDev
+VarSort5,63,AlphaDev
+VarInt,27,AlphaDev
+Sort 3,18,Human benchmarks
+Sort 4,28,Human benchmarks
+Sort 5,46,Human benchmarks
+VarSort3,33,Human benchmarks
+VarSort4,66,Human benchmarks
+VarSort5,115,Human benchmarks
+VarInt,31,Human benchmarks

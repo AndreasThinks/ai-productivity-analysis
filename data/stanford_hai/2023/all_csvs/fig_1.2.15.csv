@@ -1,0 +1,33 @@
+System,Domain,Publication Date,Parameters
+GPT-2,Language,2019-Feb,1500000000
+Grover-Mega,Language,2019-May,1500000000
+"Megatron-LM (Original, 8.3B)",Language,2019-Sep,8300000000
+T5-3B,Language,2019-Oct,3000000000
+T5-11B,Language,2019-Oct,11000000000
+Meena,Language,2020-Jan,2600000000
+Turing NLG,Language,2020-Feb,17000000000
+GPT-3 175B (davinci),Language,2020-May,1.75E+11
+ERNIE-GEN (large),Language,2020-Aug,340000000
+DALL-E,Drawing,2021-Jan,12000000000
+Wu Dao - Wen Yuan,Language,2021-Mar,2600000000
+GPT-Neo,Language,2021-Mar,2700000000
+PanGu-α,Language,2021-Apr,2.07E+11
+GPT-J-6B,Language,2021-May,6053381344
+HyperClova,Language,2021-May,2.04E+11
+CogView,Drawing,2021-May,4000000000
+Wu Dao 2.0,Multimodal,2021-Jun,1.75E+12
+ERNIE 3.0,Language,2021-Jul,10000000000
+Codex,Language,2021-Jul,12000000000
+Jurassic-1-Jumbo,Language,2021-Aug,1.78E+11
+Megatron-Turing NLG 530B,Language,2021-Oct,5.3E+11
+Gopher,Language,2021-Dec,2.8E+11
+GPT-NeoX-20B,Language,2022-Feb,20000000000
+Chinchilla,Language,2022-Mar,70000000000
+PaLM (540B),Language,2022-Apr,5.4035E+11
+DALL·E 2,Drawing,2022-Apr,3500000000
+Stable Diffusion (LDM-KL-8-G),Drawing,2022-Apr,1450000000
+OPT-175B,Language,2022-May,1.75E+11
+Jurassic-X,Language,2022-May,7000000000
+Minerva (540B),Language,2022-Jun,5.4035E+11
+GLM-130B,Language,2022-Aug,1.3E+11
+BLOOM,Language,2022-Nov,1.76E+11

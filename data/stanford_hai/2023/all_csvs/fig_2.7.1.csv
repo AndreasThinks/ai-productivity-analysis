@@ -1,0 +1,25 @@
+Year,Task,Training Time (Minutes)
+2018,Image Classification,6.200
+2018,Object Detection (heavy-weight),72.100
+2018,Object Detection (light-weight),5.600
+2019,Image Classification,1.300
+2019,Object Detection (heavy-weight),18.470
+2019,Object Detection (light-weight),1.210
+2020,Recommendation,1.210
+2020,Object Detection (light-weight),0.460
+2020,Language Processing,0.390
+2020,Image Classification,0.470
+2020,Object Detection (heavy-weight),8.130
+2021,Recommendation,0.630
+2021,Speech recognition,2.375
+2021,Object Detection (light-weight),0.340
+2021,Image Segmentation,1.262
+2021,Language Processing,0.226
+2021,Image Classification,0.230
+2021,Object Detection (heavy-weight),3.242
+2022,Image Classification,0.191
+2022,Image Segmentation,1.216
+2022,Language Processing,0.179
+2022,Object Detection (heavy-weight),2.253
+2022,Recommendation,0.515
+2022,Speech recognition,2.151

@@ -1,0 +1,495 @@
+Country,Year,Gender,Percentage
+Austria,2011,Female,15.94%
+Austria,2012,Female,13.12%
+Austria,2013,Female,13.48%
+Austria,2014,Female,14.77%
+Austria,2015,Female,17.05%
+Austria,2016,Female,16.79%
+Austria,2017,Female,17.10%
+Austria,2018,Female,18.20%
+Austria,2019,Female,19.47%
+Austria,2020,Female,19.46%
+Austria,2021,Female,20.94%
+Austria,2022,Female,19.74%
+Belgium,2011,Female,7.10%
+Belgium,2012,Female,5.29%
+Belgium,2013,Female,5.48%
+Belgium,2014,Female,5.86%
+Belgium,2015,Female,6.46%
+Belgium,2016,Female,6.38%
+Belgium,2017,Female,6.94%
+Belgium,2018,Female,8.13%
+Belgium,2019,Female,7.31%
+Belgium,2020,Female,7.62%
+Belgium,2021,Female,7.93%
+Bulgaria,2011,Female,40.80%
+Bulgaria,2012,Female,40.09%
+Bulgaria,2013,Female,38.97%
+Bulgaria,2014,Female,41.47%
+Bulgaria,2015,Female,35.43%
+Bulgaria,2016,Female,38.35%
+Bulgaria,2017,Female,37.91%
+Bulgaria,2018,Female,35.66%
+Bulgaria,2019,Female,32.54%
+Bulgaria,2020,Female,32.06%
+Bulgaria,2021,Female,31.90%
+Bulgaria,2022,Female,35.23%
+Czech Republic,2011,Female,10.04%
+Czech Republic,2012,Female,10.32%
+Czech Republic,2013,Female,11.93%
+Czech Republic,2014,Female,14.50%
+Czech Republic,2015,Female,15.53%
+Czech Republic,2016,Female,16.86%
+Czech Republic,2017,Female,16.85%
+Czech Republic,2018,Female,16.89%
+Czech Republic,2019,Female,18.11%
+Czech Republic,2020,Female,16.71%
+Czech Republic,2021,Female,17.03%
+Czech Republic,2022,Female,16.22%
+Estonia,2011,Female,25.69%
+Estonia,2012,Female,19.13%
+Estonia,2013,Female,22.51%
+Estonia,2014,Female,26.85%
+Estonia,2015,Female,27.02%
+Estonia,2016,Female,26.53%
+Estonia,2017,Female,27.64%
+Estonia,2018,Female,27.16%
+Estonia,2019,Female,30.20%
+Estonia,2020,Female,32.35%
+Estonia,2021,Female,23.48%
+Estonia,2022,Female,24.00%
+Finland,2011,Female,18.72%
+Finland,2012,Female,17.46%
+Finland,2013,Female,16.63%
+Finland,2014,Female,15.14%
+Finland,2015,Female,17.72%
+Finland,2016,Female,16.18%
+Finland,2017,Female,18.82%
+Finland,2018,Female,17.94%
+Finland,2019,Female,18.78%
+Finland,2020,Female,19.32%
+Finland,2021,Female,21.93%
+Finland,2022,Female,24.65%
+France,2011,Female,18.53%
+France,2012,Female,17.24%
+France,2013,Female,16.14%
+France,2014,Female,15.86%
+France,2015,Female,15.90%
+France,2016,Female,14.91%
+France,2017,Female,13.06%
+France,2018,Female,12.33%
+France,2019,Female,13.29%
+France,2020,Female,13.91%
+France,2021,Female,14.75%
+Germany,2011,Female,14.34%
+Germany,2012,Female,14.93%
+Germany,2013,Female,16.36%
+Germany,2014,Female,16.16%
+Germany,2015,Female,17.06%
+Germany,2016,Female,17.90%
+Germany,2017,Female,18.38%
+Germany,2018,Female,19.63%
+Germany,2019,Female,19.69%
+Germany,2020,Female,20.86%
+Germany,2021,Female,20.98%
+Germany,2022,Female,21.49%
+Ireland,2011,Female,21.88%
+Ireland,2012,Female,22.33%
+Ireland,2013,Female,17.97%
+Ireland,2014,Female,17.54%
+Ireland,2015,Female,15.18%
+Ireland,2016,Female,16.91%
+Ireland,2017,Female,17.38%
+Ireland,2018,Female,18.02%
+Ireland,2019,Female,17.94%
+Ireland,2020,Female,18.76%
+Ireland,2021,Female,19.79%
+Ireland,2022,Female,16.29%
+Italy,2011,Female,14.35%
+Italy,2012,Female,14.02%
+Italy,2013,Female,15.13%
+Italy,2014,Female,14.69%
+Italy,2015,Female,14.34%
+Italy,2016,Female,15.02%
+Italy,2017,Female,14.13%
+Italy,2018,Female,14.56%
+Italy,2019,Female,14.49%
+Italy,2020,Female,14.62%
+Italy,2021,Female,14.84%
+Italy,2022,Female,14.05%
+Latvia,2011,Female,18.96%
+Latvia,2012,Female,17.49%
+Latvia,2013,Female,18.01%
+Latvia,2014,Female,21.19%
+Latvia,2015,Female,22.08%
+Latvia,2016,Female,19.82%
+Latvia,2017,Female,20.68%
+Latvia,2018,Female,19.29%
+Latvia,2019,Female,20.45%
+Latvia,2020,Female,23.48%
+Latvia,2021,Female,19.09%
+Latvia,2022,Female,21.03%
+Lithuania,2014,Female,16.24%
+Lithuania,2015,Female,12.48%
+Lithuania,2016,Female,9.73%
+Lithuania,2017,Female,9.62%
+Lithuania,2018,Female,13.13%
+Lithuania,2019,Female,14.93%
+Lithuania,2020,Female,15.29%
+Lithuania,2021,Female,16.07%
+Lithuania,2022,Female,12.98%
+Netherlands,2011,Female,10.40%
+Netherlands,2012,Female,11.19%
+Netherlands,2013,Female,13.84%
+Netherlands,2014,Female,15.25%
+Netherlands,2015,Female,15.88%
+Netherlands,2016,Female,16.60%
+Netherlands,2017,Female,17.22%
+Netherlands,2018,Female,18.33%
+Netherlands,2019,Female,17.49%
+Netherlands,2020,Female,20.11%
+Netherlands,2021,Female,21.00%
+Netherlands,2022,Female,21.58%
+Norway,2011,Female,15.79%
+Norway,2012,Female,19.46%
+Norway,2013,Female,15.52%
+Norway,2014,Female,14.29%
+Norway,2015,Female,15.29%
+Norway,2016,Female,16.19%
+Norway,2017,Female,16.02%
+Norway,2018,Female,13.58%
+Norway,2019,Female,15.96%
+Norway,2020,Female,18.18%
+Norway,2021,Female,18.59%
+Norway,2022,Female,21.37%
+Poland,2011,Female,11.37%
+Poland,2012,Female,10.96%
+Poland,2013,Female,12.32%
+Poland,2014,Female,12.15%
+Poland,2015,Female,14.51%
+Poland,2016,Female,14.32%
+Poland,2017,Female,15.04%
+Poland,2018,Female,14.86%
+Poland,2019,Female,14.90%
+Poland,2020,Female,14.39%
+Poland,2021,Female,14.45%
+Poland,2022,Female,14.47%
+Portugal,2011,Female,12.74%
+Portugal,2012,Female,12.08%
+Portugal,2013,Female,12.08%
+Portugal,2014,Female,12.80%
+Portugal,2015,Female,11.48%
+Portugal,2016,Female,11.95%
+Portugal,2017,Female,12.73%
+Portugal,2018,Female,15.09%
+Portugal,2019,Female,14.65%
+Portugal,2020,Female,14.14%
+Portugal,2021,Female,15.99%
+Portugal,2022,Female,14.96%
+Romania,2011,Female,22.90%
+Romania,2012,Female,23.05%
+Romania,2013,Female,23.66%
+Romania,2014,Female,24.25%
+Romania,2015,Female,30.36%
+Romania,2016,Female,31.29%
+Romania,2017,Female,31.79%
+Romania,2018,Female,33.08%
+Romania,2019,Female,33.56%
+Romania,2020,Female,31.15%
+Romania,2021,Female,33.70%
+Romania,2022,Female,33.40%
+Spain,2011,Female,21.66%
+Spain,2012,Female,15.90%
+Spain,2013,Female,16.55%
+Spain,2014,Female,15.80%
+Spain,2015,Female,15.81%
+Spain,2016,Female,15.72%
+Spain,2017,Female,14.68%
+Spain,2018,Female,12.43%
+Spain,2019,Female,13.29%
+Spain,2020,Female,13.64%
+Spain,2021,Female,13.55%
+Spain,2022,Female,14.32%
+Switzerland,2011,Female,8.10%
+Switzerland,2012,Female,9.84%
+Switzerland,2013,Female,8.44%
+Switzerland,2014,Female,7.80%
+Switzerland,2015,Female,9.47%
+Switzerland,2016,Female,11.22%
+Switzerland,2017,Female,9.54%
+Switzerland,2018,Female,10.02%
+Switzerland,2019,Female,10.72%
+Switzerland,2020,Female,10.35%
+Switzerland,2021,Female,13.12%
+Switzerland,2022,Female,13.19%
+Turkey,2011,Female,31.01%
+Turkey,2012,Female,31.70%
+Turkey,2013,Female,35.49%
+Turkey,2014,Female,38.14%
+Turkey,2015,Female,37.61%
+Turkey,2016,Female,38.13%
+Turkey,2017,Female,37.45%
+Turkey,2018,Female,35.44%
+Turkey,2019,Female,35.13%
+Turkey,2020,Female,32.92%
+Turkey,2021,Female,30.31%
+Turkey,2022,Female,29.27%
+United Kingdom,2011,Female,18.10%
+United Kingdom,2012,Female,17.55%
+United Kingdom,2013,Female,17.16%
+United Kingdom,2014,Female,16.50%
+United Kingdom,2015,Female,17.05%
+United Kingdom,2016,Female,16.06%
+United Kingdom,2017,Female,15.17%
+United Kingdom,2018,Female,15.43%
+United Kingdom,2019,Female,16.20%
+United Kingdom,2020,Female,16.36%
+United Kingdom,2021,Female,17.15%
+United Kingdom,2022,Female,17.79%
+Austria,2011,Male,84.06%
+Austria,2012,Male,86.88%
+Austria,2013,Male,86.52%
+Austria,2014,Male,85.23%
+Austria,2015,Male,82.95%
+Austria,2016,Male,83.21%
+Austria,2017,Male,82.90%
+Austria,2018,Male,81.80%
+Austria,2019,Male,80.53%
+Austria,2020,Male,80.54%
+Austria,2021,Male,79.06%
+Austria,2022,Male,80.26%
+Belgium,2011,Male,92.90%
+Belgium,2012,Male,94.71%
+Belgium,2013,Male,94.52%
+Belgium,2014,Male,94.14%
+Belgium,2015,Male,93.54%
+Belgium,2016,Male,93.62%
+Belgium,2017,Male,93.06%
+Belgium,2018,Male,91.87%
+Belgium,2019,Male,92.69%
+Belgium,2020,Male,92.38%
+Belgium,2021,Male,92.07%
+Bulgaria,2011,Male,59.20%
+Bulgaria,2012,Male,59.91%
+Bulgaria,2013,Male,61.03%
+Bulgaria,2014,Male,58.53%
+Bulgaria,2015,Male,64.57%
+Bulgaria,2016,Male,61.65%
+Bulgaria,2017,Male,62.09%
+Bulgaria,2018,Male,64.34%
+Bulgaria,2019,Male,67.46%
+Bulgaria,2020,Male,67.94%
+Bulgaria,2021,Male,68.10%
+Bulgaria,2022,Male,64.77%
+Czech Republic,2011,Male,89.96%
+Czech Republic,2012,Male,89.68%
+Czech Republic,2013,Male,88.07%
+Czech Republic,2014,Male,85.50%
+Czech Republic,2015,Male,84.47%
+Czech Republic,2016,Male,83.14%
+Czech Republic,2017,Male,83.15%
+Czech Republic,2018,Male,83.11%
+Czech Republic,2019,Male,81.89%
+Czech Republic,2020,Male,83.29%
+Czech Republic,2021,Male,82.97%
+Czech Republic,2022,Male,83.78%
+Estonia,2011,Male,74.31%
+Estonia,2012,Male,80.87%
+Estonia,2013,Male,77.49%
+Estonia,2014,Male,73.15%
+Estonia,2015,Male,72.98%
+Estonia,2016,Male,73.47%
+Estonia,2017,Male,72.36%
+Estonia,2018,Male,72.84%
+Estonia,2019,Male,69.80%
+Estonia,2020,Male,67.65%
+Estonia,2021,Male,76.52%
+Estonia,2022,Male,76.00%
+Finland,2011,Male,81.28%
+Finland,2012,Male,82.54%
+Finland,2013,Male,83.37%
+Finland,2014,Male,84.86%
+Finland,2015,Male,82.28%
+Finland,2016,Male,83.82%
+Finland,2017,Male,81.18%
+Finland,2018,Male,82.06%
+Finland,2019,Male,81.22%
+Finland,2020,Male,80.68%
+Finland,2021,Male,78.07%
+Finland,2022,Male,75.35%
+France,2011,Male,81.47%
+France,2012,Male,82.76%
+France,2013,Male,83.86%
+France,2014,Male,84.14%
+France,2015,Male,84.10%
+France,2016,Male,85.09%
+France,2017,Male,86.94%
+France,2018,Male,87.67%
+France,2019,Male,86.71%
+France,2020,Male,86.09%
+France,2021,Male,85.25%
+Germany,2011,Male,85.66%
+Germany,2012,Male,85.07%
+Germany,2013,Male,83.64%
+Germany,2014,Male,83.84%
+Germany,2015,Male,82.94%
+Germany,2016,Male,82.10%
+Germany,2017,Male,81.62%
+Germany,2018,Male,80.37%
+Germany,2019,Male,80.31%
+Germany,2020,Male,79.14%
+Germany,2021,Male,79.02%
+Germany,2022,Male,78.51%
+Ireland,2011,Male,78.13%
+Ireland,2012,Male,77.67%
+Ireland,2013,Male,82.03%
+Ireland,2014,Male,82.46%
+Ireland,2015,Male,84.82%
+Ireland,2016,Male,83.09%
+Ireland,2017,Male,82.62%
+Ireland,2018,Male,81.98%
+Ireland,2019,Male,82.06%
+Ireland,2020,Male,81.24%
+Ireland,2021,Male,80.21%
+Ireland,2022,Male,83.71%
+Italy,2011,Male,85.65%
+Italy,2012,Male,85.98%
+Italy,2013,Male,84.87%
+Italy,2014,Male,85.31%
+Italy,2015,Male,85.66%
+Italy,2016,Male,84.98%
+Italy,2017,Male,85.87%
+Italy,2018,Male,85.44%
+Italy,2019,Male,85.51%
+Italy,2020,Male,85.38%
+Italy,2021,Male,85.16%
+Italy,2022,Male,85.95%
+Latvia,2011,Male,81.04%
+Latvia,2012,Male,82.51%
+Latvia,2013,Male,81.99%
+Latvia,2014,Male,78.81%
+Latvia,2015,Male,77.92%
+Latvia,2016,Male,80.18%
+Latvia,2017,Male,79.32%
+Latvia,2018,Male,80.71%
+Latvia,2019,Male,79.55%
+Latvia,2020,Male,76.52%
+Latvia,2021,Male,80.91%
+Latvia,2022,Male,78.97%
+Lithuania,2014,Male,83.76%
+Lithuania,2015,Male,87.52%
+Lithuania,2016,Male,90.27%
+Lithuania,2017,Male,90.38%
+Lithuania,2018,Male,86.87%
+Lithuania,2019,Male,85.07%
+Lithuania,2020,Male,84.71%
+Lithuania,2021,Male,83.93%
+Lithuania,2022,Male,87.02%
+Netherlands,2011,Male,89.60%
+Netherlands,2012,Male,88.81%
+Netherlands,2013,Male,86.16%
+Netherlands,2014,Male,84.75%
+Netherlands,2015,Male,84.12%
+Netherlands,2016,Male,83.40%
+Netherlands,2017,Male,82.78%
+Netherlands,2018,Male,81.67%
+Netherlands,2019,Male,82.51%
+Netherlands,2020,Male,79.89%
+Netherlands,2021,Male,79.00%
+Netherlands,2022,Male,78.42%
+Norway,2011,Male,84.21%
+Norway,2012,Male,80.54%
+Norway,2013,Male,84.48%
+Norway,2014,Male,85.71%
+Norway,2015,Male,84.71%
+Norway,2016,Male,83.81%
+Norway,2017,Male,83.98%
+Norway,2018,Male,86.42%
+Norway,2019,Male,84.04%
+Norway,2020,Male,81.82%
+Norway,2021,Male,81.41%
+Norway,2022,Male,78.63%
+Poland,2011,Male,88.63%
+Poland,2012,Male,89.04%
+Poland,2013,Male,87.68%
+Poland,2014,Male,87.85%
+Poland,2015,Male,85.49%
+Poland,2016,Male,85.68%
+Poland,2017,Male,84.96%
+Poland,2018,Male,85.14%
+Poland,2019,Male,85.10%
+Poland,2020,Male,85.61%
+Poland,2021,Male,85.55%
+Poland,2022,Male,85.53%
+Portugal,2011,Male,87.26%
+Portugal,2012,Male,87.92%
+Portugal,2013,Male,87.92%
+Portugal,2014,Male,87.20%
+Portugal,2015,Male,88.52%
+Portugal,2016,Male,88.05%
+Portugal,2017,Male,87.27%
+Portugal,2018,Male,84.91%
+Portugal,2019,Male,85.35%
+Portugal,2020,Male,85.86%
+Portugal,2021,Male,84.01%
+Portugal,2022,Male,85.04%
+Romania,2011,Male,77.10%
+Romania,2012,Male,76.95%
+Romania,2013,Male,76.34%
+Romania,2014,Male,75.75%
+Romania,2015,Male,69.64%
+Romania,2016,Male,68.71%
+Romania,2017,Male,68.21%
+Romania,2018,Male,66.92%
+Romania,2019,Male,66.44%
+Romania,2020,Male,68.85%
+Romania,2021,Male,66.30%
+Romania,2022,Male,66.60%
+Spain,2011,Male,78.34%
+Spain,2012,Male,84.10%
+Spain,2013,Male,83.45%
+Spain,2014,Male,84.20%
+Spain,2015,Male,84.19%
+Spain,2016,Male,84.28%
+Spain,2017,Male,85.32%
+Spain,2018,Male,87.57%
+Spain,2019,Male,86.71%
+Spain,2020,Male,86.36%
+Spain,2021,Male,86.45%
+Spain,2022,Male,85.68%
+Switzerland,2011,Male,91.90%
+Switzerland,2012,Male,90.16%
+Switzerland,2013,Male,91.56%
+Switzerland,2014,Male,92.20%
+Switzerland,2015,Male,90.53%
+Switzerland,2016,Male,88.78%
+Switzerland,2017,Male,90.46%
+Switzerland,2018,Male,89.98%
+Switzerland,2019,Male,89.28%
+Switzerland,2020,Male,89.65%
+Switzerland,2021,Male,86.88%
+Switzerland,2022,Male,86.81%
+Turkey,2011,Male,68.99%
+Turkey,2012,Male,68.30%
+Turkey,2013,Male,64.51%
+Turkey,2014,Male,61.86%
+Turkey,2015,Male,62.39%
+Turkey,2016,Male,61.87%
+Turkey,2017,Male,62.55%
+Turkey,2018,Male,64.56%
+Turkey,2019,Male,64.87%
+Turkey,2020,Male,67.08%
+Turkey,2021,Male,69.69%
+Turkey,2022,Male,70.73%
+United Kingdom,2011,Male,81.90%
+United Kingdom,2012,Male,82.45%
+United Kingdom,2013,Male,82.84%
+United Kingdom,2014,Male,83.50%
+United Kingdom,2015,Male,82.95%
+United Kingdom,2016,Male,83.94%
+United Kingdom,2017,Male,84.83%
+United Kingdom,2018,Male,84.57%
+United Kingdom,2019,Male,83.80%
+United Kingdom,2020,Male,83.64%
+United Kingdom,2021,Male,82.85%
+United Kingdom,2022,Male,82.21%

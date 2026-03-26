@@ -1,0 +1,7 @@
+Method,Year,Metric,Value
+LVG,2022,FVD,478
+Video LDM,2023,FVD,389
+Video LDM (cond.),2023,FVD,356
+LVG,2022,FID,53.5
+Video LDM,2023,FID,31.6
+Video LDM (cond.),2023,FID,51.9

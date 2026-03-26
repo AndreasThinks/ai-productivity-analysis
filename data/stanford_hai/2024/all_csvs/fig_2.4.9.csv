@@ -1,0 +1,16 @@
+Model,Elo rating
+MMGPT,718
+PandaGPT 13b,786
+OpenFlamingo,845
+MiniGPT-4,900
+VisualGPT,911
+Octopus V2,920
+Otter,947
+InstructBLIP,964
+Lynx (8B),990
+idefics9b,997
+mPLUG-Owl,1025
+LlamaAdapter-v2,1066
+LLaVA 13B,1091
+LLaVA-Plus,1187
+GPT-4V,1349

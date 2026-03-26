@@ -1,0 +1,17 @@
+Year,Method,Win Rates Type,Win Rates
+2023,Pika Labs,Quality,0.985
+2023,Gen-2,Quality,0.785
+2022,CogVideo,Quality,1
+2023,Reuse and Diffuse,Quality,0.9570000000000001
+2023,PYOCO,Quality,0.905
+2023,Align Your Latents,Quality,0.9229999999999999
+2022,Imagen Video,Quality,0.818
+2022,Make-A-Video,Quality,0.968
+2023,Pika Labs,Text Faithfulness,0.9690000000000001
+2023,Gen-2,Text Faithfulness,0.877
+2022,CogVideo,Text Faithfulness,1
+2023,Reuse and Diffuse,Text Faithfulness,0.87
+2023,PYOCO,Text Faithfulness,0.8109999999999999
+2023,Align Your Latents,Text Faithfulness,0.97
+2022,Imagen Video,Text Faithfulness,0.564
+2022,Make-A-Video,Text Faithfulness,0.851

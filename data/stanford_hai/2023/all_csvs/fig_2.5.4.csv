@@ -1,0 +1,11 @@
+Median Word Error Rate,Speech Transcription Service,Label
+0.1050,Company I,Human Transcription
+0.0896,Company H,Human Transcription
+0.0865,Company G,Human Transcription
+0.0814,Company F,Human Transcription
+0.0761,Company E,Computer-Assisted
+0.0881,Whisper,Automated Speech Recognition System
+0.0966,Company A,Automated Speech Recognition System
+0.0974,Company B,Automated Speech Recognition System
+0.1090,Company C,Automated Speech Recognition System
+0.1220,Company D,Automated Speech Recognition System

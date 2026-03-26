@@ -1,0 +1,11 @@
+Model,Average trustworthiness score
+Zephyr-7b-beta,63.24
+Tulu-2-7b,63.56
+Vicuna-13b-v1.3.0-GPTQ,65.96
+Tulu-2-13b,66.51
+GPT-4-0314,69.24
+Llama-2-13B-chat-AWQ,71.32
+Llama-2-13B-chat-GPTQ,71.99
+GPT-3.5-turbo-0301,72.45
+Llama-2-Chat-7b,74.72
+Claude-2,84.52

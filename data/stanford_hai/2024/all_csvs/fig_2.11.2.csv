@@ -1,0 +1,17 @@
+Date,Metric value,Task,Metric name
+2023-Mar,0.84,Math I,Accuracy
+2023-Jun,0.511,Math I,Accuracy
+2023-Mar,0.836,Math II,Accuracy
+2023-Jun,0.352,Math II,Accuracy
+2023-Mar,0.21,Answering Sensitive Questions,Response rate
+2023-Jun,0.05,Answering Sensitive Questions,Response rate
+2023-Mar,0.976,OpinionQA Survey,Response rate
+2023-Jun,0.234,OpinionQA Survey,Response rate
+2023-Mar,0.012,LangChain HotpotQA Agent,Exact match
+2023-Jun,0.378,LangChain HotpotQA Agent,Exact match
+2023-Mar,0.52,Code Generation,Directly EXE
+2023-Jun,0.1,Code Generation,Directly EXE
+2023-Mar,0.866,USMLE Medical Exam,Accuracy
+2023-Jun,0.821,USMLE Medical Exam,Accuracy
+2023-Mar,0.246,Visual Reasoning,Exact match
+2023-Jun,0.272,Visual Reasoning,Exact match

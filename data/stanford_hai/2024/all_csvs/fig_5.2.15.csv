@@ -1,0 +1,13 @@
+Task,Dataset,Type,Sensitivity (%)
+Breast cancer detection,UK mammography dataset,CoDoC,72.60%
+Breast cancer detection,US mammography dataset 1 ,CoDoC,56.90%
+Breast cancer detection,US mammography dataset 2,CoDoC,96.70%
+TB detection,TB dataset,CoDoC,90.50%
+Breast cancer detection,UK mammography dataset,Clinician(s),62.70%
+Breast cancer detection,US mammography dataset 1 ,Clinician(s),50.00%
+Breast cancer detection,US mammography dataset 2,Clinician(s),96.70%
+TB detection,TB dataset,Clinician(s),89.40%
+Breast cancer detection,UK mammography dataset,Standalone predictive AI model,64.90%
+Breast cancer detection,US mammography dataset 1 ,Standalone predictive AI model,48.30%
+Breast cancer detection,US mammography dataset 2,Standalone predictive AI model,86.70%
+TB detection,TB dataset,Standalone predictive AI model,90.90%

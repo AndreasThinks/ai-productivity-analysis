@@ -1,0 +1,7 @@
+Year,Throughput,Label
+2020,24757,Server (Queries/s)
+2021,30105,Server (Queries/s)
+2022,70992,Server (Queries/s)
+2020,26675,Offline (Samples/s)
+2021,32058,Offline (Samples/s)
+2022,75153,Offline (Samples/s)

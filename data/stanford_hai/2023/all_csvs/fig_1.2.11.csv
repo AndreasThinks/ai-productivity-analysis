@@ -1,0 +1,160 @@
+Year,Training Compute (FLOP/s - Log Scale),Domain
+2022,4.60E+22,Academia
+2022,1.30E+21,Academia
+2021,1.60E+18,Academia
+2020,1.24E+20,Academia
+2020,1.80E+21,Academia
+2020,2.00E+21,Academia
+2019,2.47E+18,Academia
+2019,3.71E+19,Academia
+2019,2.56E+18,Academia
+2019,1.94E+19,Academia
+2018,5.09E+19,Academia
+2017,1.15E+21,Academia
+2017,1.5E+14,Academia
+2016,1.45E+17,Academia
+2016,9.69E+16,Academia
+2014,5.18E+17,Academia
+2014,1.56E+18,Academia
+2014,8.52E+18,Academia
+2013,1.37E+17,Academia
+2013,5.32E+17,Academia
+2013,4.752E+14,Academia
+2012,3.72698E+15,Academia
+2012,6.03937E+15,Academia
+2012,4.70E+17,Academia
+2010,1.30788E+14,Academia
+2010,3.5E+14,Academia
+2010,6.14E+16,Academia
+2010,3.41464E+15,Academia
+2009,1E+15,Academia
+2005,2.41246E+13,Academia
+2003,1.3039E+15,Academia
+1998,2.2669E+11,Academia
+1997,2.1008E+13,Academia
+1996,958122000,Academia
+1992,3046758,Academia
+1989,120000000,Academia
+1989,81187041441,Academia
+1987,81187041441,Academia
+1986,124416000,Academia
+1960,9900,Academia
+1959,600000000,Academia
+2022,7.10E+21,Industry
+2022,4.05E+22,Industry
+2022,3.55E+23,Industry
+2022,5.76E+23,Industry
+2022,2.53E+24,Industry
+2022,5.00E+22,Industry
+2022,7.56E+23,Industry
+2022,5.44E+21,Industry
+2022,2E+11,Industry
+2022,3.96E+23,Industry
+2022,2.74E+24,Industry
+2022,1.75E+22,Industry
+2022,4.65E+22,Industry
+2022,2.20E+23,Industry
+2022,2.04E+23,Industry
+2021,4.70E+22,Industry
+2021,1.05E+22,Industry
+2021,8.22E+22,Industry
+2021,2.12E+23,Industry
+2021,3.60E+22,Industry
+2021,5.83E+22,Industry
+2021,6.30E+22,Industry
+2021,3.40E+21,Industry
+2021,6.00E+21,Industry
+2021,2.15E+23,Industry
+2021,2.35E+18,Industry
+2021,7.80E+22,Industry
+2021,5.54E+21,Industry
+2021,3.70E+23,Industry
+2021,4.90E+22,Industry
+2021,1.10E+21,Industry
+2021,5.53E+21,Industry
+2021,1.35E+24,Industry
+2021,4.10E+23,Industry
+2021,3.54E+23,Industry
+2021,4.84E+21,Industry
+2021,6.31E+23,Industry
+2021,3.14E+11,Industry
+2020,1.00E+20,Industry
+2020,1.12E+23,Industry
+2020,1.57E+22,Industry
+2020,1.78E+21,Industry
+2020,3.14E+23,Industry
+2020,3.30E+22,Industry
+2020,8.91E+21,Industry
+2020,2.60E+22,Industry
+2020,1.33E+22,Industry
+2020,3.00E+20,Industry
+2020,1.28E+22,Industry
+2020,4.34E+20,Industry
+2019,1.49E+21,Industry
+2019,1.50E+21,Industry
+2019,1.50E+21,Industry
+2019,7.26E+21,Industry
+2019,4.00E+18,Industry
+2019,5.68E+22,Industry
+2019,9.10E+21,Industry
+2019,3.04E+17,Industry
+2019,8.54E+20,Industry
+2019,4.05E+22,Industry
+2019,1.04E+22,Industry
+2019,2.02E+23,Industry
+2019,4.80E+19,Industry
+2019,6.70E+22,Industry
+2019,1.30E+22,Industry
+2018,3.85E+20,Industry
+2018,1.68E+20,Industry
+2018,1.76E+19,Industry
+2018,3.49E+19,Industry
+2018,2.85E+20,Industry
+2017,1.50E+23,Industry
+2017,7.42E+18,Industry
+2017,6.05E+20,Industry
+2017,3.41E+23,Industry
+2017,3.67E+22,Industry
+2016,1.90E+21,Industry
+2016,6.90E+21,Industry
+2016,4.36E+19,Industry
+2016,2.20E+21,Industry
+2015,2.40E+19,Industry
+2015,3.80E+20,Industry
+2015,2.60E+19,Industry
+2015,1.21E+19,Industry
+2014,7.30E+18,Industry
+2013,2.3E+15,Industry
+2013,3.89E+16,Industry
+1992,1.82322E+13,Industry
+1989,43372117520,Industry
+1980,228115200,Industry
+1959,428400000,Industry
+1957,694894.9377,Industry
+1950,40,Industry
+2022,2.17E+19,Industry-Academia Collaboration
+2021,3.60E+24,Industry-Academia Collaboration
+2021,7.37E+22,Industry-Academia Collaboration
+2021,2.68E+22,Industry-Academia Collaboration
+2021,2.41E+19,Industry-Academia Collaboration
+2021,4.42E+21,Industry-Academia Collaboration
+2021,1.79E+22,Industry-Academia Collaboration
+2021,2.59E+20,Industry-Academia Collaboration
+2020,2.54E+21,Industry-Academia Collaboration
+2020,2.70E+20,Industry-Academia Collaboration
+2020,2.00E+20,Industry-Academia Collaboration
+2019,9.16E+16,Industry-Academia Collaboration
+2019,6.60E+16,Industry-Academia Collaboration
+2019,7.60E+18,Industry-Academia Collaboration
+2018,3.00E+21,Industry-Academia Collaboration
+2017,9.39E+19,Industry-Academia Collaboration
+2017,4.79E+20,Industry-Academia Collaboration
+2017,6.63E+19,Industry-Academia Collaboration
+2016,6.15E+16,Industry-Academia Collaboration
+2015,1.56E+18,Industry-Academia Collaboration
+2014,6.11E+18,Industry-Academia Collaboration
+2014,6.05E+16,Industry-Academia Collaboration
+2013,9.08424E+13,Industry-Academia Collaboration
+2013,1.34E+18,Industry-Academia Collaboration
+2001,6.3E+13,Industry-Academia Collaboration
+1998,2.81094E+12,Industry-Academia Collaboration

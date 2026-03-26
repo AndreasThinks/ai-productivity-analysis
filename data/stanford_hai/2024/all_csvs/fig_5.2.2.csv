@@ -1,0 +1,19 @@
+Scan and subject level,Brain Region,Correlation
+Scan level (n=435) ,White matter,0.79
+Scan level (ablated segmentation task) ,White matter,0.79
+Subject level (n=41) ,White matter,0.91
+Scan level (n=435) ,Cortical gray matter,0.83
+Scan level (ablated segmentation task) ,Cortical gray matter,0.79
+Subject level (n=41) ,Cortical gray matter,0.93
+Scan level (n=435) ,Subcortical gray matter,0.77
+Scan level (ablated segmentation task) ,Subcortical gray matter,0.76
+Subject level (n=41) ,Subcortical gray matter,0.91
+Scan level (n=435) ,Ventricles,0.99
+Scan level (ablated segmentation task) ,Ventricles,0.99
+Subject level (n=41) ,Ventricles,0.99
+Scan level (n=435) ,Hippocampus,0.76
+Scan level (ablated segmentation task) ,Hippocampus,0.74
+Subject level (n=41) ,Hippocampus,0.89
+Scan level (n=435) ,Amygdala,0.60
+Scan level (ablated segmentation task) ,Amygdala,0.54
+Subject level (n=41) ,Amygdala,0.90

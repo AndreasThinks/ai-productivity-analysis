@@ -1,0 +1,19 @@
+Dataset,Label,Result
+MultiWOZ,Possible for a Robot to Say,0.99
+Persuasion for Good,Possible for a Robot to Say,0.94
+EmpatheticDialogues,Possible for a Robot to Say,0.88
+Wizard of Wikipedia,Possible for a Robot to Say,0.88
+Reddit Small,Possible for a Robot to Say,0.82
+MSC,Possible for a Robot to Say,0.72
+RUAR Blender2,Possible for a Robot to Say,0.67
+Blender,Possible for a Robot to Say,0.65
+PersonaChat,Possible for a Robot to Say,0.56
+MultiWOZ,Comfortable for a Robot to Say,0.99
+Persuasion for Good,Comfortable for a Robot to Say,0.94
+EmpatheticDialogues,Comfortable for a Robot to Say,0.9
+Wizard of Wikipedia,Comfortable for a Robot to Say,0.87
+Reddit Small,Comfortable for a Robot to Say,0.75
+MSC,Comfortable for a Robot to Say,0.77
+RUAR Blender2,Comfortable for a Robot to Say,0.75
+Blender,Comfortable for a Robot to Say,0.75
+PersonaChat,Comfortable for a Robot to Say,0.67

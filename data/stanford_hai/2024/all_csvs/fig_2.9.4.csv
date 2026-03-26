@@ -1,0 +1,31 @@
+Model,Task,Score
+R3M,Seen tasks,0.45
+VC-1,Seen tasks,0.63
+RT-1,Seen tasks,0.92
+MOO,Seen tasks,0.75
+RT-2-PaLI-X-55B,Seen tasks,0.91
+RT-2-PaLM-E-12B1,Seen tasks,0.93
+R3M,Unseen objects (avg.),0.23
+VC-1,Unseen objects (avg.),0.22
+RT-1,Unseen objects (avg.),0.37
+MOO,Unseen objects (avg.),0.53
+RT-2-PaLI-X-55B,Unseen objects (avg.),0.66
+RT-2-PaLM-E-12B1,Unseen objects (avg.),0.8
+R3M,Unseen backgrounds (avg.),0.11
+VC-1,Unseen backgrounds (avg.),0.08
+RT-1,Unseen backgrounds (avg.),0.4
+MOO,Unseen backgrounds (avg.),0.395
+RT-2-PaLI-X-55B,Unseen backgrounds (avg.),0.72
+RT-2-PaLM-E-12B1,Unseen backgrounds (avg.),0.73
+R3M,Unseen environments (avg.),0.01
+VC-1,Unseen environments (avg.),0
+RT-1,Unseen environments (avg.),0.2
+MOO,Unseen environments (avg.),0.11
+RT-2-PaLI-X-55B,Unseen environments (avg.),0.49
+RT-2-PaLM-E-12B1,Unseen environments (avg.),0.345
+R3M,Unseen average,0.12
+VC-1,Unseen average,0.1
+RT-1,Unseen average,0.32
+MOO,Unseen average,0.35
+RT-2-PaLI-X-55B,Unseen average,0.62
+RT-2-PaLM-E-12B1,Unseen average,0.62

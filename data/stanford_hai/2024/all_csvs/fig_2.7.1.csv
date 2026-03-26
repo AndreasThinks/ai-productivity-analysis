@@ -1,0 +1,29 @@
+Task,Model,Metric,Objective evaluation results
+Text-to-speech,Shen et al. (2023),SIM,0.62
+Text-to-speech,UniAudio,SIM,0.71
+Text-to-speech,Shen et al. (2023),WER,2.3
+Text-to-speech,UniAudio,WER,2
+Voice conversion,Wang et al. (2023e),SIM,0.82
+Voice conversion,UniAudio,SIM,0.87
+Voice conversion,Wang et al. (2023e),WER,4.9
+Voice conversion,UniAudio,WER,4.8
+Speech enhancement,Richter et al. (2023),PESQ,3.21
+Speech enhancement,UniAudio,PESQ,2.63
+Speech enhancement,Richter et al. (2023),VISQOL,2.72
+Speech enhancement,UniAudio,VISQOL,2.44
+Speech enhancement,Richter et al. (2023),DNSMOS,3.29
+Speech enhancement,UniAudio,DNSMOS,3.66
+Target speaker extraction,Wang et al. (2018),PESQ,2.41
+Target speaker extraction,UniAudio,PESQ,1.88
+Target speaker extraction,Wang et al. (2018),VISQOL,2.36
+Target speaker extraction,UniAudio,VISQOL,1.68
+Target speaker extraction,Wang et al. (2018),DNSMOS,3.35
+Target speaker extraction,UniAudio,DNSMOS,3.96
+Text-to-sound,Liu et al. (2023a),FAD,4.93
+Text-to-sound,UniAudio,FAD,3.12
+Text-to-sound,Liu et al. (2023a),KL,2.6
+Text-to-sound,UniAudio,KL,2.6
+Text-to-music,Copet et al. (2023),FAD,4.52
+Text-to-music,UniAudio,FAD,3.65
+Text-to-music,Copet et al. (2023),KL,1.4
+Text-to-music,UniAudio,KL,1.9

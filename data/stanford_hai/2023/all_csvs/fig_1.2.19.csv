@@ -1,0 +1,22 @@
+System,Domain,Training Compute (Flop/s),Training Cost (in U.S. Dollars)
+BLOOM,Language,1.80E+23,2287779.84
+GLM-130B,Language,4.60E+22,163123.2
+Minerva (540B),Language,2.74E+24,1033420.8
+OPT-175B,Language,7.56E+23,1685606.4
+Stable Diffusion,Drawing,5.00E+22,600000
+PaLM (540B),Language,2.53E+24,8011169.444
+Chinchilla,Language,5.76E+23,2110555.556
+GPT-NeoX-20B,Language,9.32E+22,244684.8
+AlphaCode,Language,4.05E+22,87000
+Gopher,Language,6.31E+23,8550000
+Megatron-Turing NLG 530B,Language,1.35E+24,11350519.43
+ERNIE 3.0,Language,2.35E+18,9166.7
+HyperClova,Language,6.30E+22,266747.904
+GPT-J-6B,Language,1.50E+22,430080
+GPT-Neo,Language,7.90E+21,89205.1
+Wu Dao - Wen Yuan,Language,6.50E+20,17364.04992
+DALL-E,Drawing,4.70E+22,228744
+Turing NLG,Language,1.57E+22,112798.0894
+Meena,Language,1.12E+23,1474560
+T5-11B,Language,4.05E+22,1966080
+GPT-2,Language,1.49E+21,50000

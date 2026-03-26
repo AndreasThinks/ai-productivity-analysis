@@ -1,0 +1,5 @@
+Method,CLIP Text-Image Direction Similarity ↑,CLIP Direction Consistency ↑
+Per-frame IP2P,0.1603,0.8185
+One-time DU,0.1157,0.8823
+SDS w/ IP2P,0.0266,0.916
+Instruct-NeRF2NeRF,0.16,0.9191

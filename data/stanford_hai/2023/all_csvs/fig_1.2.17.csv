@@ -1,0 +1,24 @@
+System,Training Cost (Low) - in millions USD,Training Cost (Mid)  - in millions USD,Training Cost (High)  - in millions USD,Year
+GPT-2,0.01,0.05,,2019
+T5-11B,,,1.97,2019
+Meena,,,1.47,2020
+Turing NLG,,0.11,,2020
+GPT-3 175B,,1.8,,2020
+DALL-E,0.17,0.23,,2021
+Wu Dao - Wen Yuan,,0.02,,2021
+GPT-Neo,,0.09,,2021
+GPT-J-6B,,0.43,,2021
+HyperClova,,0.27,,2021
+ERNIE 3.0,0.01,,,2021
+Codex,,0.14,,2021
+Megatron-Turing NLG 530B,,11.35,,2021
+Gopher,,,8.55,2021
+AlphaCode,,0.09,,2022
+GPT-NeoX-20B,,0.24,,2022
+Chinchilla,0.84,2.11,,2022
+PaLM (540B),,8.01,23,2022
+Stable Diffusion (LDM-KL-8-G),0.23,0.6,,2022
+OPT-175B,,1.69,,2022
+Minerva (540B),,,1.03,2022
+GLM-130B,,0.16,,2022
+BLOOM,,2.29,,2022

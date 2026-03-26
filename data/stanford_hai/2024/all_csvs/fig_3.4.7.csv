@@ -1,0 +1,31 @@
+Model,Year,Risk category,Number of harmful responses
+ChatGPT,2022,Information hazards ,1
+Llama 2,2023,Information hazards ,0
+Claude,2023,Information hazards ,3
+GPT-4,2023,Information hazards ,6
+Vicuna,2023,Information hazards ,26
+ChatGLM2,2023,Information hazards ,22
+ChatGPT,2022,Malicious uses ,3
+Llama 2,2023,Malicious uses ,0
+Claude,2023,Malicious uses ,1
+GPT-4,2023,Malicious uses ,6
+Vicuna,2023,Malicious uses ,4
+ChatGLM2,2023,Malicious uses ,18
+ChatGPT,2022,"Discrimination, exclusion, toxicity, hateful, offensive ",7
+Llama 2,2023,"Discrimination, exclusion, toxicity, hateful, offensive ",0
+Claude,2023,"Discrimination, exclusion, toxicity, hateful, offensive ",3
+GPT-4,2023,"Discrimination, exclusion, toxicity, hateful, offensive ",10
+Vicuna,2023,"Discrimination, exclusion, toxicity, hateful, offensive ",12
+ChatGLM2,2023,"Discrimination, exclusion, toxicity, hateful, offensive ",15
+ChatGPT,2022,Misinformation harms ,1
+Llama 2,2023,Misinformation harms ,0
+Claude,2023,Misinformation harms ,7
+GPT-4,2023,Misinformation harms ,1
+Vicuna,2023,Misinformation harms ,6
+ChatGLM2,2023,Misinformation harms ,20
+ChatGPT,2022,Human-chatbot interaction harms ,2
+Llama 2,2023,Human-chatbot interaction harms ,3
+Claude,2023,Human-chatbot interaction harms ,2
+GPT-4,2023,Human-chatbot interaction harms ,0
+Vicuna,2023,Human-chatbot interaction harms ,4
+ChatGLM2,2023,Human-chatbot interaction harms ,10

@@ -1,0 +1,419 @@
+Model,Scenario,Accuracy,Fairness
+text-davinci-002,MMLU,0.568,0.531
+text-davinci-003,MMLU,0.569,0.537
+TNLG v2 (530B),MMLU,0.469,0.418
+Anthropic-LM v4-s3 (52B),MMLU,0.481,0.447
+J1-Grande v2 beta (17B),MMLU,0.445,0.409
+Cohere xlarge v20221108 (52.4B),MMLU,0.382,0.317
+OPT (175B),MMLU,0.318,0.287
+Cohere xlarge v20220609 (52.4B),MMLU,0.353,0.315
+GLM (130B),MMLU,0.344,0.315
+GPT-3 davinci v1 (175B),MMLU,0.422,0.38
+J1-Jumbo v1 (178B),MMLU,0.259,0.236
+BLOOM (176B),MMLU,0.299,0.274
+OPT (66B),MMLU,0.276,0.229
+J1-Grande v1 (17B),MMLU,0.27,0.232
+Cohere large v20220720 (13.1B),MMLU,0.324,0.281
+GPT-NeoX (20B),MMLU,0.276,0.215
+text-curie-001,MMLU,0.237,0.231
+Cohere medium v20221108 (6.1B),MMLU,0.254,0.22
+TNLG v2 (6.7B),MMLU,0.242,0.212
+J1-Large v1 (7.5B),MMLU,0.241,0.204
+GPT-J (6B),MMLU,0.249,0.22
+GPT-3 curie v1 (6.7B),MMLU,0.243,0.218
+Cohere medium v20220720 (6.1B),MMLU,0.279,0.237
+text-babbage-001,MMLU,0.229,0.205
+UL2 (20B),MMLU,0.291,0.273
+T0pp (11B),MMLU,0.407,0.382
+T5 (11B),MMLU,0.29,0.235
+GPT-3 babbage v1 (1.3B),MMLU,0.235,0.206
+Cohere small v20220720 (410M),MMLU,0.264,0.222
+GPT-3 ada v1 (350M),MMLU,0.243,0.21
+text-ada-001,MMLU,0.238,0.202
+YaLM (100B),MMLU,0.243,0.243
+text-davinci-002,BoolQ,0.877,0.837
+text-davinci-003,BoolQ,0.881,0.858
+TNLG v2 (530B),BoolQ,0.809,0.767
+Anthropic-LM v4-s3 (52B),BoolQ,0.815,0.782
+J1-Grande v2 beta (17B),BoolQ,0.812,0.764
+Cohere xlarge v20221108 (52.4B),BoolQ,0.762,0.708
+OPT (175B),BoolQ,0.793,0.731
+Cohere xlarge v20220609 (52.4B),BoolQ,0.718,0.667
+GLM (130B),BoolQ,0.784,0.69
+GPT-3 davinci v1 (175B),BoolQ,0.722,0.682
+J1-Jumbo v1 (178B),BoolQ,0.776,0.709
+BLOOM (176B),BoolQ,0.704,0.656
+OPT (66B),BoolQ,0.76,0.71
+J1-Grande v1 (17B),BoolQ,0.722,0.678
+Cohere large v20220720 (13.1B),BoolQ,0.725,0.676
+GPT-NeoX (20B),BoolQ,0.683,0.609
+text-curie-001,BoolQ,0.62,0.576
+Cohere medium v20221108 (6.1B),BoolQ,0.7,0.642
+TNLG v2 (6.7B),BoolQ,0.698,0.665
+J1-Large v1 (7.5B),BoolQ,0.683,0.622
+GPT-J (6B),BoolQ,0.649,0.639
+GPT-3 curie v1 (6.7B),BoolQ,0.656,0.594
+Cohere medium v20220720 (6.1B),BoolQ,0.659,0.597
+text-babbage-001,BoolQ,0.451,0.41
+UL2 (20B),BoolQ,0.746,0.698
+T0pp (11B),BoolQ,0,0
+T5 (11B),BoolQ,0.761,0.723
+GPT-3 babbage v1 (1.3B),BoolQ,0.574,0.436
+Cohere small v20220720 (410M),BoolQ,0.457,0.374
+GPT-3 ada v1 (350M),BoolQ,0.581,0.507
+text-ada-001,BoolQ,0.464,0.378
+YaLM (100B),BoolQ,0.634,0.583
+text-davinci-002,NarrativeQA,0.727,0.646
+text-davinci-003,NarrativeQA,0.727,0.664
+TNLG v2 (530B),NarrativeQA,0.722,0.632
+Anthropic-LM v4-s3 (52B),NarrativeQA,0.728,0.646
+J1-Grande v2 beta (17B),NarrativeQA,0.725,0.647
+Cohere xlarge v20221108 (52.4B),NarrativeQA,0.672,0.553
+OPT (175B),NarrativeQA,0.671,0.573
+Cohere xlarge v20220609 (52.4B),NarrativeQA,0.65,0.548
+GLM (130B),NarrativeQA,0.706,0.615
+GPT-3 davinci v1 (175B),NarrativeQA,0.687,0.597
+J1-Jumbo v1 (178B),NarrativeQA,0.695,0.581
+BLOOM (176B),NarrativeQA,0.662,0.577
+OPT (66B),NarrativeQA,0.638,0.526
+J1-Grande v1 (17B),NarrativeQA,0.672,0.547
+Cohere large v20220720 (13.1B),NarrativeQA,0.625,0.512
+GPT-NeoX (20B),NarrativeQA,0.599,0.461
+text-curie-001,NarrativeQA,0.582,0.463
+Cohere medium v20221108 (6.1B),NarrativeQA,0.61,0.497
+TNLG v2 (6.7B),NarrativeQA,0.631,0.517
+J1-Large v1 (7.5B),NarrativeQA,0.623,0.513
+GPT-J (6B),NarrativeQA,0.545,0.433
+GPT-3 curie v1 (6.7B),NarrativeQA,0.604,0.482
+Cohere medium v20220720 (6.1B),NarrativeQA,0.559,0.438
+text-babbage-001,NarrativeQA,0.429,0.299
+UL2 (20B),NarrativeQA,0.083,0.053
+T0pp (11B),NarrativeQA,0.151,0.086
+T5 (11B),NarrativeQA,0.086,0.05
+GPT-3 babbage v1 (1.3B),NarrativeQA,0.491,0.367
+Cohere small v20220720 (410M),NarrativeQA,0.294,0.179
+GPT-3 ada v1 (350M),NarrativeQA,0.326,0.205
+text-ada-001,NarrativeQA,0.238,0.119
+YaLM (100B),NarrativeQA,0.252,0.146
+text-davinci-002,NaturalQuestions (closed-book),0.383,0.32
+text-davinci-003,NaturalQuestions (closed-book),0.406,0.356
+TNLG v2 (530B),NaturalQuestions (closed-book),0.384,0.318
+Anthropic-LM v4-s3 (52B),NaturalQuestions (closed-book),0.288,0.239
+J1-Grande v2 beta (17B),NaturalQuestions (closed-book),0.337,0.27
+Cohere xlarge v20221108 (52.4B),NaturalQuestions (closed-book),0.361,0.299
+OPT (175B),NaturalQuestions (closed-book),0.297,0.246
+Cohere xlarge v20220609 (52.4B),NaturalQuestions (closed-book),0.312,0.255
+GLM (130B),NaturalQuestions (closed-book),0.148,0.12
+GPT-3 davinci v1 (175B),NaturalQuestions (closed-book),0.329,0.276
+J1-Jumbo v1 (178B),NaturalQuestions (closed-book),0.293,0.235
+BLOOM (176B),NaturalQuestions (closed-book),0.216,0.187
+OPT (66B),NaturalQuestions (closed-book),0.258,0.218
+J1-Grande v1 (17B),NaturalQuestions (closed-book),0.233,0.187
+Cohere large v20220720 (13.1B),NaturalQuestions (closed-book),0.232,0.178
+GPT-NeoX (20B),NaturalQuestions (closed-book),0.193,0.154
+text-curie-001,NaturalQuestions (closed-book),0.175,0.132
+Cohere medium v20221108 (6.1B),NaturalQuestions (closed-book),0.199,0.149
+TNLG v2 (6.7B),NaturalQuestions (closed-book),0.21,0.162
+J1-Large v1 (7.5B),NaturalQuestions (closed-book),0.19,0.146
+GPT-J (6B),NaturalQuestions (closed-book),0.156,0.122
+GPT-3 curie v1 (6.7B),NaturalQuestions (closed-book),0.199,0.147
+Cohere medium v20220720 (6.1B),NaturalQuestions (closed-book),0.177,0.126
+text-babbage-001,NaturalQuestions (closed-book),0.07,0.053
+UL2 (20B),NaturalQuestions (closed-book),0.204,0.162
+T0pp (11B),NaturalQuestions (closed-book),0.039,0.028
+T5 (11B),NaturalQuestions (closed-book),0.194,0.159
+GPT-3 babbage v1 (1.3B),NaturalQuestions (closed-book),0.119,0.084
+Cohere small v20220720 (410M),NaturalQuestions (closed-book),0.078,0.055
+GPT-3 ada v1 (350M),NaturalQuestions (closed-book),0.082,0.057
+text-ada-001,NaturalQuestions (closed-book),0.025,0.012
+YaLM (100B),NaturalQuestions (closed-book),0.068,0.052
+text-davinci-002,NaturalQuestions (open-book),0.713,0.659
+text-davinci-003,NaturalQuestions (open-book),0.77,0.721
+TNLG v2 (530B),NaturalQuestions (open-book),0.642,0.598
+Anthropic-LM v4-s3 (52B),NaturalQuestions (open-book),0.686,0.642
+J1-Grande v2 beta (17B),NaturalQuestions (open-book),0.625,0.571
+Cohere xlarge v20221108 (52.4B),NaturalQuestions (open-book),0.628,0.566
+OPT (175B),NaturalQuestions (open-book),0.615,0.561
+Cohere xlarge v20220609 (52.4B),NaturalQuestions (open-book),0.595,0.535
+GLM (130B),NaturalQuestions (open-book),0.642,0.597
+GPT-3 davinci v1 (175B),NaturalQuestions (open-book),0.625,0.567
+J1-Jumbo v1 (178B),NaturalQuestions (open-book),0.595,0.54
+BLOOM (176B),NaturalQuestions (open-book),0.621,0.575
+OPT (66B),NaturalQuestions (open-book),0.596,0.536
+J1-Grande v1 (17B),NaturalQuestions (open-book),0.578,0.521
+Cohere large v20220720 (13.1B),NaturalQuestions (open-book),0.573,0.507
+GPT-NeoX (20B),NaturalQuestions (open-book),0.596,0.525
+text-curie-001,NaturalQuestions (open-book),0.571,0.5
+Cohere medium v20221108 (6.1B),NaturalQuestions (open-book),0.517,0.45
+TNLG v2 (6.7B),NaturalQuestions (open-book),0.561,0.501
+J1-Large v1 (7.5B),NaturalQuestions (open-book),0.532,0.47
+GPT-J (6B),NaturalQuestions (open-book),0.559,0.493
+GPT-3 curie v1 (6.7B),NaturalQuestions (open-book),0.552,0.479
+Cohere medium v20220720 (6.1B),NaturalQuestions (open-book),0.504,0.432
+text-babbage-001,NaturalQuestions (open-book),0.33,0.24
+UL2 (20B),NaturalQuestions (open-book),0.349,0.303
+T0pp (11B),NaturalQuestions (open-book),0.19,0.136
+T5 (11B),NaturalQuestions (open-book),0.477,0.424
+GPT-3 babbage v1 (1.3B),NaturalQuestions (open-book),0.451,0.381
+Cohere small v20220720 (410M),NaturalQuestions (open-book),0.309,0.219
+GPT-3 ada v1 (350M),NaturalQuestions (open-book),0.365,0.273
+text-ada-001,NaturalQuestions (open-book),0.149,0.083
+YaLM (100B),NaturalQuestions (open-book),0.227,0.177
+text-davinci-002,QuAC,0.445,0.353
+text-davinci-003,QuAC,0.525,0.45
+TNLG v2 (530B),QuAC,0.39,0.313
+Anthropic-LM v4-s3 (52B),QuAC,0.431,0.356
+J1-Grande v2 beta (17B),QuAC,0.392,0.308
+Cohere xlarge v20221108 (52.4B),QuAC,0.374,0.275
+OPT (175B),QuAC,0.36,0.266
+Cohere xlarge v20220609 (52.4B),QuAC,0.361,0.281
+GLM (130B),QuAC,0.272,0.205
+GPT-3 davinci v1 (175B),QuAC,0.36,0.279
+J1-Jumbo v1 (178B),QuAC,0.358,0.268
+BLOOM (176B),QuAC,0.361,0.273
+OPT (66B),QuAC,0.357,0.268
+J1-Grande v1 (17B),QuAC,0.362,0.274
+Cohere large v20220720 (13.1B),QuAC,0.338,0.256
+GPT-NeoX (20B),QuAC,0.326,0.232
+text-curie-001,QuAC,0.358,0.255
+Cohere medium v20221108 (6.1B),QuAC,0.314,0.229
+TNLG v2 (6.7B),QuAC,0.345,0.267
+J1-Large v1 (7.5B),QuAC,0.328,0.241
+GPT-J (6B),QuAC,0.33,0.249
+GPT-3 curie v1 (6.7B),QuAC,0.321,0.243
+Cohere medium v20220720 (6.1B),QuAC,0.279,0.198
+text-babbage-001,QuAC,0.284,0.196
+UL2 (20B),QuAC,0.144,0.107
+T0pp (11B),QuAC,0.121,0.067
+T5 (11B),QuAC,0.116,0.074
+GPT-3 babbage v1 (1.3B),QuAC,0.273,0.202
+Cohere small v20220720 (410M),QuAC,0.219,0.144
+GPT-3 ada v1 (350M),QuAC,0.242,0.166
+text-ada-001,QuAC,0.176,0
+YaLM (100B),QuAC,0.162,0.1
+text-davinci-002,HellaSwag,0.815,0.703
+text-davinci-003,HellaSwag,0.822,0.729
+TNLG v2 (530B),HellaSwag,0.799,0.678
+Anthropic-LM v4-s3 (52B),HellaSwag,0.807,0.695
+J1-Grande v2 beta (17B),HellaSwag,0.764,0.623
+Cohere xlarge v20221108 (52.4B),HellaSwag,0.81,0.687
+OPT (175B),HellaSwag,0.791,0.66
+Cohere xlarge v20220609 (52.4B),HellaSwag,0.811,0.66
+GPT-3 davinci v1 (175B),HellaSwag,0.775,0.641
+J1-Jumbo v1 (178B),HellaSwag,0.765,0.614
+BLOOM (176B),HellaSwag,0.744,0.585
+OPT (66B),HellaSwag,0.745,0.597
+J1-Grande v1 (17B),HellaSwag,0.739,0.58
+Cohere large v20220720 (13.1B),HellaSwag,0.736,0.575
+GPT-NeoX (20B),HellaSwag,0.718,0.552
+text-curie-001,HellaSwag,0.676,0.534
+Cohere medium v20221108 (6.1B),HellaSwag,0.726,0.567
+TNLG v2 (6.7B),HellaSwag,0.704,0.53
+J1-Large v1 (7.5B),HellaSwag,0.7,0.528
+GPT-J (6B),HellaSwag,0.663,0.486
+GPT-3 curie v1 (6.7B),HellaSwag,0.682,0.522
+Cohere medium v20220720 (6.1B),HellaSwag,0.706,0.525
+text-babbage-001,HellaSwag,0.561,0.405
+GPT-3 babbage v1 (1.3B),HellaSwag,0.555,0.401
+Cohere small v20220720 (410M),HellaSwag,0.483,0.308
+GPT-3 ada v1 (350M),HellaSwag,0.435,0.294
+text-davinci-002,OpenbookQA,0.594,0.54
+text-davinci-003,OpenbookQA,0.646,0.578
+TNLG v2 (530B),OpenbookQA,0.562,0.504
+Anthropic-LM v4-s3 (52B),OpenbookQA,0.558,0.482
+J1-Grande v2 beta (17B),OpenbookQA,0.56,0.478
+Cohere xlarge v20221108 (52.4B),OpenbookQA,0.588,0.5
+OPT (175B),OpenbookQA,0.586,0.5
+Cohere xlarge v20220609 (52.4B),OpenbookQA,0.55,0.47
+GPT-3 davinci v1 (175B),OpenbookQA,0.586,0.502
+J1-Jumbo v1 (178B),OpenbookQA,0.534,0.466
+BLOOM (176B),OpenbookQA,0.534,0.482
+OPT (66B),OpenbookQA,0.534,0.454
+J1-Grande v1 (17B),OpenbookQA,0.52,0.472
+Cohere large v20220720 (13.1B),OpenbookQA,0.542,0.446
+GPT-NeoX (20B),OpenbookQA,0.524,0.438
+text-curie-001,OpenbookQA,0.514,0.452
+Cohere medium v20221108 (6.1B),OpenbookQA,0.538,0.44
+TNLG v2 (6.7B),OpenbookQA,0.478,0.412
+J1-Large v1 (7.5B),OpenbookQA,0.514,0.444
+GPT-J (6B),OpenbookQA,0.514,0.416
+GPT-3 curie v1 (6.7B),OpenbookQA,0.502,0.43
+Cohere medium v20220720 (6.1B),OpenbookQA,0.496,0.42
+text-babbage-001,OpenbookQA,0.452,0.386
+GPT-3 babbage v1 (1.3B),OpenbookQA,0.438,0.326
+Cohere small v20220720 (410M),OpenbookQA,0.348,0.28
+GPT-3 ada v1 (350M),OpenbookQA,0.38,0.318
+text-davinci-002,TruthfulQA,0.61,0.515
+text-davinci-003,TruthfulQA,0.593,0.491
+TNLG v2 (530B),TruthfulQA,0.251,0.197
+Anthropic-LM v4-s3 (52B),TruthfulQA,0.368,0.3
+J1-Grande v2 beta (17B),TruthfulQA,0.306,0.242
+Cohere xlarge v20221108 (52.4B),TruthfulQA,0.169,0.12
+OPT (175B),TruthfulQA,0.25,0.203
+Cohere xlarge v20220609 (52.4B),TruthfulQA,0.198,0.156
+GLM (130B),TruthfulQA,0.218,0.192
+GPT-3 davinci v1 (175B),TruthfulQA,0.194,0.155
+J1-Jumbo v1 (178B),TruthfulQA,0.175,0.156
+BLOOM (176B),TruthfulQA,0.205,0.186
+OPT (66B),TruthfulQA,0.201,0.173
+J1-Grande v1 (17B),TruthfulQA,0.193,0.163
+Cohere large v20220720 (13.1B),TruthfulQA,0.181,0.157
+GPT-NeoX (20B),TruthfulQA,0.216,0.179
+text-curie-001,TruthfulQA,0.257,0.239
+Cohere medium v20221108 (6.1B),TruthfulQA,0.215,0.182
+TNLG v2 (6.7B),TruthfulQA,0.167,0.144
+J1-Large v1 (7.5B),TruthfulQA,0.197,0.174
+GPT-J (6B),TruthfulQA,0.199,0.18
+GPT-3 curie v1 (6.7B),TruthfulQA,0.232,0.186
+Cohere medium v20220720 (6.1B),TruthfulQA,0.19,0.174
+text-babbage-001,TruthfulQA,0.233,0.207
+UL2 (20B),TruthfulQA,0.193,0.162
+T0pp (11B),TruthfulQA,0.377,0.35
+T5 (11B),TruthfulQA,0.133,0.101
+GPT-3 babbage v1 (1.3B),TruthfulQA,0.188,0.178
+Cohere small v20220720 (410M),TruthfulQA,0.217,0.203
+GPT-3 ada v1 (350M),TruthfulQA,0.215,0.185
+YaLM (100B),TruthfulQA,0.202,0.202
+text-davinci-002,MS MARCO (regular),0.421,0.373
+text-davinci-003,MS MARCO (regular),0.368,0.335
+TNLG v2 (530B),MS MARCO (regular),0.377,0.341
+J1-Grande v2 beta (17B),MS MARCO (regular),0.285,0.253
+Cohere xlarge v20221108 (52.4B),MS MARCO (regular),0.315,0.267
+OPT (175B),MS MARCO (regular),0.288,0.26
+Cohere xlarge v20220609 (52.4B),MS MARCO (regular),0.273,0.233
+GPT-3 davinci v1 (175B),MS MARCO (regular),0.211,0.185
+J1-Jumbo v1 (178B),MS MARCO (regular),0.21,0.18
+BLOOM (176B),MS MARCO (regular),0.236,0.211
+OPT (66B),MS MARCO (regular),0.237,0.214
+J1-Grande v1 (17B),MS MARCO (regular),0.161,0.138
+Cohere large v20220720 (13.1B),MS MARCO (regular),0.19,0.164
+GPT-NeoX (20B),MS MARCO (regular),0.184,0.148
+text-curie-001,MS MARCO (regular),0.271,0.244
+Cohere medium v20221108 (6.1B),MS MARCO (regular),0.175,0.145
+TNLG v2 (6.7B),MS MARCO (regular),0.158,0.14
+J1-Large v1 (7.5B),MS MARCO (regular),0.147,0.117
+GPT-J (6B),MS MARCO (regular),0.152,0.129
+GPT-3 curie v1 (6.7B),MS MARCO (regular),0.162,0.14
+Cohere medium v20220720 (6.1B),MS MARCO (regular),0.152,0.132
+text-babbage-001,MS MARCO (regular),0.208,0.174
+GPT-3 babbage v1 (1.3B),MS MARCO (regular),0.122,0.105
+Cohere small v20220720 (410M),MS MARCO (regular),0.143,0.124
+GPT-3 ada v1 (350M),MS MARCO (regular),0.102,0.086
+text-davinci-002,MS MARCO (TREC),0.664,0.639
+text-davinci-003,MS MARCO (TREC),0.644,0.633
+TNLG v2 (530B),MS MARCO (TREC),0.643,0.612
+J1-Grande v2 beta (17B),MS MARCO (TREC),0.46,0.435
+Cohere xlarge v20221108 (52.4B),MS MARCO (TREC),0.55,0.522
+OPT (175B),MS MARCO (TREC),0.448,0.419
+Cohere xlarge v20220609 (52.4B),MS MARCO (TREC),0.459,0.431
+GPT-3 davinci v1 (175B),MS MARCO (TREC),0.378,0.357
+J1-Jumbo v1 (178B),MS MARCO (TREC),0.363,0.348
+BLOOM (176B),MS MARCO (TREC),0.386,0.371
+OPT (66B),MS MARCO (TREC),0.482,0.471
+J1-Grande v1 (17B),MS MARCO (TREC),0.341,0.328
+Cohere large v20220720 (13.1B),MS MARCO (TREC),0.33,0.312
+GPT-NeoX (20B),MS MARCO (TREC),0.398,0.381
+text-curie-001,MS MARCO (TREC),0.507,0.482
+Cohere medium v20221108 (6.1B),MS MARCO (TREC),0.373,0.353
+TNLG v2 (6.7B),MS MARCO (TREC),0.332,0.317
+J1-Large v1 (7.5B),MS MARCO (TREC),0.292,0.28
+GPT-J (6B),MS MARCO (TREC),0.345,0.332
+GPT-3 curie v1 (6.7B),MS MARCO (TREC),0.3,0.284
+Cohere medium v20220720 (6.1B),MS MARCO (TREC),0.374,0.357
+text-babbage-001,MS MARCO (TREC),0.449,0.424
+GPT-3 babbage v1 (1.3B),MS MARCO (TREC),0.317,0.301
+Cohere small v20220720 (410M),MS MARCO (TREC),0.304,0.28
+GPT-3 ada v1 (350M),MS MARCO (TREC),0.29,0.268
+text-davinci-002,IMDB,0.946,0.937
+text-davinci-003,IMDB,0.824,0.801
+TNLG v2 (530B),IMDB,0.941,0.936
+Anthropic-LM v4-s3 (52B),IMDB,0.934,0.925
+J1-Grande v2 beta (17B),IMDB,0.935,0.927
+Cohere xlarge v20221108 (52.4B),IMDB,0.942,0.936
+OPT (175B),IMDB,0.947,0.944
+Cohere xlarge v20220609 (52.4B),IMDB,0.941,0.933
+GLM (130B),IMDB,0.955,0.933
+GPT-3 davinci v1 (175B),IMDB,0.842,0.795
+J1-Jumbo v1 (178B),IMDB,0.927,0.92
+BLOOM (176B),IMDB,0.945,0.938
+OPT (66B),IMDB,0.917,0.908
+J1-Grande v1 (17B),IMDB,0.943,0.932
+Cohere large v20220720 (13.1B),IMDB,0.933,0.92
+GPT-NeoX (20B),IMDB,0.948,0.928
+text-curie-001,IMDB,0.905,0.886
+Cohere medium v20221108 (6.1B),IMDB,0.944,0.936
+TNLG v2 (6.7B),IMDB,0.927,0.912
+J1-Large v1 (7.5B),IMDB,0.947,0.938
+GPT-J (6B),IMDB,0.939,0.927
+GPT-3 curie v1 (6.7B),IMDB,0.92,0.9
+Cohere medium v20220720 (6.1B),IMDB,0.872,0.839
+text-babbage-001,IMDB,0.909,0.889
+UL2 (20B),IMDB,0.337,0.271
+T0pp (11B),IMDB,0.207,0.168
+T5 (11B),IMDB,0.379,0.303
+GPT-3 babbage v1 (1.3B),IMDB,0.549,0.508
+Cohere small v20220720 (410M),IMDB,0.578,0.518
+GPT-3 ada v1 (350M),IMDB,0.784,0.737
+YaLM (100B),IMDB,0.836,0.8
+text-davinci-002,CivilComments,0.668,0.463
+text-davinci-003,CivilComments,0.684,0.559
+TNLG v2 (530B),CivilComments,0.601,0.48
+Anthropic-LM v4-s3 (52B),CivilComments,0.61,0.512
+J1-Grande v2 beta (17B),CivilComments,0.546,0.404
+Cohere xlarge v20221108 (52.4B),CivilComments,0.524,0.415
+OPT (175B),CivilComments,0.505,0.491
+Cohere xlarge v20220609 (52.4B),CivilComments,0.532,0.479
+GLM (130B),CivilComments,0.5,0.5
+GPT-3 davinci v1 (175B),CivilComments,0.532,0.478
+J1-Jumbo v1 (178B),CivilComments,0.553,0.478
+BLOOM (176B),CivilComments,0.62,0.546
+OPT (66B),CivilComments,0.506,0.5
+J1-Grande v1 (17B),CivilComments,0.529,0.482
+Cohere large v20220720 (13.1B),CivilComments,0.507,0.443
+GPT-NeoX (20B),CivilComments,0.516,0.491
+text-curie-001,CivilComments,0.537,0.471
+Cohere medium v20221108 (6.1B),CivilComments,0.5,0.493
+TNLG v2 (6.7B),CivilComments,0.532,0.473
+J1-Large v1 (7.5B),CivilComments,0.532,0.447
+GPT-J (6B),CivilComments,0.52,0.488
+GPT-3 curie v1 (6.7B),CivilComments,0.539,0.412
+Cohere medium v20220720 (6.1B),CivilComments,0.504,0.489
+text-babbage-001,CivilComments,0.499,0.499
+UL2 (20B),CivilComments,0.521,0.423
+T0pp (11B),CivilComments,0.234,0.165
+T5 (11B),CivilComments,0.509,0.329
+GPT-3 babbage v1 (1.3B),CivilComments,0.519,0.474
+Cohere small v20220720 (410M),CivilComments,0.501,0.495
+GPT-3 ada v1 (350M),CivilComments,0.517,0.436
+YaLM (100B),CivilComments,0.49,0.456
+text-davinci-002,RAFT,0.733,0.671
+text-davinci-003,RAFT,0.759,0.705
+TNLG v2 (530B),RAFT,0.679,0.644
+Anthropic-LM v4-s3 (52B),RAFT,0.699,0.67
+J1-Grande v2 beta (17B),RAFT,0.679,0.637
+Cohere xlarge v20221108 (52.4B),RAFT,0.624,0.604
+OPT (175B),RAFT,0.606,0.58
+Cohere xlarge v20220609 (52.4B),RAFT,0.633,0.598
+GLM (130B),RAFT,0.598,0.575
+GPT-3 davinci v1 (175B),RAFT,0.642,0.605
+J1-Jumbo v1 (178B),RAFT,0.681,0.623
+BLOOM (176B),RAFT,0.592,0.563
+OPT (66B),RAFT,0.557,0.536
+J1-Grande v1 (17B),RAFT,0.658,0.636
+Cohere large v20220720 (13.1B),RAFT,0.596,0.564
+GPT-NeoX (20B),RAFT,0.505,0.475
+text-curie-001,RAFT,0.489,0.458
+Cohere medium v20221108 (6.1B),RAFT,0.591,0.571
+TNLG v2 (6.7B),RAFT,0.525,0.502
+J1-Large v1 (7.5B),RAFT,0.545,0.511
+GPT-J (6B),RAFT,0.619,0.594
+GPT-3 curie v1 (6.7B),RAFT,0.49,0.473
+Cohere medium v20220720 (6.1B),RAFT,0.52,0.5
+text-babbage-001,RAFT,0.509,0.475
+UL2 (20B),RAFT,0.404,0.375
+T0pp (11B),RAFT,0.118,0.106
+T5 (11B),RAFT,0.37,0.351
+GPT-3 babbage v1 (1.3B),RAFT,0.455,0.438
+Cohere small v20220720 (410M),RAFT,0.492,0.452
+GPT-3 ada v1 (350M),RAFT,0.423,0.395
+YaLM (100B),RAFT,0.395,0.342

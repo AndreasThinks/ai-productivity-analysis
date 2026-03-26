@@ -1,0 +1,6 @@
+Bilingual Evaluation Understudy (BLEU) Score,Model
+0.147,XMEF-X
+0.221,XLS-R (2B)
+0.248,mSLAM-CTC (2B)
+0.252,MAESTRO
+0.29100000000000004,Zero-Shot Whisper

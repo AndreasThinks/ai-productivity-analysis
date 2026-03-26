@@ -1,0 +1,13 @@
+Model,Year,Discrete agreement (agg.)
+ALBERT-xxlarge,2019,23.4
+GPT-2-XL,2019,26.6
+GPT-3-babbage-v1,2020,18.5
+Electra-gen-large,2020,26.6
+GPT-3-curie-v1,2020,26.6
+GPT-3.5-davinci-v3,2022,20.2
+GPT-3.5-davinci-v2,2022,32.3
+RoBERTa-large,2019,26.6
+Alpaca-7B,2023,32.3
+Anthropic-claude-v1,2023,37.1
+GPT-3.5-turbo,2023,40.3
+GPT-4,2023,41.9

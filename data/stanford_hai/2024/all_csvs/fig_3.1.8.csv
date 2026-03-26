@@ -1,0 +1,16 @@
+Year,Number of papers,Respinsible AI benchmark
+2021,2,BBQ
+2022,18,BBQ
+2023,75,BBQ
+2021,14,BOLD
+2022,45,BOLD
+2023,93,BOLD
+2022,25,ToxiGen
+2023,104,ToxiGen
+2020,10,RealToxicityPrompts
+2021,82,RealToxicityPrompts
+2022,171,RealToxicityPrompts
+2023,319,RealToxicityPrompts
+2021,9,TruthfulQA
+2022,60,TruthfulQA
+2023,369,TruthfulQA

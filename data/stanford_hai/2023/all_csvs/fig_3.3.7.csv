@@ -1,0 +1,22 @@
+Year,Accuracy,Label
+Flan-T5-XXL 11B,0.97,Overall Performance
+Flan-PaLM 8B,0.88,Overall Performance
+Flan-PaLM 62B,0.93,Overall Performance
+Flan-PaLM 540B,0.95,Overall Performance
+PaLM 8B,0.9,Overall Performance
+PaLM 62B,0.95,Overall Performance
+PaLM 540B,0.97,Overall Performance
+Flan-T5-XXL 11B,0.99,“He” Performance
+Flan-PaLM 8B,0.93,“He” Performance
+Flan-PaLM 62B,0.97,“He” Performance
+Flan-PaLM 540B,0.99,“He” Performance
+PaLM 8B,0.99,“He” Performance
+PaLM 62B,1,“He” Performance
+PaLM 540B,1,“He” Performance
+Flan-T5-XXL 11B,0.95,“She” Performance
+Flan-PaLM 8B,0.83,“She” Performance
+Flan-PaLM 62B,0.89,“She” Performance
+Flan-PaLM 540B,0.92,“She” Performance
+PaLM 8B,0.81,“She” Performance
+PaLM 62B,0.91,“She” Performance
+PaLM 540B,0.94,“She” Performance

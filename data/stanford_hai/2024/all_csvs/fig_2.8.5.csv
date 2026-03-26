@@ -1,0 +1,39 @@
+Task,Success rate,Label
+BabyLM,0.0,GPT-4
+CLRS,0.125,GPT-4
+CIFAR-10,0.25,GPT-4
+fathomnet,0.0,GPT-4
+feedback,0.375,GPT-4
+house-price,0.25,GPT-4
+identify-contrails,0.25,GPT-4
+imdb,0.125,GPT-4
+llama-inference,0.0,GPT-4
+ogbn-arxiv,0.5,GPT-4
+Parkinson’s-disease,0.125,GPT-4
+spaceship-titanic,0.25,GPT-4
+vectorization,0.0,GPT-4
+BabyLM,0.0,GPT-4 (no retrieval)
+CLRS,0.5,GPT-4 (no retrieval)
+CIFAR-10,0.5,GPT-4 (no retrieval)
+feedback,0.125,GPT-4 (no retrieval)
+house-price,0.125,GPT-4 (no retrieval)
+identify-contrails,0.25,GPT-4 (no retrieval)
+imdb,0.25,GPT-4 (no retrieval)
+llama-inference,0.0,GPT-4 (no retrieval)
+ogbn-arxiv,0.875,GPT-4 (no retrieval)
+Parkinson’s-disease,0.0,GPT-4 (no retrieval)
+spaceship-titanic,0.125,GPT-4 (no retrieval)
+vectorization,0.0,GPT-4 (no retrieval)
+BabyLM,0.0,Claude-1
+CLRS,0.52,Claude-1
+CIFAR-10,0.08,Claude-1
+fathomnet,0.0,Claude-1
+feedback,0.0,Claude-1
+house-price,0.64,Claude-1
+identify-contrails,0.08,Claude-1
+imdb,0.0,Claude-1
+llama-inference,0.0,Claude-1
+ogbn-arxiv,0.4,Claude-1
+Parkinson’s-disease,0.0,Claude-1
+spaceship-titanic,0.04,Claude-1
+vectorization,0.0,Claude-1

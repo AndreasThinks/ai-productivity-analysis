@@ -1,0 +1,8 @@
+Winogender Accuracy,Model and Number of Parameters,Label
+0.035,PaLM 62B,Non-Instruction-Tuned
+0.0564,PaLM 540B,Non-Instruction-Tuned
+0.108,PaLM 8B,Non-Instruction-Tuned
+0.7225,Flan-PaLM 8B,Instruction-Tuned
+0.7695,Flan-T5-XXL 11B,Instruction-Tuned
+0.88,Flan-PaLM 540B,Instruction-Tuned
+0.89,Flan-PaLM 62B,Instruction-Tuned

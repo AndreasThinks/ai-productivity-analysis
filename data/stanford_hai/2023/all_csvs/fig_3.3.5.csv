@@ -1,0 +1,89 @@
+Model,Category,Bias Score
+RoBERTa-Base,Socio-Economic Status,7.00
+RoBERTa-Large,Socio-Economic Status,3.50
+DeBERTaV3-Base,Socio-Economic Status,3.80
+DeBERTaV3-Large,Socio-Economic Status,2.90
+UnifiedQA (ARC),Socio-Economic Status,3.80
+UnifiedQA (RACE),Socio-Economic Status,3.90
+Dialogue-Prompted Chinchilla (DPC),Socio-Economic Status,8.00
+"DPC, RL-Finetuned",Socio-Economic Status,7.00
+RoBERTa-Base,Sexual Orientation,6.50
+RoBERTa-Large,Sexual Orientation,-3.10
+DeBERTaV3-Base,Sexual Orientation,-4.80
+DeBERTaV3-Large,Sexual Orientation,-0.20
+UnifiedQA (ARC),Sexual Orientation,0.50
+UnifiedQA (RACE),Sexual Orientation,-0.70
+Dialogue-Prompted Chinchilla (DPC),Sexual Orientation,-1.00
+"DPC, RL-Finetuned",Sexual Orientation,-1.00
+RoBERTa-Base,Religion,5.20
+RoBERTa-Large,Religion,3.40
+DeBERTaV3-Base,Religion,1.80
+DeBERTaV3-Large,Religion,1.70
+UnifiedQA (ARC),Religion,3.50
+UnifiedQA (RACE),Religion,0.20
+Dialogue-Prompted Chinchilla (DPC),Religion,5.00
+"DPC, RL-Finetuned",Religion,7.00
+RoBERTa-Base,Race/Ethnicity (names),0.40
+RoBERTa-Large,Race/Ethnicity (names),-0.20
+DeBERTaV3-Base,Race/Ethnicity (names),-0.30
+DeBERTaV3-Large,Race/Ethnicity (names),0.00
+UnifiedQA (ARC),Race/Ethnicity (names),0.30
+UnifiedQA (RACE),Race/Ethnicity (names),-0.10
+Dialogue-Prompted Chinchilla (DPC),Race/Ethnicity (names),
+"DPC, RL-Finetuned",Race/Ethnicity (names),
+RoBERTa-Base,Race/Ethnicity,0.60
+RoBERTa-Large,Race/Ethnicity,-0.80
+DeBERTaV3-Base,Race/Ethnicity,1.20
+DeBERTaV3-Large,Race/Ethnicity,0.00
+UnifiedQA (ARC),Race/Ethnicity,0.90
+UnifiedQA (RACE),Race/Ethnicity,0.00
+Dialogue-Prompted Chinchilla (DPC),Race/Ethnicity,3.00
+"DPC, RL-Finetuned",Race/Ethnicity,1.00
+RoBERTa-Base,Physical Appearance,17.10
+RoBERTa-Large,Physical Appearance,-2.70
+DeBERTaV3-Base,Physical Appearance,4.20
+DeBERTaV3-Large,Physical Appearance,-5.00
+UnifiedQA (ARC),Physical Appearance,-1.70
+UnifiedQA (RACE),Physical Appearance,-2.30
+Dialogue-Prompted Chinchilla (DPC),Physical Appearance,12.00
+"DPC, RL-Finetuned",Physical Appearance,8.00
+RoBERTa-Base,Nationality,-0.10
+RoBERTa-Large,Nationality,0.70
+DeBERTaV3-Base,Nationality,5.70
+DeBERTaV3-Large,Nationality,1.90
+UnifiedQA (ARC),Nationality,-0.20
+UnifiedQA (RACE),Nationality,1.20
+Dialogue-Prompted Chinchilla (DPC),Nationality,-2.00
+"DPC, RL-Finetuned",Nationality,3.00
+RoBERTa-Base,Gender Identity (names),-0.90
+RoBERTa-Large,Gender Identity (names),1.10
+DeBERTaV3-Base,Gender Identity (names),3.60
+DeBERTaV3-Large,Gender Identity (names),0.40
+UnifiedQA (ARC),Gender Identity (names),2.00
+UnifiedQA (RACE),Gender Identity (names),0.10
+Dialogue-Prompted Chinchilla (DPC),Gender Identity (names),
+"DPC, RL-Finetuned",Gender Identity (names),
+RoBERTa-Base,Gender Identity,14.00
+RoBERTa-Large,Gender Identity,2.90
+DeBERTaV3-Base,Gender Identity,4.60
+DeBERTaV3-Large,Gender Identity,-16.90
+UnifiedQA (ARC),Gender Identity,-3.40
+UnifiedQA (RACE),Gender Identity,-5.80
+Dialogue-Prompted Chinchilla (DPC),Gender Identity,2.00
+"DPC, RL-Finetuned",Gender Identity,3.00
+RoBERTa-Base,Disability Status,5.40
+RoBERTa-Large,Disability Status,5.70
+DeBERTaV3-Base,Disability Status,8.10
+DeBERTaV3-Large,Disability Status,1.70
+UnifiedQA (ARC),Disability Status,-0.70
+UnifiedQA (RACE),Disability Status,-1.40
+Dialogue-Prompted Chinchilla (DPC),Disability Status,0.00
+"DPC, RL-Finetuned",Disability Status,8.00
+RoBERTa-Base,Age,-3.00
+RoBERTa-Large,Age,2.70
+DeBERTaV3-Base,Age,4.40
+DeBERTaV3-Large,Age,2.40
+UnifiedQA (ARC),Age,3.30
+UnifiedQA (RACE),Age,1.20
+Dialogue-Prompted Chinchilla (DPC),Age,7.00
+"DPC, RL-Finetuned",Age,8.00

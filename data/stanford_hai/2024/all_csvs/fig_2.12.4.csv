@@ -1,0 +1,47 @@
+Task,Prompt optimization type,Accuracy difference
+boolean_expressions,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",0.430505862
+causal_judgement,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",4.299306267
+date_understanding,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",5.678259569
+disambiguation_qa,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",21.12400916
+dyck_languages,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",5.200124251
+formal_fallacies,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",5.21047848
+geometric_shapes,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",26.00844445
+hyperbaton,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",21.28783608
+logical_deduction_seven_objects,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",21.67140277
+movie_recommendation,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",36.37049735
+multistep_arithmetic_two,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",13.60016567
+navigate,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",15.35279162
+object_counting,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",41.75308614
+penguins_in_a_table,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",7.779247823
+reasoning_about_colored_objects,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",11.77298927
+ruin_names,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",30.08156832
+salient_translation_error_detection,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",17.64337732
+snarks,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",22.01010113
+sports_understanding,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",42.93300813
+temporal_sequences,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",3.233050701
+tracking_shuffled_objects_seven_objects,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",-29.12115599
+web_of_lies,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",11.84224756
+word_sorting,"PaLM 2-L scorer, ours minus “Let’s think step by step.”",50.56568608
+boolean_expressions,"PaLM 2-L scorer, ours minus empty starting point",13.2375429
+causal_judgement,"PaLM 2-L scorer, ours minus empty starting point",17.64838944
+date_understanding,"PaLM 2-L scorer, ours minus empty starting point",11.67785944
+disambiguation_qa,"PaLM 2-L scorer, ours minus empty starting point",14.45383244
+dyck_languages,"PaLM 2-L scorer, ours minus empty starting point",5.213625825
+formal_fallacies,"PaLM 2-L scorer, ours minus empty starting point",8.153015707
+geometric_shapes,"PaLM 2-L scorer, ours minus empty starting point",27.60476932
+hyperbaton,"PaLM 2-L scorer, ours minus empty starting point",8.064788911
+logical_deduction_seven_objects,"PaLM 2-L scorer, ours minus empty starting point",14.76459935
+movie_recommendation,"PaLM 2-L scorer, ours minus empty starting point",8.548767855
+multistep_arithmetic_two,"PaLM 2-L scorer, ours minus empty starting point",55.22109551
+navigate,"PaLM 2-L scorer, ours minus empty starting point",40.83089629
+object_counting,"PaLM 2-L scorer, ours minus empty starting point",58.72952004
+penguins_in_a_table,"PaLM 2-L scorer, ours minus empty starting point",4.857265674
+reasoning_about_colored_objects,"PaLM 2-L scorer, ours minus empty starting point",51.52959333
+ruin_names,"PaLM 2-L scorer, ours minus empty starting point",9.264941123
+salient_translation_error_detection,"PaLM 2-L scorer, ours minus empty starting point",9.752091158
+snarks,"PaLM 2-L scorer, ours minus empty starting point",25.36196241
+sports_understanding,"PaLM 2-L scorer, ours minus empty starting point",46.36663449
+temporal_sequences,"PaLM 2-L scorer, ours minus empty starting point",0.341843602
+tracking_shuffled_objects_seven_objects,"PaLM 2-L scorer, ours minus empty starting point",8.512969762
+web_of_lies,"PaLM 2-L scorer, ours minus empty starting point",0.171873128
+word_sorting,"PaLM 2-L scorer, ours minus empty starting point",32.37556992

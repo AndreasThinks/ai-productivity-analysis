@@ -1,0 +1,12 @@
+Notable machine learning model,Domain,Publication date,Year,Training compute (petaFLOP)
+Gemini Ultra,Multimodal,12/6/23,2023,50000000000
+Llama 2-70B,Language,7/18/23,2023,810000000
+Claude 2,Multimodal,7/11/23,2023,3866000000
+GPT-4,Multimodal,3/15/23,2023,21000000000
+PaLM (540B),Language,4/4/22,2022,2527200000
+Megatron-Turing NLG 530B,Language,10/11/21,2021,1170000000
+GPT-3 175B (davinci),Language,5/28/20,2020,314000000
+RoBERTa Large,Language,7/1/19,2019,4153835.52
+BERT-Large,Language,10/11/18,2018,285000
+Transformer,Language,6/12/17,2017,7424.5248
+AlexNet,Vision,9/30/12,2012,470

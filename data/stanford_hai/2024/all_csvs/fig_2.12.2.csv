@@ -1,0 +1,16 @@
+Framework,Number of incorrectly sorted elements (mean),Elements
+CoT,6.58,32
+IO,4.53,32
+"ToT2  (L=3, k=10)  ",2.25,32
+"ToT  (L=2, k=20)  ",1.9,32
+GoT,1.84,32
+IO,38.12,64
+CoT,21.18,64
+"ToT2  (L=7, k=10)  ",19.53,64
+"ToT  (L=4, k=20)  ",16.79,64
+GoT,7,64
+IO,123.92957746478874,128
+CoT,64.56321839,128
+"ToT2  (L=10, k=10)  ",63.04,128
+"ToT  (L=4, k=20)  ",52.87,128
+GoT,17.52,128

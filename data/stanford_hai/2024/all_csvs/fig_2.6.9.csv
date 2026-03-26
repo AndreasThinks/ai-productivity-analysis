@@ -1,0 +1,3 @@
+Method,Accuracy
+"GPT-4 (PaL, k=8)",0.929
+"Shepherd + DeepSeek-67B (SFT on MetaMATH + PRM rerank, k=256)",0.97

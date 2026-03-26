@@ -1,0 +1,3121 @@
+Year,Query emissions (g),Task
+2023,0.17711305,Text classification
+2023,0.177186567,Text classification
+2023,0.177758333,Text classification
+2023,0.177977455,Text classification
+2023,0.178601797,Text classification
+2023,0.179227768,Text classification
+2023,0.180669832,Text classification
+2023,0.182023652,Text classification
+2023,0.182040261,Text classification
+2023,0.1822870058415999,Text classification
+2023,0.182740017,Text classification
+2023,0.182796988,Text classification
+2023,0.182874902,Text classification
+2023,0.183183967,Text classification
+2023,0.183328692,Text classification
+2023,0.183594768,Text classification
+2023,0.183993389,Text classification
+2023,0.1841858689511999,Text classification
+2023,0.18424037,Text classification
+2023,0.184560134,Text classification
+2023,0.184658483,Text classification
+2023,0.184839799,Text classification
+2023,0.185094094,Text classification
+2023,0.185173213,Text classification
+2023,0.1853454495198999,Text classification
+2023,0.185505037,Text classification
+2023,0.185975037,Text classification
+2023,0.18610274,Text classification
+2023,0.186245492,Text classification
+2023,0.186332999,Text classification
+2023,0.186539632,Text classification
+2023,0.186737197,Text classification
+2023,0.186928449,Text classification
+2023,0.18728371,Text classification
+2023,0.188006732,Text classification
+2023,0.1895474361777999,Text classification
+2023,0.189681589,Text classification
+2023,0.19049318,Text classification
+2023,0.1905154472611999,Text classification
+2023,0.190789668,Text classification
+2023,0.191025076,Text classification
+2023,0.192044306,Text classification
+2023,0.192417562,Text classification
+2023,0.194312813,Text classification
+2023,0.194460094,Text classification
+2023,0.195372797,Token classification
+2023,0.195388628,Token classification
+2023,0.195413012,Token classification
+2023,0.195499695,Text classification
+2023,0.196067069,Text classification
+2023,0.19649476,Token classification
+2023,0.196497646,Text classification
+2023,0.19650493,Token classification
+2023,0.196890147,Token classification
+2023,0.197356958,Text classification
+2023,0.19754842,Token classification
+2023,0.197655673,Text classification
+2023,0.197807264,Text classification
+2023,0.197873141,Text classification
+2023,0.197981306,Token classification
+2023,0.198129919,Token classification
+2023,0.198383455,Token classification
+2023,0.19856891,Text classification
+2023,0.198758009,Text classification
+2023,0.198883147,Token classification
+2023,0.198969273,Text classification
+2023,0.199108794,Text classification
+2023,0.1993435974552999,Token classification
+2023,0.1995144426931999,Text classification
+2023,0.199546555,Token classification
+2023,0.199904847,Token classification
+2023,0.200130624,Text classification
+2023,0.200273832,Token classification
+2023,0.200633786,Token classification
+2023,0.200855112,Token classification
+2023,0.2012490651397999,Text classification
+2023,0.201386082,Text classification
+2023,0.202559784,Token classification
+2023,0.203042742,Token classification
+2023,0.2031412315421999,Token classification
+2023,0.205996024,Token classification
+2023,0.206656758,Token classification
+2023,0.20667759,Token classification
+2023,0.207183697,Token classification
+2023,0.207223873,Token classification
+2023,0.207257782,Token classification
+2023,0.207688886,Token classification
+2023,0.208128429,Token classification
+2023,0.210199077,Token classification
+2023,0.210234004,Token classification
+2023,0.210559673,Token classification
+2023,0.21060678,Token classification
+2023,0.21258869,Token classification
+2023,0.212967196,Token classification
+2023,0.213121215,Token classification
+2023,0.213418969,Token classification
+2023,0.2134561354593999,Token classification
+2023,0.213872297,Token classification
+2023,0.214710718,Token classification
+2023,0.214794731,Token classification
+2023,0.217022886,Text classification
+2023,0.219249974,Text classification
+2023,0.2192925085264999,Text classification
+2023,0.219618918,Text classification
+2023,0.220383392,Text classification
+2023,0.220629663,Text classification
+2023,0.220632716,Text classification
+2023,0.22117219,Text classification
+2023,0.2212695952717999,Text classification
+2023,0.221542323,Text classification
+2023,0.221998327,Text classification
+2023,0.222275098,Text classification
+2023,0.2224975505997999,Text classification
+2023,0.222780581,Text classification
+2023,0.222819323,Text classification
+2023,0.2230828550859999,Text classification
+2023,0.223789181,Text classification
+2023,0.224901862,Text classification
+2023,0.225524556,Text classification
+2023,0.2256169848774999,Text classification
+2023,0.226461993,Question answering
+2023,0.226712247,Text classification
+2023,0.2267694724475999,Question answering
+2023,0.2268241033667999,Question answering
+2023,0.227010762,Question answering
+2023,0.227065828,Question answering
+2023,0.227548252,Question answering
+2023,0.227576938,Question answering
+2023,0.227666028,Question answering
+2023,0.227826907,Question answering
+2023,0.227862087,Question answering
+2023,0.228099691,Question answering
+2023,0.228135314,Question answering
+2023,0.22819864,Question answering
+2023,0.228353269,Question answering
+2023,0.228403826,Question answering
+2023,0.228594177,Question answering
+2023,0.228769282,Question answering
+2023,0.228810665,Question answering
+2023,0.228847705,Question answering
+2023,0.228890255,Question answering
+2023,0.228953316,Question answering
+2023,0.228967333,Question answering
+2023,0.229002321,Question answering
+2023,0.22911818,Question answering
+2023,0.229124627,Question answering
+2023,0.229174497,Question answering
+2023,0.229187601,Question answering
+2023,0.2292657679874999,Question answering
+2023,0.22941181,Question answering
+2023,0.2294277158919999,Question answering
+2023,0.229501738,Question answering
+2023,0.229600003,Question answering
+2023,0.229641486,Question answering
+2023,0.229736579,Question answering
+2023,0.229871031,Question answering
+2023,0.229943318,Text classification
+2023,0.229976095,Question answering
+2023,0.230003161,Question answering
+2023,0.230064052,Question answering
+2023,0.230120846,Question answering
+2023,0.230130644,Question answering
+2023,0.2301546633116999,Question answering
+2023,0.230196655,Question answering
+2023,0.230244882,Question answering
+2023,0.230335377,Question answering
+2023,0.230424945,Question answering
+2023,0.230486232,Question answering
+2023,0.230502334,Question answering
+2023,0.23063484,Question answering
+2023,0.230637466,Question answering
+2023,0.230829606,Question answering
+2023,0.231005577,Question answering
+2023,0.23106097,Question answering
+2023,0.231297601,Question answering
+2023,0.2314525514947999,Question answering
+2023,0.2315547611034999,Question answering
+2023,0.231636821,Question answering
+2023,0.231710162,Question answering
+2023,0.231720753,Question answering
+2023,0.231791212,Question answering
+2023,0.2319490488667999,Text classification
+2023,0.2323795960861999,Question answering
+2023,0.2353877882848999,Text classification
+2023,0.235805025,Text classification
+2023,0.236643924,Text classification
+2023,0.237300688,Text classification
+2023,0.239447876,Text classification
+2023,0.240806385,Fill mask
+2023,0.240859962,Fill mask
+2023,0.241399982,Fill mask
+2023,0.241449689,Fill mask
+2023,0.241956142,Fill mask
+2023,0.242881134,Fill mask
+2023,0.242930651,Fill mask
+2023,0.243086479,Fill mask
+2023,0.243355921,Fill mask
+2023,0.243371345,Fill mask
+2023,0.243751193,Fill mask
+2023,0.243783905,Question answering
+2023,0.2437889987871999,Fill mask
+2023,0.2439656506791999,Question answering
+2023,0.244182945,Question answering
+2023,0.244469124,Question answering
+2023,0.244614542,Question answering
+2023,0.244681219,Question answering
+2023,0.244686809,Question answering
+2023,0.2451220290544999,Question answering
+2023,0.245448018,Question answering
+2023,0.245605312,Question answering
+2023,0.245655146,Question answering
+2023,0.245699095,Question answering
+2023,0.245927133,Question answering
+2023,0.245957078,Fill mask
+2023,0.2465393251893999,Fill mask
+2023,0.246633463,Fill mask
+2023,0.2467578855527999,Question answering
+2023,0.2470192097876999,Fill mask
+2023,0.247423009,Question answering
+2023,0.247588738,Question answering
+2023,0.248209484,Question answering
+2023,0.2484814714703999,Fill mask
+2023,0.248706494,Question answering
+2023,0.2488962443240999,Fill mask
+2023,0.2506651684820999,Question answering
+2023,0.250685243,Question answering
+2023,0.251331552,Question answering
+2023,0.251855996,Fill mask
+2023,0.252108478,Question answering
+2023,0.252142702,Question answering
+2023,0.252315818,Question answering
+2023,0.253353646,Question answering
+2023,0.253577562,Fill mask
+2023,0.2543285233132999,Question answering
+2023,0.25520531,Question answering
+2023,0.256868448,Fill mask
+2023,0.257766102,Question answering
+2023,0.2580389210247999,Question answering
+2023,0.258476083,Fill mask
+2023,0.25871941,Question answering
+2023,0.2611341,Fill mask
+2023,0.261444233,Fill mask
+2023,0.262133465,Fill mask
+2023,0.269276703,Fill mask
+2023,0.270129579,Fill mask
+2023,0.270390619,Fill mask
+2023,0.2718963070317999,Fill mask
+2023,0.273233386,Fill mask
+2023,0.2824972113428999,Text classification
+2023,0.286730728,Text classification
+2023,0.305806341,Text classification
+2023,0.310641374,Text classification
+2023,0.310899489,Text classification
+2023,0.311212098,Text classification
+2023,0.311819829,Text classification
+2023,0.31241893,Text classification
+2023,0.31314651,Text classification
+2023,0.3133760753287999,Text classification
+2023,0.313557389,Text classification
+2023,0.313993897,Text classification
+2023,0.314003061,Text classification
+2023,0.314822381,Text classification
+2023,0.3150094608868999,Text classification
+2023,0.315100175,Text classification
+2023,0.315679994,Text classification
+2023,0.315794625,Text classification
+2023,0.316029492,Text classification
+2023,0.316123837,Text classification
+2023,0.316299491,Text classification
+2023,0.316435975,Text classification
+2023,0.31674819,Text classification
+2023,0.31677237,Text classification
+2023,0.3171033610568999,Text classification
+2023,0.317273506,Text classification
+2023,0.317642657,Text classification
+2023,0.317874477,Text classification
+2023,0.31800989,Text classification
+2023,0.318126073,Text classification
+2023,0.3182196,Token classification
+2023,0.318356352,Text classification
+2023,0.318625666,Text classification
+2023,0.319008063,Text classification
+2023,0.3193275705198999,Text classification
+2023,0.319379705,Text classification
+2023,0.319399264,Text classification
+2023,0.320367061,Token classification
+2023,0.320728778,Text classification
+2023,0.320924149,Token classification
+2023,0.3209732323506999,Text classification
+2023,0.3212493546475999,Text classification
+2023,0.3213012917323999,Text classification
+2023,0.321896933,Token classification
+2023,0.322107401,Token classification
+2023,0.322189174,Token classification
+2023,0.322480612,Token classification
+2023,0.322507867,Token classification
+2023,0.322582198,Text classification
+2023,0.32275663,Text classification
+2023,0.322775264,Text classification
+2023,0.322852662,Text classification
+2023,0.323075638,Text classification
+2023,0.3236342634692999,Token classification
+2023,0.323737959,Text classification
+2023,0.323760256,Text classification
+2023,0.324369795,Text classification
+2023,0.324560922,Token classification
+2023,0.324634777,Text classification
+2023,0.3246929365065999,Token classification
+2023,0.325081446,Text classification
+2023,0.325299746,Text classification
+2023,0.325358166,Text classification
+2023,0.325369627,Token classification
+2023,0.325377589,Token classification
+2023,0.325464263,Text classification
+2023,0.325704279,Token classification
+2023,0.325808217,Token classification
+2023,0.325980003,Token classification
+2023,0.326198528,Text classification
+2023,0.326303562,Text classification
+2023,0.326306418,Text classification
+2023,0.326449023,Text classification
+2023,0.326659453,Text classification
+2023,0.326796274,Text classification
+2023,0.326887429,Text classification
+2023,0.3269858059700999,Text classification
+2023,0.3270452446194999,Text classification
+2023,0.3275266337517999,Text classification
+2023,0.327746496,Token classification
+2023,0.328470001,Text classification
+2023,0.329040705,Token classification
+2023,0.3290608587119999,Token classification
+2023,0.3291596126907999,Token classification
+2023,0.329359906,Text classification
+2023,0.329682344,Text classification
+2023,0.329911764,Token classification
+2023,0.329952423,Text classification
+2023,0.330005833,Token classification
+2023,0.330457018,Text classification
+2023,0.330967299,Token classification
+2023,0.3312418617204999,Token classification
+2023,0.331617421,Token classification
+2023,0.33167299,Token classification
+2023,0.331785072,Token classification
+2023,0.3320592803277999,Token classification
+2023,0.332123561,Text classification
+2023,0.33216654,Text classification
+2023,0.332183474,Text classification
+2023,0.332489477,Token classification
+2023,0.3328708874227999,Token classification
+2023,0.333291882,Text classification
+2023,0.3339416551956999,Token classification
+2023,0.3341403018941999,Token classification
+2023,0.334633205,Text classification
+2023,0.334868254,Token classification
+2023,0.335018056,Text classification
+2023,0.335020492,Text classification
+2023,0.336372354,Token classification
+2023,0.336610113,Token classification
+2023,0.336660889,Text classification
+2023,0.336685483,Token classification
+2023,0.336753063,Text classification
+2023,0.336910953,Text classification
+2023,0.337767482,Text classification
+2023,0.338047938,Text classification
+2023,0.338389024,Text classification
+2023,0.338477498,Token classification
+2023,0.338577347,Text classification
+2023,0.339278995,Text classification
+2023,0.339444521,Token classification
+2023,0.339516502,Text classification
+2023,0.339765555,Text classification
+2023,0.340189117,Token classification
+2023,0.340628352,Text classification
+2023,0.341048918,Text classification
+2023,0.341176591,Text classification
+2023,0.341247751,Text classification
+2023,0.341681894,Text classification
+2023,0.3418955620568999,Text classification
+2023,0.341906376,Text classification
+2023,0.341973389,Text classification
+2023,0.3422347722543999,Text classification
+2023,0.342479639,Text classification
+2023,0.342500171,Text classification
+2023,0.342527854,Text classification
+2023,0.342792696,Text classification
+2023,0.342808062,Text classification
+2023,0.343537329,Text classification
+2023,0.343646626,Text classification
+2023,0.343956908,Text classification
+2023,0.344478158,Text classification
+2023,0.344668919,Text classification
+2023,0.3456734607264999,Text classification
+2023,0.346206478,Text classification
+2023,0.346473798,Text classification
+2023,0.346950659,Text classification
+2023,0.3469925996653999,Text classification
+2023,0.347864083,Text classification
+2023,0.348171399,Text classification
+2023,0.348379574,Text classification
+2023,0.348793089,Text classification
+2023,0.348850957,Text classification
+2023,0.348914331,Text classification
+2023,0.350162988,Text classification
+2023,0.350805805,Text classification
+2023,0.352621993,Text classification
+2023,0.353073618,Text classification
+2023,0.353469038,Question answering
+2023,0.353826331,Text classification
+2023,0.3539401128250999,Text classification
+2023,0.355555959,Question answering
+2023,0.3558193294216999,Token classification
+2023,0.35607193,Text classification
+2023,0.356194179,Question answering
+2023,0.356610089,Question answering
+2023,0.356623463,Question answering
+2023,0.3567915385865999,Token classification
+2023,0.356996929,Question answering
+2023,0.357343636,Question answering
+2023,0.357701155,Question answering
+2023,0.357780328,Question answering
+2023,0.357927283,Question answering
+2023,0.358400787,Question answering
+2023,0.35865851,Question answering
+2023,0.359240531,Question answering
+2023,0.359423925,Question answering
+2023,0.35945824,Question answering
+2023,0.359734672,Question answering
+2023,0.360323554,Token classification
+2023,0.360536312,Token classification
+2023,0.360583699,Token classification
+2023,0.3608098906019999,Question answering
+2023,0.360951993,Question answering
+2023,0.361068352,Token classification
+2023,0.36113803,Question answering
+2023,0.36154639,Token classification
+2023,0.361584441,Token classification
+2023,0.361647622,Token classification
+2023,0.361662016,Token classification
+2023,0.361683395,Question answering
+2023,0.36215748,Token classification
+2023,0.362375516,Token classification
+2023,0.362393176,Token classification
+2023,0.362864037,Token classification
+2023,0.363321266,Token classification
+2023,0.3636130855282999,Token classification
+2023,0.365434369,Token classification
+2023,0.365536617,Token classification
+2023,0.365791801,Token classification
+2023,0.365806024,Fill mask
+2023,0.36630614,Token classification
+2023,0.3666186622287999,Token classification
+2023,0.366869796,Token classification
+2023,0.366981459,Token classification
+2023,0.367616679,Token classification
+2023,0.367623751,Fill mask
+2023,0.367655127,Token classification
+2023,0.367691033,Fill mask
+2023,0.368149602,Fill mask
+2023,0.368150822,Fill mask
+2023,0.368216727,Token classification
+2023,0.368598915,Token classification
+2023,0.369082874,Fill mask
+2023,0.369125577,Token classification
+2023,0.369224204,Token classification
+2023,0.369403846,Token classification
+2023,0.369499054,Fill mask
+2023,0.369593039,Fill mask
+2023,0.3710092975253999,Token classification
+2023,0.371152151,Fill mask
+2023,0.371509238,Token classification
+2023,0.371868403,Token classification
+2023,0.372286677,Fill mask
+2023,0.372399367,Token classification
+2023,0.372548761,Token classification
+2023,0.372630283,Fill mask
+2023,0.372997986,Fill mask
+2023,0.373389821,Fill mask
+2023,0.373463545,Token classification
+2023,0.373613122,Fill mask
+2023,0.373840556,Token classification
+2023,0.374016736,Fill mask
+2023,0.374043989,Fill mask
+2023,0.374841841,Fill mask
+2023,0.375326837,Fill mask
+2023,0.376649992,Token classification
+2023,0.378979516,Token classification
+2023,0.379007041,Token classification
+2023,0.379970444,Fill mask
+2023,0.380356349,Question answering
+2023,0.3823556161740999,Question answering
+2023,0.38251586,Question answering
+2023,0.38311673,Question answering
+2023,0.383134149,Fill mask
+2023,0.383301398,Question answering
+2023,0.384945163,Question answering
+2023,0.386105688,Fill mask
+2023,0.38674855,Fill mask
+2023,0.387585635,Fill mask
+2023,0.387829313,Fill mask
+2023,0.3879190292491999,Fill mask
+2023,0.3882932935245999,Fill mask
+2023,0.389245136,Fill mask
+2023,0.3894500006622999,Fill mask
+2023,0.3896354680239999,Fill mask
+2023,0.389791335,Fill mask
+2023,0.390170849,Fill mask
+2023,0.391210462,Question answering
+2023,0.391262208,Question answering
+2023,0.391407041,Fill mask
+2023,0.391412963,Fill mask
+2023,0.391848846,Fill mask
+2023,0.392183517,Question answering
+2023,0.3927158908693999,Fill mask
+2023,0.39303335,Fill mask
+2023,0.393130286,Question answering
+2023,0.393158344,Fill mask
+2023,0.393222141,Fill mask
+2023,0.393262078,Question answering
+2023,0.393267963,Question answering
+2023,0.393539565,Question answering
+2023,0.393704696,Fill mask
+2023,0.3938852924704999,Question answering
+2023,0.394411868,Fill mask
+2023,0.394552612,Fill mask
+2023,0.39458013,Question answering
+2023,0.394681843,Fill mask
+2023,0.395876083,Fill mask
+2023,0.396179801,Fill mask
+2023,0.396356594,Question answering
+2023,0.396620789,Question answering
+2023,0.396658523,Question answering
+2023,0.396687967,Question answering
+2023,0.39688826,Question answering
+2023,0.397337293,Question answering
+2023,0.397755593,Fill mask
+2023,0.397771856,Question answering
+2023,0.3989321858744999,Fill mask
+2023,0.399483718,Question answering
+2023,0.399547081,Fill mask
+2023,0.400543631,Question answering
+2023,0.40057848,Question answering
+2023,0.400595395,Fill mask
+2023,0.400595888,Fill mask
+2023,0.400837482,Fill mask
+2023,0.401054931,Fill mask
+2023,0.401542202,Fill mask
+2023,0.401563566,Question answering
+2023,0.4019346004169999,Question answering
+2023,0.402161757,Fill mask
+2023,0.402214362,Fill mask
+2023,0.402268179,Fill mask
+2023,0.402710968,Fill mask
+2023,0.403051853,Question answering
+2023,0.40312694,Fill mask
+2023,0.403898433,Fill mask
+2023,0.403976141,Fill mask
+2023,0.404135051,Fill mask
+2023,0.404251166,Fill mask
+2023,0.4043787659889999,Fill mask
+2023,0.404437996,Fill mask
+2023,0.404485731,Fill mask
+2023,0.405008873,Fill mask
+2023,0.405013809,Fill mask
+2023,0.405108671,Fill mask
+2023,0.405485067,Fill mask
+2023,0.4059453420202999,Fill mask
+2023,0.405966292,Fill mask
+2023,0.405988084,Fill mask
+2023,0.406560748,Fill mask
+2023,0.406608923,Fill mask
+2023,0.406719,Fill mask
+2023,0.407109704,Fill mask
+2023,0.407856621,Fill mask
+2023,0.408367791,Fill mask
+2023,0.408574561,Fill mask
+2023,0.40879077,Fill mask
+2023,0.409171322,Fill mask
+2023,0.409235545,Fill mask
+2023,0.410017356,Fill mask
+2023,0.410047728,Fill mask
+2023,0.410121293,Fill mask
+2023,0.410346099,Fill mask
+2023,0.411224351,Fill mask
+2023,0.411325306,Token classification
+2023,0.41156112,Fill mask
+2023,0.413133711,Fill mask
+2023,0.413831844,Fill mask
+2023,0.4142111058695999,Fill mask
+2023,0.416146296,Question answering
+2023,0.416524823,Fill mask
+2023,0.416560529,Question answering
+2023,0.416791447,Question answering
+2023,0.417438071,Fill mask
+2023,0.417772338,Fill mask
+2023,0.419647576,Fill mask
+2023,0.419973744,Fill mask
+2023,0.420391526,Question answering
+2023,0.4215053640073999,Fill mask
+2023,0.4219631689488999,Fill mask
+2023,0.423009854,Fill mask
+2023,0.423777269,Fill mask
+2023,0.42426694,Fill mask
+2023,0.4256286783260999,Fill mask
+2023,0.426142259,Fill mask
+2023,0.4262924874329999,Question answering
+2023,0.426439898,Fill mask
+2023,0.426999249,Question answering
+2023,0.42802333,Question answering
+2023,0.428886772,Question answering
+2023,0.429849126,Fill mask
+2023,0.431095213,Fill mask
+2023,0.432019006,Fill mask
+2023,0.432328666,Question answering
+2023,0.4328194446150999,Fill mask
+2023,0.433183837,Fill mask
+2023,0.435338307,Fill mask
+2023,0.438735613,Fill mask
+2023,0.438813033,Fill mask
+2023,0.439618062,Fill mask
+2023,0.441369711,Question answering
+2023,0.441587014,Question answering
+2023,0.444473537,Fill mask
+2023,0.444771153,Fill mask
+2023,0.444894657,Fill mask
+2023,0.446758184,Fill mask
+2023,0.446817259,Fill mask
+2023,0.454845915,Fill mask
+2023,0.454936041,Fill mask
+2023,0.455118523,Fill mask
+2023,0.455812713,Fill mask
+2023,0.456276863,Fill mask
+2023,0.45660506,Fill mask
+2023,0.4586259339621999,Fill mask
+2023,0.4590186391126999,Fill mask
+2023,0.4590872905429999,Fill mask
+2023,0.460009652,Fill mask
+2023,0.467020619,Fill mask
+2023,0.472597716,Question answering
+2023,0.476734143,Fill mask
+2023,0.4781685051313999,Fill mask
+2023,0.478595039,Fill mask
+2023,0.480625317,Fill mask
+2023,0.481766563,Token classification
+2023,0.482233491,Token classification
+2023,0.482988848,Token classification
+2023,0.484122101,Token classification
+2023,0.484641658,Fill mask
+2023,0.486042654,Fill mask
+2023,0.486986028,Fill mask
+2023,0.487448568,Fill mask
+2023,0.487697403,Token classification
+2023,0.4886896119496999,Token classification
+2023,0.4887792562367999,Token classification
+2023,0.4902037349823999,Fill mask
+2023,0.490520612,Fill mask
+2023,0.494499667,Fill mask
+2023,0.494630906,Token classification
+2023,0.495443019,Fill mask
+2023,0.503961928,Token classification
+2023,0.505119158,Token classification
+2023,0.505280288,Token classification
+2023,0.505884138,Token classification
+2023,0.506345457,Token classification
+2023,0.508249524,Fill mask
+2023,0.509176208,Token classification
+2023,0.509945808,Fill mask
+2023,0.510998522,Fill mask
+2023,0.5119745618327001,Token classification
+2023,0.5125139198984999,Token classification
+2023,0.514663448,Token classification
+2023,0.515117537,Fill mask
+2023,0.516585496,Fill mask
+2023,0.519299252,Fill mask
+2023,0.519430067,Token classification
+2023,0.5277869276353999,Token classification
+2023,0.530742643,Token classification
+2023,0.531494983,Token classification
+2023,0.532194485,Token classification
+2023,0.533144324,Fill mask
+2023,0.5340309014786999,Token classification
+2023,0.5354204188180001,Token classification
+2023,0.535650724,Fill mask
+2023,0.535664404,Token classification
+2023,0.536181451,Fill mask
+2023,0.538019399,Token classification
+2023,0.540181296,Token classification
+2023,0.5426445558267999,Fill mask
+2023,0.5548356848481001,Token classification
+2023,0.5603447688668001,Token classification
+2023,0.57189425,Fill mask
+2023,0.574544462,Fill mask
+2023,0.577150602,Fill mask
+2023,0.580053672,Fill mask
+2023,0.580619332,Fill mask
+2023,0.581518451,Fill mask
+2023,0.582715589,Text classification
+2023,0.583360435,Fill mask
+2023,0.583448085,Fill mask
+2023,0.584481141,Fill mask
+2023,0.585468303,Fill mask
+2023,0.5869521780838001,Text classification
+2023,0.588936103,Token classification
+2023,0.589531579,Token classification
+2023,0.590247016,Token classification
+2023,0.590467525,Text classification
+2023,0.590908628,Token classification
+2023,0.590993807,Text classification
+2023,0.593141344,Token classification
+2023,0.593996349,Text classification
+2023,0.5941299454098999,Text classification
+2023,0.59512147,Token classification
+2023,0.5953543906923999,Token classification
+2023,0.595567094,Token classification
+2023,0.596081741,Token classification
+2023,0.59711102,Token classification
+2023,0.597502045,Token classification
+2023,0.598243283,Text classification
+2023,0.5988059174864999,Token classification
+2023,0.598911663,Text classification
+2023,0.600173593,Token classification
+2023,0.601310801,Token classification
+2023,0.6014806427412001,Text classification
+2023,0.6021082679181999,Token classification
+2023,0.60279066,Text classification
+2023,0.6031342538598999,Token classification
+2023,0.6033452219279001,Token classification
+2023,0.603847051,Text classification
+2023,0.60429868,Token classification
+2023,0.604375549,Token classification
+2023,0.604762014,Token classification
+2023,0.6047729484598999,Token classification
+2023,0.605163222,Text classification
+2023,0.6051816221858001,Text classification
+2023,0.605595093,Token classification
+2023,0.6070400674438999,Text classification
+2023,0.607257549,Text classification
+2023,0.6074323301193001,Token classification
+2023,0.607524484,Token classification
+2023,0.607997406,Token classification
+2023,0.608444413,Token classification
+2023,0.6086514522704001,Token classification
+2023,0.6086851399752999,Token classification
+2023,0.61052975,Token classification
+2023,0.6134827574738999,Text classification
+2023,0.614891352,Text classification
+2023,0.614980797,Token classification
+2023,0.616295971,Token classification
+2023,0.6167439833478999,Token classification
+2023,0.6169065841307001,Token classification
+2023,0.618330442,Token classification
+2023,0.618785153,Token classification
+2023,0.6208087952535001,Text classification
+2023,0.621759808,Token classification
+2023,0.623732187,Token classification
+2023,0.624304332,Token classification
+2023,0.624312837,Text classification
+2023,0.625730632,Token classification
+2023,0.629448578,Text classification
+2023,0.6303944279261999,Text classification
+2023,0.630719867,Text classification
+2023,0.631830052,Token classification
+2023,0.6339491628088001,Text classification
+2023,0.63451246,Token classification
+2023,0.635815063,Token classification
+2023,0.638137023,Text classification
+2023,0.638504264,Fill mask
+2023,0.638539734,Text classification
+2023,0.638544227,Text classification
+2023,0.640420151,Token classification
+2023,0.641370583,Token classification
+2023,0.643098792,Fill mask
+2023,0.643396072,Token classification
+2023,0.6439178847163001,Token classification
+2023,0.645916946,Fill mask
+2023,0.6462112445178001,Token classification
+2023,0.6469033315737001,Text classification
+2023,0.647858464,Text classification
+2023,0.647926986,Token classification
+2023,0.648073754,Token classification
+2023,0.6518963155517999,Text classification
+2023,0.6521567378580001,Token classification
+2023,0.65289713,Fill mask
+2023,0.6555865340140999,Token classification
+2023,0.655964311,Text classification
+2023,0.6578205499047001,Token classification
+2023,0.6618028793838999,Token classification
+2023,0.66273868,Token classification
+2023,0.662806442,Token classification
+2023,0.667182973,Token classification
+2023,0.669813167,Fill mask
+2023,0.671504107,Token classification
+2023,0.67258873,Token classification
+2023,0.674507953,Question answering
+2023,0.67458999,Question answering
+2023,0.674703202,Question answering
+2023,0.6748934706763999,Question answering
+2023,0.675314893,Question answering
+2023,0.675657633,Question answering
+2023,0.675721957,Question answering
+2023,0.676152256,Question answering
+2023,0.676176792,Question answering
+2023,0.676255098,Question answering
+2023,0.6765127,Question answering
+2023,0.676770462,Question answering
+2023,0.6770191720063999,Question answering
+2023,0.677108936,Question answering
+2023,0.677206673,Question answering
+2023,0.6777513169795001,Question answering
+2023,0.677836066,Question answering
+2023,0.678343467,Question answering
+2023,0.6785642582046001,Question answering
+2023,0.678894525,Question answering
+2023,0.678924446,Question answering
+2023,0.678926155,Question answering
+2023,0.6790480564131001,Question answering
+2023,0.6792578573200999,Question answering
+2023,0.6793321735273999,Question answering
+2023,0.679405026,Fill mask
+2023,0.679669288,Token classification
+2023,0.679717652,Question answering
+2023,0.679754992,Question answering
+2023,0.679770952,Question answering
+2023,0.679900382,Question answering
+2023,0.67993391,Question answering
+2023,0.6803141384513001,Fill mask
+2023,0.680527103,Question answering
+2023,0.680665944,Question answering
+2023,0.6807801151783001,Question answering
+2023,0.6808524242026001,Question answering
+2023,0.681435104,Question answering
+2023,0.6823611387453999,Question answering
+2023,0.682465681,Question answering
+2023,0.682687921,Question answering
+2023,0.683049324,Fill mask
+2023,0.687085251,Fill mask
+2023,0.687785,Fill mask
+2023,0.688623973,Fill mask
+2023,0.6905717705539001,Fill mask
+2023,0.691100673,Question answering
+2023,0.693930253,Question answering
+2023,0.698049981,Fill mask
+2023,0.699144876,Fill mask
+2023,0.7028616298721001,Image classification
+2023,0.702905496,Fill mask
+2023,0.706494176,Token classification
+2023,0.706522223,Fill mask
+2023,0.707900378,Fill mask
+2023,0.7083782652163001,Fill mask
+2023,0.708844437,Image classification
+2023,0.709717168,Image classification
+2023,0.7102269929782999,Fill mask
+2023,0.710236849,Image classification
+2023,0.710462109,Fill mask
+2023,0.710875017,Image classification
+2023,0.7109880097080999,Fill mask
+2023,0.711832616,Fill mask
+2023,0.71387965,Image classification
+2023,0.714115269,Fill mask
+2023,0.7141531154792999,Image classification
+2023,0.714689768,Fill mask
+2023,0.715134251,Image classification
+2023,0.7151531751788001,Fill mask
+2023,0.716845928,Image classification
+2023,0.719603845,Fill mask
+2023,0.720995412,Fill mask
+2023,0.7219239117808001,Fill mask
+2023,0.725217445,Fill mask
+2023,0.7253455350851999,Fill mask
+2023,0.72564237,Fill mask
+2023,0.725869128,Fill mask
+2023,0.728692714,Image classification
+2023,0.7290339829032001,Question answering
+2023,0.7301781791740001,Question answering
+2023,0.731028398,Image classification
+2023,0.731097907,Question answering
+2023,0.731514755,Question answering
+2023,0.731659719,Token classification
+2023,0.7318539932502001,Fill mask
+2023,0.733161898,Question answering
+2023,0.7337051001648001,Image classification
+2023,0.734117987,Fill mask
+2023,0.734219131,Image classification
+2023,0.735455585,Question answering
+2023,0.735995419,Question answering
+2023,0.736022433,Question answering
+2023,0.736359053,Image classification
+2023,0.736898315,Question answering
+2023,0.737112915,Question answering
+2023,0.737168495,Question answering
+2023,0.737240043,Image classification
+2023,0.737615412,Fill mask
+2023,0.737644332,Image classification
+2023,0.737672643,Question answering
+2023,0.7376975310952999,Question answering
+2023,0.73808241,Question answering
+2023,0.7387121195185999,Question answering
+2023,0.739156691,Question answering
+2023,0.7393154103680001,Question answering
+2023,0.7393696762165001,Image classification
+2023,0.739826731,Fill mask
+2023,0.740625652,Question answering
+2023,0.740909962,Image classification
+2023,0.7411679221029001,Image classification
+2023,0.7420077471404001,Fill mask
+2023,0.74235978,Question answering
+2023,0.742808492,Question answering
+2023,0.743253215,Fill mask
+2023,0.743299316,Question answering
+2023,0.74496955,Question answering
+2023,0.745148917,Fill mask
+2023,0.745377006,Fill mask
+2023,0.745646593,Question answering
+2023,0.7469422904888999,Question answering
+2023,0.747053022,Question answering
+2023,0.74722084,Fill mask
+2023,0.7472341,Question answering
+2023,0.747310293,Question answering
+2023,0.7475105631425001,Question answering
+2023,0.7477371030708999,Question answering
+2023,0.7478019432449999,Question answering
+2023,0.7500450981112999,Fill mask
+2023,0.7504911411005001,Question answering
+2023,0.751771419,Question answering
+2023,0.751877708,Question answering
+2023,0.753434426,Fill mask
+2023,0.757728727,Question answering
+2023,0.758501719,Question answering
+2023,0.758784794,Question answering
+2023,0.758972707,Question answering
+2023,0.759607295,Question answering
+2023,0.760073555,Question answering
+2023,0.7601787756224999,Fill mask
+2023,0.763848399,Question answering
+2023,0.764764162,Question answering
+2023,0.7648692,Question answering
+2023,0.7649466614795001,Question answering
+2023,0.76553496,Question answering
+2023,0.7674944368323999,Question answering
+2023,0.767621448,Fill mask
+2023,0.7710936371870001,Question answering
+2023,0.7715491509803001,Question answering
+2023,0.773021571,Fill mask
+2023,0.7746368741472001,Fill mask
+2023,0.7757343334042001,Image classification
+2023,0.778914217,Question answering
+2023,0.780821737,Fill mask
+2023,0.785527911,Image classification
+2023,0.787130392,Image classification
+2023,0.7886577073377999,Question answering
+2023,0.7891311354984001,Image classification
+2023,0.789348302,Fill mask
+2023,0.790913308,Image classification
+2023,0.79094277,Image classification
+2023,0.79477482,Image classification
+2023,0.7950918113215001,Image classification
+2023,0.80123956,Image classification
+2023,0.8016815451297999,Question answering
+2023,0.802533261,Image classification
+2023,0.803219395,Image classification
+2023,0.804598385,Image classification
+2023,0.805555065,Image classification
+2023,0.805566762,Image classification
+2023,0.8059183946026001,Image classification
+2023,0.806330886,Image classification
+2023,0.8064951307553999,Image classification
+2023,0.806886085,Fill mask
+2023,0.807818774,Image classification
+2023,0.809306732,Image classification
+2023,0.809682513,Image classification
+2023,0.812675675,Image classification
+2023,0.8127794117524999,Image classification
+2023,0.813284544,Image classification
+2023,0.813921102,Image classification
+2023,0.816104419,Image classification
+2023,0.816906018,Image classification
+2023,0.818666914,Image classification
+2023,0.824711231,Image classification
+2023,0.826278226,Image classification
+2023,0.837653242,Image classification
+2023,0.846606253,Image classification
+2023,0.851670059,Image classification
+2023,0.856988988,Image classification
+2023,0.8592133094440999,Image classification
+2023,0.8597371878911999,Image classification
+2023,0.86042578,Image classification
+2023,0.861003944,Image classification
+2023,0.8618045583873001,Image classification
+2023,0.8625832722758999,Image classification
+2023,0.862625735,Image classification
+2023,0.869565018,Image classification
+2023,0.869979237,Image classification
+2023,0.8701227856128001,Image classification
+2023,0.874247155,Image classification
+2023,0.875273939,Image classification
+2023,0.877910806,Image classification
+2023,0.881054293,Image classification
+2023,0.881201225,Image classification
+2023,0.88189604,Image classification
+2023,0.882172161,Image classification
+2023,0.884491791,Image classification
+2023,0.886461794,Image classification
+2023,0.89098039,Image classification
+2023,0.8928631715884999,Image classification
+2023,0.89310111,Image classification
+2023,0.893611644,Image classification
+2023,0.8952688,Image classification
+2023,0.8961145417667999,Image classification
+2023,0.896646755,Image classification
+2023,0.897731304,Image classification
+2023,0.8991740459036001,Image classification
+2023,0.8994324034250001,Image classification
+2023,0.900351452,Image classification
+2023,0.900721859,Image classification
+2023,0.902106144,Image classification
+2023,0.905517059,Image classification
+2023,0.906765012,Image classification
+2023,0.907362424,Image classification
+2023,0.907931555,Image classification
+2023,0.90885332,Image classification
+2023,0.910019161,Image classification
+2023,0.912678852,Image classification
+2023,0.912700536,Image classification
+2023,0.913466574,Image classification
+2023,0.914856119,Image classification
+2023,0.916855479,Image classification
+2023,0.920477137,Image classification
+2023,0.922500381,Image classification
+2023,0.923412401,Image classification
+2023,0.92425143,Image classification
+2023,0.925566122,Image classification
+2023,0.925648715,Image classification
+2023,0.926203545,Image classification
+2023,0.92772139,Image classification
+2023,0.927796362,Image classification
+2023,0.928022548,Image classification
+2023,0.929226256,Image classification
+2023,0.929634628,Image classification
+2023,0.930689035,Image classification
+2023,0.931089787,Image classification
+2023,0.935701129,Image classification
+2023,0.93653065,Image classification
+2023,0.940161606,Image classification
+2023,0.940356409,Token classification
+2023,0.943573638,Image classification
+2023,0.943621392,Token classification
+2023,0.943718601,Token classification
+2023,0.944143551,Token classification
+2023,0.944252041,Token classification
+2023,0.944283367,Image classification
+2023,0.947166339,Token classification
+2023,0.947546059,Image classification
+2023,0.950487544,Image classification
+2023,0.95180631,Image classification
+2023,0.952493285,Image classification
+2023,0.953770813,Image classification
+2023,0.95403449,Token classification
+2023,0.954189697,Image classification
+2023,0.955113939,Image classification
+2023,0.957151058,Image classification
+2023,0.95825761,Image classification
+2023,0.958298325,Token classification
+2023,0.958347569,Token classification
+2023,0.958685314,Image classification
+2023,0.960569194,Token classification
+2023,0.961160327,Token classification
+2023,0.961173832,Image classification
+2023,0.961496059,Image classification
+2023,0.962104603,Image classification
+2023,0.962950844,Token classification
+2023,0.963960163,Image classification
+2023,0.964568321,Token classification
+2023,0.964807143,Token classification
+2023,0.968582409,Image classification
+2023,0.971087844,Image classification
+2023,0.973737942,Image classification
+2023,0.975673995,Image classification
+2023,0.976945299,Token classification
+2023,0.977349779,Image classification
+2023,0.978207754,Token classification
+2023,0.979722367,Image classification
+2023,0.979941744,Token classification
+2023,0.980644182,Image classification
+2023,0.981285573,Image classification
+2023,0.981403952,Image classification
+2023,0.981441211,Image classification
+2023,0.983572381,Token classification
+2023,0.984203368,Image classification
+2023,0.985287655,Image classification
+2023,0.986742073,Image classification
+2023,0.988245358,Token classification
+2023,0.989369291,Image classification
+2023,0.98975901,Image classification
+2023,0.989924805,Image classification
+2023,0.990113866,Image classification
+2023,0.990574124,Image classification
+2023,0.990963583,Image classification
+2023,0.991474248,Image classification
+2023,0.992585553,Image classification
+2023,0.993028792,Image classification
+2023,0.994304716,Image classification
+2023,0.996638444,Image classification
+2023,1.001122297,Token classification
+2023,1.009365006,Image classification
+2023,1.011371028,Image classification
+2023,1.015463059,Image classification
+2023,1.01889777,Image classification
+2023,1.020145649,Image classification
+2023,1.02208234,Image classification
+2023,1.0232716144468998,Image classification
+2023,1.023758434,Image classification
+2023,1.02907017,Image classification
+2023,1.030408818,Image classification
+2023,1.030877988,Image classification
+2023,1.03127321,Image classification
+2023,1.032017672,Image classification
+2023,1.0325324757060002,Image classification
+2023,1.03561393,Image classification
+2023,1.037805953,Image classification
+2023,1.043416491,Image classification
+2023,1.046867358,Image classification
+2023,1.047466493,Image classification
+2023,1.05110111,Image classification
+2023,1.0521744848388002,Image classification
+2023,1.061197586,Image classification
+2023,1.06463059,Image classification
+2023,1.066083978,Token classification
+2023,1.069177632,Token classification
+2023,1.070923575,Image classification
+2023,1.0728166867125002,Token classification
+2023,1.073485087,Image classification
+2023,1.073870232,Image classification
+2023,1.075709977,Token classification
+2023,1.07979879,Image classification
+2023,1.079813098,Image classification
+2023,1.079976726,Image classification
+2023,1.081076906,Token classification
+2023,1.08283433,Image classification
+2023,1.083528017,Image classification
+2023,1.08388132,Token classification
+2023,1.088226966,Image classification
+2023,1.088338851,Image classification
+2023,1.0906554443918002,Token classification
+2023,1.091381074,Token classification
+2023,1.0914510407206002,Image classification
+2023,1.0916703,Image classification
+2023,1.095845005,Token classification
+2023,1.098634848,Image classification
+2023,1.101060128,Image classification
+2023,1.101739442,Image classification
+2023,1.108752286,Image classification
+2023,1.108843981,Image classification
+2023,1.109501646,Image classification
+2023,1.11370556,Image classification
+2023,1.115167283,Image classification
+2023,1.122531029,Image classification
+2023,1.123097352,Image classification
+2023,1.129303191,Token classification
+2023,1.1336826688691002,Image classification
+2023,1.135134898,Image classification
+2023,1.13991829,Image classification
+2023,1.140464087,Image classification
+2023,1.144280427,Image classification
+2023,1.149767985,Image classification
+2023,1.1525068198825998,Image classification
+2023,1.153136233,Image classification
+2023,1.163299212,Image classification
+2023,1.166219821,Image classification
+2023,1.1805084878421002,Image classification
+2023,1.185768507,Image classification
+2023,1.204690231,Image classification
+2023,1.210352085,Image classification
+2023,1.21093843,Image classification
+2023,1.211336759,Image classification
+2023,1.215314416,Image classification
+2023,1.215508081,Image classification
+2023,1.220400439,Image classification
+2023,1.2212980257569002,Image classification
+2023,1.222094239,Image classification
+2023,1.226392857,Image classification
+2023,1.232956053,Zero-shot sentiment analysis
+2023,1.251041136,Image classification
+2023,1.266905594,Zero-shot sentiment analysis
+2023,1.267984217,Zero-shot sentiment analysis
+2023,1.272157928,Zero-shot sentiment analysis
+2023,1.2763136499327998,Zero-shot sentiment analysis
+2023,1.27879493,Zero-shot sentiment analysis
+2023,1.278803821,Zero-shot sentiment analysis
+2023,1.280339873,Image classification
+2023,1.280841117,Zero-shot sentiment analysis
+2023,1.281671259,Zero-shot sentiment analysis
+2023,1.282086373,Image classification
+2023,1.282167582,Zero-shot sentiment analysis
+2023,1.284507502,Zero-shot sentiment analysis
+2023,1.285082846,Image classification
+2023,1.285471171,Image classification
+2023,1.285754576,Zero-shot sentiment analysis
+2023,1.286931184,Zero-shot sentiment analysis
+2023,1.287155952,Image classification
+2023,1.287623514,Image classification
+2023,1.287819048,Zero-shot sentiment analysis
+2023,1.2885659626552002,Image classification
+2023,1.291937728,Zero-shot sentiment analysis
+2023,1.294543056,Zero-shot sentiment analysis
+2023,1.298497702,Image classification
+2023,1.305352107,Zero-shot sentiment analysis
+2023,1.305984798,Zero-shot sentiment analysis
+2023,1.3093519301510002,Zero-shot sentiment analysis
+2023,1.31004239,Zero-shot sentiment analysis
+2023,1.313003222,Zero-shot sentiment analysis
+2023,1.314263927,Zero-shot sentiment analysis
+2023,1.316540619,Zero-shot sentiment analysis
+2023,1.316791859,Image classification
+2023,1.317068653,Zero-shot sentiment analysis
+2023,1.317195089,Zero-shot sentiment analysis
+2023,1.320823543,Image classification
+2023,1.330465674,Zero-shot sentiment analysis
+2023,1.330539701,Zero-shot sentiment analysis
+2023,1.334143352,Zero-shot sentiment analysis
+2023,1.33528874,Zero-shot sentiment analysis
+2023,1.335768387,Zero-shot sentiment analysis
+2023,1.340285389,Zero-shot sentiment analysis
+2023,1.342490445,Zero-shot sentiment analysis
+2023,1.342642946,Zero-shot sentiment analysis
+2023,1.344787014,Zero-shot sentiment analysis
+2023,1.346647702,Zero-shot sentiment analysis
+2023,1.348372564,Zero-shot sentiment analysis
+2023,1.350340913,Zero-shot sentiment analysis
+2023,1.350647986,Zero-shot sentiment analysis
+2023,1.350919911,Zero-shot sentiment analysis
+2023,1.352258396,Zero-shot sentiment analysis
+2023,1.3557885240405998,Zero-shot sentiment analysis
+2023,1.359100661,Zero-shot sentiment analysis
+2023,1.362607414,Zero-shot sentiment analysis
+2023,1.374248134,Zero-shot sentiment analysis
+2023,1.376500888,Zero-shot sentiment analysis
+2023,1.378547075,Zero-shot sentiment analysis
+2023,1.3799579,Zero-shot sentiment analysis
+2023,1.380056452,Zero-shot sentiment analysis
+2023,1.387247797,Image classification
+2023,1.388062148,Image classification
+2023,1.388468301,Image classification
+2023,1.391472744,Image classification
+2023,1.392292893,Zero-shot sentiment analysis
+2023,1.393034912,Image classification
+2023,1.397211542,Zero-shot sentiment analysis
+2023,1.40708775,Image classification
+2023,1.413556942,Image classification
+2023,1.416228637,Image classification
+2023,1.444335644,Image classification
+2023,1.452649909,Image classification
+2023,1.507196496,Zero-shot sentiment analysis
+2023,1.510946631,Zero-shot sentiment analysis
+2023,1.511500696,Zero-shot sentiment analysis
+2023,1.516230852,Zero-shot sentiment analysis
+2023,1.517206605,Zero-shot sentiment analysis
+2023,1.523861849,Zero-shot sentiment analysis
+2023,1.545474236,Zero-shot sentiment analysis
+2023,1.546151901,Zero-shot sentiment analysis
+2023,1.546354442,Zero-shot sentiment analysis
+2023,1.548065855,Zero-shot sentiment analysis
+2023,1.550216212,Zero-shot sentiment analysis
+2023,1.559193416,Zero-shot sentiment analysis
+2023,1.564663732,Zero-shot sentiment analysis
+2023,1.564699793,Zero-shot sentiment analysis
+2023,1.581713287,Zero-shot sentiment analysis
+2023,1.59165427,Zero-shot sentiment analysis
+2023,1.592477034,Zero-shot sentiment analysis
+2023,1.596789541,Zero-shot sentiment analysis
+2023,1.617180483,Zero-shot sentiment analysis
+2023,1.6337423631269998,Zero-shot sentiment analysis
+2023,1.705017334,Object detection
+2023,1.713620463,Object detection
+2023,1.717799532,Object detection
+2023,1.74482877,Object detection
+2023,1.747556234,Object detection
+2023,1.75732713,Zero-shot question answering
+2023,1.761593889,Zero-shot question answering
+2023,1.768482157,Object detection
+2023,1.769911858,Zero-shot question answering
+2023,1.777115598,Object detection
+2023,1.782655063,Zero-shot question answering
+2023,1.783965188,Object detection
+2023,1.788381701,Object detection
+2023,1.788824152,Zero-shot question answering
+2023,1.788857783,Object detection
+2023,1.7899410015339998,Object detection
+2023,1.7918455249963998,Object detection
+2023,1.791921829,Object detection
+2023,1.79682244,Zero-shot question answering
+2023,1.798818214,Object detection
+2023,1.801461827,Zero-shot question answering
+2023,1.804231925,Zero-shot sentiment analysis
+2023,1.80456779,Object detection
+2023,1.80803619,Object detection
+2023,1.808206896,Object detection
+2023,1.810248628,Zero-shot sentiment analysis
+2023,1.814912064,Object detection
+2023,1.818322574,Zero-shot sentiment analysis
+2023,1.820043565,Object detection
+2023,1.820862662,Zero-shot question answering
+2023,1.823339069,Zero-shot sentiment analysis
+2023,1.823693305,Object detection
+2023,1.825981248,Zero-shot question answering
+2023,1.829749521,Object detection
+2023,1.833148761,Object detection
+2023,1.839146054,Object detection
+2023,1.841628969,Object detection
+2023,1.843768636,Zero-shot question answering
+2023,1.849852205,Object detection
+2023,1.855673458,Object detection
+2023,1.85609214,Zero-shot sentiment analysis
+2023,1.858526588,Zero-shot sentiment analysis
+2023,1.861010816,Zero-shot sentiment analysis
+2023,1.865198974,Zero-shot sentiment analysis
+2023,1.866087357,Zero-shot sentiment analysis
+2023,1.866556336,Object detection
+2023,1.87623966,Zero-shot sentiment analysis
+2023,1.882683113,Object detection
+2023,1.893680652,Object detection
+2023,1.894438001,Text generation
+2023,1.898013919,Object detection
+2023,1.906639054,Text generation
+2023,1.916323165,Text generation
+2023,1.917511867,Text generation
+2023,1.94637176,Text generation
+2023,2.004492706,Zero-shot question answering
+2023,2.006569912,Text generation
+2023,2.013236693,Text generation
+2023,2.015003456,Zero-shot question answering
+2023,2.017936442,Zero-shot question answering
+2023,2.019338079,Text generation
+2023,2.021573625,Text generation
+2023,2.023381709,Text generation
+2023,2.025385015,Text generation
+2023,2.025775746,Zero-shot question answering
+2023,2.0294884,Zero-shot question answering
+2023,2.039350868,Text generation
+2023,2.039383951,Text generation
+2023,2.041327797,Zero-shot question answering
+2023,2.043747344,Zero-shot question answering
+2023,2.045305851,Text generation
+2023,2.045364223,Text generation
+2023,2.0456630383605003,Text generation
+2023,2.046133372,Text generation
+2023,2.053335898,Text generation
+2023,2.053368576,Text generation
+2023,2.054802468,Text generation
+2023,2.0563065702516004,Zero-shot question answering
+2023,2.0574433770493004,Text generation
+2023,2.057467915,Text generation
+2023,2.060026662,Text generation
+2023,2.060896807,Text generation
+2023,2.066754488,Text generation
+2023,2.079379945,Zero-shot question answering
+2023,2.093917613,Text generation
+2023,2.096600392,Text generation
+2023,2.118564294,Zero-shot question answering
+2023,2.118666177,Zero-shot sentiment analysis
+2023,2.120410677,Text generation
+2023,2.121419263,Zero-shot sentiment analysis
+2023,2.1227388586540004,Zero-shot sentiment analysis
+2023,2.126678226,Zero-shot sentiment analysis
+2023,2.130084559,Zero-shot sentiment analysis
+2023,2.143389406,Zero-shot sentiment analysis
+2023,2.157302197,Zero-shot sentiment analysis
+2023,2.1647284301154004,Text generation
+2023,2.177433677,Zero-shot sentiment analysis
+2023,2.179815417,Zero-shot sentiment analysis
+2023,2.194214385,Text generation
+2023,2.1978526571795003,Zero-shot sentiment analysis
+2023,2.212700237,Zero-shot sentiment analysis
+2023,2.220266735,Zero-shot sentiment analysis
+2023,2.2208417940880003,Zero-shot sentiment analysis
+2023,2.240589931,Zero-shot sentiment analysis
+2023,2.244521363,Zero-shot sentiment analysis
+2023,2.2508931942664003,Zero-shot sentiment analysis
+2023,2.251130232,Zero-shot sentiment analysis
+2023,2.2568587460282004,Zero-shot sentiment analysis
+2023,2.260050819,Zero-shot sentiment analysis
+2023,2.262394673,Zero-shot sentiment analysis
+2023,2.2632292108342003,Zero-shot sentiment analysis
+2023,2.26811731,Zero-shot sentiment analysis
+2023,2.270007744,Zero-shot sentiment analysis
+2023,2.271628211,Zero-shot sentiment analysis
+2023,2.272404152,Zero-shot sentiment analysis
+2023,2.279119531,Zero-shot sentiment analysis
+2023,2.2892440626855004,Zero-shot sentiment analysis
+2023,2.3023657693370003,Zero-shot sentiment analysis
+2023,2.318567457,Zero-shot sentiment analysis
+2023,2.338856471,Zero-shot question answering
+2023,2.350364974,Zero-shot question answering
+2023,2.351735434,Zero-shot sentiment analysis
+2023,2.358285757,Zero-shot question answering
+2023,2.361400925,Zero-shot question answering
+2023,2.361534642,Zero-shot sentiment analysis
+2023,2.363154567,Zero-shot question answering
+2023,2.368431984,Zero-shot sentiment analysis
+2023,2.371773663,Zero-shot sentiment analysis
+2023,2.372023245,Zero-shot sentiment analysis
+2023,2.374227871,Zero-shot sentiment analysis
+2023,2.374609284,Zero-shot sentiment analysis
+2023,2.375204856,Zero-shot sentiment analysis
+2023,2.376799339,Zero-shot sentiment analysis
+2023,2.3813488487536003,Zero-shot sentiment analysis
+2023,2.395795869,Zero-shot sentiment analysis
+2023,2.399308346,Zero-shot sentiment analysis
+2023,2.401587374,Zero-shot question answering
+2023,2.402725169,Zero-shot sentiment analysis
+2023,2.403942814,Zero-shot question answering
+2023,2.41765294,Zero-shot sentiment analysis
+2023,2.419642703,Zero-shot sentiment analysis
+2023,2.425778722,Zero-shot sentiment analysis
+2023,2.428666044,Zero-shot sentiment analysis
+2023,2.430267738,Zero-shot sentiment analysis
+2023,2.4352939213301004,Zero-shot sentiment analysis
+2023,2.43702405,Zero-shot sentiment analysis
+2023,2.440747526,Zero-shot sentiment analysis
+2023,2.441761152,Zero-shot sentiment analysis
+2023,2.441882159,Zero-shot sentiment analysis
+2023,2.443224654,Zero-shot sentiment analysis
+2023,2.4442732541619003,Zero-shot question answering
+2023,2.447318293,Zero-shot sentiment analysis
+2023,2.449265622,Zero-shot question answering
+2023,2.451646975,Zero-shot sentiment analysis
+2023,2.453350315,Zero-shot sentiment analysis
+2023,2.45788707,Zero-shot question answering
+2023,2.461091004,Zero-shot sentiment analysis
+2023,2.461631396,Zero-shot question answering
+2023,2.465893662,Zero-shot sentiment analysis
+2023,2.46853105,Zero-shot sentiment analysis
+2023,2.468995837,Zero-shot question answering
+2023,2.469489191,Zero-shot question answering
+2023,2.472139449,Zero-shot sentiment analysis
+2023,2.490445022,Zero-shot question answering
+2023,2.491181554,Zero-shot question answering
+2023,2.530895566,Zero-shot question answering
+2023,2.541790766,Zero-shot question answering
+2023,2.553396889,Zero-shot question answering
+2023,2.562358209,Zero-shot question answering
+2023,2.573221327,Zero-shot sentiment analysis
+2023,2.573459536,Zero-shot sentiment analysis
+2023,2.578630638,Zero-shot sentiment analysis
+2023,2.579593969,Zero-shot sentiment analysis
+2023,2.587282991,Zero-shot sentiment analysis
+2023,2.594474548,Zero-shot sentiment analysis
+2023,2.595898485,Zero-shot sentiment analysis
+2023,2.5985847762163004,Zero-shot question answering
+2023,2.5988334674974003,Zero-shot sentiment analysis
+2023,2.60777331,Zero-shot question answering
+2023,2.614490595,Zero-shot question answering
+2023,2.615624243,Zero-shot question answering
+2023,2.616985213,Zero-shot question answering
+2023,2.620873833,Zero-shot question answering
+2023,2.649669379,Zero-shot sentiment analysis
+2023,2.657310661,Zero-shot question answering
+2023,2.657626781,Zero-shot sentiment analysis
+2023,2.663887791,Zero-shot question answering
+2023,2.680048144,Zero-shot question answering
+2023,2.6849941853883004,Zero-shot question answering
+2023,2.6901855616545003,Zero-shot question answering
+2023,2.6938651,Zero-shot question answering
+2023,2.695558749,Zero-shot question answering
+2023,2.712318343,Zero-shot question answering
+2023,2.725674853,Zero-shot question answering
+2023,2.735626049,Zero-shot question answering
+2023,2.747306904,Zero-shot question answering
+2023,2.747975889,Zero-shot question answering
+2023,2.757203848,Zero-shot question answering
+2023,2.764066053,Zero-shot question answering
+2023,2.764929315,Zero-shot question answering
+2023,2.875025501,Zero-shot sentiment analysis
+2023,2.881250278,Zero-shot sentiment analysis
+2023,2.909464467,Zero-shot sentiment analysis
+2023,2.915488448,Zero-shot sentiment analysis
+2023,2.927797054,Zero-shot question answering
+2023,2.92931691,Zero-shot question answering
+2023,2.938575248,Zero-shot question answering
+2023,2.940503059,Zero-shot question answering
+2023,2.948054303,Zero-shot question answering
+2023,2.949493482,Zero-shot question answering
+2023,2.949612,Zero-shot sentiment analysis
+2023,2.95225196,Zero-shot question answering
+2023,2.9563085342332003,Zero-shot sentiment analysis
+2023,2.974893233,Zero-shot question answering
+2023,2.998552611,Zero-shot sentiment analysis
+2023,3.00453843,Zero-shot sentiment analysis
+2023,3.005340878,Zero-shot sentiment analysis
+2023,3.007608578,Zero-shot question answering
+2023,3.012103103,Zero-shot question answering
+2023,3.016387687,Zero-shot sentiment analysis
+2023,3.169501845,Object detection
+2023,3.217269986,Object detection
+2023,3.226813865,Object detection
+2023,3.227731267,Object detection
+2023,3.22937667,Object detection
+2023,3.231145134,Object detection
+2023,3.233594984,Object detection
+2023,3.247936644,Object detection
+2023,3.2535081631015004,Object detection
+2023,3.2627085,Object detection
+2023,3.263454179,Object detection
+2023,3.264014498,Object detection
+2023,3.270270902,Zero-shot sentiment analysis
+2023,3.272520893,Zero-shot sentiment analysis
+2023,3.273427292,Zero-shot sentiment analysis
+2023,3.275187303,Zero-shot sentiment analysis
+2023,3.2752592307454003,Text generation
+2023,3.275511958,Text generation
+2023,3.277832268,Object detection
+2023,3.282293339,Text generation
+2023,3.284594307,Object detection
+2023,3.290122885,Object detection
+2023,3.290610346,Object detection
+2023,3.295444726,Object detection
+2023,3.297015434,Text generation
+2023,3.301876184,Object detection
+2023,3.302703683,Zero-shot sentiment analysis
+2023,3.303439686,Object detection
+2023,3.305441899,Object detection
+2023,3.306886675,Text generation
+2023,3.309215329,Text generation
+2023,3.311396408,Text generation
+2023,3.313001629,Text generation
+2023,3.314632868,Object detection
+2023,3.3155395,Text generation
+2023,3.317175927,Text generation
+2023,3.32071897,Text generation
+2023,3.325800195,Text generation
+2023,3.329398469,Zero-shot sentiment analysis
+2023,3.331905108,Text generation
+2023,3.332134259,Object detection
+2023,3.33602097,Text generation
+2023,3.339306271,Object detection
+2023,3.340281513,Text generation
+2023,3.3406398348298003,Object detection
+2023,3.343500198,Object detection
+2023,3.348507511,Object detection
+2023,3.3500139019214004,Object detection
+2023,3.354974395,Text generation
+2023,3.355028923,Text generation
+2023,3.355842425,Object detection
+2023,3.357219362,Object detection
+2023,3.359248089,Text generation
+2023,3.363236114,Object detection
+2023,3.36392045,Text generation
+2023,3.369142864,Object detection
+2023,3.371363845,Object detection
+2023,3.372171152,Object detection
+2023,3.372305393,Text generation
+2023,3.373537924,Object detection
+2023,3.375968352,Object detection
+2023,3.376109851,Text generation
+2023,3.3773982919797003,Text generation
+2023,3.37956797,Zero-shot sentiment analysis
+2023,3.38031645,Zero-shot sentiment analysis
+2023,3.383584111,Object detection
+2023,3.385193629,Object detection
+2023,3.385309677,Text generation
+2023,3.3864462523894003,Zero-shot sentiment analysis
+2023,3.388964321,Object detection
+2023,3.391110036,Object detection
+2023,3.391676015,Zero-shot sentiment analysis
+2023,3.392172739,Text generation
+2023,3.392549824,Object detection
+2023,3.393346774,Object detection
+2023,3.393869015,Object detection
+2023,3.3941469750796003,Text generation
+2023,3.394825575,Text generation
+2023,3.395716965,Object detection
+2023,3.401168485,Object detection
+2023,3.404611399,Object detection
+2023,3.405522814,Object detection
+2023,3.415172597,Text generation
+2023,3.422087671,Object detection
+2023,3.424225042,Object detection
+2023,3.436232233,Object detection
+2023,3.442706594,Object detection
+2023,3.4429234403202003,Object detection
+2023,3.447432706,Object detection
+2023,3.4521888674195003,Object detection
+2023,3.452520387,Object detection
+2023,3.458191744,Object detection
+2023,3.46309132,Object detection
+2023,3.467025184,Object detection
+2023,3.468528599,Text generation
+2023,3.471321105,Text generation
+2023,3.473132557,Text generation
+2023,3.477056745,Object detection
+2023,3.484430256,Text generation
+2023,3.485350351,Object detection
+2023,3.485536144,Text generation
+2023,3.488904092,Object detection
+2023,3.492253019,Object detection
+2023,3.495546085,Object detection
+2023,3.495571067,Object detection
+2023,3.499823594,Object detection
+2023,3.500299634,Object detection
+2023,3.503532211,Object detection
+2023,3.504383361,Object detection
+2023,3.510818575,Object detection
+2023,3.51400415,Object detection
+2023,3.517488812,Object detection
+2023,3.518430397,Object detection
+2023,3.518947586,Object detection
+2023,3.52214118,Text generation
+2023,3.522178649,Text generation
+2023,3.522487338,Object detection
+2023,3.524136,Text generation
+2023,3.5323054534305003,Object detection
+2023,3.534472392,Object detection
+2023,3.549280089,Text generation
+2023,3.549302961,Object detection
+2023,3.552241996,Object detection
+2023,3.556357497,Object detection
+2023,3.558449411,Object detection
+2023,3.563976911,Object detection
+2023,3.565713161,Object detection
+2023,3.568268206,Object detection
+2023,3.570053243,Object detection
+2023,3.570135617,Object detection
+2023,3.575040035,Object detection
+2023,3.5875614169255003,Text generation
+2023,3.593004744,Text generation
+2023,3.601955811,Text generation
+2023,3.608726827,Summarization
+2023,3.611473205,Summarization
+2023,3.61220306,Text generation
+2023,3.612571997,Text generation
+2023,3.618231088,Summarization
+2023,3.619218567,Text generation
+2023,3.619618207,Text generation
+2023,3.625546395,Object detection
+2023,3.626352144,Text generation
+2023,3.633683587,Summarization
+2023,3.633949051,Summarization
+2023,3.634195047,Text generation
+2023,3.635821702,Summarization
+2023,3.644703308,Text generation
+2023,3.645678456,Text generation
+2023,3.646455918,Text generation
+2023,3.650606036,Summarization
+2023,3.6570266,Text generation
+2023,3.657136098,Text generation
+2023,3.662065347,Summarization
+2023,3.663561822,Object detection
+2023,3.669180224,Text generation
+2023,3.670593522,Text generation
+2023,3.671601581,Object detection
+2023,3.672530602,Summarization
+2023,3.672602605,Zero-shot sentiment analysis
+2023,3.672845848,Object detection
+2023,3.673047507,Zero-shot sentiment analysis
+2023,3.673311614,Zero-shot sentiment analysis
+2023,3.680150679,Summarization
+2023,3.683715389,Object detection
+2023,3.685678823,Zero-shot sentiment analysis
+2023,3.685832957,Zero-shot sentiment analysis
+2023,3.691450597,Zero-shot sentiment analysis
+2023,3.70090184,Text generation
+2023,3.702599687,Zero-shot sentiment analysis
+2023,3.724466873,Text generation
+2023,3.731512111,Summarization
+2023,3.739965104612301,Zero-shot sentiment analysis
+2023,3.747187208,Summarization
+2023,3.752036246,Summarization
+2023,3.75244411,Summarization
+2023,3.752948846,Summarization
+2023,3.755467848,Text generation
+2023,3.782414445,Summarization
+2023,3.784553891,Summarization
+2023,3.788558749029901,Text generation
+2023,3.792029089,Summarization
+2023,3.796536951,Text generation
+2023,3.79852895,Zero-shot sentiment analysis
+2023,3.81162923,Zero-shot sentiment analysis
+2023,3.82097297,Summarization
+2023,3.829013146,Text generation
+2023,3.833065464232501,Text generation
+2023,3.861375447,Zero-shot sentiment analysis
+2023,3.868586584,Zero-shot sentiment analysis
+2023,3.869112257,Zero-shot sentiment analysis
+2023,3.870430089,Zero-shot sentiment analysis
+2023,3.874143093,Text generation
+2023,3.875528134,Zero-shot sentiment analysis
+2023,3.882652775,Zero-shot sentiment analysis
+2023,3.883417862,Zero-shot sentiment analysis
+2023,3.886821742,Zero-shot sentiment analysis
+2023,3.887423757,Zero-shot sentiment analysis
+2023,3.891841818,Zero-shot sentiment analysis
+2023,3.893738333,Zero-shot sentiment analysis
+2023,3.894011902,Zero-shot sentiment analysis
+2023,3.894432542,Zero-shot sentiment analysis
+2023,3.899094015,Zero-shot sentiment analysis
+2023,3.901152444,Image captioning
+2023,3.902257262,Zero-shot sentiment analysis
+2023,3.906700547,Zero-shot sentiment analysis
+2023,3.906982341,Zero-shot sentiment analysis
+2023,3.912947274,Summarization
+2023,3.914843955,Image captioning
+2023,3.917409111,Image captioning
+2023,3.921840187,Zero-shot sentiment analysis
+2023,3.924956254,Image captioning
+2023,3.925764348,Summarization
+2023,3.927532701,Zero-shot sentiment analysis
+2023,3.930199122,Zero-shot sentiment analysis
+2023,3.935451694,Image captioning
+2023,3.943860128,Image captioning
+2023,3.951499497,Image captioning
+2023,3.952918213,Zero-shot question answering
+2023,3.954204744,Zero-shot question answering
+2023,3.957463544,Summarization
+2023,3.95900451,Image captioning
+2023,3.959501507,Zero-shot sentiment analysis
+2023,3.960476834,Image captioning
+2023,3.966271932,Zero-shot question answering
+2023,3.967998071,Image captioning
+2023,3.968059567,Zero-shot question answering
+2023,3.968577081,Zero-shot question answering
+2023,3.968806524,Summarization
+2023,3.970979202,Image captioning
+2023,3.989279448,Image captioning
+2023,3.990804384,Zero-shot sentiment analysis
+2023,3.991795889,Summarization
+2023,4.008243165,Zero-shot sentiment analysis
+2023,4.009402419,Image captioning
+2023,4.011720312,Summarization
+2023,4.014203586,Image captioning
+2023,4.025472251778201,Image captioning
+2023,4.030099903,Zero-shot question answering
+2023,4.030839115,Zero-shot sentiment analysis
+2023,4.034141666,Summarization
+2023,4.036284571,Image captioning
+2023,4.038553895,Image captioning
+2023,4.039262939,Zero-shot sentiment analysis
+2023,4.045185005,Zero-shot sentiment analysis
+2023,4.045220895,Zero-shot question answering
+2023,4.049013615,Image captioning
+2023,4.052347334,Summarization
+2023,4.064628152,Zero-shot sentiment analysis
+2023,4.076673515,Summarization
+2023,4.083311941795101,Zero-shot sentiment analysis
+2023,4.08494407,Zero-shot sentiment analysis
+2023,4.0963806866526005,Image captioning
+2023,4.099087191,Zero-shot sentiment analysis
+2023,4.103614923,Summarization
+2023,4.112375776056701,Zero-shot question answering
+2023,4.123638171289899,Zero-shot sentiment analysis
+2023,4.123995566,Zero-shot sentiment analysis
+2023,4.124803091,Zero-shot sentiment analysis
+2023,4.125723296,Zero-shot sentiment analysis
+2023,4.126491358,Zero-shot sentiment analysis
+2023,4.1279846418337005,Zero-shot sentiment analysis
+2023,4.131317127,Zero-shot question answering
+2023,4.132639936,Zero-shot sentiment analysis
+2023,4.136434215,Zero-shot sentiment analysis
+2023,4.138077445,Object detection
+2023,4.141446488,Object detection
+2023,4.145164595,Zero-shot question answering
+2023,4.147728954,Image captioning
+2023,4.16449265,Zero-shot sentiment analysis
+2023,4.1707504,Object detection
+2023,4.172189788,Object detection
+2023,4.172520418,Image captioning
+2023,4.175751961,Zero-shot sentiment analysis
+2023,4.179917547,Image captioning
+2023,4.188624106,Object detection
+2023,4.189117639,Summarization
+2023,4.189330883,Object detection
+2023,4.20178415,Summarization
+2023,4.212704288515299,Zero-shot question answering
+2023,4.218745701,Image captioning
+2023,4.223380525,Zero-shot question answering
+2023,4.226646366,Zero-shot question answering
+2023,4.2292116932787005,Zero-shot question answering
+2023,4.230810656,Summarization
+2023,4.233570783594301,Object detection
+2023,4.234009841,Object detection
+2023,4.236821515,Summarization
+2023,4.238568825,Object detection
+2023,4.242633290725401,Summarization
+2023,4.243980354,Summarization
+2023,4.244825383,Object detection
+2023,4.245071021,Summarization
+2023,4.246439329452801,Zero-shot question answering
+2023,4.248617248,Object detection
+2023,4.249188725,Summarization
+2023,4.250330118,Summarization
+2023,4.2582860323911005,Image captioning
+2023,4.262502459,Summarization
+2023,4.266107808,Zero-shot question answering
+2023,4.2674649066709005,Zero-shot question answering
+2023,4.2686960625940005,Summarization
+2023,4.2702742200523005,Object detection
+2023,4.273497144,Object detection
+2023,4.278948504,Image captioning
+2023,4.283222686,Summarization
+2023,4.283336212,Image captioning
+2023,4.286183892908499,Summarization
+2023,4.28949452,Object detection
+2023,4.289762287,Image captioning
+2023,4.295280877564901,Object detection
+2023,4.2963378388166005,Object detection
+2023,4.305899789,Summarization
+2023,4.310000152897899,Zero-shot question answering
+2023,4.310804846,Summarization
+2023,4.313069508,Object detection
+2023,4.316261788,Summarization
+2023,4.318836052,Summarization
+2023,4.319409107160499,Object detection
+2023,4.322480931,Summarization
+2023,4.32368616,Image captioning
+2023,4.324986107,Object detection
+2023,4.327220154,Summarization
+2023,4.32725092,Summarization
+2023,4.330353349,Object detection
+2023,4.331540472,Object detection
+2023,4.332376068,Image captioning
+2023,4.332489177,Summarization
+2023,4.335020745,Summarization
+2023,4.338519011,Object detection
+2023,4.3399790980007005,Object detection
+2023,4.34134381,Object detection
+2023,4.343359329,Object detection
+2023,4.345130048,Object detection
+2023,4.351983064,Object detection
+2023,4.355801686,Summarization
+2023,4.356937896,Summarization
+2023,4.357537161,Object detection
+2023,4.360987018,Summarization
+2023,4.361824182,Object detection
+2023,4.367650140173501,Summarization
+2023,4.373299634,Summarization
+2023,4.377147181,Summarization
+2023,4.378057559,Zero-shot question answering
+2023,4.380541763,Object detection
+2023,4.382563837,Zero-shot question answering
+2023,4.382782741821701,Zero-shot question answering
+2023,4.3888722845790005,Summarization
+2023,4.3891225087314005,Object detection
+2023,4.391635231,Object detection
+2023,4.392300442,Summarization
+2023,4.393666723902499,Object detection
+2023,4.393690512,Zero-shot question answering
+2023,4.395354183,Zero-shot question answering
+2023,4.39682121,Zero-shot question answering
+2023,4.401788486,Summarization
+2023,4.40394424,Summarization
+2023,4.405699344,Image captioning
+2023,4.408444408276099,Object detection
+2023,4.408882294,Zero-shot question answering
+2023,4.411679328159201,Object detection
+2023,4.412035722,Summarization
+2023,4.413541951,Object detection
+2023,4.422657682,Summarization
+2023,4.423604326,Object detection
+2023,4.424436369,Summarization
+2023,4.425467383,Summarization
+2023,4.427794332,Object detection
+2023,4.429308823,Zero-shot question answering
+2023,4.432040224,Summarization
+2023,4.432541593,Object detection
+2023,4.43613347,Object detection
+2023,4.43721162,Zero-shot question answering
+2023,4.4483457307053005,Object detection
+2023,4.452187513,Object detection
+2023,4.453971807,Object detection
+2023,4.457486695,Summarization
+2023,4.458162347,Object detection
+2023,4.474325343,Zero-shot question answering
+2023,4.476206406,Object detection
+2023,4.486438216758001,Zero-shot question answering
+2023,4.488251571,Object detection
+2023,4.489423249236601,Summarization
+2023,4.498122458,Zero-shot question answering
+2023,4.500942654,Zero-shot question answering
+2023,4.501630259054901,Summarization
+2023,4.511524249,Object detection
+2023,4.516780516454499,Summarization
+2023,4.516803121,Object detection
+2023,4.51714353,Zero-shot question answering
+2023,4.519529485,Summarization
+2023,4.522480959,Object detection
+2023,4.529123205,Summarization
+2023,4.533250381328299,Summarization
+2023,4.5441235533072994,Object detection
+2023,4.54478691,Summarization
+2023,4.548008503,Summarization
+2023,4.54873719,Zero-shot question answering
+2023,4.549820704,Zero-shot question answering
+2023,4.550505453,Zero-shot question answering
+2023,4.55975953,Summarization
+2023,4.569452604,Summarization
+2023,4.569642762,Object detection
+2023,4.5717031535951005,Summarization
+2023,4.573044739,Zero-shot question answering
+2023,4.577149197,Zero-shot question answering
+2023,4.584869234,Object detection
+2023,4.594090291778699,Summarization
+2023,4.596560385205301,Summarization
+2023,4.603208962,Object detection
+2023,4.603855125,Summarization
+2023,4.611299748471399,Summarization
+2023,4.611793211,Zero-shot question answering
+2023,4.616996190126399,Object detection
+2023,4.619036769,Summarization
+2023,4.62256648,Object detection
+2023,4.633496038,Object detection
+2023,4.635604353131799,Summarization
+2023,4.642621161,Summarization
+2023,4.646868518561799,Summarization
+2023,4.648008503,Summarization
+2023,4.648744891,Object detection
+2023,4.659326773,Object detection
+2023,4.677953767,Zero-shot question answering
+2023,4.683794782,Summarization
+2023,4.696149971968899,Object detection
+2023,4.715556957,Zero-shot question answering
+2023,4.738043509,Summarization
+2023,4.781161435,Summarization
+2023,5.218666378949901,Zero-shot question answering
+2023,5.257319755,Zero-shot question answering
+2023,5.26664201,Zero-shot question answering
+2023,5.276619099,Zero-shot question answering
+2023,5.352695903,Zero-shot question answering
+2023,5.3919707076634005,Zero-shot question answering
+2023,5.392895056,Zero-shot question answering
+2023,5.437349898,Text generation
+2023,5.459454638,Zero-shot question answering
+2023,5.47740352,Text generation
+2023,5.486891511,Zero-shot sentiment analysis
+2023,5.494178301,Zero-shot sentiment analysis
+2023,5.502090461,Zero-shot sentiment analysis
+2023,5.50521283,Text generation
+2023,5.505522566,Zero-shot question answering
+2023,5.513927677,Zero-shot question answering
+2023,5.531528071,Zero-shot sentiment analysis
+2023,5.532026209,Text generation
+2023,5.576804088905799,Text generation
+2023,5.579705875,Text generation
+2023,5.613126884,Text generation
+2023,5.621604782,Text generation
+2023,5.624659099,Text generation
+2023,5.630511606,Zero-shot sentiment analysis
+2023,5.6443122934783005,Zero-shot sentiment analysis
+2023,5.657636135,Zero-shot sentiment analysis
+2023,5.662301436,Text generation
+2023,5.663391045,Text generation
+2023,5.664185352733701,Zero-shot sentiment analysis
+2023,5.681974089,Zero-shot sentiment analysis
+2023,5.723727846803399,Text generation
+2023,5.725532482,Text generation
+2023,5.725965692,Zero-shot sentiment analysis
+2023,5.756721818,Text generation
+2023,5.760491354,Text generation
+2023,5.761835879,Text generation
+2023,5.769175567,Zero-shot question answering
+2023,5.791144041,Text generation
+2023,5.791216021,Text generation
+2023,5.792233014664499,Text generation
+2023,5.795049385282399,Text generation
+2023,5.797579779,Text generation
+2023,5.797777174,Text generation
+2023,5.799500996,Text generation
+2023,5.801164898496499,Text generation
+2023,5.8026578457046005,Text generation
+2023,5.8027755045405005,Text generation
+2023,5.803847885,Text generation
+2023,5.81147688,Zero-shot question answering
+2023,5.811649905,Text generation
+2023,5.812089715,Zero-shot question answering
+2023,5.814506172,Zero-shot question answering
+2023,5.827815001,Text generation
+2023,5.830061087,Text generation
+2023,5.832369376,Text generation
+2023,5.843813009,Text generation
+2023,5.845790369,Text generation
+2023,5.848582408,Image captioning
+2023,5.859475139,Image captioning
+2023,5.861241971,Text generation
+2023,5.862431037,Text generation
+2023,5.862497832,Text generation
+2023,5.874459206,Zero-shot question answering
+2023,5.881333844,Text generation
+2023,5.883957828185601,Text generation
+2023,5.888021499,Zero-shot question answering
+2023,5.905287598,Image captioning
+2023,5.91162905,Text generation
+2023,5.914678584,Text generation
+2023,5.915982213,Text generation
+2023,5.924754253,Text generation
+2023,5.934785826,Image captioning
+2023,5.9418553780217005,Text generation
+2023,5.952002232596301,Image captioning
+2023,5.952453845,Text generation
+2023,5.953558684,Image captioning
+2023,5.968441927,Text generation
+2023,5.9783666854613005,Object detection
+2023,5.978959634,Zero-shot question answering
+2023,5.988975056,Image captioning
+2023,5.989152389,Zero-shot question answering
+2023,6.007130553,Image captioning
+2023,6.008779003,Zero-shot question answering
+2023,6.009654147,Text generation
+2023,6.016386498284301,Image captioning
+2023,6.016901929,Text generation
+2023,6.019489004,Text generation
+2023,6.020436618,Text generation
+2023,6.034784618,Text generation
+2023,6.049453431,Zero-shot question answering
+2023,6.049991232292499,Image captioning
+2023,6.05243962,Zero-shot question answering
+2023,6.058991345,Zero-shot question answering
+2023,6.062226032,Text generation
+2023,6.063518717768099,Zero-shot question answering
+2023,6.064322528,Zero-shot question answering
+2023,6.068148394,Zero-shot question answering
+2023,6.078986114,Zero-shot question answering
+2023,6.079077031,Text generation
+2023,6.080273102021399,Text generation
+2023,6.081629671,Image captioning
+2023,6.094561966,Zero-shot question answering
+2023,6.094811482,Image captioning
+2023,6.099486132,Text generation
+2023,6.102091976,Text generation
+2023,6.102663454,Zero-shot question answering
+2023,6.102894310970799,Image captioning
+2023,6.108870517,Zero-shot question answering
+2023,6.113160471,Zero-shot question answering
+2023,6.11487921,Image captioning
+2023,6.123064141,Image captioning
+2023,6.134868217,Image captioning
+2023,6.138992905,Image captioning
+2023,6.146773102829201,Image captioning
+2023,6.148443838,Text generation
+2023,6.155247148,Zero-shot question answering
+2023,6.160573241,Image captioning
+2023,6.163119697,Image captioning
+2023,6.163547518,Image captioning
+2023,6.174610062,Zero-shot question answering
+2023,6.180504059,Zero-shot question answering
+2023,6.187756226,Image captioning
+2023,6.192728428,Image captioning
+2023,6.193678562,Zero-shot question answering
+2023,6.197788831,Image captioning
+2023,6.199278231,Image captioning
+2023,6.201553125,Zero-shot question answering
+2023,6.206354863,Zero-shot sentiment analysis
+2023,6.206776942,Zero-shot sentiment analysis
+2023,6.2076515388266005,Image captioning
+2023,6.2183034401107005,Zero-shot sentiment analysis
+2023,6.220587529,Zero-shot sentiment analysis
+2023,6.221994842,Zero-shot question answering
+2023,6.223287502807899,Text generation
+2023,6.230719261,Zero-shot question answering
+2023,6.233411052,Image captioning
+2023,6.24442939,Zero-shot question answering
+2023,6.245118019,Zero-shot question answering
+2023,6.266525084,Zero-shot question answering
+2023,6.272711471,Image captioning
+2023,6.285071075,Image captioning
+2023,6.285503282,Text generation
+2023,6.288114106,Image captioning
+2023,6.292176653,Object detection
+2023,6.301036622,Zero-shot question answering
+2023,6.305157892,Zero-shot question answering
+2023,6.31233474,Zero-shot question answering
+2023,6.312775212,Object detection
+2023,6.314416341,Object detection
+2023,6.316248824,Text generation
+2023,6.317644651523199,Object detection
+2023,6.326803066650999,Zero-shot question answering
+2023,6.328347943,Zero-shot question answering
+2023,6.334215149973399,Text generation
+2023,6.337420394109699,Object detection
+2023,6.343615711,Zero-shot question answering
+2023,6.360893862,Zero-shot question answering
+2023,6.365610732,Zero-shot question answering
+2023,6.367655574,Object detection
+2023,6.368992883,Zero-shot sentiment analysis
+2023,6.38190954,Object detection
+2023,6.382483741,Zero-shot question answering
+2023,6.385523536204301,Zero-shot question answering
+2023,6.388815711,Object detection
+2023,6.389631555,Object detection
+2023,6.391256337,Object detection
+2023,6.407036312,Zero-shot question answering
+2023,6.412346439,Zero-shot question answering
+2023,6.413698770005801,Object detection
+2023,6.418558179,Object detection
+2023,6.419865959,Zero-shot question answering
+2023,6.426776753,Zero-shot sentiment analysis
+2023,6.42714822,Zero-shot question answering
+2023,6.429171816,Text generation
+2023,6.464265962,Zero-shot question answering
+2023,6.465273043,Object detection
+2023,6.482248107,Zero-shot sentiment analysis
+2023,6.482598459,Zero-shot question answering
+2023,6.495095991,Object detection
+2023,6.495956808,Text generation
+2023,6.496198836572501,Zero-shot sentiment analysis
+2023,6.503743392,Object detection
+2023,6.509778391,Zero-shot sentiment analysis
+2023,6.510664412,Zero-shot question answering
+2023,6.516636257,Zero-shot sentiment analysis
+2023,6.51857131,Object detection
+2023,6.523932316,Zero-shot question answering
+2023,6.528833369990799,Object detection
+2023,6.540155016,Text generation
+2023,6.542407339,Object detection
+2023,6.542925012704201,Object detection
+2023,6.54549856,Zero-shot question answering
+2023,6.547773554,Object detection
+2023,6.549263069,Text generation
+2023,6.566868403,Text generation
+2023,6.56977552,Text generation
+2023,6.57283605,Text generation
+2023,6.582847112390301,Object detection
+2023,6.590633321,Text generation
+2023,6.590638037,Text generation
+2023,6.591320582,Object detection
+2023,6.602443852848601,Object detection
+2023,6.6024899107979005,Zero-shot summarization
+2023,6.604747129,Text generation
+2023,6.605004279,Text generation
+2023,6.605426713033499,Text generation
+2023,6.610503677,Object detection
+2023,6.614071425,Text generation
+2023,6.616902094,Object detection
+2023,6.617420789530001,Image captioning
+2023,6.620052115,Text generation
+2023,6.622558906,Summarization
+2023,6.625975287,Image captioning
+2023,6.629692821,Summarization
+2023,6.633458424,Object detection
+2023,6.634763072869901,Image captioning
+2023,6.638002125,Image captioning
+2023,6.640218252,Image captioning
+2023,6.644036910396101,Text generation
+2023,6.645917925418701,Object detection
+2023,6.646431155,Text generation
+2023,6.646601993,Image captioning
+2023,6.651348154,Zero-shot summarization
+2023,6.652223785,Text generation
+2023,6.653361145,Object detection
+2023,6.655464835,Text generation
+2023,6.658449107,Object detection
+2023,6.661899927,Text generation
+2023,6.66378373,Text generation
+2023,6.665770376,Zero-shot question answering
+2023,6.671828443,Zero-shot summarization
+2023,6.672092905,Text generation
+2023,6.676807678,Zero-shot summarization
+2023,6.681410632,Summarization
+2023,6.683505001,Summarization
+2023,6.684576025,Summarization
+2023,6.691648233916601,Summarization
+2023,6.702158299,Text generation
+2023,6.709861371,Text generation
+2023,6.71146922,Zero-shot summarization
+2023,6.71189969,Image captioning
+2023,6.715281386,Image captioning
+2023,6.720087011,Image captioning
+2023,6.72159888,Summarization
+2023,6.725987677,Image captioning
+2023,6.726723353,Zero-shot summarization
+2023,6.727133139674001,Text generation
+2023,6.731214661,Image captioning
+2023,6.731723043,Summarization
+2023,6.734490948,Object detection
+2023,6.735472136,Image captioning
+2023,6.7404428159758005,Summarization
+2023,6.745592806,Text generation
+2023,6.760464089,Zero-shot summarization
+2023,6.767552621,Summarization
+2023,6.768366068,Summarization
+2023,6.770489765,Image captioning
+2023,6.773580563,Image captioning
+2023,6.77477835,Image captioning
+2023,6.775432116564599,Text generation
+2023,6.779221707,Image captioning
+2023,6.77928202,Image captioning
+2023,6.781477726,Summarization
+2023,6.783964928,Image captioning
+2023,6.7848625160439004,Summarization
+2023,6.785775828,Image captioning
+2023,6.790502511,Text generation
+2023,6.797398039759701,Text generation
+2023,6.798757012,Zero-shot summarization
+2023,6.806271439,Image captioning
+2023,6.808334952,Summarization
+2023,6.815059663,Summarization
+2023,6.819777464363001,Text generation
+2023,6.828932595,Image captioning
+2023,6.836725499,Text generation
+2023,6.846848426,Summarization
+2023,6.847532268,Image captioning
+2023,6.848803225,Image captioning
+2023,6.851954093,Summarization
+2023,6.858096126,Summarization
+2023,6.866616279,Image captioning
+2023,6.867055727,Image captioning
+2023,6.870108121,Image captioning
+2023,6.873497208,Image captioning
+2023,6.876478827069301,Zero-shot summarization
+2023,6.8867829,Image captioning
+2023,6.888961658,Image captioning
+2023,6.891573024,Zero-shot summarization
+2023,6.891779499,Image captioning
+2023,6.924096931,Summarization
+2023,6.929737491671601,Image captioning
+2023,6.932580533608999,Image captioning
+2023,6.939223742,Zero-shot summarization
+2023,6.941641739,Image captioning
+2023,6.955358336,Image captioning
+2023,6.957642502,Image captioning
+2023,6.958291829483801,Image captioning
+2023,6.959828915663801,Zero-shot summarization
+2023,6.9603781593030005,Zero-shot summarization
+2023,6.978764372,Zero-shot summarization
+2023,6.9788783979760005,Zero-shot summarization
+2023,6.985673829,Zero-shot summarization
+2023,6.987287145,Image captioning
+2023,6.992572036742399,Image captioning
+2023,6.997168469,Zero-shot summarization
+2023,7.00398802,Summarization
+2023,7.010059805995501,Image captioning
+2023,7.0228785816590005,Image captioning
+2023,7.048621334502999,Zero-shot summarization
+2023,7.073158198887199,Image captioning
+2023,7.078686434,Image captioning
+2023,7.091379742,Image captioning
+2023,7.103052055,Image captioning
+2023,7.105313874008799,Summarization
+2023,7.123641987,Summarization
+2023,7.127393668297301,Image captioning
+2023,7.128634522,Zero-shot summarization
+2023,7.147872775,Zero-shot summarization
+2023,7.160886106,Summarization
+2023,7.166169261,Image captioning
+2023,7.176053394,Summarization
+2023,7.182218746,Summarization
+2023,7.209775043,Summarization
+2023,7.213888960343199,Image captioning
+2023,7.214980934,Image captioning
+2023,7.222246421,Image captioning
+2023,7.236134512,Image captioning
+2023,7.244080204,Summarization
+2023,7.2704529123395005,Image captioning
+2023,7.270608017,Image captioning
+2023,7.290995156,Summarization
+2023,7.313450224,Image captioning
+2023,7.329606361,Summarization
+2023,7.365328567,Image captioning
+2023,7.37085021,Image captioning
+2023,7.373119398,Image captioning
+2023,7.378558312651901,Image captioning
+2023,7.399456967,Image captioning
+2023,7.413729303,Summarization
+2023,7.532537889,Image captioning
+2023,7.5839794561075005,Image captioning
+2023,7.598212404,Zero-shot question answering
+2023,7.614071634,Zero-shot question answering
+2023,7.696067077,Zero-shot question answering
+2023,7.70990411,Zero-shot question answering
+2023,7.720540388,Zero-shot question answering
+2023,7.729739105,Summarization
+2023,7.742472405,Zero-shot question answering
+2023,7.752203736,Zero-shot question answering
+2023,7.823662854,Summarization
+2023,7.825571495318401,Summarization
+2023,7.827078093,Summarization
+2023,7.831096979,Summarization
+2023,7.831758362,Summarization
+2023,7.835125785,Summarization
+2023,7.838685276,Summarization
+2023,7.849081082455399,Zero-shot question answering
+2023,7.870436946,Summarization
+2023,7.876781177,Summarization
+2023,7.88224115,Summarization
+2023,7.882518049,Summarization
+2023,7.889531423847299,Summarization
+2023,7.915188135,Summarization
+2023,7.923113996,Summarization
+2023,7.930910045223101,Summarization
+2023,7.946068616,Summarization
+2023,7.948777305,Summarization
+2023,7.979149215,Zero-shot question answering
+2023,7.986037177,Zero-shot question answering
+2023,8.059167177318201,Summarization
+2023,8.10751767,Zero-shot summarization
+2023,8.16807674,Summarization
+2023,8.221727936071499,Zero-shot summarization
+2023,8.241122855,Zero-shot summarization
+2023,8.259945179,Summarization
+2023,8.263052409,Summarization
+2023,8.264432995,Zero-shot summarization
+2023,8.265883704,Summarization
+2023,8.282728959,Zero-shot summarization
+2023,8.308731068,Summarization
+2023,8.311326023,Zero-shot summarization
+2023,8.317898615,Zero-shot summarization
+2023,8.327758188,Zero-shot summarization
+2023,8.407633217,Summarization
+2023,8.442511865,Summarization
+2023,8.457136291,Summarization
+2023,8.46986045,Zero-shot summarization
+2023,8.48018858,Zero-shot summarization
+2023,8.496348682487499,Summarization
+2023,8.515233356206299,Summarization
+2023,8.520961233,Summarization
+2023,8.553702464,Summarization
+2023,8.580411782,Summarization
+2023,8.608991203280699,Summarization
+2023,8.610017143,Summarization
+2023,8.618840068,Summarization
+2023,8.619891714,Summarization
+2023,8.623788811,Summarization
+2023,8.623845446,Summarization
+2023,8.629200376,Summarization
+2023,8.638660472,Summarization
+2023,8.638965901,Summarization
+2023,8.643780843,Summarization
+2023,8.645765113463002,Summarization
+2023,8.663932272,Summarization
+2023,8.666133861,Summarization
+2023,8.666365179,Summarization
+2023,8.672196555,Summarization
+2023,8.679228313,Summarization
+2023,8.707264119,Summarization
+2023,8.712718386,Summarization
+2023,8.716146657,Summarization
+2023,8.719184152950401,Summarization
+2023,8.725328652,Summarization
+2023,8.726865412662399,Summarization
+2023,8.727014759588998,Summarization
+2023,8.728590239,Summarization
+2023,8.732864079071101,Summarization
+2023,8.742978644,Summarization
+2023,8.743833066,Summarization
+2023,8.753400213,Summarization
+2023,8.769698734,Summarization
+2023,8.772026475116599,Summarization
+2023,8.773960683,Summarization
+2023,8.776645572,Summarization
+2023,8.778790884,Summarization
+2023,8.779000597,Summarization
+2023,8.7988087,Zero-shot question answering
+2023,8.802513725,Summarization
+2023,8.816905461,Summarization
+2023,8.819967564,Zero-shot question answering
+2023,8.830538186,Summarization
+2023,8.830949731,Summarization
+2023,8.830957218,Summarization
+2023,8.841648298,Summarization
+2023,8.848184106,Summarization
+2023,8.857240504,Zero-shot question answering
+2023,8.882307515688101,Summarization
+2023,8.886152939509499,Summarization
+2023,8.891388237,Summarization
+2023,8.905899498537101,Summarization
+2023,8.906821194384301,Image captioning
+2023,8.908388152,Image captioning
+2023,8.917536563,Zero-shot question answering
+2023,8.92007202,Image captioning
+2023,8.925522524,Summarization
+2023,8.926847406,Image captioning
+2023,8.935703375184199,Image captioning
+2023,8.945424422,Summarization
+2023,8.951484845,Zero-shot question answering
+2023,8.95216856,Zero-shot question answering
+2023,8.966283402,Image captioning
+2023,8.974654543973699,Image captioning
+2023,8.977144187,Image captioning
+2023,8.982606419,Image captioning
+2023,8.986926362,Image captioning
+2023,8.991461793,Zero-shot question answering
+2023,8.998662446,Image captioning
+2023,9.004110337,Summarization
+2023,9.009205309385202,Zero-shot question answering
+2023,9.014674546,Summarization
+2023,9.016741707,Zero-shot question answering
+2023,9.017423003,Summarization
+2023,9.020434789,Image captioning
+2023,9.021437409,Summarization
+2023,9.02191269,Summarization
+2023,9.034273702,Image captioning
+2023,9.041810488,Summarization
+2023,9.047764171,Image captioning
+2023,9.050199267,Zero-shot question answering
+2023,9.060057913,Summarization
+2023,9.061179671,Image captioning
+2023,9.070535838,Image captioning
+2023,9.097240171,Summarization
+2023,9.09812991,Image captioning
+2023,9.098896903,Summarization
+2023,9.101438735,Image captioning
+2023,9.113903972,Summarization
+2023,9.115157411,Summarization
+2023,9.132419849529398,Summarization
+2023,9.157372534,Summarization
+2023,9.162260787,Summarization
+2023,9.168044799,Image captioning
+2023,9.189609736,Image captioning
+2023,9.193793593,Summarization
+2023,9.199814382,Image captioning
+2023,9.213790248,Summarization
+2023,9.223525366,Summarization
+2023,9.231089412,Summarization
+2023,9.2334205,Summarization
+2023,9.237889595,Summarization
+2023,9.242969674,Summarization
+2023,9.247789759,Summarization
+2023,9.251668472,Summarization
+2023,9.258912527,Image captioning
+2023,9.259329452,Summarization
+2023,9.261278991,Summarization
+2023,9.26735169,Image captioning
+2023,9.274038883,Summarization
+2023,9.299843746,Image captioning
+2023,9.308625217,Summarization
+2023,9.315674742,Summarization
+2023,9.316358759,Image captioning
+2023,9.357345015,Summarization
+2023,9.36351676,Summarization
+2023,9.37704064,Summarization
+2023,9.391158375,Image captioning
+2023,9.407723004,Summarization
+2023,9.412460502,Summarization
+2023,9.515001541,Summarization
+2023,9.522908332,Summarization
+2023,9.532845533,Summarization
+2023,9.537129884,Summarization
+2023,9.561792113,Summarization
+2023,9.563874547,Summarization
+2023,9.565386925,Image captioning
+2023,9.578511749,Image captioning
+2023,9.582501464,Image captioning
+2023,9.601284846,Summarization
+2023,9.684262732,Zero-shot summarization
+2023,9.731032672,Zero-shot summarization
+2023,9.731461972,Zero-shot summarization
+2023,9.736071367,Image captioning
+2023,9.738657634,Image captioning
+2023,9.76397865,Zero-shot summarization
+2023,9.792426485,Zero-shot summarization
+2023,9.795906896,Zero-shot summarization
+2023,9.8104632,Image captioning
+2023,9.836789977,Zero-shot summarization
+2023,9.855072859,Summarization
+2023,9.871122319,Image captioning
+2023,9.932791164,Zero-shot summarization
+2023,9.955616359,Image captioning
+2023,9.984017879,Zero-shot summarization
+2023,10.03507884,Zero-shot question answering
+2023,10.04449602,Zero-shot question answering
+2023,10.06137389,Zero-shot summarization
+2023,10.10760756,Image captioning
+2023,10.13344409,Zero-shot question answering
+2023,10.16390394,Zero-shot question answering
+2023,10.21089254,Image captioning
+2023,10.26014159,Zero-shot question answering
+2023,10.26918446,Zero-shot question answering
+2023,10.300330220128298,Image captioning
+2023,10.34806445,Image captioning
+2023,10.38443098,Zero-shot question answering
+2023,10.39947596,Zero-shot question answering
+2023,10.41306181,Image captioning
+2023,10.43902357,Zero-shot question answering
+2023,10.45932065,Image captioning
+2023,10.47634893,Zero-shot question answering
+2023,10.8406656,Zero-shot question answering
+2023,10.87220583,Zero-shot question answering
+2023,10.92197865,Zero-shot question answering
+2023,10.93541704,Zero-shot question answering
+2023,10.94526614,Text generation
+2023,10.94530785,Text generation
+2023,10.95154436,Image captioning
+2023,10.97274067,Text generation
+2023,10.98131788,Text generation
+2023,10.99074306,Image captioning
+2023,10.99580843,Image captioning
+2023,10.999199064048002,Text generation
+2023,11.01764271,Image captioning
+2023,11.02705515,Image captioning
+2023,11.03708434,Image captioning
+2023,11.04517776,Text generation
+2023,11.04681103,Image captioning
+2023,11.05387832,Text generation
+2023,11.06681667,Zero-shot question answering
+2023,11.07103591,Zero-shot question answering
+2023,11.07368311,Image captioning
+2023,11.07711438,Text generation
+2023,11.082316463363298,Text generation
+2023,11.1225627,Zero-shot question answering
+2023,11.12342824,Zero-shot question answering
+2023,11.12769912,Image captioning
+2023,11.1339337,Image captioning
+2023,11.13707652,Text generation
+2023,11.14364449,Text generation
+2023,11.14547624,Zero-shot question answering
+2023,11.15106035,Image captioning
+2023,11.15382553,Image captioning
+2023,11.16070911,Zero-shot question answering
+2023,11.16364738,Zero-shot question answering
+2023,11.17337526,Zero-shot question answering
+2023,11.1750639,Zero-shot question answering
+2023,11.20843116,Zero-shot question answering
+2023,11.22155978,Zero-shot question answering
+2023,11.23244545,Image captioning
+2023,11.24376311,Zero-shot question answering
+2023,11.24912353,Text generation
+2023,11.24976091,Image captioning
+2023,11.25111062,Zero-shot question answering
+2023,11.27082295,Image captioning
+2023,11.27833835,Zero-shot question answering
+2023,11.27834854,Text generation
+2023,11.30950587,Zero-shot question answering
+2023,11.31816342,Image captioning
+2023,11.31971109,Zero-shot question answering
+2023,11.32558219,Zero-shot question answering
+2023,11.33050257,Image captioning
+2023,11.33210125,Text generation
+2023,11.34343685,Text generation
+2023,11.35786355,Zero-shot question answering
+2023,11.36037869,Zero-shot question answering
+2023,11.36851407,Zero-shot question answering
+2023,11.37400155,Text generation
+2023,11.37697903,Zero-shot question answering
+2023,11.38851927,Zero-shot question answering
+2023,11.3895441,Text generation
+2023,11.39828262,Zero-shot question answering
+2023,11.41065642,Zero-shot question answering
+2023,11.41948861,Zero-shot question answering
+2023,11.4429553,Zero-shot question answering
+2023,11.47940901,Image captioning
+2023,11.50734123,Zero-shot question answering
+2023,11.51741804,Image captioning
+2023,11.52866057,Image captioning
+2023,11.53357902,Image captioning
+2023,11.54608913,Zero-shot question answering
+2023,11.57657195,Text generation
+2023,11.58868727,Text generation
+2023,11.60468412,Zero-shot question answering
+2023,11.61344492,Zero-shot question answering
+2023,11.63958224,Image captioning
+2023,11.6599195,Text generation
+2023,11.66701287,Image captioning
+2023,11.6740136,Image captioning
+2023,11.68098386,Image captioning
+2023,11.68297771,Image captioning
+2023,11.68393693,Text generation
+2023,11.69143776,Zero-shot question answering
+2023,11.69232288,Text generation
+2023,11.69582657,Text generation
+2023,11.69748955,Zero-shot question answering
+2023,11.69972966,Text generation
+2023,11.71705875,Zero-shot question answering
+2023,11.72262865,Image captioning
+2023,11.72492375,Zero-shot question answering
+2023,11.73281323,Image captioning
+2023,11.73595063,Zero-shot question answering
+2023,11.7694936,Zero-shot question answering
+2023,11.78231998,Image captioning
+2023,11.7839168,Image captioning
+2023,11.79158017,Image captioning
+2023,11.79302916,Text generation
+2023,11.82124492,Image captioning
+2023,11.82754099,Image captioning
+2023,11.85934737,Text generation
+2023,11.86046917,Image captioning
+2023,11.86085735,Image captioning
+2023,11.90173722,Image captioning
+2023,11.93676837,Text generation
+2023,11.94821196,Image captioning
+2023,11.99738505,Image captioning
+2023,12.02844656,Text generation
+2023,12.0792715,Image captioning
+2023,12.10049853,Image captioning
+2023,12.12327816,Text generation
+2023,12.32025896,Text generation
+2023,12.73371517,Image captioning
+2023,12.76892847,Text generation
+2023,12.78927159,Text generation
+2023,12.8151431,Text generation
+2023,12.82487079,Image captioning
+2023,12.867090186728898,Image captioning
+2023,12.91438544,Image captioning
+2023,12.96996541,Text generation
+2023,13.00780744,Text generation
+2023,13.01001379,Text generation
+2023,13.0315694,Text generation
+2023,13.05313977,Text generation
+2023,13.05978796,Image captioning
+2023,13.06056744,Text generation
+2023,13.06794078,Text generation
+2023,13.08267077,Text generation
+2023,13.08336147,Text generation
+2023,13.09202825,Text generation
+2023,13.10480675,Text generation
+2023,13.11125651,Image captioning
+2023,13.11214462,Image captioning
+2023,13.12375338,Image captioning
+2023,13.13167769,Image captioning
+2023,13.145469,Text generation
+2023,13.15367654,Text generation
+2023,13.15919089,Text generation
+2023,13.16425875,Text generation
+2023,13.19415229,Image captioning
+2023,13.1997089,Image captioning
+2023,13.20115952,Image captioning
+2023,13.20583925,Image captioning
+2023,13.22723631,Text generation
+2023,13.25650671,Image captioning
+2023,13.25760731,Text generation
+2023,13.26418787,Image captioning
+2023,13.2734376,Text generation
+2023,13.28065276,Image captioning
+2023,13.30156518,Image captioning
+2023,13.309265481571298,Image captioning
+2023,13.32234629,Zero-shot summarization
+2023,13.34125217,Zero-shot summarization
+2023,13.34514963,Image captioning
+2023,13.35527258,Image captioning
+2023,13.35662034,Image captioning
+2023,13.36418212,Text generation
+2023,13.37869738,Zero-shot summarization
+2023,13.37936295,Zero-shot summarization
+2023,13.3905345,Image captioning
+2023,13.39541211,Image captioning
+2023,13.40051944,Text generation
+2023,13.40224591,Zero-shot summarization
+2023,13.40573628,Text generation
+2023,13.40846608,Zero-shot summarization
+2023,13.4096768,Zero-shot summarization
+2023,13.41791058,Zero-shot summarization
+2023,13.42343918,Zero-shot summarization
+2023,13.44014235,Zero-shot summarization
+2023,13.45338895,Text generation
+2023,13.45400451,Zero-shot summarization
+2023,13.45440912,Zero-shot summarization
+2023,13.45946931,Image captioning
+2023,13.46191877,Zero-shot summarization
+2023,13.46611186,Zero-shot summarization
+2023,13.47438531,Zero-shot summarization
+2023,13.47672075,Zero-shot summarization
+2023,13.50227101,Zero-shot summarization
+2023,13.52508034,Zero-shot summarization
+2023,13.52817774,Image captioning
+2023,13.53005297,Image captioning
+2023,13.53006286,Image captioning
+2023,13.57641194,Zero-shot summarization
+2023,13.58598893,Image captioning
+2023,13.59109888,Text generation
+2023,13.61115586,Zero-shot summarization
+2023,13.61736458,Zero-shot summarization
+2023,13.62035037,Image captioning
+2023,13.62183058,Image captioning
+2023,13.62761501,Zero-shot summarization
+2023,13.64187133,Zero-shot summarization
+2023,13.64403476,Zero-shot summarization
+2023,13.68221976,Image captioning
+2023,13.68666392,Object detection
+2023,13.69725298,Text generation
+2023,13.71751964,Image captioning
+2023,13.74178562,Zero-shot summarization
+2023,13.75005604,Text generation
+2023,13.75597633,Zero-shot summarization
+2023,13.77729272,Object detection
+2023,13.79971507,Zero-shot summarization
+2023,13.81179737,Zero-shot summarization
+2023,13.8169088,Image captioning
+2023,13.83391796,Zero-shot summarization
+2023,13.83996244,Image captioning
+2023,13.8512357,Zero-shot summarization
+2023,13.87976747,Text generation
+2023,13.9064875,Text generation
+2023,13.93050567,Image captioning
+2023,14.0211531,Object detection
+2023,14.07541235,Object detection
+2023,14.1375097,Object detection
+2023,14.21110727,Image captioning
+2023,14.24041415,Image captioning
+2023,14.27888988,Object detection
+2023,14.28567503,Image captioning
+2023,14.31389306,Object detection
+2023,14.32755911,Object detection
+2023,14.33331806,Object detection
+2023,14.37041777,Image captioning
+2023,14.37290372,Object detection
+2023,14.38553058,Image captioning
+2023,14.38842203,Object detection
+2023,14.38883284,Object detection
+2023,14.45314441,Object detection
+2023,14.46567263,Object detection
+2023,14.47363433,Object detection
+2023,14.56610431,Object detection
+2023,14.60848713,Object detection
+2023,14.63001573,Object detection
+2023,14.64661649,Object detection
+2023,14.64672695,Object detection
+2023,14.66068015,Object detection
+2023,14.68508075,Zero-shot summarization
+2023,14.68550082,Object detection
+2023,14.7010248,Zero-shot summarization
+2023,14.71497933,Object detection
+2023,14.71860149,Zero-shot summarization
+2023,14.74686003,Object detection
+2023,14.84101859,Object detection
+2023,14.84534165,Object detection
+2023,14.87285647,Zero-shot summarization
+2023,14.91828025,Object detection
+2023,14.92580275,Zero-shot summarization
+2023,15.00320896,Object detection
+2023,15.01490449,Zero-shot summarization
+2023,15.0336966,Zero-shot summarization
+2023,15.07152364,Object detection
+2023,15.08366367,Object detection
+2023,15.1253413,Zero-shot summarization
+2023,15.22133469,Zero-shot summarization
+2023,15.26322771,Zero-shot summarization
+2023,15.26900234,Zero-shot summarization
+2023,15.2944943,Zero-shot summarization
+2023,15.35110706,Zero-shot summarization
+2023,15.39032008,Zero-shot summarization
+2023,15.41345395,Zero-shot summarization
+2023,15.4276089,Zero-shot summarization
+2023,15.48449486,Zero-shot summarization
+2023,15.5585843,Zero-shot summarization
+2023,15.55886833,Zero-shot summarization
+2023,15.59513634,Zero-shot summarization
+2023,15.66661407,Zero-shot summarization
+2023,15.675148184047398,Zero-shot summarization
+2023,15.69674733,Zero-shot summarization
+2023,15.71112896,Zero-shot summarization
+2023,15.71380907,Zero-shot summarization
+2023,15.719251169362298,Zero-shot summarization
+2023,15.75241858,Zero-shot summarization
+2023,15.82873217,Zero-shot summarization
+2023,15.897961828330102,Zero-shot summarization
+2023,15.90773151,Zero-shot summarization
+2023,15.91634702,Zero-shot summarization
+2023,15.93908218,Zero-shot summarization
+2023,16.00906134,Zero-shot summarization
+2023,16.05937397,Zero-shot summarization
+2023,16.06365512,Zero-shot summarization
+2023,16.13915742,Zero-shot summarization
+2023,16.1667586,Zero-shot summarization
+2023,16.223686767023402,Zero-shot summarization
+2023,16.380607612881402,Zero-shot summarization
+2023,16.396484525578998,Zero-shot summarization
+2023,16.41832303,Zero-shot summarization
+2023,16.48690617,Zero-shot summarization
+2023,16.62636444,Zero-shot summarization
+2023,16.6620955,Zero-shot summarization
+2023,16.70782944,Zero-shot summarization
+2023,16.75932387,Zero-shot summarization
+2023,16.820605206818403,Zero-shot summarization
+2023,16.85938671,Zero-shot summarization
+2023,16.98715059,Zero-shot summarization
+2023,17.06987568,Zero-shot summarization
+2023,17.194433026460302,Zero-shot summarization
+2023,17.2252916,Zero-shot summarization
+2023,17.22881357,Zero-shot summarization
+2023,17.229579492155302,Zero-shot summarization
+2023,17.24312271,Zero-shot summarization
+2023,17.275111617824397,Zero-shot summarization
+2023,17.31901224,Zero-shot summarization
+2023,17.39858036,Zero-shot summarization
+2023,17.5823533,Zero-shot summarization
+2023,17.58721518,Zero-shot summarization
+2023,18.02821524,Zero-shot summarization
+2023,18.04645844,Zero-shot summarization
+2023,18.1492371,Zero-shot summarization
+2023,18.15679253,Zero-shot summarization
+2023,18.36056707,Zero-shot summarization
+2023,18.53189546,Zero-shot summarization
+2023,18.534568300112905,Zero-shot summarization
+2023,18.55320419,Zero-shot summarization
+2023,18.591418105206905,Zero-shot summarization
+2023,18.7212056,Zero-shot summarization
+2023,18.72598241,Zero-shot summarization
+2023,18.80308386,Zero-shot summarization
+2023,18.80961712,Zero-shot summarization
+2023,18.91397483,Zero-shot summarization
+2023,19.1387439,Zero-shot summarization
+2023,19.228690902455902,Zero-shot summarization
+2023,19.36353736,Zero-shot summarization
+2023,19.375316721113403,Zero-shot summarization
+2023,19.4218766,Zero-shot summarization
+2023,19.424439901985306,Zero-shot summarization
+2023,19.43719897,Zero-shot summarization
+2023,19.51324062,Zero-shot summarization
+2023,19.5535978,Zero-shot summarization
+2023,19.58029776,Zero-shot summarization
+2023,19.58863506,Zero-shot summarization
+2023,19.59026826,Zero-shot summarization
+2023,19.77718427,Zero-shot summarization
+2023,19.85927534,Zero-shot summarization
+2023,19.97630611,Zero-shot summarization
+2023,20.00429435,Zero-shot summarization
+2023,20.00868239,Zero-shot summarization
+2023,20.01097041,Zero-shot summarization
+2023,20.03438225,Zero-shot summarization
+2023,20.04796938,Zero-shot summarization
+2023,20.09707311,Zero-shot summarization
+2023,20.19027653,Zero-shot summarization
+2023,20.23758355,Zero-shot summarization
+2023,20.25757454,Zero-shot summarization
+2023,20.30369871,Zero-shot summarization
+2023,20.42960817,Zero-shot summarization
+2023,22.21311134,Zero-shot summarization
+2023,22.222995380974695,Zero-shot summarization
+2023,22.2748969,Zero-shot summarization
+2023,22.29229555,Zero-shot summarization
+2023,22.31229846,Zero-shot summarization
+2023,22.34565908,Zero-shot summarization
+2023,22.522343818057703,Zero-shot summarization
+2023,22.61392736,Zero-shot summarization
+2023,22.73921636,Zero-shot summarization
+2023,22.77035474,Zero-shot summarization
+2023,24.020672227335503,Zero-shot summarization
+2023,24.19139779,Zero-shot summarization
+2023,24.27770164,Zero-shot summarization
+2023,24.282848661703294,Zero-shot summarization
+2023,24.375919515086103,Zero-shot summarization
+2023,24.44561251,Zero-shot summarization
+2023,24.60644299,Zero-shot summarization
+2023,24.681665681933698,Zero-shot summarization
+2023,25.05679833,Zero-shot summarization
+2023,25.22468025,Zero-shot summarization
+2023,25.24647719,Zero-shot summarization
+2023,25.33541267,Zero-shot summarization
+2023,25.33761603,Zero-shot summarization
+2023,25.36206444,Zero-shot summarization
+2023,25.48221205,Zero-shot summarization
+2023,25.49061736,Zero-shot summarization
+2023,25.58322695,Zero-shot summarization
+2023,25.63521488,Zero-shot summarization
+2023,25.64791308,Zero-shot summarization
+2023,25.70253321,Zero-shot summarization
+2023,25.70512997,Zero-shot summarization
+2023,25.77358152,Zero-shot summarization
+2023,25.804566372320497,Zero-shot summarization
+2023,25.81816473,Zero-shot summarization
+2023,25.923861815162702,Zero-shot summarization
+2023,26.007875020239695,Zero-shot summarization
+2023,26.0348192,Zero-shot summarization
+2023,26.066855418847695,Zero-shot summarization
+2023,26.13617829,Zero-shot summarization
+2023,26.56610361,Zero-shot summarization
+2023,26.60136195,Zero-shot summarization
+2023,26.68849359,Zero-shot summarization
+2023,26.72859079,Zero-shot summarization
+2023,26.743189531546403,Zero-shot summarization
+2023,26.84263155,Zero-shot summarization
+2023,26.9183817,Zero-shot summarization
+2023,26.941708875209898,Zero-shot summarization
+2023,27.49821112,Zero-shot summarization
+2023,27.67856942,Zero-shot summarization
+2023,27.97254637,Zero-shot summarization
+2023,31.04592415,Zero-shot summarization
+2023,31.1407842,Zero-shot summarization
+2023,31.381211537915004,Zero-shot summarization
+2023,31.47880971,Zero-shot summarization
+2023,31.571971001331896,Zero-shot summarization
+2023,31.999797680245692,Zero-shot summarization
+2023,32.02331545,Zero-shot summarization
+2023,32.02661711,Zero-shot summarization
+2023,32.39267299,Zero-shot summarization
+2023,32.44914493,Zero-shot summarization
+2023,33.02317094,Zero-shot summarization
+2023,33.02539207,Zero-shot summarization
+2023,33.051447141468394,Zero-shot summarization
+2023,33.11624251,Zero-shot summarization
+2023,33.190346714354895,Zero-shot summarization
+2023,33.27563668,Zero-shot summarization
+2023,33.41070771,Zero-shot summarization
+2023,33.45491517,Zero-shot summarization
+2023,33.662862123304905,Zero-shot summarization
+2023,33.81264535,Zero-shot summarization
+2023,103.1692778745652,Image generation
+2023,103.2959332091116,Image generation
+2023,103.3402400239992,Image generation
+2023,103.3611730070138,Image generation
+2023,103.4160643440445,Image generation
+2023,103.4215796479749,Image generation
+2023,103.4853668793807,Image generation
+2023,103.5243266514893,Image generation
+2023,103.5423847615845,Image generation
+2023,103.5562428854676,Image generation
+2023,104.0599402908772,Image generation
+2023,104.19542450312812,Image generation
+2023,104.4071067889344,Image generation
+2023,104.4466514444473,Image generation
+2023,104.8341901,Image generation
+2023,104.8813862544806,Image generation
+2023,104.9510989310991,Image generation
+2023,104.9725847260991,Image generation
+2023,104.9792701119784,Image generation
+2023,105.3126967774004,Image generation
+2023,105.3743670885017,Image generation
+2023,105.53959930858792,Image generation
+2023,105.7214045323805,Image generation
+2023,105.7330454506742,Image generation
+2023,105.78734580949492,Image generation
+2023,105.8288689461728,Image generation
+2023,105.8558151226099,Image generation
+2023,105.9105327558539,Image generation
+2023,105.9297204348678,Image generation
+2023,105.9598773031084,Image generation
+2023,106.0272864,Image generation
+2023,106.0435229592841,Image generation
+2023,106.1412356134131,Image generation
+2023,106.1416662,Image generation
+2023,106.1786171403854,Image generation
+2023,106.2312129552544,Image generation
+2023,106.2316298,Image generation
+2023,106.2843624576235,Image generation
+2023,106.3408626,Image generation
+2023,106.3861682293095,Image generation
+2023,106.5021295512672,Image generation
+2023,106.53532363067548,Image generation
+2023,106.8421456281544,Image generation
+2023,106.9032309123737,Image generation
+2023,107.0379741631219,Image generation
+2023,107.0815303849019,Image generation
+2023,107.1150596816664,Image generation
+2023,107.3416496,Image generation
+2023,107.3480282314712,Image generation
+2023,107.7626781721508,Image generation
+2023,107.7860618316191,Image generation
+2023,108.2643952686579,Image generation
+2023,108.385674,Image generation
+2023,108.4216778966886,Image generation
+2023,108.44475819405068,Image generation
+2023,108.6050553811975,Image generation
+2023,108.8510839110926,Image generation
+2023,109.0063077,Image generation
+2023,109.4590878212589,Image generation
+2023,110.282124,Image generation
+2023,179.5656742227299,Image generation
+2023,179.5746719721671,Image generation
+2023,179.8480873971334,Image generation
+2023,180.0743785929806,Image generation
+2023,180.07657918911292,Image generation
+2023,180.14364747696422,Image generation
+2023,180.3955760980218,Image generation
+2023,180.433082,Image generation
+2023,180.7636624945597,Image generation
+2023,180.77732418725228,Image generation
+2023,181.2181021651724,Image generation
+2023,181.2199730827257,Image generation
+2023,181.3807751546788,Image generation
+2023,181.4248926951908,Image generation
+2023,181.5481628,Image generation
+2023,181.6340761663299,Image generation
+2023,181.6504723485296,Image generation
+2023,181.9286552703374,Image generation
+2023,182.1442872445585,Image generation
+2023,182.2421946163196,Image generation
+2023,182.2500321626696,Image generation
+2023,182.3526246581152,Image generation
+2023,182.4782963514838,Image generation
+2023,182.5423221,Image generation
+2023,182.7006978551051,Image generation
+2023,182.9679064496553,Image generation
+2023,183.0216632840245,Image generation
+2023,183.0434166945382,Image generation
+2023,183.0445136553677,Image generation
+2023,183.1007422893406,Image generation
+2023,183.2335838902597,Image generation
+2023,183.2594669104069,Image generation
+2023,183.2758468622412,Image generation
+2023,183.2849394130953,Image generation
+2023,183.4639553458562,Image generation
+2023,183.4860839064946,Image generation
+2023,183.5076179948029,Image generation
+2023,183.8360398954409,Image generation
+2023,183.8795464900845,Image generation
+2023,184.0647416096471,Image generation
+2023,184.2662690397492,Image generation
+2023,184.3485995307835,Image generation
+2023,184.571435,Image generation
+2023,184.7144356497849,Image generation
+2023,184.8269763009308,Image generation
+2023,185.11294282956385,Image generation
+2023,185.1735860760664,Image generation
+2023,185.2129673216344,Image generation
+2023,185.3459805898055,Image generation
+2023,185.54637248604135,Image generation
+2023,185.7562561292625,Image generation
+2023,185.8740201441592,Image generation
+2023,186.2280709825421,Image generation
+2023,186.3469695143832,Image generation
+2023,186.4110919,Image generation
+2023,186.5581103,Image generation
+2023,186.5710743981116,Image generation
+2023,186.6838909711687,Image generation
+2023,186.6974571714628,Image generation
+2023,186.9280714592143,Image generation
+2023,187.1237329852277,Image generation
+2023,187.2909234936054,Image generation
+2023,187.3854396430108,Image generation
+2023,187.5790875179116,Image generation
+2023,187.7012951213386,Image generation
+2023,187.8471831654746,Image generation
+2023,188.0777727850263,Image generation
+2023,188.2690992424472,Image generation
+2023,188.5277341101673,Image generation
+2023,188.8923118526158,Image generation
+2023,188.9692168307272,Image generation
+2023,188.9759470217798,Image generation
+2023,188.98189162011232,Image generation
+2023,189.0441373835941,Image generation
+2023,189.0494477512676,Image generation
+2023,189.0641217240537,Image generation
+2023,189.0839075855604,Image generation
+2023,189.2735463074638,Image generation
+2023,189.3060080072178,Image generation
+2023,189.54791510604272,Image generation
+2023,189.5860806917493,Image generation
+2023,189.6968805384529,Image generation
+2023,189.8937934599407,Image generation
+2023,189.8978557936607,Image generation
+2023,189.9703155821141,Image generation
+2023,190.0283783154932,Image generation
+2023,190.1880862770983,Image generation
+2023,190.40287927791368,Image generation
+2023,190.5281854560552,Image generation
+2023,191.5933676438946,Image generation
+2023,408.8723080016767,Image generation
+2023,409.3835755215473,Image generation
+2023,409.9218958515065,Image generation
+2023,410.21062612349766,Image generation
+2023,412.3786923422147,Image generation
+2023,413.7413920985696,Image generation
+2023,415.3119613664077,Image generation
+2023,416.2840535959756,Image generation
+2023,416.4127873865637,Image generation
+2023,417.6253196677434,Image generation
+2023,418.6270175013576,Image generation
+2023,420.3508764236969,Image generation
+2023,421.64672120535454,Image generation
+2023,422.2034672,Image generation
+2023,423.4640594233332,Image generation
+2023,424.2730412940773,Image generation
+2023,425.0234624700783,Image generation
+2023,425.1415166171055,Image generation
+2023,425.9219696081054,Image generation
+2023,426.6443249090152,Image generation
+2023,427.3201150619384,Image generation
+2023,427.54593677511497,Image generation
+2023,427.5655549070113,Image generation
+2023,428.0211823431441,Image generation
+2023,428.9767917392837,Image generation
+2023,429.1647283168014,Image generation
+2023,430.3993861503315,Image generation
+2023,430.9018814301507,Image generation
+2023,432.5413934104773,Image generation
+2023,433.4312450608295,Image generation
+2023,462.95346072868585,Image generation
+2023,465.0709328801363,Image generation
+2023,465.30770052912777,Image generation
+2023,465.9396916583095,Image generation
+2023,466.2038349235561,Image generation
+2023,466.2313790828001,Image generation
+2023,466.5365200534637,Image generation
+2023,466.8617340128211,Image generation
+2023,467.5225549,Image generation
+2023,467.9198556496011,Image generation
+2023,467.9865042756104,Image generation
+2023,468.2021932518851,Image generation
+2023,469.6772019070104,Image generation
+2023,469.93520175735296,Image generation
+2023,470.1823424954086,Image generation
+2023,470.3597137613183,Image generation
+2023,470.7145679381529,Image generation
+2023,471.22562302842766,Image generation
+2023,471.52839883408734,Image generation
+2023,471.8143726878031,Image generation
+2023,471.9936328870622,Image generation
+2023,473.9582211717087,Image generation
+2023,474.1474363525287,Image generation
+2023,474.3801801722495,Image generation
+2023,474.5148475673716,Image generation
+2023,475.9153689218088,Image generation
+2023,476.1426318268241,Image generation
+2023,476.3533726342501,Image generation
+2023,476.9946351606394,Image generation
+2023,479.6302231596286,Image generation
+2023,1522.649014473995,Image generation
+2023,1529.5459120162818,Image generation
+2023,1530.3025077247116,Image generation
+2023,1535.0161374038512,Image generation
+2023,1535.4828155506043,Image generation
+2023,1538.127552323237,Image generation
+2023,1539.625797249396,Image generation
+2023,1539.813785237815,Image generation
+2023,1542.0177982460443,Image generation
+2023,1543.070049591099,Image generation
+2023,1562.0160966447388,Image generation
+2023,1568.522685747912,Image generation
+2023,1575.5730048677444,Image generation
+2023,1577.1944895402642,Image generation
+2023,1578.0636725432591,Image generation
+2023,1579.0359576807057,Image generation
+2023,1581.5706750740676,Image generation
+2023,1581.622651986719,Image generation
+2023,1581.976447383331,Image generation
+2023,1583.3858345858494,Image generation
+2023,1585.0390263069144,Image generation
+2023,1585.3043616128543,Image generation
+2023,1585.7745081501498,Image generation
+2023,1586.2311827399385,Image generation
+2023,1587.3054943102466,Image generation
+2023,1588.2271449758512,Image generation
+2023,1589.1910635091704,Image generation
+2023,1590.1466590549364,Image generation
+2023,1592.6699859616044,Image generation
+2023,1594.2796895774952,Image generation

@@ -1,0 +1,97 @@
+Industry,AI Capability,% of Respondents
+All Industries,Computer Vision,34
+"Business, Legal, and Professional Services",Computer Vision,32
+Consumer Goods/Retail,Computer Vision,33
+Financial Services,Computer Vision,24
+Healthcare Systems/Pharma and Med. Products,Computer Vision,32
+High Tech/Telecom,Computer Vision,37
+All Industries,Deep Learning,30
+"Business, Legal, and Professional Services",Deep Learning,37
+Consumer Goods/Retail,Deep Learning,36
+Financial Services,Deep Learning,22
+Healthcare Systems/Pharma and Med. Products,Deep Learning,18
+High Tech/Telecom,Deep Learning,45
+All Industries,Digital Twins,24
+"Business, Legal, and Professional Services",Digital Twins,31
+Consumer Goods/Retail,Digital Twins,25
+Financial Services,Digital Twins,18
+Healthcare Systems/Pharma and Med. Products,Digital Twins,16
+High Tech/Telecom,Digital Twins,24
+All Industries,Facial Recognition,18
+"Business, Legal, and Professional Services",Facial Recognition,11
+Consumer Goods/Retail,Facial Recognition,19
+Financial Services,Facial Recognition,24
+Healthcare Systems/Pharma and Med. Products,Facial Recognition,5
+High Tech/Telecom,Facial Recognition,16
+All Industries,GAN,11
+"Business, Legal, and Professional Services",GAN,8
+Consumer Goods/Retail,GAN,13
+Financial Services,GAN,13
+Healthcare Systems/Pharma and Med. Products,GAN,5
+High Tech/Telecom,GAN,15
+All Industries,Knowledge Graphs,25
+"Business, Legal, and Professional Services",Knowledge Graphs,26
+Consumer Goods/Retail,Knowledge Graphs,18
+Financial Services,Knowledge Graphs,29
+Healthcare Systems/Pharma and Med. Products,Knowledge Graphs,14
+High Tech/Telecom,Knowledge Graphs,23
+All Industries,NL Generation,18
+"Business, Legal, and Professional Services",NL Generation,12
+Consumer Goods/Retail,NL Generation,20
+Financial Services,NL Generation,20
+Healthcare Systems/Pharma and Med. Products,NL Generation,5
+High Tech/Telecom,NL Generation,24
+All Industries,NL Speech Understanding,23
+"Business, Legal, and Professional Services",NL Speech Understanding,22
+Consumer Goods/Retail,NL Speech Understanding,11
+Financial Services,NL Speech Understanding,30
+Healthcare Systems/Pharma and Med. Products,NL Speech Understanding,12
+High Tech/Telecom,NL Speech Understanding,29
+All Industries,NL Text Understanding,33
+"Business, Legal, and Professional Services",NL Text Understanding,34
+Consumer Goods/Retail,NL Text Understanding,22
+Financial Services,NL Text Understanding,42
+Healthcare Systems/Pharma and Med. Products,NL Text Understanding,29
+High Tech/Telecom,NL Text Understanding,40
+All Industries,Physical Robotics,20
+"Business, Legal, and Professional Services",Physical Robotics,19
+Consumer Goods/Retail,Physical Robotics,24
+Financial Services,Physical Robotics,14
+Healthcare Systems/Pharma and Med. Products,Physical Robotics,11
+High Tech/Telecom,Physical Robotics,15
+All Industries,Recommender Systems,25
+"Business, Legal, and Professional Services",Recommender Systems,23
+Consumer Goods/Retail,Recommender Systems,32
+Financial Services,Recommender Systems,30
+Healthcare Systems/Pharma and Med. Products,Recommender Systems,16
+High Tech/Telecom,Recommender Systems,34
+All Industries,Reinforcement Learning,20
+"Business, Legal, and Professional Services",Reinforcement Learning,26
+Consumer Goods/Retail,Reinforcement Learning,19
+Financial Services,Reinforcement Learning,19
+Healthcare Systems/Pharma and Med. Products,Reinforcement Learning,13
+High Tech/Telecom,Reinforcement Learning,23
+All Industries,Robotic Process Automation,39
+"Business, Legal, and Professional Services",Robotic Process Automation,46
+Consumer Goods/Retail,Robotic Process Automation,25
+Financial Services,Robotic Process Automation,47
+Healthcare Systems/Pharma and Med. Products,Robotic Process Automation,16
+High Tech/Telecom,Robotic Process Automation,48
+All Industries,Transfer Learning,16
+"Business, Legal, and Professional Services",Transfer Learning,16
+Consumer Goods/Retail,Transfer Learning,7
+Financial Services,Transfer Learning,17
+Healthcare Systems/Pharma and Med. Products,Transfer Learning,9
+High Tech/Telecom,Transfer Learning,22
+All Industries,"Transformers (e.g., GPT-3)",11
+"Business, Legal, and Professional Services","Transformers (e.g., GPT-3)",11
+Consumer Goods/Retail,"Transformers (e.g., GPT-3)",11
+Financial Services,"Transformers (e.g., GPT-3)",12
+Healthcare Systems/Pharma and Med. Products,"Transformers (e.g., GPT-3)",6
+High Tech/Telecom,"Transformers (e.g., GPT-3)",15
+All Industries,Virtual Agents,33
+"Business, Legal, and Professional Services",Virtual Agents,30
+Consumer Goods/Retail,Virtual Agents,40
+Financial Services,Virtual Agents,33
+Healthcare Systems/Pharma and Med. Products,Virtual Agents,14
+High Tech/Telecom,Virtual Agents,43

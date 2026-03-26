@@ -1,0 +1,85 @@
+Industry,AI capability,% of respondents
+All industries,Computer vision,22%
+"Business, legal, and professional services",Computer vision,15%
+Consumer goods/ retail,Computer vision,31%
+Financial services,Computer vision,26%
+Healthcare systems/ pharma and med. products,Computer vision,14%
+"Tech, media, and telecom",Computer vision,26%
+All industries,Deep learning,24%
+"Business, legal, and professional services",Deep learning,23%
+Consumer goods/ retail,Deep learning,24%
+Financial services,Deep learning,23%
+Healthcare systems/ pharma and med. products,Deep learning,15%
+"Tech, media, and telecom",Deep learning,33%
+All industries,Digital twins,13%
+"Business, legal, and professional services",Digital twins,11%
+Consumer goods/ retail,Digital twins,7%
+Financial services,Digital twins,15%
+Healthcare systems/ pharma and med. products,Digital twins,12%
+"Tech, media, and telecom",Digital twins,17%
+All industries,GAN,23%
+"Business, legal, and professional services",GAN,25%
+Consumer goods/ retail,GAN,18%
+Financial services,GAN,20%
+Healthcare systems/ pharma and med. products,GAN,20%
+"Tech, media, and telecom",GAN,31%
+All industries,Knowledge graphs,18%
+"Business, legal, and professional services",Knowledge graphs,22%
+Consumer goods/ retail,Knowledge graphs,17%
+Financial services,Knowledge graphs,20%
+Healthcare systems/ pharma and med. products,Knowledge graphs,10%
+"Tech, media, and telecom",Knowledge graphs,23%
+All industries,NL generation,16%
+"Business, legal, and professional services",NL generation,18%
+Consumer goods/ retail,NL generation,13%
+Financial services,NL generation,15%
+Healthcare systems/ pharma and med. products,NL generation,12%
+"Tech, media, and telecom",NL generation,23%
+All industries,NL speech understanding,16%
+"Business, legal, and professional services",NL speech understanding,16%
+Consumer goods/ retail,NL speech understanding,7%
+Financial services,NL speech understanding,14%
+Healthcare systems/ pharma and med. products,NL speech understanding,19%
+"Tech, media, and telecom",NL speech understanding,25%
+All industries,NL text understanding,30%
+"Business, legal, and professional services",NL text understanding,26%
+Consumer goods/ retail,NL text understanding,27%
+Financial services,NL text understanding,37%
+Healthcare systems/ pharma and med. products,NL text understanding,20%
+"Tech, media, and telecom",NL text understanding,39%
+All industries,Physical robotics,9%
+"Business, legal, and professional services",Physical robotics,8%
+Consumer goods/ retail,Physical robotics,13%
+Financial services,Physical robotics,7%
+Healthcare systems/ pharma and med. products,Physical robotics,8%
+"Tech, media, and telecom",Physical robotics,7%
+All industries,Recommender systems,18%
+"Business, legal, and professional services",Recommender systems,14%
+Consumer goods/ retail,Recommender systems,26%
+Financial services,Recommender systems,11%
+Healthcare systems/ pharma and med. products,Recommender systems,11%
+"Tech, media, and telecom",Recommender systems,29%
+All industries,Reinforcement learning,10%
+"Business, legal, and professional services",Reinforcement learning,13%
+Consumer goods/ retail,Reinforcement learning,2%
+Financial services,Reinforcement learning,16%
+Healthcare systems/ pharma and med. products,Reinforcement learning,6%
+"Tech, media, and telecom",Reinforcement learning,14%
+All industries,Robotic process automation,30%
+"Business, legal, and professional services",Robotic process automation,24%
+Consumer goods/ retail,Robotic process automation,24%
+Financial services,Robotic process automation,46%
+Healthcare systems/ pharma and med. products,Robotic process automation,28%
+"Tech, media, and telecom",Robotic process automation,26%
+All industries,Transfer learning,5%
+"Business, legal, and professional services",Transfer learning,4%
+Consumer goods/ retail,Transfer learning,5%
+Financial services,Transfer learning,8%
+Healthcare systems/ pharma and med. products,Transfer learning,4%
+"Tech, media, and telecom",Transfer learning,4%
+All industries,Virtual agents,30%
+"Business, legal, and professional services",Virtual agents,19%
+Consumer goods/ retail,Virtual agents,32%
+Financial services,Virtual agents,42%
+Healthcare systems/ pharma and med. products,Virtual agents,21%
+"Tech, media, and telecom",Virtual agents,35%

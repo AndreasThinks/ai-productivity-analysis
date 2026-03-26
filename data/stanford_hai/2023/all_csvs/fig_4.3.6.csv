@@ -1,0 +1,49 @@
+Industry,Function,Percentage Point Change in Responses
+All Industries,Human Resources,2
+"Business, Legal, and Professional Services",Human Resources,-3
+Consumer Goods/Retail,Human Resources,12
+Financial Services,Human Resources,-9
+Healthcare Systems/Pharma and Med. Products,Human Resources,6
+High Tech/Telecom,Human Resources,-6
+All Industries,Manufacturing,-4
+"Business, Legal, and Professional Services",Manufacturing,2
+Consumer Goods/Retail,Manufacturing,-14
+Financial Services,Manufacturing,4
+Healthcare Systems/Pharma and Med. Products,Manufacturing,-4
+High Tech/Telecom,Manufacturing,-5
+All Industries,Marketing and Sales,-15
+"Business, Legal, and Professional Services",Marketing and Sales,-19
+Consumer Goods/Retail,Marketing and Sales,-19
+Financial Services,Marketing and Sales,-17
+Healthcare Systems/Pharma and Med. Products,Marketing and Sales,-12
+High Tech/Telecom,Marketing and Sales,-24
+All Industries,Product and/or Service Development,-13
+"Business, Legal, and Professional Services",Product and/or Service Development,-7
+Consumer Goods/Retail,Product and/or Service Development,-13
+Financial Services,Product and/or Service Development,11
+Healthcare Systems/Pharma and Med. Products,Product and/or Service Development,-25
+High Tech/Telecom,Product and/or Service Development,-38
+All Industries,Risk,6
+"Business, Legal, and Professional Services",Risk,3
+Consumer Goods/Retail,Risk,14
+Financial Services,Risk,-15
+Healthcare Systems/Pharma and Med. Products,Risk,9
+High Tech/Telecom,Risk,22
+All Industries,Service Operations,-6
+"Business, Legal, and Professional Services",Service Operations,-6
+Consumer Goods/Retail,Service Operations,16
+Financial Services,Service Operations,-16
+Healthcare Systems/Pharma and Med. Products,Service Operations,-5
+High Tech/Telecom,Service Operations,-13
+All Industries,Strategy and Corporate Finance,12
+"Business, Legal, and Professional Services",Strategy and Corporate Finance,11
+Consumer Goods/Retail,Strategy and Corporate Finance,25
+Financial Services,Strategy and Corporate Finance,10
+Healthcare Systems/Pharma and Med. Products,Strategy and Corporate Finance,-4
+High Tech/Telecom,Strategy and Corporate Finance,15
+All Industries,Supply-Chain Management,-4
+"Business, Legal, and Professional Services",Supply-Chain Management,-1
+Consumer Goods/Retail,Supply-Chain Management,-7
+Financial Services,Supply-Chain Management,-6
+Healthcare Systems/Pharma and Med. Products,Supply-Chain Management,-1
+High Tech/Telecom,Supply-Chain Management,-8

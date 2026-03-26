@@ -1,0 +1,22 @@
+Year,Top-1 Accuracy,Label
+2016,,Kinetics-700
+2017,,Kinetics-700
+2018,,Kinetics-700
+2019,,Kinetics-700
+2020,0.5646,Kinetics-700
+2021,0.804,Kinetics-700
+2022,0.84,Kinetics-700
+2016,0.739,Kinetics-400
+2017,0.777,Kinetics-400
+2018,0.798,Kinetics-400
+2019,0.828,Kinetics-400
+2020,0.836,Kinetics-400
+2021,0.872,Kinetics-400
+2022,0.911,Kinetics-400
+2016,,Kinetics-600
+2017,0.786,Kinetics-600
+2018,0.818,Kinetics-600
+2019,0.831,Kinetics-600
+2020,,Kinetics-600
+2021,0.883,Kinetics-600
+2022,0.918,Kinetics-600

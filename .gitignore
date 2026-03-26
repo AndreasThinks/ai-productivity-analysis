@@ -1,0 +1,29 @@
+# Cache directories — large, run-specific
+data/classifier_cache/
+data/classifier_cache_test/
+data/classifier_cache_full/
+
+# GH Archive raw dumps — large
+data/gharchive_*.jsonl
+
+# Raw classifier scrape outputs — large JSON
+data/classifier_sample_raw.json
+data/classifier_test_raw.json
+data/classifier_full_raw.json
+
+# Oxford Insights data — not redistributable, download separately
+data/oxford_insights/*.xlsx
+data/oxford_insights/*.pdf
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Misc
+.DS_Store
+*.log
+nohup.out
+AGENTS.md

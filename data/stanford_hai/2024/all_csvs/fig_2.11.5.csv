@@ -1,0 +1,11 @@
+Benchmark,Task Category,Closed vs. open percentage score difference
+HELM,General language,0.17073170731707318
+MMLU,General language,0.27535410764872525
+Chatbot Arena<br>Leaderboard,General language,0.089643168
+HumanEval,Coding,0.5482315112540193
+SWE-bench,Coding,0.2090680100755668
+MMMU,General reasoning,0.16242661448140894
+GPQA,General reasoning,0.4089
+MATH,Mathematical reasoning,0.3956953642384106
+GSM8K,Mathematical reasoning,0.039657020364415776
+AgentBench,Agent-based<br>behavior,3.1770833333333335

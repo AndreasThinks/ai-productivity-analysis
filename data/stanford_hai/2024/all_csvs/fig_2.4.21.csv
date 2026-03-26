@@ -1,0 +1,29 @@
+Item name,Model name,Value,Metric name
+Backpack,Shelf-Supervised (2021),7.58,F-score
+Backpack,RealFusion (2023),12.22,F-score
+Chair,Shelf-Supervised (2021),8.26,F-score
+Chair,RealFusion (2023),10.23,F-score
+Motorcycle,Shelf-Supervised (2021),8.66,F-score
+Motorcycle,RealFusion (2023),8.72,F-score
+Orange,Shelf-Supervised (2021),6.27,F-score
+Orange,RealFusion (2023),10.16,F-score
+Skateboard,RealFusion (2023),5.89,F-score
+Skateboard,Shelf-Supervised (2021),7.74,F-score
+Teddy bear,RealFusion (2023),10.08,F-score
+Teddy bear,Shelf-Supervised (2021),12.89,F-score
+Vase,Shelf-Supervised (2021),6.3,F-score
+Vase,RealFusion (2023),9.72,F-score
+Backpack,Shelf-Supervised (2021),0.72,CLIP-similarity
+Backpack,RealFusion (2023),0.74,CLIP-similarity
+Chair,Shelf-Supervised (2021),0.65,CLIP-similarity
+Chair,RealFusion (2023),0.76,CLIP-similarity
+Motorcycle,Shelf-Supervised (2021),0.69,CLIP-similarity
+Motorcycle,RealFusion (2023),0.7,CLIP-similarity
+Orange,Shelf-Supervised (2021),0.71,CLIP-similarity
+Orange,RealFusion (2023),0.74,CLIP-similarity
+Skateboard,Shelf-Supervised (2021),0.74,CLIP-similarity
+Skateboard,RealFusion (2023),0.74,CLIP-similarity
+Teddy bear,Shelf-Supervised (2021),0.73,CLIP-similarity
+Teddy bear,RealFusion (2023),0.82,CLIP-similarity
+Vase,Shelf-Supervised (2021),0.69,CLIP-similarity
+Vase,RealFusion (2023),0.71,CLIP-similarity

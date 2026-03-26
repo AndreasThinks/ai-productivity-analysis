@@ -1,0 +1,11 @@
+Year,Model,Type,Percent resolved
+2022,ChatGPT-3.5 + BM25 Retrieval,Unassisted,0.002
+2022,ChatGPT-3.5,Assisted,0.0052
+2023,GPT-4 + BM25 Retrieval,Unassisted,0.0
+2023,SWE-Llama 13B + BM25 Retrieval,Unassisted,0.006999999999999999
+2023,SWE-Llama 7B + BM25 Retrieval,Unassisted,0.006999999999999999
+2023,GPT-4,Assisted,0.0174
+2023,Claude 2 + BM25 Retrieval,Unassisted,0.0196
+2023,SWE-Llama 7B,Assisted,0.0301
+2023,SWE-Llama 13B,Assisted,0.0397
+2023,Claude 2,Assisted,0.048

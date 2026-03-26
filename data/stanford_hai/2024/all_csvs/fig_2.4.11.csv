@@ -1,0 +1,15 @@
+Year,Editing accuracy,Label
+2021,0.04,Position replacement
+2022,0.11,Position replacement
+2021,0.18,Positional addition
+2022,0.25,Positional addition
+2021,0.24,Average
+2022,0.33,Average
+2021,0.33,Alter parts
+2022,0.34,Alter parts
+2021,0.35,Object addition
+2022,0.47,Object addition
+2021,0.47,Size
+2022,0.52,Size
+2021,0.06,Object replacement
+2022,0.59,Object replacement

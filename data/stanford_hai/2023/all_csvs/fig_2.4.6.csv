@@ -1,0 +1,13 @@
+Year,ROUGE-1,Label
+2017,32.06,arXiv
+2018,35.8,arXiv
+2019,44.67,arXiv
+2020,46.63,arXiv
+2021,48.42,arXiv
+2022,50.95,arXiv
+2017,35.86,PubMed
+2018,38.93,PubMed
+2019,45.09,PubMed
+2020,47.81,PubMed
+2021,50.23,PubMed
+2022,51.05,PubMed

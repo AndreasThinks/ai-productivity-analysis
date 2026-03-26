@@ -1,0 +1,131 @@
+Year,Number of AI publications (in thousands),Type
+2010,0.052,Clinical trial
+2011,0.086,Clinical trial
+2012,0.07,Clinical trial
+2013,0.082,Clinical trial
+2014,0.062,Clinical trial
+2015,0.044,Clinical trial
+2016,0.042,Clinical trial
+2017,0.043,Clinical trial
+2018,0.041,Clinical trial
+2019,0.028,Clinical trial
+2020,0.006,Clinical trial
+2021,0.01,Clinical trial
+2022,0.047,Clinical trial
+2010,0.027,Other
+2011,0.076,Other
+2012,0.055,Other
+2013,0.038,Other
+2014,0.045,Other
+2015,0.054,Other
+2016,0.033,Other
+2017,0.059,Other
+2018,0.078,Other
+2019,0.081,Other
+2020,0.131,Other
+2021,0.068,Other
+2022,0.125,Other
+2010,0.79,Book
+2011,0.915,Book
+2012,1.289,Book
+2013,1.07,Book
+2014,0.926,Book
+2015,0.903,Book
+2016,0.913,Book
+2017,0.862,Book
+2018,0.917,Book
+2019,1.023,Book
+2020,0.994,Book
+2021,0.754,Book
+2022,0.573,Book
+2010,1.623,Dissertation
+2011,1.799,Dissertation
+2012,1.946,Dissertation
+2013,2.099,Dissertation
+2014,2.465,Dissertation
+2015,2.853,Dissertation
+2016,3.054,Dissertation
+2017,3.356,Dissertation
+2018,4.025,Dissertation
+2019,4.199,Dissertation
+2020,3.904,Dissertation
+2021,2.039,Dissertation
+2022,0.7,Dissertation
+2010,4.817,Unknown
+2011,6.039,Unknown
+2012,6.963,Unknown
+2013,8.251,Unknown
+2014,8.696,Unknown
+2015,8.036,Unknown
+2016,5.703,Unknown
+2017,2.09,Unknown
+2018,1.406,Unknown
+2019,1.707,Unknown
+2020,1.51,Unknown
+2021,1.312,Unknown
+2022,0.79,Unknown
+2010,5.724,Article
+2011,6.522,Article
+2012,6.999,Article
+2013,7.968,Article
+2014,7.925,Article
+2015,7.841,Article
+2016,6.144,Article
+2017,5.944,Article
+2018,6.973,Article
+2019,7.493,Article
+2020,7.502,Article
+2021,5.676,Article
+2022,1.49,Article
+2010,0.506,Preprint
+2011,0.52,Preprint
+2012,0.66,Preprint
+2013,0.626,Preprint
+2014,0.812,Preprint
+2015,0.899,Preprint
+2016,1.185,Preprint
+2017,1.506,Preprint
+2018,2.045,Preprint
+2019,2.743,Preprint
+2020,3.952,Preprint
+2021,4.81,Preprint
+2022,5.072,Preprint
+2010,1.52,Book chapter
+2011,1.781,Book chapter
+2012,1.922,Book chapter
+2013,1.921,Book chapter
+2014,1.697,Book chapter
+2015,1.658,Book chapter
+2016,2.03,Book chapter
+2017,3.313,Book chapter
+2018,4.98,Book chapter
+2019,5.334,Book chapter
+2020,9.069,Book chapter
+2021,9.718,Book chapter
+2022,12.875,Book chapter
+2010,19.034,Conference
+2011,14.359,Conference
+2012,13.648,Conference
+2013,11.863,Conference
+2014,13.147,Conference
+2015,15.908,Conference
+2016,16.72,Conference
+2017,18.898,Conference
+2018,21.878,Conference
+2019,24.35,Conference
+2020,22.727,Conference
+2021,31.629,Conference
+2022,41.174,Conference
+2010,72.445,Journal
+2011,77.031,Journal
+2012,81.22,Journal
+2013,87.249,Journal
+2014,92.733,Journal
+2015,96.89,Journal
+2016,100.555,Journal
+2017,109.949,Journal
+2018,131.579,Journal
+2019,163.777,Journal
+2020,189.11,Journal
+2021,222.659,Journal
+2022,232.673,Journal

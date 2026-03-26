@@ -1,0 +1,83 @@
+Demographic group,Demographic type,Statement,"% of respondents that ""agree"" with the statement"
+Gender,Male,The amount of time it takes me to get things done,55%
+Gender,Male,"My entertainment options (television/video content, movies, music, books)",52%
+Gender,Male,My health,42%
+Gender,Male,My job,38%
+Gender,Male,The economy in my country,37%
+Gender,Male,The job market,34%
+Gender,Female,The amount of time it takes me to get things done,53%
+Gender,Female,"My entertainment options (television/video content, movies, music, books)",51%
+Gender,Female,My health,36%
+Gender,Female,My job,35%
+Gender,Female,The economy in my country,31%
+Gender,Female,The job market,30%
+Generation,Gen Z,The amount of time it takes me to get things done,63%
+Generation,Gen Z,"My entertainment options (television/video content, movies, music, books)",59%
+Generation,Gen Z,My health,46%
+Generation,Gen Z,My job,46%
+Generation,Gen Z,The economy in my country,40%
+Generation,Gen Z,The job market,39%
+Generation,Millennial,The amount of time it takes me to get things done,57%
+Generation,Millennial,"My entertainment options (television/video content, movies, music, books)",55%
+Generation,Millennial,My health,42%
+Generation,Millennial,My job,41%
+Generation,Millennial,The economy in my country,38%
+Generation,Millennial,The job market,36%
+Generation,Gen X,The amount of time it takes me to get things done,52%
+Generation,Gen X,"My entertainment options (television/video content, movies, music, books)",51%
+Generation,Gen X,My health,37%
+Generation,Gen X,My job,31%
+Generation,Gen X,The economy in my country,31%
+Generation,Gen X,The job market,28%
+Generation,Boomer,The amount of time it takes me to get things done,43%
+Generation,Boomer,"My entertainment options (television/video content, movies, music, books)",40%
+Generation,Boomer,My health,30%
+Generation,Boomer,My job,26%
+Generation,Boomer,The economy in my country,26%
+Generation,Boomer,The job market,23%
+Household income,Lower income,The amount of time it takes me to get things done,47%
+Household income,Lower income,"My entertainment options (television/video content, movies, music, books)",47%
+Household income,Lower income,My health,34%
+Household income,Lower income,My job,33%
+Household income,Lower income,The economy in my country,32%
+Household income,Lower income,The job market,31%
+Household income,Middle income,The amount of time it takes me to get things done,53%
+Household income,Middle income,"My entertainment options (television/video content, movies, music, books)",51%
+Household income,Middle income,My health,40%
+Household income,Middle income,My job,36%
+Household income,Middle income,The economy in my country,35%
+Household income,Middle income,The job market,32%
+Household income,Upper income,The amount of time it takes me to get things done,61%
+Household income,Upper income,"My entertainment options (television/video content, movies, music, books)",57%
+Household income,Upper income,My health,43%
+Household income,Upper income,My job,41%
+Household income,Upper income,The economy in my country,38%
+Household income,Upper income,The job market,34%
+Education,Lower education,The amount of time it takes me to get things done,46%
+Education,Lower education,"My entertainment options (television/video content, movies, music, books)",47%
+Education,Lower education,My health,35%
+Education,Lower education,My job,34%
+Education,Lower education,The economy in my country,30%
+Education,Lower education,The job market,30%
+Education,Medium education,The amount of time it takes me to get things done,53%
+Education,Medium education,"My entertainment options (television/video content, movies, music, books)",51%
+Education,Medium education,My health,39%
+Education,Medium education,My job,35%
+Education,Medium education,The economy in my country,33%
+Education,Medium education,The job market,32%
+Education,Higher education,The amount of time it takes me to get things done,60%
+Education,Higher education,"My entertainment options (television/video content, movies, music, books)",55%
+Education,Higher education,My health,41%
+Education,Higher education,My job,40%
+Education,Higher education,The economy in my country,38%
+Education,Higher education,The job market,33%
+Employment status,Employed,The amount of time it takes me to get things done,56%
+Employment status,Employed,"My entertainment options (television/video content, movies, music, books)",54%
+Employment status,Employed,My health,41%
+Employment status,Employed,The economy in my country,37%
+Employment status,Employed,The job market,34%
+Employment status,Nonemployed,The amount of time it takes me to get things done,50%
+Employment status,Nonemployed,"My entertainment options (television/video content, movies, music, books)",47%
+Employment status,Nonemployed,My health,35%
+Employment status,Nonemployed,The economy in my country,29%
+Employment status,Nonemployed,The job market,28%

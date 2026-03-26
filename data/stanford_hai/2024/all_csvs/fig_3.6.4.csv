@@ -1,0 +1,11 @@
+Detector,Year,Metric name,Metric value
+XceptionNet3,2017,Original Accuracy,93.60%
+MesoInception3,2018,Original Accuracy,89.05%
+MesoNet3,2018,Original Accuracy,85.50%
+EfficientNet6,2019,Original Accuracy,77.15%
+ShallowNet6,2019,Original Accuracy,71.00%
+XceptionNet3,2017,Unseen Dataset Accuracy,69.03%
+MesoInception3,2018,Unseen Dataset Accuracy,65.94%
+MesoNet3,2018,Unseen Dataset Accuracy,69.75%
+EfficientNet6,2019,Unseen Dataset Accuracy,63.16%
+ShallowNet6,2019,Unseen Dataset Accuracy,65.85%

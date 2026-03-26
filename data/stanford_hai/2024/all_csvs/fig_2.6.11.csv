@@ -1,0 +1,4 @@
+Year,Model,Metric
+2021,GPT-2 (1.5B),0.069
+2022,"GPT-4 model (w/ code, PAL)",0.518
+2023,"GPT-4-code model (CSV, w/ code, SC, k=16)",0.843

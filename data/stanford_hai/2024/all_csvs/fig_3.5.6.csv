@@ -1,0 +1,16 @@
+Model,Year,Label,Average biasn score
+Stable Diffusion 1.5,2022,Age,0.86
+Stable Diffusion 2.1,2022,Age,0.97
+Stable Diffusion XL,2023,Age,0.89
+Midjourney,2022,Age,0.45
+InstructPix2Pix,2023,Age,0.40
+Stable Diffusion 1.5,2022,Race,0.80
+Stable Diffusion 2.1,2022,Race,0.74
+Stable Diffusion XL,2023,Race,0.83
+Midjourney,2022,Race,0.89
+InstructPix2Pix,2023,Race,0.72
+Stable Diffusion 1.5,2022,Gender,0.28
+Stable Diffusion 2.1,2022,Gender,0.26
+Stable Diffusion XL,2023,Gender,0.28
+Midjourney,2022,Gender,0.32
+InstructPix2Pix,2023,Gender,0.15

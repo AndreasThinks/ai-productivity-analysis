@@ -1,0 +1,11 @@
+Method,Year,Metric Name,Metric
+PITI (sketch),2022, Condition Fidelity,1.02
+Sketch-Guided (beta = 1.6),2022, Condition Fidelity,2.31
+Sketch-Guided (beta = 3.2),2022, Condition Fidelity,3.28
+PITI (sketch),2022,Result Quality,1.1
+Sketch-Guided (beta = 3.2),2022,Result Quality,2.52
+Sketch-Guided (beta = 1.6),2022,Result Quality,3.21
+ControlNet-lite,2023, Condition Fidelity,4.09
+ControlNet,2023, Condition Fidelity,4.28
+ControlNet-lite,2023,Result Quality,3.93
+ControlNet,2023,Result Quality,4.22

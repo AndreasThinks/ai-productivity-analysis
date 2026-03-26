@@ -1,0 +1,25 @@
+Instances Incorrect,Task,Label
+0.006,Plan Generation,GPT-3
+0.002,Optimal Planning,GPT-3
+0.056,Replanning,GPT-3
+0.066,Plan Generalization,GPT-3
+0,Plan Reuse,GPT-3
+0.774,Robustness to Goal Reformulation (Shuffling Goal Predicates),GPT-3
+0.692,Robustness to Goal Reformulation (Full _ Partial),GPT-3
+0.22,Robustness to Goal Reformulation (Partial _ Full),GPT-3
+0.05,Plan Generation,Instruct-GPT3
+0.032,Optimal Planning,Instruct-GPT3
+0.048,Replanning,Instruct-GPT3
+0.098,Plan Generalization,Instruct-GPT3
+0.144,Plan Reuse,Instruct-GPT3
+0.768,Robustness to Goal Reformulation (Shuffling Goal Predicates),Instruct-GPT3
+0.76,Robustness to Goal Reformulation (Full _ Partial),Instruct-GPT3
+0.602,Robustness to Goal Reformulation (Partial _ Full),Instruct-GPT3
+0.005,Plan Generation,BLOOM
+0.000,Optimal Planning,BLOOM
+0.030,Replanning,BLOOM
+0.110,Plan Generalization,BLOOM
+0.000,Plan Reuse,BLOOM
+0.210,Robustness to Goal Reformulation (Shuffling Goal Predicates),BLOOM
+0.090,Robustness to Goal Reformulation (Full _ Partial),BLOOM
+0.050,Robustness to Goal Reformulation (Partial _ Full),BLOOM

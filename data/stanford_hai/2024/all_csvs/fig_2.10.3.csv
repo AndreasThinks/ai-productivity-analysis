@@ -1,0 +1,5 @@
+Method,Category,Win rate
+RLAIF,Summarization,0.71
+RLHF,Summarization,0.73
+RLAIF,Helpfulness,0.63
+RLHF,Helpfulness,0.64

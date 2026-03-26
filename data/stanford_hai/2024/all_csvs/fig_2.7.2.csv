@@ -1,0 +1,28 @@
+Model,Metric name,Value
+Riffusion,FAD VGG ↓,14.8
+Mousai,FAD VGG ↓,7.5
+MusicLM,FAD VGG ↓,4
+Noise2Music,FAD VGG ↓,2.1
+MusicGen w/o<br>melody (300M),FAD VGG ↓,3.1
+MusicGen w/o<br>melody (1.5B),FAD VGG ↓,3.4
+MusicGen w/o<br>melody (3.3B),FAD VGG ↓,3.8
+MusicGen w/<br>random melody (1.5B),FAD VGG ↓,5
+Riffusion,KL ↓,2.06
+Mousai,KL ↓,1.59
+MusicGen w/o<br>melody (300M),KL ↓,1.28
+MusicGen w/o<br>melody (1.5B),KL ↓,1.23
+MusicGen w/o<br>melody (3.3B),KL ↓,1.22
+MusicGen w/<br>random melody (1.5B),KL ↓,1.31
+Riffusion,CLAP SCR ↑,0.19
+Mousai,CLAP SCR ↑,0.23
+MusicGen w/o<br>melody (300M),CLAP SCR ↑,0.31
+MusicGen w/o<br>melody (1.5B),CLAP SCR ↑,0.32
+MusicGen w/o<br>melody (3.3B),CLAP SCR ↑,0.31
+MusicGen w/<br>random melody (1.5B),CLAP SCR ↑,0.28
+Riffusion,OVL.↑,79.31
+Mousai,OVL.↑,76.11
+MusicLM,OVL.↑,80.51
+MusicGen w/o<br>melody (300M),OVL.↑,78.43
+MusicGen w/o<br>melody (1.5B),OVL.↑,80.74
+MusicGen w/o<br>melody (3.3B),OVL.↑,84.81
+MusicGen w/<br>random melody (1.5B),OVL.↑,81.3

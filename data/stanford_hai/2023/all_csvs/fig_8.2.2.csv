@@ -1,0 +1,61 @@
+AI Model,Quarter,Share of AI Social Media Attention
+DALL-E,2022/Q1,0%
+LaMDA,2022/Q1,1%
+AlphaCode,2022/Q1,2%
+CoPilot,2022/Q1,10%
+PaLM,2022/Q1,
+Gato,2022/Q1,
+Imagen,2022/Q1,
+Stable Diffusion,2022/Q1,
+Whisper,2022/Q1,
+Make-A-Video,2022/Q1,
+AlphaTensor,2022/Q1,
+GLM-130B,2022/Q1,
+BLOOM,2022/Q1,
+CICERO,2022/Q1,
+ChatGPT,2022/Q1,
+DALL-E,2022/Q2,1%
+LaMDA,2022/Q2,35%
+AlphaCode,2022/Q2,<1%
+CoPilot,2022/Q2,3%
+PaLM,2022/Q2,<1%
+Gato,2022/Q2,10%
+Imagen,2022/Q2,5%
+Stable Diffusion,2022/Q2,
+Whisper,2022/Q2,
+Make-A-Video,2022/Q2,
+AlphaTensor,2022/Q2,
+GLM-130B,2022/Q2,
+BLOOM,2022/Q2,
+CICERO,2022/Q2,
+ChatGPT,2022/Q2,
+DALL-E,2022/Q3,3%
+LaMDA,2022/Q3,9%
+AlphaCode,2022/Q3,<1%
+CoPilot,2022/Q3,4%
+PaLM,2022/Q3,<1%
+Gato,2022/Q3,18%
+Imagen,2022/Q3,4%
+Stable Diffusion,2022/Q3,19%
+Whisper,2022/Q3,<1%
+Make-A-Video,2022/Q3,33%
+AlphaTensor,2022/Q3,
+GLM-130B,2022/Q3,
+BLOOM,2022/Q3,
+CICERO,2022/Q3,
+ChatGPT,2022/Q3,
+DALL-E,2022/Q4,2%
+LaMDA,2022/Q4,<1%
+AlphaCode,2022/Q4,1%
+CoPilot,2022/Q4,1%
+PaLM,2022/Q4,<1%
+Gato,2022/Q4,3%
+Imagen,2022/Q4,2%
+Stable Diffusion,2022/Q4,19%
+Whisper,2022/Q4,<1%
+Make-A-Video,2022/Q4,15%
+AlphaTensor,2022/Q4,1%
+GLM-130B,2022/Q4,<1%
+BLOOM,2022/Q4,<1%
+CICERO,2022/Q4,3%
+ChatGPT,2022/Q4,52%

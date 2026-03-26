@@ -1,0 +1,30 @@
+AI model,Year/quarter,Sentiment score
+Stable Diffusion,2023/Q1,46%
+Copilot,2023/Q1,0%
+GPT-4,2023/Q1,53%
+Stable Diffusion,2023/Q2,21%
+Copilot,2023/Q2,1%
+GPT-4,2023/Q2,71%
+PaLM 2,2023/Q2,5%
+Stable Diffusion,2023/Q3,24%
+Copilot,2023/Q3,1%
+GPT-4,2023/Q3,62%
+PaLM 2,2023/Q3,4%
+DALL-E 3,2023/Q3,3%
+Mistral 7B,2023/Q3,0%
+Stable Diffusion,2023/Q4,12%
+Copilot,2023/Q4,1%
+GPT-4,2023/Q4,45%
+PaLM 2,2023/Q4,2%
+DALL-E 3,2023/Q4,7%
+Mistral 7B,2023/Q4,2%
+Grok,2023/Q4,16%
+GPT-4 Turbo,2023/Q4,2%
+Whisper V3,2023/Q4,0%
+GraphCast,2023/Q4,0%
+Claude 2.1,2023/Q4,2%
+Stable Video Diffusion,2023/Q4,0%
+Orca 2,2023/Q4,0%
+Inflection-2,2023/Q4,0%
+Gemini,2023/Q4,11%
+Midjourney v6,2023/Q4,0%

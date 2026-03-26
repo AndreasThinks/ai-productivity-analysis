@@ -1,0 +1,29 @@
+Word Error Rate,Dataset,Label
+0.027000000000000003,LibriSpeech Clean,Whisper Large V2
+0.062,Artie,Whisper Large V2
+0.09,Common Voice,Whisper Large V2
+0.044000000000000004,FLEURS En,Whisper Large V2
+0.04,TED-LIUM,Whisper Large V2
+0.255,CHiME-6,Whisper Large V2
+0.073,VoxPopuli En,Whisper Large V2
+0.162,CORAAL,Whisper Large V2
+0.16899999999999998,AMI IHM,Whisper Large V2
+0.138,Switchboard,Whisper Large V2
+0.17600000000000002,CallHome,Whisper Large V2
+0.039,WSJ,Whisper Large V2
+0.364,AMI SDM1,Whisper Large V2
+0.052000000000000005,LibriSpeech Other,Whisper Large V2
+0.027000000000000003,LibriSpeech Clean,wav2vec 2.0 Large (No LM)
+0.245,Artie,wav2vec 2.0 Large (No LM)
+0.299,Common Voice,wav2vec 2.0 Large (No LM)
+0.146,FLEURS En,wav2vec 2.0 Large (No LM)
+0.105,TED-LIUM,wav2vec 2.0 Large (No LM)
+0.6579999999999999,CHiME-6,wav2vec 2.0 Large (No LM)
+0.179,VoxPopuli En,wav2vec 2.0 Large (No LM)
+0.35600000000000004,CORAAL,wav2vec 2.0 Large (No LM)
+0.37,AMI IHM,wav2vec 2.0 Large (No LM)
+0.28300000000000003,Switchboard,wav2vec 2.0 Large (No LM)
+0.348,CallHome,wav2vec 2.0 Large (No LM)
+0.077,WSJ,wav2vec 2.0 Large (No LM)
+0.6759999999999999,AMI SDM1,wav2vec 2.0 Large (No LM)
+0.062,LibriSpeech Other,wav2vec 2.0 Large (No LM)

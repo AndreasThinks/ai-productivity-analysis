@@ -1,0 +1,31 @@
+Setting,Algorithm,Run-time (in microseconds)
+"bs=256, seqlen=256",PyTorch Eager,3058.6
+"bs=128, seqlen=512",PyTorch Eager,3151.4
+"bs=64, seqlen=1,024",PyTorch Eager,3160.4
+"bs=32, seqlen=2,048",PyTorch Eager,3158.3
+"bs=16, seqlen=4,096",PyTorch Eager,3157
+"bs=8, seqlen=8,192",PyTorch Eager,3173.1
+"bs=4, seqlen=16,384",PyTorch Eager,3223
+"bs=2, seqlen=32,768",PyTorch Eager,3224.1
+"bs=1, seqlen=65,536",PyTorch Eager,1335.6
+"bs=1, seqlen=131,072",PyTorch Eager,2664
+"bs=256, seqlen=256",Flash-Attention v2.0.9,390.5
+"bs=128, seqlen=512",Flash-Attention v2.0.9,366.3
+"bs=64, seqlen=1,024",Flash-Attention v2.0.9,364.8
+"bs=32, seqlen=2,048",Flash-Attention v2.0.9,352
+"bs=16, seqlen=4,096",Flash-Attention v2.0.9,401.7
+"bs=8, seqlen=8,192",Flash-Attention v2.0.9,529.2
+"bs=4, seqlen=16,384",Flash-Attention v2.0.9,582.7
+"bs=2, seqlen=32,768",Flash-Attention v2.0.9,1156.1
+"bs=1, seqlen=65,536",Flash-Attention v2.0.9,2300.6
+"bs=1, seqlen=131,072",Flash-Attention v2.0.9,4592.2
+"bs=256, seqlen=256",Flash-Decoding,63.4
+"bs=128, seqlen=512",Flash-Decoding,67.7
+"bs=64, seqlen=1,024",Flash-Decoding,77.7
+"bs=32, seqlen=2,048",Flash-Decoding,58.5
+"bs=16, seqlen=4,096",Flash-Decoding,57
+"bs=8, seqlen=8,192",Flash-Decoding,56.4
+"bs=4, seqlen=16,384",Flash-Decoding,58.2
+"bs=2, seqlen=32,768",Flash-Decoding,60.3
+"bs=1, seqlen=65,536",Flash-Decoding,64.4
+"bs=1, seqlen=131,072",Flash-Decoding,106.6

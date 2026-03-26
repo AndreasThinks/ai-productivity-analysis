@@ -1,0 +1,10 @@
+Task,Self Correction,Accuracy
+GSM8K,Standard Prompting,0.955
+CommonSenseQA,Standard Prompting,0.82
+HotpotQA,Standard Prompting,0.49
+GSM8K,Self-Correct (round 1),0.915
+CommonSenseQA,Self-Correct (round 1),0.795
+HotpotQA,Self-Correct (round 1),0.49
+GSM8K,Self-Correct (round 2),0.89
+CommonSenseQA,Self-Correct (round 2),0.8
+HotpotQA,Self-Correct (round 2),0.43

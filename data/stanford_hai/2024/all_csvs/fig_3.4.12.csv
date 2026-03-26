@@ -1,0 +1,50 @@
+Category,Metric,Agent,Type,Score
+Disutility ↓,Unfairness ,Random,Base,100
+Disutility ↓,Unfairness ,DRRN (2016),Base,106
+Disutility ↓,Unfairness ,DRRN (2016),+shaping,97
+Disutility ↓,Unfairness ,GPT-3.5 (2023),Base,80
+Disutility ↓,Unfairness ,GPT-3.5 (2023),+EthicsPrompt,75
+Disutility ↓,Unfairness ,GPT-4 (2023),Base,74
+Disutility ↓,Unfairness ,GPT-4 (2023),+EthicsPrompt,70
+Disutility ↓,Manipulation ,Random,Base,100
+Disutility ↓,Manipulation ,DRRN (2016),Base,120
+Disutility ↓,Manipulation ,DRRN (2016),+shaping,119
+Disutility ↓,Manipulation ,GPT-3.5 (2023),Base,111
+Disutility ↓,Manipulation ,GPT-3.5 (2023),+EthicsPrompt,95
+Disutility ↓,Manipulation ,GPT-4 (2023),Base,91
+Disutility ↓,Manipulation ,GPT-4 (2023),+EthicsPrompt,87
+Disutility ↓,Intending harm ,Random,Base,100
+Disutility ↓,Intending harm ,DRRN (2016),Base,113
+Disutility ↓,Intending harm ,DRRN (2016),+shaping,106
+Disutility ↓,Intending harm ,GPT-3.5 (2023),Base,89
+Disutility ↓,Intending harm ,GPT-3.5 (2023),+EthicsPrompt,73
+Disutility ↓,Intending harm ,GPT-4 (2023),Base,84
+Disutility ↓,Intending harm ,GPT-4 (2023),+EthicsPrompt,73
+Disutility ↓,Deception ,Random,Base,100
+Disutility ↓,Deception ,DRRN (2016),Base,100
+Disutility ↓,Deception ,DRRN (2016),+shaping,108
+Disutility ↓,Deception ,GPT-3.5 (2023),Base,95
+Disutility ↓,Deception ,GPT-3.5 (2023),+EthicsPrompt,90
+Disutility ↓,Deception ,GPT-4 (2023),Base,90
+Disutility ↓,Deception ,GPT-4 (2023),+EthicsPrompt,92
+Immorality ↓,Physical harm ,Random,Base,100
+Immorality ↓,Physical harm ,DRRN (2016),Base,107
+Immorality ↓,Physical harm ,DRRN (2016),+shaping,105
+Immorality ↓,Physical harm ,GPT-3.5 (2023),Base,87
+Immorality ↓,Physical harm ,GPT-3.5 (2023),+EthicsPrompt,87
+Immorality ↓,Physical harm ,GPT-4 (2023),Base,91
+Immorality ↓,Physical harm ,GPT-4 (2023),+EthicsPrompt,84
+Immorality ↓,Betrayal ,Random,Base,100
+Immorality ↓,Betrayal ,DRRN (2016),Base,97
+Immorality ↓,Betrayal ,DRRN (2016),+shaping,110
+Immorality ↓,Betrayal ,GPT-3.5 (2023),Base,59
+Immorality ↓,Betrayal ,GPT-3.5 (2023),+EthicsPrompt,76
+Immorality ↓,Betrayal ,GPT-4 (2023),Base,115
+Immorality ↓,Betrayal ,GPT-4 (2023),+EthicsPrompt,99
+Power ↓,All power ,Random,Base,100
+Power ↓,All power ,DRRN (2016),Base,108
+Power ↓,All power ,DRRN (2016),+shaping,106
+Power ↓,All power ,GPT-3.5 (2023),Base,96
+Power ↓,All power ,GPT-3.5 (2023),+EthicsPrompt,94
+Power ↓,All power ,GPT-4 (2023),Base,99
+Power ↓,All power ,GPT-4 (2023),+EthicsPrompt,96

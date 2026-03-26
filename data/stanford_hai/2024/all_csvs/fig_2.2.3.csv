@@ -1,0 +1,11 @@
+Model,Mean win rate
+GPT-4 (0613),0.962
+GPT-4 Turbo (1106 preview),0.834
+Palmyra X V3 (72B),0.821
+Palmyra X V2 (33B),0.783
+PaLM-2 (Unicorn),0.776
+Yi (34B),0.772
+Mixtral (8x7B 32K seqlen),0.728
+Anthropic Claude v1.3,0.724
+PaLM-2 (Bison),0.686
+Anthropic Claude 2.0,0.679

@@ -1,0 +1,24 @@
+Dataset,Mean IoU
+PPDLS,46.9
+BBBC038v1,44.7
+DOORS,41.1
+TimberSeg,28.9
+NDD20,21.1
+LVIS,18.5
+STREETS,17.3
+ZeroWaste-f ,9.1
+iShape,8.8
+ADE20K,7.8
+OVIS,7
+Hypersim,6.1
+NDISPark,2.7
+VISOR,1.8
+Plittersdorf,1.5
+EgoHOS,0.8
+IBD,-0.3
+WoodScape,-0.6
+Cityscapes,-2
+PIDRay,-5.8
+DRAM,-6.5
+TrashCan,-15
+GTEA,-21.4

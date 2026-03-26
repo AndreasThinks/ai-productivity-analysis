@@ -1,0 +1,1980 @@
+{
+  "2022-Q4": {
+    "label": "2022-Q4",
+    "date_hour": "2022-11-15-12",
+    "events_total": 204296,
+    "productive_events": 173329,
+    "unique_actors": 48203,
+    "sampled_actors": 500,
+    "actors_with_location": 151,
+    "location_hit_rate": 30.2,
+    "country_events": {
+      "NL": {
+        "commits": 4,
+        "creates": 1,
+        "pull_requests": 1
+      },
+      "NO": {
+        "commits": 4,
+        "creates": 1,
+        "pull_requests": 1
+      },
+      "JP": {
+        "issues": 3,
+        "commits": 4,
+        "comments": 1
+      },
+      "ES": {
+        "commits": 8,
+        "pull_requests": 3
+      },
+      "FI": {
+        "commits": 3
+      },
+      "SE": {
+        "commits": 3,
+        "issues": 2,
+        "creates": 1,
+        "comments": 1
+      },
+      "KR": {
+        "commits": 13,
+        "creates": 4,
+        "pull_requests": 3
+      },
+      "IN": {
+        "commits": 12,
+        "creates": 7,
+        "pull_requests": 1,
+        "issues": 1
+      },
+      "CN": {
+        "commits": 5,
+        "issues": 2,
+        "comments": 4
+      },
+      "CZ": {
+        "commits": 8,
+        "creates": 4,
+        "pull_requests": 2
+      },
+      "DE": {
+        "commits": 36,
+        "creates": 8,
+        "issues": 3,
+        "releases": 1,
+        "pull_requests": 5,
+        "comments": 5
+      },
+      "RO": {
+        "creates": 1,
+        "pull_requests": 4,
+        "commits": 3
+      },
+      "PE": {
+        "commits": 1
+      },
+      "GB": {
+        "commits": 7,
+        "pull_requests": 4,
+        "creates": 2,
+        "issues": 2,
+        "comments": 2
+      },
+      "FR": {
+        "commits": 6,
+        "creates": 4,
+        "pull_requests": 3,
+        "comments": 5
+      },
+      "TR": {
+        "creates": 3,
+        "commits": 1
+      },
+      "TW": {
+        "creates": 1,
+        "commits": 3
+      },
+      "VN": {
+        "commits": 1
+      },
+      "BE": {
+        "commits": 3
+      },
+      "CH": {
+        "comments": 2,
+        "commits": 1,
+        "creates": 2
+      },
+      "SG": {
+        "creates": 5,
+        "commits": 1,
+        "pull_requests": 1
+      },
+      "BR": {
+        "commits": 3
+      },
+      "BD": {
+        "commits": 3
+      },
+      "KE": {
+        "commits": 10
+      },
+      "AT": {
+        "commits": 1
+      },
+      "PL": {
+        "commits": 6,
+        "creates": 2,
+        "pull_requests": 3
+      },
+      "EG": {
+        "commits": 5,
+        "pull_requests": 2,
+        "creates": 1
+      },
+      "NG": {
+        "creates": 2,
+        "commits": 1
+      },
+      "UA": {
+        "commits": 2,
+        "creates": 3
+      },
+      "AE": {
+        "commits": 2
+      },
+      "PT": {
+        "issues": 2,
+        "commits": 5,
+        "creates": 1,
+        "pull_requests": 5
+      },
+      "PK": {
+        "creates": 3,
+        "commits": 1,
+        "pull_requests": 1
+      },
+      "CA": {
+        "comments": 1,
+        "creates": 1
+      },
+      "ID": {
+        "commits": 6,
+        "creates": 3
+      },
+      "AR": {
+        "commits": 1
+      },
+      "IL": {
+        "commits": 1
+      },
+      "AU": {
+        "creates": 2,
+        "pull_requests": 3,
+        "commits": 1
+      },
+      "US": {
+        "creates": 1,
+        "pull_requests": 1,
+        "commits": 1
+      },
+      "RU": {
+        "commits": 1
+      },
+      "PH": {
+        "creates": 2,
+        "commits": 1
+      }
+    },
+    "country_actor_count": {
+      "NL": 3,
+      "NO": 3,
+      "JP": 2,
+      "ES": 5,
+      "FI": 2,
+      "SE": 4,
+      "KR": 8,
+      "IN": 13,
+      "CN": 8,
+      "CZ": 3,
+      "DE": 25,
+      "RO": 3,
+      "PE": 1,
+      "GB": 8,
+      "FR": 7,
+      "TR": 2,
+      "TW": 2,
+      "VN": 1,
+      "BE": 2,
+      "CH": 4,
+      "SG": 3,
+      "BR": 3,
+      "BD": 3,
+      "KE": 3,
+      "AT": 1,
+      "PL": 5,
+      "EG": 2,
+      "NG": 2,
+      "UA": 3,
+      "AE": 1,
+      "PT": 2,
+      "PK": 2,
+      "CA": 2,
+      "ID": 5,
+      "AR": 1,
+      "IL": 1,
+      "AU": 2,
+      "US": 1,
+      "RU": 1,
+      "PH": 2
+    }
+  },
+  "2023-Q1": {
+    "label": "2023-Q1",
+    "date_hour": "2023-02-15-12",
+    "events_total": 225052,
+    "productive_events": 190312,
+    "unique_actors": 49195,
+    "sampled_actors": 500,
+    "actors_with_location": 139,
+    "location_hit_rate": 27.8,
+    "country_events": {
+      "CN": {
+        "creates": 1,
+        "commits": 6,
+        "issues": 2,
+        "comments": 1
+      },
+      "UA": {
+        "commits": 5,
+        "creates": 3,
+        "pull_requests": 3,
+        "releases": 1
+      },
+      "AU": {
+        "commits": 106
+      },
+      "MY": {
+        "creates": 1,
+        "commits": 1
+      },
+      "IN": {
+        "creates": 12,
+        "commits": 8,
+        "comments": 3
+      },
+      "KE": {
+        "commits": 5,
+        "pull_requests": 1
+      },
+      "VN": {
+        "comments": 3
+      },
+      "SG": {
+        "commits": 1
+      },
+      "PH": {
+        "commits": 1
+      },
+      "NG": {
+        "commits": 4,
+        "creates": 2
+      },
+      "IL": {
+        "creates": 5,
+        "pull_requests": 7,
+        "comments": 4,
+        "commits": 2
+      },
+      "JP": {
+        "releases": 1,
+        "creates": 1,
+        "commits": 4,
+        "pull_requests": 2
+      },
+      "BD": {
+        "commits": 2,
+        "issues": 1
+      },
+      "NO": {
+        "commits": 2
+      },
+      "KR": {
+        "creates": 2,
+        "pull_requests": 1,
+        "commits": 6
+      },
+      "DE": {
+        "commits": 16,
+        "comments": 4,
+        "issues": 4,
+        "pull_requests": 3
+      },
+      "SE": {
+        "commits": 6,
+        "comments": 1
+      },
+      "ES": {
+        "commits": 9,
+        "issues": 4,
+        "creates": 1,
+        "pull_requests": 5,
+        "comments": 1
+      },
+      "EG": {
+        "creates": 2,
+        "commits": 2
+      },
+      "TR": {
+        "creates": 1,
+        "pull_requests": 1,
+        "commits": 6,
+        "comments": 1
+      },
+      "FR": {
+        "comments": 2,
+        "commits": 7,
+        "creates": 1,
+        "pull_requests": 2
+      },
+      "NL": {
+        "comments": 1,
+        "commits": 8,
+        "pull_requests": 5,
+        "issues": 2,
+        "creates": 1
+      },
+      "GB": {
+        "commits": 7,
+        "creates": 5,
+        "pull_requests": 7,
+        "comments": 5
+      },
+      "PL": {
+        "commits": 8,
+        "pull_requests": 4,
+        "comments": 1
+      },
+      "PT": {
+        "commits": 3,
+        "comments": 3,
+        "pull_requests": 2
+      },
+      "DK": {
+        "commits": 4,
+        "comments": 1,
+        "issues": 1
+      },
+      "ZA": {
+        "commits": 9
+      },
+      "ID": {
+        "pull_requests": 1
+      },
+      "CH": {
+        "commits": 6
+      },
+      "PK": {
+        "commits": 1
+      },
+      "RO": {
+        "pull_requests": 1,
+        "commits": 1
+      },
+      "AR": {
+        "commits": 1,
+        "creates": 1
+      },
+      "CZ": {
+        "commits": 2,
+        "releases": 1,
+        "creates": 1
+      },
+      "FI": {
+        "commits": 3
+      },
+      "IT": {
+        "commits": 1
+      },
+      "BE": {
+        "commits": 1
+      },
+      "US": {
+        "comments": 2,
+        "pull_requests": 1,
+        "commits": 2,
+        "creates": 4
+      },
+      "AT": {
+        "commits": 4,
+        "pull_requests": 4
+      },
+      "HK": {
+        "commits": 1
+      },
+      "GR": {
+        "comments": 2
+      },
+      "IE": {
+        "commits": 2,
+        "creates": 2
+      },
+      "BR": {
+        "creates": 2
+      },
+      "CO": {
+        "commits": 2
+      },
+      "CA": {
+        "comments": 1,
+        "creates": 1,
+        "pull_requests": 1
+      }
+    },
+    "country_actor_count": {
+      "CN": 8,
+      "UA": 2,
+      "AU": 4,
+      "MY": 1,
+      "IN": 11,
+      "KE": 4,
+      "VN": 1,
+      "SG": 1,
+      "PH": 1,
+      "NG": 2,
+      "IL": 2,
+      "JP": 5,
+      "BD": 3,
+      "NO": 1,
+      "KR": 4,
+      "DE": 14,
+      "SE": 4,
+      "ES": 7,
+      "EG": 2,
+      "TR": 4,
+      "FR": 6,
+      "NL": 6,
+      "GB": 7,
+      "PL": 4,
+      "PT": 3,
+      "DK": 3,
+      "ZA": 1,
+      "ID": 1,
+      "CH": 4,
+      "PK": 1,
+      "RO": 1,
+      "AR": 2,
+      "CZ": 2,
+      "FI": 2,
+      "IT": 1,
+      "BE": 1,
+      "US": 5,
+      "AT": 1,
+      "HK": 1,
+      "GR": 1,
+      "IE": 1,
+      "BR": 1,
+      "CO": 1,
+      "CA": 2
+    }
+  },
+  "2023-Q2": {
+    "label": "2023-Q2",
+    "date_hour": "2023-05-15-12",
+    "events_total": 205134,
+    "productive_events": 175535,
+    "unique_actors": 47904,
+    "sampled_actors": 500,
+    "actors_with_location": 121,
+    "location_hit_rate": 24.2,
+    "country_events": {
+      "US": {
+        "commits": 91,
+        "creates": 7,
+        "releases": 2,
+        "pull_requests": 2,
+        "issues": 1,
+        "comments": 2
+      },
+      "IT": {
+        "creates": 2,
+        "commits": 6,
+        "comments": 1
+      },
+      "DE": {
+        "pull_requests": 1,
+        "commits": 3,
+        "creates": 2,
+        "releases": 1,
+        "comments": 3
+      },
+      "NG": {
+        "commits": 7
+      },
+      "NL": {
+        "pull_requests": 3,
+        "commits": 6,
+        "comments": 7,
+        "creates": 2
+      },
+      "BR": {
+        "commits": 10,
+        "creates": 1,
+        "issues": 1,
+        "comments": 2
+      },
+      "IN": {
+        "creates": 4,
+        "pull_requests": 1,
+        "commits": 14,
+        "issues": 1
+      },
+      "BE": {
+        "commits": 2,
+        "comments": 1,
+        "pull_requests": 1
+      },
+      "CN": {
+        "commits": 5,
+        "comments": 1,
+        "creates": 1,
+        "issues": 1
+      },
+      "FI": {
+        "comments": 2,
+        "commits": 1
+      },
+      "BD": {
+        "commits": 5
+      },
+      "GB": {
+        "commits": 9,
+        "comments": 4,
+        "creates": 2,
+        "pull_requests": 2,
+        "issues": 5
+      },
+      "PK": {
+        "commits": 3
+      },
+      "AU": {
+        "commits": 2
+      },
+      "IL": {
+        "pull_requests": 1,
+        "commits": 1,
+        "comments": 3
+      },
+      "CZ": {
+        "comments": 1,
+        "commits": 1
+      },
+      "KR": {
+        "commits": 3,
+        "comments": 1,
+        "creates": 1,
+        "pull_requests": 1
+      },
+      "NO": {
+        "commits": 1
+      },
+      "FR": {
+        "creates": 4,
+        "pull_requests": 3,
+        "commits": 12,
+        "comments": 1
+      },
+      "ID": {
+        "commits": 3,
+        "creates": 3,
+        "pull_requests": 2
+      },
+      "RU": {
+        "commits": 7,
+        "issues": 1,
+        "pull_requests": 1,
+        "creates": 1
+      },
+      "RO": {
+        "commits": 2
+      },
+      "PL": {
+        "commits": 1,
+        "comments": 1
+      },
+      "KE": {
+        "commits": 4
+      },
+      "ES": {
+        "commits": 11,
+        "creates": 2
+      },
+      "CH": {
+        "commits": 4,
+        "releases": 1,
+        "creates": 1
+      },
+      "UA": {
+        "pull_requests": 1,
+        "commits": 2
+      },
+      "DK": {
+        "commits": 6
+      },
+      "ZA": {
+        "comments": 1,
+        "commits": 2
+      },
+      "SE": {
+        "commits": 2
+      },
+      "HK": {
+        "commits": 1
+      },
+      "CA": {
+        "comments": 3,
+        "creates": 2
+      },
+      "HU": {
+        "commits": 2
+      },
+      "NZ": {
+        "commits": 1
+      },
+      "IR": {
+        "commits": 1
+      },
+      "AR": {
+        "commits": 1
+      }
+    },
+    "country_actor_count": {
+      "US": 12,
+      "IT": 5,
+      "DE": 6,
+      "NG": 1,
+      "NL": 5,
+      "BR": 4,
+      "IN": 8,
+      "BE": 3,
+      "CN": 8,
+      "FI": 2,
+      "BD": 3,
+      "GB": 11,
+      "PK": 2,
+      "AU": 2,
+      "IL": 2,
+      "CZ": 1,
+      "KR": 2,
+      "NO": 1,
+      "FR": 9,
+      "ID": 4,
+      "RU": 6,
+      "RO": 1,
+      "PL": 1,
+      "KE": 2,
+      "ES": 3,
+      "CH": 2,
+      "UA": 2,
+      "DK": 2,
+      "ZA": 1,
+      "SE": 1,
+      "HK": 1,
+      "CA": 4,
+      "HU": 1,
+      "NZ": 1,
+      "IR": 1,
+      "AR": 1
+    }
+  },
+  "2023-Q3": {
+    "label": "2023-Q3",
+    "date_hour": "2023-08-15-12",
+    "events_total": 227279,
+    "productive_events": 201613,
+    "unique_actors": 43257,
+    "sampled_actors": 500,
+    "actors_with_location": 140,
+    "location_hit_rate": 28.0,
+    "country_events": {
+      "GB": {
+        "commits": 6,
+        "creates": 1,
+        "pull_requests": 2,
+        "comments": 2
+      },
+      "DK": {
+        "commits": 4,
+        "creates": 2
+      },
+      "US": {
+        "commits": 40,
+        "issues": 1,
+        "comments": 2,
+        "creates": 4,
+        "pull_requests": 2
+      },
+      "RU": {
+        "commits": 7,
+        "pull_requests": 2
+      },
+      "KR": {
+        "commits": 16,
+        "creates": 3
+      },
+      "SE": {
+        "creates": 2,
+        "commits": 8,
+        "comments": 1,
+        "pull_requests": 3,
+        "issues": 1
+      },
+      "IN": {
+        "creates": 9,
+        "pull_requests": 6,
+        "commits": 14,
+        "releases": 1,
+        "issues": 1
+      },
+      "DE": {
+        "commits": 12,
+        "comments": 3,
+        "pull_requests": 1,
+        "creates": 1
+      },
+      "AU": {
+        "commits": 7,
+        "comments": 3,
+        "issues": 2,
+        "pull_requests": 1
+      },
+      "ES": {
+        "pull_requests": 1
+      },
+      "PL": {
+        "comments": 2,
+        "creates": 2,
+        "commits": 1,
+        "issues": 1
+      },
+      "MY": {
+        "commits": 2
+      },
+      "FI": {
+        "comments": 2,
+        "commits": 5,
+        "pull_requests": 3,
+        "creates": 2
+      },
+      "CH": {
+        "commits": 7,
+        "creates": 1
+      },
+      "NL": {
+        "commits": 3,
+        "creates": 1,
+        "pull_requests": 3,
+        "comments": 1
+      },
+      "KE": {
+        "commits": 5,
+        "pull_requests": 4,
+        "creates": 1,
+        "issues": 1
+      },
+      "BE": {
+        "commits": 2,
+        "creates": 3
+      },
+      "NO": {
+        "commits": 2
+      },
+      "TW": {
+        "commits": 11,
+        "comments": 2,
+        "pull_requests": 2,
+        "creates": 1
+      },
+      "AT": {
+        "pull_requests": 2,
+        "commits": 2,
+        "comments": 1
+      },
+      "CN": {
+        "commits": 15,
+        "comments": 3,
+        "creates": 1
+      },
+      "AR": {
+        "comments": 2,
+        "commits": 3
+      },
+      "PT": {
+        "commits": 3,
+        "creates": 1
+      },
+      "BR": {
+        "commits": 4,
+        "comments": 2
+      },
+      "TR": {
+        "commits": 3
+      },
+      "ZA": {
+        "comments": 1
+      },
+      "BD": {
+        "commits": 1
+      },
+      "UA": {
+        "commits": 4
+      },
+      "JP": {
+        "commits": 2,
+        "creates": 2
+      },
+      "HK": {
+        "commits": 1,
+        "releases": 1,
+        "creates": 1
+      },
+      "FR": {
+        "commits": 1
+      },
+      "AE": {
+        "creates": 1,
+        "pull_requests": 1,
+        "commits": 1
+      },
+      "TH": {
+        "commits": 1
+      },
+      "EG": {
+        "commits": 7
+      },
+      "CO": {
+        "commits": 2
+      },
+      "IT": {
+        "comments": 1,
+        "commits": 1
+      },
+      "CA": {
+        "commits": 1
+      },
+      "IR": {
+        "comments": 1
+      },
+      "NG": {
+        "commits": 1
+      },
+      "CZ": {
+        "commits": 1
+      }
+    },
+    "country_actor_count": {
+      "GB": 6,
+      "DK": 3,
+      "US": 7,
+      "RU": 5,
+      "KR": 7,
+      "SE": 4,
+      "IN": 12,
+      "DE": 8,
+      "AU": 7,
+      "ES": 1,
+      "PL": 3,
+      "MY": 1,
+      "FI": 5,
+      "CH": 5,
+      "NL": 4,
+      "KE": 3,
+      "BE": 3,
+      "NO": 1,
+      "TW": 4,
+      "AT": 2,
+      "CN": 12,
+      "AR": 2,
+      "PT": 3,
+      "BR": 6,
+      "TR": 3,
+      "ZA": 1,
+      "BD": 1,
+      "UA": 3,
+      "JP": 3,
+      "HK": 1,
+      "FR": 1,
+      "AE": 2,
+      "TH": 1,
+      "EG": 2,
+      "CO": 2,
+      "IT": 2,
+      "CA": 1,
+      "IR": 1,
+      "NG": 1,
+      "CZ": 1
+    }
+  },
+  "2023-Q4": {
+    "label": "2023-Q4",
+    "date_hour": "2023-11-15-12",
+    "events_total": 234908,
+    "productive_events": 205360,
+    "unique_actors": 48655,
+    "sampled_actors": 500,
+    "actors_with_location": 139,
+    "location_hit_rate": 27.8,
+    "country_events": {
+      "GB": {
+        "creates": 14,
+        "commits": 25,
+        "pull_requests": 8,
+        "comments": 2
+      },
+      "DE": {
+        "pull_requests": 3,
+        "commits": 15,
+        "creates": 1,
+        "issues": 2,
+        "comments": 3
+      },
+      "KE": {
+        "creates": 2,
+        "pull_requests": 7,
+        "commits": 8
+      },
+      "IN": {
+        "commits": 19,
+        "creates": 4,
+        "releases": 1,
+        "pull_requests": 4
+      },
+      "JP": {
+        "issues": 12,
+        "comments": 1,
+        "commits": 3
+      },
+      "NO": {
+        "commits": 8,
+        "creates": 1,
+        "pull_requests": 1
+      },
+      "ES": {
+        "commits": 5,
+        "creates": 1
+      },
+      "NL": {
+        "comments": 5,
+        "commits": 3,
+        "creates": 6,
+        "issues": 1
+      },
+      "IT": {
+        "commits": 3,
+        "creates": 6
+      },
+      "BE": {
+        "commits": 23,
+        "pull_requests": 8,
+        "creates": 5,
+        "issues": 1,
+        "comments": 3
+      },
+      "EG": {
+        "commits": 4,
+        "pull_requests": 4
+      },
+      "FI": {
+        "comments": 1,
+        "creates": 1,
+        "commits": 1,
+        "pull_requests": 1
+      },
+      "SE": {
+        "commits": 6,
+        "pull_requests": 2,
+        "issues": 1,
+        "releases": 1,
+        "creates": 1
+      },
+      "HU": {
+        "issues": 1,
+        "creates": 2,
+        "pull_requests": 1,
+        "commits": 1
+      },
+      "US": {
+        "commits": 9,
+        "issues": 1,
+        "creates": 2
+      },
+      "UA": {
+        "commits": 4,
+        "creates": 1,
+        "pull_requests": 3
+      },
+      "PL": {
+        "commits": 2,
+        "creates": 1,
+        "pull_requests": 2,
+        "comments": 2,
+        "issues": 1
+      },
+      "NG": {
+        "commits": 3
+      },
+      "NZ": {
+        "creates": 2,
+        "commits": 1
+      },
+      "CZ": {
+        "commits": 1,
+        "creates": 2
+      },
+      "DK": {
+        "commits": 1
+      },
+      "MY": {
+        "commits": 3
+      },
+      "ZA": {
+        "commits": 2
+      },
+      "KR": {
+        "commits": 4,
+        "creates": 2
+      },
+      "CN": {
+        "issues": 2,
+        "commits": 5,
+        "comments": 4,
+        "pull_requests": 3,
+        "creates": 1,
+        "releases": 1
+      },
+      "FR": {
+        "commits": 7,
+        "comments": 1
+      },
+      "ID": {
+        "creates": 3,
+        "commits": 6
+      },
+      "CA": {
+        "pull_requests": 1,
+        "commits": 1
+      },
+      "BD": {
+        "creates": 2,
+        "commits": 4
+      },
+      "IR": {
+        "commits": 1
+      },
+      "PT": {
+        "commits": 2
+      },
+      "RU": {
+        "commits": 3
+      },
+      "TR": {
+        "commits": 3
+      },
+      "AU": {
+        "commits": 4
+      },
+      "CH": {
+        "issues": 1,
+        "comments": 1,
+        "commits": 1
+      },
+      "CO": {
+        "creates": 1,
+        "pull_requests": 1
+      },
+      "BR": {
+        "creates": 4,
+        "issues": 1
+      }
+    },
+    "country_actor_count": {
+      "GB": 10,
+      "DE": 14,
+      "KE": 3,
+      "IN": 12,
+      "JP": 3,
+      "NO": 4,
+      "ES": 6,
+      "NL": 8,
+      "IT": 4,
+      "BE": 5,
+      "EG": 1,
+      "FI": 1,
+      "SE": 3,
+      "HU": 2,
+      "US": 7,
+      "UA": 3,
+      "PL": 2,
+      "NG": 3,
+      "NZ": 1,
+      "CZ": 2,
+      "DK": 1,
+      "MY": 1,
+      "ZA": 1,
+      "KR": 5,
+      "CN": 6,
+      "FR": 5,
+      "ID": 5,
+      "CA": 1,
+      "BD": 4,
+      "IR": 1,
+      "PT": 2,
+      "RU": 3,
+      "TR": 2,
+      "AU": 2,
+      "CH": 2,
+      "CO": 1,
+      "BR": 3
+    }
+  },
+  "2024-Q1": {
+    "label": "2024-Q1",
+    "date_hour": "2024-02-15-12",
+    "events_total": 284638,
+    "productive_events": 257659,
+    "unique_actors": 49170,
+    "sampled_actors": 500,
+    "actors_with_location": 125,
+    "location_hit_rate": 25.0,
+    "country_events": {
+      "US": {
+        "comments": 1,
+        "commits": 3,
+        "creates": 3,
+        "pull_requests": 4
+      },
+      "IN": {
+        "creates": 11,
+        "commits": 26
+      },
+      "DE": {
+        "creates": 7,
+        "pull_requests": 10,
+        "commits": 7,
+        "releases": 1,
+        "issues": 2,
+        "comments": 4
+      },
+      "KR": {
+        "issues": 2,
+        "creates": 1,
+        "commits": 38,
+        "comments": 1
+      },
+      "GB": {
+        "commits": 14,
+        "pull_requests": 3,
+        "creates": 2,
+        "comments": 2,
+        "issues": 1
+      },
+      "SA": {
+        "commits": 1
+      },
+      "SE": {
+        "commits": 1,
+        "comments": 1
+      },
+      "BE": {
+        "commits": 1
+      },
+      "CH": {
+        "creates": 2
+      },
+      "NL": {
+        "commits": 4
+      },
+      "NO": {
+        "commits": 2
+      },
+      "NG": {
+        "commits": 6,
+        "creates": 1
+      },
+      "CA": {
+        "commits": 6
+      },
+      "BR": {
+        "commits": 7,
+        "issues": 3,
+        "pull_requests": 1
+      },
+      "BD": {
+        "commits": 5
+      },
+      "ID": {
+        "commits": 3
+      },
+      "AU": {
+        "commits": 2,
+        "comments": 1
+      },
+      "ZA": {
+        "commits": 1
+      },
+      "ES": {
+        "commits": 5,
+        "releases": 2,
+        "creates": 2,
+        "comments": 2,
+        "issues": 1
+      },
+      "TR": {
+        "commits": 10,
+        "creates": 2,
+        "pull_requests": 1
+      },
+      "FR": {
+        "commits": 4,
+        "creates": 1,
+        "pull_requests": 1
+      },
+      "TW": {
+        "commits": 2
+      },
+      "IT": {
+        "commits": 3,
+        "comments": 1
+      },
+      "JP": {
+        "commits": 6,
+        "comments": 1,
+        "creates": 2
+      },
+      "AT": {
+        "commits": 6
+      },
+      "CL": {
+        "commits": 2
+      },
+      "CN": {
+        "commits": 7
+      },
+      "CZ": {
+        "creates": 2,
+        "pull_requests": 6,
+        "commits": 4,
+        "comments": 1
+      },
+      "DK": {
+        "commits": 2
+      },
+      "RU": {
+        "creates": 2,
+        "commits": 1
+      },
+      "UA": {
+        "commits": 5
+      },
+      "NZ": {
+        "commits": 3
+      },
+      "EG": {
+        "commits": 3
+      },
+      "AR": {
+        "commits": 3
+      },
+      "AE": {
+        "comments": 1
+      },
+      "KE": {
+        "commits": 1
+      },
+      "PT": {
+        "creates": 1,
+        "pull_requests": 1
+      },
+      "PH": {
+        "creates": 2
+      },
+      "PL": {
+        "creates": 1,
+        "pull_requests": 1
+      }
+    },
+    "country_actor_count": {
+      "US": 2,
+      "IN": 16,
+      "DE": 8,
+      "KR": 8,
+      "GB": 11,
+      "SA": 1,
+      "SE": 2,
+      "BE": 1,
+      "CH": 1,
+      "NL": 4,
+      "NO": 2,
+      "NG": 3,
+      "CA": 2,
+      "BR": 5,
+      "BD": 3,
+      "ID": 3,
+      "AU": 2,
+      "ZA": 1,
+      "ES": 5,
+      "TR": 4,
+      "FR": 5,
+      "TW": 2,
+      "IT": 2,
+      "JP": 4,
+      "AT": 3,
+      "CL": 1,
+      "CN": 5,
+      "CZ": 3,
+      "DK": 2,
+      "RU": 2,
+      "UA": 1,
+      "NZ": 3,
+      "EG": 2,
+      "AR": 1,
+      "AE": 1,
+      "KE": 1,
+      "PT": 1,
+      "PH": 1,
+      "PL": 1
+    }
+  },
+  "2024-Q2": {
+    "label": "2024-Q2",
+    "date_hour": "2024-05-15-12",
+    "events_total": 277664,
+    "productive_events": 244371,
+    "unique_actors": 55969,
+    "sampled_actors": 500,
+    "actors_with_location": 127,
+    "location_hit_rate": 25.4,
+    "country_events": {
+      "IN": {
+        "comments": 4,
+        "commits": 17,
+        "pull_requests": 2,
+        "creates": 5
+      },
+      "MY": {
+        "commits": 2
+      },
+      "CH": {
+        "issues": 7,
+        "commits": 7,
+        "creates": 1,
+        "pull_requests": 2
+      },
+      "CN": {
+        "commits": 18,
+        "creates": 2,
+        "pull_requests": 2,
+        "issues": 1,
+        "comments": 1
+      },
+      "PL": {
+        "commits": 3,
+        "pull_requests": 1
+      },
+      "NG": {
+        "commits": 4
+      },
+      "US": {
+        "commits": 5,
+        "creates": 8,
+        "comments": 1,
+        "pull_requests": 5,
+        "releases": 1
+      },
+      "SE": {
+        "creates": 3,
+        "commits": 8,
+        "comments": 3,
+        "pull_requests": 2,
+        "issues": 1,
+        "releases": 2
+      },
+      "KR": {
+        "commits": 14,
+        "pull_requests": 6,
+        "creates": 1
+      },
+      "BD": {
+        "commits": 7
+      },
+      "AT": {
+        "commits": 8,
+        "pull_requests": 1,
+        "comments": 1,
+        "issues": 10
+      },
+      "BR": {
+        "commits": 3,
+        "creates": 2
+      },
+      "TW": {
+        "commits": 1
+      },
+      "EG": {
+        "commits": 3,
+        "creates": 3
+      },
+      "DE": {
+        "commits": 8,
+        "pull_requests": 4,
+        "creates": 5,
+        "comments": 1
+      },
+      "JP": {
+        "commits": 5,
+        "pull_requests": 2,
+        "issues": 1,
+        "creates": 1
+      },
+      "TR": {
+        "commits": 3,
+        "releases": 1,
+        "creates": 1
+      },
+      "HK": {
+        "commits": 1
+      },
+      "BE": {
+        "creates": 1,
+        "issues": 1
+      },
+      "DK": {
+        "commits": 3
+      },
+      "FI": {
+        "commits": 1
+      },
+      "ES": {
+        "commits": 17,
+        "creates": 1,
+        "pull_requests": 5
+      },
+      "GB": {
+        "commits": 4,
+        "pull_requests": 2,
+        "comments": 1
+      },
+      "UA": {
+        "creates": 2,
+        "commits": 1
+      },
+      "RO": {
+        "commits": 7,
+        "creates": 4,
+        "pull_requests": 1
+      },
+      "FR": {
+        "commits": 10,
+        "creates": 4,
+        "pull_requests": 3
+      },
+      "RU": {
+        "creates": 2
+      },
+      "TH": {
+        "commits": 1
+      },
+      "HU": {
+        "comments": 1
+      },
+      "AR": {
+        "commits": 1,
+        "creates": 1,
+        "issues": 1
+      },
+      "PK": {
+        "commits": 1
+      },
+      "ID": {
+        "creates": 2,
+        "comments": 1,
+        "pull_requests": 1,
+        "commits": 2
+      },
+      "KE": {
+        "commits": 2
+      },
+      "IT": {
+        "commits": 5,
+        "creates": 1
+      },
+      "CO": {
+        "commits": 2,
+        "pull_requests": 2
+      },
+      "NL": {
+        "commits": 3,
+        "creates": 1
+      },
+      "SG": {
+        "commits": 3,
+        "creates": 1
+      },
+      "ZA": {
+        "creates": 2
+      },
+      "AU": {
+        "commits": 1
+      },
+      "GR": {
+        "pull_requests": 1,
+        "commits": 2
+      }
+    },
+    "country_actor_count": {
+      "IN": 12,
+      "MY": 1,
+      "CH": 4,
+      "CN": 11,
+      "PL": 4,
+      "NG": 2,
+      "US": 7,
+      "SE": 5,
+      "KR": 6,
+      "BD": 3,
+      "AT": 2,
+      "BR": 3,
+      "TW": 1,
+      "EG": 4,
+      "DE": 9,
+      "JP": 3,
+      "TR": 2,
+      "HK": 1,
+      "BE": 2,
+      "DK": 1,
+      "FI": 1,
+      "ES": 4,
+      "GB": 4,
+      "UA": 2,
+      "RO": 2,
+      "FR": 9,
+      "RU": 1,
+      "TH": 1,
+      "HU": 1,
+      "AR": 1,
+      "PK": 1,
+      "ID": 2,
+      "KE": 2,
+      "IT": 3,
+      "CO": 1,
+      "NL": 3,
+      "SG": 2,
+      "ZA": 1,
+      "AU": 1,
+      "GR": 2
+    }
+  },
+  "2024-Q3": {
+    "label": "2024-Q3",
+    "date_hour": "2024-08-15-12",
+    "events_total": 257182,
+    "productive_events": 230583,
+    "unique_actors": 46535,
+    "sampled_actors": 500,
+    "actors_with_location": 126,
+    "location_hit_rate": 25.2,
+    "country_events": {
+      "KR": {
+        "creates": 3,
+        "pull_requests": 2,
+        "commits": 23,
+        "comments": 1
+      },
+      "FR": {
+        "commits": 14,
+        "creates": 6
+      },
+      "AR": {
+        "commits": 2
+      },
+      "TR": {
+        "commits": 3,
+        "releases": 1,
+        "creates": 1
+      },
+      "NG": {
+        "commits": 10
+      },
+      "PL": {
+        "creates": 2,
+        "commits": 4,
+        "pull_requests": 1
+      },
+      "DE": {
+        "commits": 17,
+        "creates": 5,
+        "pull_requests": 7,
+        "comments": 6,
+        "issues": 1
+      },
+      "IN": {
+        "commits": 23,
+        "creates": 3,
+        "comments": 1,
+        "issues": 6
+      },
+      "EG": {
+        "creates": 2,
+        "commits": 2
+      },
+      "GB": {
+        "commits": 11,
+        "creates": 1,
+        "pull_requests": 1,
+        "issues": 1
+      },
+      "ES": {
+        "creates": 1,
+        "pull_requests": 1,
+        "commits": 1
+      },
+      "AT": {
+        "comments": 1,
+        "creates": 2,
+        "pull_requests": 6,
+        "issues": 1,
+        "commits": 19
+      },
+      "ZA": {
+        "commits": 1
+      },
+      "CH": {
+        "commits": 2,
+        "pull_requests": 1
+      },
+      "JP": {
+        "commits": 8,
+        "pull_requests": 1,
+        "issues": 8
+      },
+      "DK": {
+        "commits": 5,
+        "issues": 2,
+        "comments": 1,
+        "pull_requests": 1
+      },
+      "CN": {
+        "issues": 1,
+        "comments": 3,
+        "commits": 12,
+        "pull_requests": 5,
+        "creates": 1
+      },
+      "NO": {
+        "commits": 4,
+        "pull_requests": 1,
+        "creates": 1,
+        "issues": 1
+      },
+      "AE": {
+        "commits": 5
+      },
+      "BR": {
+        "commits": 6,
+        "creates": 1,
+        "pull_requests": 1
+      },
+      "UA": {
+        "commits": 2
+      },
+      "ID": {
+        "commits": 8,
+        "pull_requests": 1
+      },
+      "BD": {
+        "commits": 4
+      },
+      "IE": {
+        "comments": 1
+      },
+      "CZ": {
+        "commits": 6,
+        "pull_requests": 4,
+        "creates": 1
+      },
+      "US": {
+        "commits": 20,
+        "comments": 1,
+        "pull_requests": 1
+      },
+      "AU": {
+        "commits": 7,
+        "pull_requests": 4,
+        "comments": 1
+      },
+      "RU": {
+        "commits": 4,
+        "issues": 1
+      },
+      "PH": {
+        "commits": 1
+      },
+      "FI": {
+        "commits": 1
+      },
+      "KE": {
+        "creates": 1,
+        "commits": 2,
+        "pull_requests": 2
+      },
+      "NL": {
+        "commits": 1,
+        "comments": 1
+      },
+      "NZ": {
+        "creates": 1
+      }
+    },
+    "country_actor_count": {
+      "KR": 6,
+      "FR": 4,
+      "AR": 2,
+      "TR": 3,
+      "NG": 3,
+      "PL": 2,
+      "DE": 14,
+      "IN": 17,
+      "EG": 3,
+      "GB": 8,
+      "ES": 2,
+      "AT": 2,
+      "ZA": 1,
+      "CH": 1,
+      "JP": 6,
+      "DK": 5,
+      "CN": 9,
+      "NO": 2,
+      "AE": 1,
+      "BR": 4,
+      "UA": 2,
+      "ID": 4,
+      "BD": 2,
+      "IE": 1,
+      "CZ": 2,
+      "US": 7,
+      "AU": 5,
+      "RU": 3,
+      "PH": 1,
+      "FI": 1,
+      "KE": 1,
+      "NL": 1,
+      "NZ": 1
+    }
+  },
+  "2024-Q4": {
+    "label": "2024-Q4",
+    "date_hour": "2024-11-15-12",
+    "events_total": 260345,
+    "productive_events": 232197,
+    "unique_actors": 50326,
+    "sampled_actors": 500,
+    "actors_with_location": 117,
+    "location_hit_rate": 23.4,
+    "country_events": {
+      "DE": {
+        "commits": 30
+      },
+      "IN": {
+        "commits": 30,
+        "creates": 11,
+        "pull_requests": 4,
+        "comments": 2
+      },
+      "CN": {
+        "commits": 8,
+        "issues": 1,
+        "comments": 9
+      },
+      "IE": {
+        "pull_requests": 2,
+        "creates": 1
+      },
+      "KE": {
+        "creates": 3,
+        "commits": 3
+      },
+      "CZ": {
+        "commits": 1
+      },
+      "IT": {
+        "commits": 10,
+        "releases": 4,
+        "creates": 3
+      },
+      "US": {
+        "commits": 7,
+        "pull_requests": 2
+      },
+      "NL": {
+        "issues": 1,
+        "commits": 1
+      },
+      "SG": {
+        "commits": 3
+      },
+      "BR": {
+        "commits": 5,
+        "pull_requests": 3
+      },
+      "KR": {
+        "commits": 4,
+        "creates": 5
+      },
+      "BD": {
+        "commits": 7
+      },
+      "ES": {
+        "commits": 11
+      },
+      "CH": {
+        "comments": 1,
+        "commits": 2
+      },
+      "GR": {
+        "issues": 1
+      },
+      "EG": {
+        "creates": 2
+      },
+      "FI": {
+        "commits": 4,
+        "comments": 2,
+        "issues": 1,
+        "pull_requests": 2,
+        "creates": 1
+      },
+      "GB": {
+        "commits": 13,
+        "pull_requests": 2,
+        "comments": 2,
+        "creates": 2
+      },
+      "PK": {
+        "commits": 2
+      },
+      "AE": {
+        "pull_requests": 1,
+        "commits": 3,
+        "comments": 1
+      },
+      "FR": {
+        "commits": 6,
+        "creates": 2,
+        "comments": 1,
+        "releases": 1
+      },
+      "RO": {
+        "commits": 2
+      },
+      "BE": {
+        "commits": 3,
+        "issues": 1
+      },
+      "SE": {
+        "issues": 2,
+        "comments": 2
+      },
+      "VN": {
+        "commits": 2,
+        "creates": 1,
+        "pull_requests": 2
+      },
+      "CA": {
+        "creates": 3
+      },
+      "RU": {
+        "commits": 2
+      },
+      "JP": {
+        "commits": 1
+      },
+      "NO": {
+        "pull_requests": 1,
+        "commits": 2
+      },
+      "PL": {
+        "pull_requests": 2,
+        "commits": 3,
+        "comments": 1
+      },
+      "DK": {
+        "creates": 2,
+        "pull_requests": 3,
+        "comments": 1,
+        "issues": 1,
+        "commits": 1
+      },
+      "AT": {
+        "commits": 1
+      },
+      "PT": {
+        "commits": 3,
+        "pull_requests": 1
+      },
+      "PH": {
+        "commits": 1
+      },
+      "ZA": {
+        "commits": 1
+      },
+      "TR": {
+        "creates": 4
+      },
+      "NG": {
+        "commits": 2,
+        "pull_requests": 1
+      }
+    },
+    "country_actor_count": {
+      "DE": 10,
+      "IN": 16,
+      "CN": 5,
+      "IE": 1,
+      "KE": 2,
+      "CZ": 1,
+      "IT": 4,
+      "US": 4,
+      "NL": 2,
+      "SG": 3,
+      "BR": 2,
+      "KR": 5,
+      "BD": 3,
+      "ES": 6,
+      "CH": 2,
+      "GR": 1,
+      "EG": 1,
+      "FI": 5,
+      "GB": 11,
+      "PK": 2,
+      "AE": 1,
+      "FR": 6,
+      "RO": 1,
+      "BE": 1,
+      "SE": 1,
+      "VN": 1,
+      "CA": 3,
+      "RU": 2,
+      "JP": 1,
+      "NO": 2,
+      "PL": 2,
+      "DK": 3,
+      "AT": 1,
+      "PT": 2,
+      "PH": 1,
+      "ZA": 1,
+      "TR": 1,
+      "NG": 1
+    }
+  }
+}

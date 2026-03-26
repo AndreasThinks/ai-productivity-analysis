@@ -1,0 +1,61 @@
+Role,Industry,% of respondents
+Data engineers,All industries,36%
+AI data scientists,All industries,31%
+Machine learning engineers,All industries,31%
+Software engineers,All industries,28%
+Data architects,All industries,25%
+Data visualization specialists,All industries,24%
+Design specialists,All industries,22%
+AI product owners/managers,All industries,21%
+Translators,All industries,11%
+Prompt engineers,All industries,7%
+Data engineers,"Business, legal, and professional services",33%
+AI data scientists,"Business, legal, and professional services",28%
+Machine learning engineers,"Business, legal, and professional services",25%
+Software engineers,"Business, legal, and professional services",24%
+Data architects,"Business, legal, and professional services",20%
+Data visualization specialists,"Business, legal, and professional services",21%
+Design specialists,"Business, legal, and professional services",22%
+AI product owners/managers,"Business, legal, and professional services",21%
+Translators,"Business, legal, and professional services",8%
+Prompt engineers,"Business, legal, and professional services",4%
+Data engineers,Consumer goods/retail,27%
+AI data scientists,Consumer goods/retail,14%
+Machine learning engineers,Consumer goods/retail,15%
+Software engineers,Consumer goods/retail,20%
+Data architects,Consumer goods/retail,14%
+Data visualization specialists,Consumer goods/retail,20%
+Design specialists,Consumer goods/retail,21%
+AI product owners/managers,Consumer goods/retail,13%
+Translators,Consumer goods/retail,11%
+Prompt engineers,Consumer goods/retail,3%
+Data engineers,Healthcare systems/pharma and med. products,19%
+AI data scientists,Healthcare systems/pharma and med. products,32%
+Machine learning engineers,Healthcare systems/pharma and med. products,16%
+Software engineers,Healthcare systems/pharma and med. products,23%
+Data architects,Healthcare systems/pharma and med. products,19%
+Data visualization specialists,Healthcare systems/pharma and med. products,25%
+Design specialists,Healthcare systems/pharma and med. products,13%
+AI product owners/managers,Healthcare systems/pharma and med. products,19%
+Translators,Healthcare systems/pharma and med. products,3%
+Prompt engineers,Healthcare systems/pharma and med. products,9%
+Data engineers,Financial services,41%
+AI data scientists,Financial services,37%
+Machine learning engineers,Financial services,44%
+Software engineers,Financial services,24%
+Data architects,Financial services,29%
+Data visualization specialists,Financial services,19%
+Design specialists,Financial services,26%
+AI product owners/managers,Financial services,26%
+Translators,Financial services,17%
+Prompt engineers,Financial services,10%
+Data engineers,"Tech, media, and telecom",39%
+AI data scientists,"Tech, media, and telecom",41%
+Machine learning engineers,"Tech, media, and telecom",44%
+Software engineers,"Tech, media, and telecom",38%
+Data architects,"Tech, media, and telecom",36%
+Data visualization specialists,"Tech, media, and telecom",27%
+Design specialists,"Tech, media, and telecom",25%
+AI product owners/managers,"Tech, media, and telecom",27%
+Translators,"Tech, media, and telecom",17%
+Prompt engineers,"Tech, media, and telecom",13%

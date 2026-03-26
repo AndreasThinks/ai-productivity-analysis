@@ -1,0 +1,8 @@
+Algorithm/method evaluated at 64³, IN>5◦ (%) ↓,Label
+MC<sub>SDF</sub>,80.67%,Select quantitative results on 3D mesh reconstruction
+DC<sub>hermite</sub>,0.6334,Select quantitative results on 3D mesh reconstruction
+NDC<sub>SDF</sub>,55.22%,Select quantitative results on 3D mesh reconstruction
+MC,0.5237,Select quantitative results on 3D mesh reconstruction
+DMTet(64),50.20%,Select quantitative results on 3D mesh reconstruction
+DMTet(80),48.66%,Select quantitative results on 3D mesh reconstruction
+FlexiCubes,34.87%,Select quantitative results on 3D mesh reconstruction

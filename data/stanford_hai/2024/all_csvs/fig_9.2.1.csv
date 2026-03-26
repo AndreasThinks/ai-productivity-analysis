@@ -1,0 +1,30 @@
+AI model,Year/quarter,Sentiment score
+Stable Diffusion,2023/Q1,40
+Copilot,2023/Q1,56
+GPT-4,2023/Q1,42
+Stable Diffusion,2023/Q2,37
+Copilot,2023/Q2,66
+GPT-4,2023/Q2,48
+PaLM 2,2023/Q2,62
+Stable Diffusion,2023/Q3,53
+Copilot,2023/Q3,73
+GPT-4,2023/Q3,51
+PaLM 2,2023/Q3,66
+DALL-E 3,2023/Q3,74
+Mistral 7B,2023/Q3,92
+Stable Diffusion,2023/Q4,45
+Copilot,2023/Q4,67
+GPT-4,2023/Q4,44
+PaLM 2,2023/Q4,75
+DALL-E 3,2023/Q4,72
+Mistral 7B,2023/Q4,56
+Grok,2023/Q4,57
+GPT-4 Turbo,2023/Q4,68
+Whisper V3,2023/Q4,83
+GraphCast,2023/Q4,94
+Claude 2.1,2023/Q4,87
+Stable Video Diffusion,2023/Q4,66
+Orca 2,2023/Q4,83
+Inflection-2,2023/Q4,81
+Gemini,2023/Q4,36
+Midjourney v6,2023/Q4,71

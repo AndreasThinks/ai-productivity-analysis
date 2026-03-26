@@ -1,0 +1,28 @@
+Model and Number of Parameters,Toxicity Probability
+GPT-3 ada v1  350M,0.054
+InstructGPT ada v1 350M,0.04
+Cohere small 410M,0.01
+GPT-3 babbage v1  1.3B,0.053
+InstructGPT babbage v1  1.3B,0.062
+GPT-J 6B,0.052
+Cohere medium  6.1B,0.008
+TNLG v2 6.7B,0.059
+GPT-3 curie v1  6.7B,0.056
+J1-Large v1  7.5B,0.064
+T0pp 11B,0.064
+T5 11B,0.009
+Cohere large  13.1B,0.011
+J1-Grande v1  17B,0.062
+GPT-NeoX 20B,0.05
+UL2 20B,0.043
+Anthropic-LM v4-s3 52B,0.059
+Cohere xlarge 52.4B,0.01
+OPT 66B,0.058
+YaLM 100B,0.092
+GLM 130B,0.058
+OPT 175B,0.052
+GPT-3 davinci v1  175B,0.07
+InstructGPT davinci v2  175B,0.063
+BLOOM 176B,0.057
+J1-Jumbo v1  178B,0.072
+TNLG v2 530B,0.058

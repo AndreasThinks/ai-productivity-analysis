@@ -1,0 +1,11 @@
+Model,Overall accuracy
+Gemini Ultra*,0.594
+GPT-4V(ision) (Playground),0.568
+InternVL-Chat-V1.2*,0.516
+Qwen-VL-MAX*,0.514
+LLaVA-1.6-34B*,0.511
+Qwen-VL-PLUS*,0.452
+InternLM-XComposer2-VL*,0.43
+Marco-VL*,0.41200000000000003
+OmniLMM-12B*,0.41100000000000003
+InfiMM-Zephyr-7B*,0.39399999999999996

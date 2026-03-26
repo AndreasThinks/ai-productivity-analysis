@@ -1,0 +1,4 @@
+Year,Model,Metric
+2021,"Codex-S 12B (fine-tuned, zero-shot)",0.322
+2022,Parsel (GPT-4 + CodeT),0.851
+2023,AgentCoder (GPT-4),0.963

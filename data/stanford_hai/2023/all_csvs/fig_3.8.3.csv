@@ -1,0 +1,54 @@
+Model and Number of Parameters,Accuracy
+T5 60M,0.219
+GPT-2 117M,0.228
+Galactica 125M,0.19
+GPT-NEO-125M,0.258
+T5 220M,0.203
+InstructGPT ada v1 350M,0.203
+GPT3 350M,0.212
+GPT-3 ada v1 350M,0.219
+Cohere small v20220720 410M,0.189
+T5 770M,0.191
+Galactica 1.3B,0.19
+GPT-3 babbage v1 1.3B,0.195
+GPT3 1.3B,0.208
+GPT-NEO-1.3B,0.234
+InstructGPT babbage v1 1.3B,0.236
+Gopher 1.4B,0.217
+GPT2 1.5B,0.222
+GPT-NEO-2.7B,0.24
+T5 2.8B,0.194
+GPT-J 6B,0.192
+GPT-NEO-6B,0.203
+Cohere medium v20220720 6.1B,0.181
+TNLG v2 6.7B,0.181
+Galactica 6.7B,0.19
+InstructGPT curie v1 6.7B,0.199
+GPT3 6.7B,0.205
+GPT-3 curie v1 6.7B,0.24
+Gopher 7.1B,0.231
+J1-Large v1 7.5B,0.208
+T5 11B,0.155
+T0pp 11B,0.343
+Cohere large v20220720 13.1B,0.199
+J1-Grande v1 17B,0.186
+UL2 20B,0.191
+GPT-NeoX 20B,0.208
+Galactica 30B,0.24
+Anthropic-LM v4-s3 52B,0.362
+Cohere xlarge v20220609 52.4B,0.185
+OPT 66B,0.215
+YaLM 100B,0.208
+Galactica 120B,0.26
+GLM 130B,0.213
+GPT-3 davinci v1 175B,0.183
+OPT-175B,0.21
+GPT3 175B,0.211
+OPT 175B,0.25
+InstructGPT davinci v2 175B,0.62
+BLOOM 176B,0.199
+J1-Jumbo v1 178B,0.195
+Gopher 280B,0.295
+Gopher 280B -10shot,0.438
+TNLG v2 530B,0.267
+0,0
