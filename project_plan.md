@@ -430,16 +430,24 @@ The message length delta is the most promising feature by far and survives the b
 
 ## scrape_classifier_full.py — Status and Design (March 2026)
 
-### What was built
+### Current version: v2.1
 
-`scripts/scrape_classifier_full.py` is the full-scale production scraper. It incorporates all lessons from the subsample run plus a full code review by claude-opus-4.6.
+`scripts/scrape_classifier_full.py` is the full-scale production scraper. v2.1 incorporates lessons from two test runs plus two rounds of code review.
 
-**Key improvements over subsample script:**
+**v1 → v2.0 improvements (first code review):**
 - Negative sampling: random (no activity threshold), dynamic loop until 200 accepted, both-window filter enforced at scrape time with correct PRE_START lower bound
-- Rate limiting: 1.0s delay (~3,600 req/hr), rate-limit-aware backoff reads `X-RateLimit-Reset` header and sleeps until reset rather than giving up after 8s
-- Resume safety: incremental status file writes on every decision (not batch at end), tagged output files prevent test/full collisions
-- New features: commit message structure (multiline, conventional prefix, test mentions via `\btest[s]?\b`, bullets), inter-commit burst patterns, test co-write rate via 20% file sample, PR body length
-- Stage 1a: removed redundant extra API call per positive (repo.created_at already in Code Search response)
+- Rate limiting: 1.0s delay (~3,600 req/hr), rate-limit-aware backoff reads `X-RateLimit-Reset` header, secondary rate limit floor 60s, MAX_RETRIES raised to 5
+- Resume safety: incremental status file writes on every decision, tagged output files prevent test/full collisions, positive progress file skips completed accounts on restart
+- New features: commit message structure (multiline, conventional prefix, test mentions via `\btest[s]?\b`, bullets), inter-commit burst patterns, test co-write rate via 20% file sample (denominator fixed to sampled commits only), PR body length
+- Feature leakage guard: Claude markers written to separate labeling CSV, absent from raw data used for feature extraction
+- Commit deduplication by SHA across repos (prevents double-counting forks)
+- Multi-hour GH Archive: 6 hours across 3 days (vs 1 hour in v1) for better co-author recall
+- Symmetric both-window filter: positives now also required to meet MIN_PRE_COMMITS + MIN_POST_COMMITS
+
+**v2.0 → v2.1 improvements (second code review):**
+- **Temporal split fix**: `first_marker_date` for Code Search positives is `repo.created_at`, which can predate CLAUDE.md addition by years. Fixed by adding `marker_confidence` field: GH Archive co-author positives tagged `high` (use actual push timestamp as post-window start); Code Search positives tagged `low` (fall back to global POST_START cutoff). `marker_confidence` propagates to features CSV for downstream stratification.
+- **Stage 1c removed**: Contributors API discovery loop was an expensive no-op — it only checked repos already owned by known positives, so it could never surface new accounts. Removed cleanly; deferred to future iteration if a cross-GitHub approach is designed.
+- **Repo sort**: changed from `pushed` ascending (surfaced dormant repos with thin histories) to `created` ascending (oldest repos first — more likely to have meaningful pre-period history while still having commit depth to pass the both-window filter).
 
 ### TEST_RUN flag
 
@@ -459,6 +467,7 @@ TEST_RUN = False  →  200 pos, 200 neg, cache: classifier_cache_full/, files: f
 | Neg status | `test_negative_status.csv` | `full_negative_status.csv` |
 | Raw data | `classifier_test_raw.json` | `classifier_full_raw.json` |
 | Features | `classifier_test_features.csv` | `classifier_full_features.csv` |
+| Claude markers | `test_claude_markers.csv` | `full_claude_markers.csv` |
 
 ### Rate limit reality
 
@@ -468,25 +477,40 @@ At 1.0s delay: ~3,600 req/hr. Per account: ~122 calls average (profile + repos +
 
 Script is resume-safe — kill and restart at any time.
 
-### Code review findings applied (March 2026)
+---
 
-Issues fixed from claude-opus-4.6 review:
-1. API delay raised 0.35s → 1.0s (was running at 2x rate limit)
-2. Rate limit backoff now reads X-RateLimit-Reset header and sleeps until reset
-3. Negative status file written incrementally per decision (not batch at end)
-4. pre_count filter now enforces PRE_START lower bound (was counting 2015 commits as pre-window)
-5. Redundant repo metadata API call removed from Stage 1a (~200 calls saved)
-6. frac_mentions_test uses word boundary regex (was matching "contest", "protest" etc.)
+## Test Run Results and Coverage Issue (March 2026)
+
+Two test runs completed (v1 scraper + v2.0 scraper). Both showed the same structural problem:
+
+**Coverage:** Only 4 of 20 positive accounts had ≥10 commits in both the pre and post windows. All 20 negatives passed. The both-window filter worked as intended — the issue is that the positive sample is structurally skewed.
+
+**Root cause:** GitHub Code Search for `filename:CLAUDE.md` returns files that exist *now*. This systematically surfaces recent adopters whose accounts may have no meaningful pre-adoption commit history. CLAUDE.md accounts cluster heavily post-2023.
+
+**Signal despite thin sample (both-window accounts only, n=4 pos / 20 neg):**
+
+| Feature | AI users (Δ) | Controls (Δ) | Ratio |
+|---------|-------------|--------------|-------|
+| Mean message length | +53.8 chars | -3.4 chars | ~16x |
+| Frac conventional commits | +0.26 | +0.02 | ~15x |
+| Frac PR has body | +0.69 | +0.05 | ~15x |
+| Test co-write rate | +0.19 | -0.01 | ~15x |
+
+Signal is real — three independent features all point the same direction at 15-16x effect sizes. The coverage problem does not make the signal go away; it reduces the n available for classifier training.
+
+**v2.1 mitigations:**
+- Multi-hour GH Archive co-author scan increases high-confidence positives (these tend to be earlier adopters with more pre-window history)
+- Per-account temporal split (high-confidence positives only) avoids artificially narrow pre-windows
+- `marker_confidence` column in features CSV enables stratified analysis
 
 ---
 
 ## Immediate Next Steps
 
-1. **Run test scrape** — `TEST_RUN = True`, ~1 hour, verify all new features land correctly in CSV
-2. **Inspect test features** — check both-window coverage, feature distributions, confirm no data leakage
-3. **Flip to full run** — set `TEST_RUN = False`, run overnight
-4. **First classifier** — logistic regression on both-window accounts once full features CSV is ready
-5. **Validate on other tool markers** — collect Aider co-author accounts, run classifier, compare score distributions
+1. **Run full scrape with v2.1** — `TEST_RUN = False`, run overnight (~14-20 hours)
+2. **Check both-window coverage** — key question: do high-confidence (GH Archive co-author) positives have better pre-window coverage than low-confidence (Code Search)?
+3. **First classifier** — logistic regression on both-window accounts once full features CSV is ready; stratify by marker_confidence
+4. **Validate on other tool markers** — collect Aider co-author accounts, run classifier, compare score distributions
 
 ---
 

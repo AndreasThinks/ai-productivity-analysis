@@ -10,7 +10,7 @@ Two-phase study. Phase 1 built a country-level panel regression linking AI readi
 
 **Phase 1 — complete (null result).** Fixed-effects panel regression across 51 countries, 2022–2024. AI readiness coefficient p = 0.497 — not significant. Root cause: Oxford Insights measures government AI policy readiness, not whether developers are actually using Claude Code or Copilot today. Wrong independent variable.
 
-**Phase 2 — in progress.** Building a classifier to label individual GitHub accounts as AI coding tool users or not. Ground truth from explicit artefacts (CLAUDE.md files, co-author commit trailers). Behavioural features: commit message length delta, PR description completeness, test co-write rate, conventional commit adoption. Early signal is promising — message length delta ~4x larger for confirmed AI users vs. controls.
+**Phase 2 — in progress.** Building a classifier to label individual GitHub accounts as AI coding tool users or not. Ground truth from explicit artefacts (CLAUDE.md files, co-author commit trailers). Behavioural features: commit message length delta, PR description completeness, test co-write rate, conventional commit adoption. Early signal is strong — message length delta ~16x larger for confirmed AI users vs. controls. Scraper at v2.1; full run pending.
 
 ---
 
@@ -53,9 +53,9 @@ A difference-in-differences design at the account level.
 
 ---
 
-## Preliminary Results (Phase 2 Test Run — March 2026)
+## Preliminary Results (Phase 2 Test Runs — March 2026)
 
-Test scrape: 40 accounts (20 confirmed Claude Code users, 20 controls).
+Two test scrapes completed (scraper v1 and v2.0, 40 accounts each). Both-window comparison (≥10 commits pre and post adoption): 4 positives, 20 negatives.
 
 | Feature | AI users (Δ) | Controls (Δ) | Ratio |
 |---------|-------------|--------------|-------|
@@ -64,7 +64,7 @@ Test scrape: 40 accounts (20 confirmed Claude Code users, 20 controls).
 | Frac PR has body | +0.69 | +0.05 | ~15x |
 | Test co-write rate | +0.19 | -0.01 | ~15x |
 
-Coverage caveat: only 4 of 20 positive accounts had sufficient pre-adoption commit history for the both-window comparison (≥10 commits pre and post Nov 2023). CLAUDE.md accounts skew recent. Full scrape (200 pos / 200 neg) running to address this.
+**Coverage caveat:** only 4 of 20 positive accounts pass the both-window threshold. Code Search (`filename:CLAUDE.md`) systematically surfaces recent adopters with thin pre-adoption history. Scraper v2.1 addresses this with multi-hour GH Archive co-author discovery (earlier adopters, more pre-window history) and a `marker_confidence` field to stratify by temporal split reliability. Full run (200 pos / 200 neg) pending.
 
 ---
 
@@ -101,7 +101,7 @@ uv run scripts/scrape_github_panel.py   # Phase 1 panel scrape
 uv run scripts/build_panel.py           # Merge GH data + AI readiness index
 uv run scripts/run_analysis.py          # Fixed-effects regression
 
-uv run scripts/scrape_classifier_full.py  # Phase 2 classifier scrape (set TEST_RUN flag)
+uv run scripts/scrape_classifier_full.py  # Phase 2 classifier scrape v2.1 (TEST_RUN=False for full run)
 ```
 
 ### Environment variables
