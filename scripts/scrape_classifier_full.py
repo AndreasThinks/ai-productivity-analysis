@@ -1,39 +1,43 @@
 #!/usr/bin/env python3
 """
-Full-scale scraper for Claude Code user classifier — v2.
+Full-scale scraper for Claude Code user classifier — v2.1
 
 Improvements over v1 (each marked with # [IMPROVEMENT: ...] in-line):
 
 1.  Multi-hour GH Archive sampling — scans multiple hours across different
     days/times to dramatically improve recall for co-author discovery.
-2.  Contributors API discovery — new Stage 1c queries the GitHub contributors
-    endpoint for repos found via Code Search, catching users whose repos list
-    "Claude" as a contributor even without a CLAUDE.md file.
-3.  Per-account temporal split — positive accounts use their first_marker_date
-    as the post-window start instead of a single global cutoff, avoiding
-    contamination of the post window with pre-adoption commits.
-4.  Symmetric both-window filter — positives are now also required to meet the
+2.  Per-account temporal split — positive accounts discovered via GH Archive
+    co-author use their first_marker_date (actual push event timestamp) as the
+    post-window start.  Code Search positives fall back to the global cutoff
+    because repo.created_at != CLAUDE.md addition date.  A marker_confidence
+    column flags this distinction for downstream stratification.
+3.  Symmetric both-window filter — positives are now also required to meet the
     minimum pre- and post-commit thresholds, preventing structural asymmetry
     between groups that the classifier could exploit.
-5.  Matched negative sampling — after the both-window filter, negatives are
+4.  Matched negative sampling — after the both-window filter, negatives are
     propensity-matched to positives on account age and pre-period commit volume
     to reduce confounding with general developer activity.
-6.  Explicit file-sample features — test_cowrite_rate is computed only over
+5.  Explicit file-sample features — test_cowrite_rate is computed only over
     the subset of commits that were actually file-sampled, eliminating noise
     from unsampled commits with None values. Feature is renamed to
     sampled_test_cowrite_rate for clarity.
-7.  Improved rate-limit handling — secondary rate limits use a 60-second floor
+6.  Improved rate-limit handling — secondary rate limits use a 60-second floor
     and MAX_RETRIES is raised to 5 to survive longer throttle windows.
-8.  Resume safety for positive scraping — a progress file tracks which
+7.  Resume safety for positive scraping — a progress file tracks which
     positives have been scraped, so restarts skip already-completed accounts
     without re-checking hundreds of cache files.
-9.  Feature leakage guard — has_claude_markers is no longer stored in raw data.
+8.  Feature leakage guard — has_claude_markers is no longer stored in raw data.
     A separate labeling file is written instead, fully decoupled from features.
-10. Commit deduplication — commits are deduplicated by SHA across repos before
+9.  Commit deduplication — commits are deduplicated by SHA across repos before
     feature extraction, preventing double-counting from forks.
-11. Repo sort documented — repos are fetched sorted by 'pushed' (least
-    recently pushed first) instead of 'updated' to reduce recency bias toward
-    Claude-assisted repos.
+10. Repo sort documented — repos are fetched sorted by 'created' ascending
+    (oldest repos first) to balance pre-period coverage against commit depth.
+
+Removed from earlier draft:
+-   Stage 1c (Contributors API discovery) was removed because the original
+    logic only checked repos already owned by known positives, making it an
+    expensive no-op.  Proper cross-GitHub contributor search would require a
+    different approach and is deferred to a future iteration.
 """
 
 import os
@@ -86,7 +90,7 @@ CACHE_DIR.mkdir(parents=True, exist_ok=True)
 API_DELAY = 1.0
 REQUEST_TIMEOUT = 15
 
-# [IMPROVEMENT 7]: Increased retries (3→5) and added secondary rate-limit
+# [IMPROVEMENT 6]: Increased retries (3→5) and added secondary rate-limit
 # floor so the scraper survives longer GitHub throttle windows.
 MAX_RETRIES = 5
 BACKOFF_BASE = 2
@@ -105,9 +109,15 @@ GH_ARCHIVE_HOURS = [
     ("2025-01-17", 21),  # Friday night UTC
 ]
 
-# Temporal split defaults (positives override POST_START per-account)
+# Temporal split defaults
+# [IMPROVEMENT 2]: GH Archive co-author positives use their actual push event
+# timestamp as POST_START.  Code Search positives fall back to the global
+# cutoff below because repo.created_at is NOT a reliable proxy for when
+# CLAUDE.md was added — a repo created in 2021 might have had CLAUDE.md
+# committed last month, which would wrongly label the entire history as
+# "post-adoption".
 PRE_CUTOFF  = datetime(2024, 1, 1)
-POST_START  = datetime(2024, 1, 1)  # global fallback for negatives
+POST_START  = datetime(2024, 1, 1)  # global fallback
 PRE_START   = datetime(2022, 1, 1)
 
 # Both-window threshold
@@ -141,7 +151,7 @@ def _gh_headers():
 def gh_get(url):
     """GET a GitHub API URL with retry + rate-limit-aware backoff.
 
-    [IMPROVEMENT 7]: Secondary rate limits now sleep for at least
+    [IMPROVEMENT 6]: Secondary rate limits now sleep for at least
     SECONDARY_RATE_LIMIT_FLOOR (60s) instead of short exponential backoff
     (2/4/8s), and MAX_RETRIES is 5 to survive longer throttle windows.
     """
@@ -169,7 +179,7 @@ def gh_get(url):
                           f"(attempt {attempt+1}/{MAX_RETRIES})")
                     time.sleep(wait)
                 else:
-                    # [IMPROVEMENT 7]: Secondary rate limit — use a much longer
+                    # [IMPROVEMENT 6]: Secondary rate limit — use a much longer
                     # floor (60s) because GitHub's secondary limits can persist
                     # for 60-120s.  The old 2/4/8s backoff often wasn't enough.
                     wait = max(SECONDARY_RATE_LIMIT_FLOOR, (BACKOFF_BASE ** attempt) * 2)
@@ -255,6 +265,11 @@ def iter_gh_archive():
 
 # ---------------------------------------------------------------------------
 # Stage 1a — Code Search for CLAUDE.md (pages 1-10)
+#
+# [IMPROVEMENT 2]: first_marker_date is still repo.created_at here, but we
+# now tag these with marker_confidence="low" because created_at != the date
+# CLAUDE.md was actually committed.  Feature extraction will fall back to the
+# global POST_START for low-confidence accounts.
 # ---------------------------------------------------------------------------
 
 def stage1a_code_search():
@@ -289,6 +304,9 @@ def stage1a_code_search():
                 "discovery_method": "code_search",
                 "first_marker_date": repo_created,
                 "marker_type": "CLAUDE.md",
+                # [IMPROVEMENT 2]: Flag that this date is unreliable.
+                # repo.created_at can predate CLAUDE.md by years.
+                "marker_confidence": "low",
             }
             print(f"    {login}  ({repo_full}, created {repo_created[:10] or '?'})")
 
@@ -301,6 +319,9 @@ def stage1a_code_search():
 # ---------------------------------------------------------------------------
 # Stage 1b — GH Archive co-author scan
 # [IMPROVEMENT 1]: Now scans all configured archive hours.
+# [IMPROVEMENT 2]: These positives get marker_confidence="high" because
+# first_marker_date is the actual push event timestamp — the moment we
+# observed a Claude co-authored commit.
 # ---------------------------------------------------------------------------
 
 CLAUDE_COAUTHOR_RE = re.compile(
@@ -327,81 +348,15 @@ def stage1b_gh_archive():
                     "discovery_method": "gh_archive_coauthor",
                     "first_marker_date": event.get("created_at", ""),
                     "marker_type": "Co-Authored-By: Claude",
+                    # [IMPROVEMENT 2]: High confidence — this is an actual
+                    # observed push event timestamp, not a repo creation date.
+                    "marker_confidence": "high",
                 }
                 print(f"    {login}")
                 break
 
     print(f"GH Archive co-author scan: {len(positives)} accounts")
     return positives
-
-
-# ---------------------------------------------------------------------------
-# Stage 1c — Contributors API discovery
-# [IMPROVEMENT 2]: New discovery method.  For repos found in Stage 1a, query
-# the contributors endpoint to find other repos (by the same or different
-# owners) that list a "Claude"-named contributor.  This catches users who
-# don't have a CLAUDE.md but whose commit history includes Claude co-authored
-# commits (which GitHub surfaces as a contributor).
-# ---------------------------------------------------------------------------
-
-def stage1c_contributors_api(existing_positives):
-    """Discover additional positives by checking the contributors API.
-
-    Strategy: for each repo already discovered in Stage 1a, check the
-    contributors endpoint for a bot/user named 'Claude'.  Also search for
-    repos owned by known positives that might not have CLAUDE.md but do have
-    Claude as a listed contributor.
-    """
-    print("\n=== STAGE 1c: Contributors API discovery ===")
-    new_positives = {}
-
-    # Collect repos to check from existing positives' public repos
-    logins_to_check = list(existing_positives.keys())[:50]  # cap API calls
-
-    for login in logins_to_check:
-        if len(existing_positives) + len(new_positives) >= MAX_POSITIVES:
-            break
-
-        repos_url = f"https://api.github.com/users/{login}/repos?sort=pushed&per_page=10"
-        repos = gh_get(repos_url)
-        _sleep()
-
-        if not repos or not isinstance(repos, list):
-            continue
-
-        for repo in repos:
-            repo_name = repo.get("name", "")
-            owner = repo.get("owner", {}).get("login", login)
-
-            # Check contributors for this repo
-            contrib_url = f"https://api.github.com/repos/{owner}/{repo_name}/contributors?per_page=100"
-            contributors = gh_get(contrib_url)
-            _sleep()
-
-            if not contributors or not isinstance(contributors, list):
-                continue
-
-            for contrib in contributors:
-                contrib_login = (contrib.get("login") or "").lower()
-                # Look for Claude bot contributor entries
-                if "claude" in contrib_login and contrib.get("type") in ("Bot", "User"):
-                    # The *repo owner* is the positive (they used Claude Code),
-                    # not the Claude bot itself.
-                    repo_owner = repo.get("owner", {}).get("login", "")
-                    if (repo_owner
-                            and repo_owner not in existing_positives
-                            and repo_owner not in new_positives):
-                        new_positives[repo_owner] = {
-                            "login": repo_owner,
-                            "discovery_method": "contributors_api",
-                            "first_marker_date": repo.get("pushed_at", ""),
-                            "marker_type": "Claude contributor",
-                        }
-                        print(f"    {repo_owner} (via {owner}/{repo_name})")
-                    break  # no need to check remaining contributors
-
-    print(f"Contributors API: {len(new_positives)} additional accounts")
-    return new_positives
 
 
 # ---------------------------------------------------------------------------
@@ -430,6 +385,7 @@ def stage2_negatives(positive_logins):
             "discovery_method": "gh_archive_random",
             "first_marker_date": None,
             "marker_type": None,
+            "marker_confidence": None,
         }
         for login in sampled
     }
@@ -465,7 +421,7 @@ def _scrape_commits_for_repo(owner, repo_name, max_commits=200):
                 "repo": f"{owner}/{repo_name}",
                 "additions": stats.get("additions"),
                 "deletions": stats.get("deletions"),
-                # [IMPROVEMENT 6]: These are explicitly None until file-sampled.
+                # [IMPROVEMENT 5]: These are explicitly None until file-sampled.
                 # Feature extraction treats None differently from True/False.
                 "has_test_file": None,
                 "has_impl_file": None,
@@ -502,7 +458,7 @@ def _scrape_prs_for_repo(owner, repo_name, max_prs=100):
 def _sample_commit_files(owner, repo_name, commits):
     """For ~20% of commits, fetch file changes.
 
-    [IMPROVEMENT 6]: Each sampled commit gets file_sampled=True so feature
+    [IMPROVEMENT 5]: Each sampled commit gets file_sampled=True so feature
     extraction can compute test_cowrite_rate over only the sampled subset.
     """
     if not commits:
@@ -548,14 +504,18 @@ def _sample_commit_files(owner, repo_name, commits):
 def scrape_account(login):
     """Deep scrape one account. Returns from cache if available.
 
-    [IMPROVEMENT 9]: has_claude_markers is NOT stored in the returned data.
+    [IMPROVEMENT 8]: has_claude_markers is NOT stored in the returned data.
     It is written to a separate labeling file to prevent accidental feature
     leakage.  The raw data used for feature extraction contains no label
     information.
 
-    [IMPROVEMENT 11]: Repos are fetched sorted by 'pushed' ascending (oldest
-    push first) instead of 'updated' descending.  This reduces recency bias
-    that would over-represent Claude-assisted repos for positive accounts.
+    [IMPROVEMENT 10]: Repos are fetched sorted by 'created' ascending (oldest
+    repos first).  This balances pre-period coverage (older repos have more
+    history before the cutoff) against commit depth (older repos tend to have
+    more commits overall).  This is a compromise between the original
+    sort=updated (biased toward recently-touched Claude-assisted repos) and
+    sort=pushed ascending (which surfaced the most dormant repos, often with
+    thin histories that failed the both-window filter).
     """
     cache_file = CACHE_DIR / f"{login}.json"
     if cache_file.exists():
@@ -579,10 +539,11 @@ def scrape_account(login):
         "public_repos": profile.get("public_repos"),
     }
 
-    # [IMPROVEMENT 11]: Sort by 'pushed' ascending so we get a mix of old and
-    # new repos rather than biasing toward the most recently touched ones.
+    # [IMPROVEMENT 10]: Sort by created ascending — oldest repos first.
+    # Older repos are more likely to have meaningful pre-period commit history
+    # while still having enough depth to pass the both-window filter.
     repos_raw = gh_get(
-        f"https://api.github.com/users/{login}/repos?sort=pushed&direction=asc&per_page=30"
+        f"https://api.github.com/users/{login}/repos?sort=created&direction=asc&per_page=30"
     )
     _sleep()
     if not repos_raw or not isinstance(repos_raw, list):
@@ -590,7 +551,7 @@ def scrape_account(login):
 
     repos_to_scrape = repos_raw[:5]
 
-    # [IMPROVEMENT 9]: Claude marker detection is separated into its own file.
+    # [IMPROVEMENT 8]: Claude marker detection is separated into its own file.
     # We still check for markers (useful for validation) but store them in a
     # separate labeling CSV, NOT in the per-account JSON that feeds features.
     claude_marker_repos = []
@@ -614,7 +575,7 @@ def scrape_account(login):
         if has_claude_marker:
             claude_marker_repos.append(f"{owner_name}/{repo_name}")
 
-        # [IMPROVEMENT 9]: Repo data stored WITHOUT has_claude_markers
+        # [IMPROVEMENT 8]: Repo data stored WITHOUT has_claude_markers
         data["repos"].append({
             "name":       repo_name,
             "created_at": repo.get("created_at"),
@@ -646,7 +607,7 @@ def scrape_account(login):
 
 # ---------------------------------------------------------------------------
 # Stage 3a — Scrape positives with resume tracking
-# [IMPROVEMENT 8]: Progress file tracks completed positives so restarts
+# [IMPROVEMENT 7]: Progress file tracks completed positives so restarts
 # don't waste time re-checking hundreds of cache files.
 # ---------------------------------------------------------------------------
 
@@ -675,7 +636,7 @@ def stage3a_scrape_positives(positives):
         all_data[login] = scrape_account(login)
         completed.add(login)
 
-        # [IMPROVEMENT 8]: Persist progress after each account
+        # [IMPROVEMENT 7]: Persist progress after each account
         progress_path.write_text(json.dumps(sorted(completed)))
 
         if (i + 1) % PROGRESS_INTERVAL == 0:
@@ -716,7 +677,7 @@ def _count_commits_in_window(commits, after, before=None):
 def stage3b_scrape_negatives_dynamic(negative_candidates):
     """Scrape negatives dynamically until we have enough accepted.
 
-    [IMPROVEMENT 4 context]: The both-window filter here is the same as the
+    [IMPROVEMENT 3 context]: The both-window filter here is the same as the
     one applied to positives in stage4_features.  Both groups must have
     >= MIN_PRE_COMMITS and >= MIN_POST_COMMITS.
     """
@@ -796,7 +757,7 @@ def stage3b_scrape_negatives_dynamic(negative_candidates):
 
 # ---------------------------------------------------------------------------
 # Stage 3c — Matched negative selection
-# [IMPROVEMENT 5]: After both-window filtering, select negatives that are
+# [IMPROVEMENT 4]: After both-window filtering, select negatives that are
 # similar to positives on account age and pre-period commit volume.  This is
 # a simple nearest-neighbour propensity match to reduce confounding.
 # ---------------------------------------------------------------------------
@@ -881,14 +842,14 @@ def stage3c_match_negatives(positives_data, negatives_accepted, all_data):
 
 # ---------------------------------------------------------------------------
 # Stage 4 — Feature extraction
-# [IMPROVEMENT 3]: Per-account temporal split for positives.
-# [IMPROVEMENT 4]: Symmetric both-window filter for positives.
-# [IMPROVEMENT 6]: test_cowrite_rate computed only over file-sampled commits.
-# [IMPROVEMENT 10]: Commits deduplicated by SHA before feature extraction.
+# [IMPROVEMENT 2]: Per-account temporal split for high-confidence positives.
+# [IMPROVEMENT 3]: Symmetric both-window filter for positives.
+# [IMPROVEMENT 5]: test_cowrite_rate computed only over file-sampled commits.
+# [IMPROVEMENT 9]: Commits deduplicated by SHA before feature extraction.
 # ---------------------------------------------------------------------------
 
 def _deduplicate_commits(commits):
-    """[IMPROVEMENT 10]: Remove duplicate commits (same SHA from forked repos).
+    """[IMPROVEMENT 9]: Remove duplicate commits (same SHA from forked repos).
 
     If a developer has both a fork and the original repo in their top 5,
     shared commits would be counted twice.  Dedup on SHA prefix.
@@ -907,7 +868,7 @@ def _deduplicate_commits(commits):
 def _window_commit_features(commits, after, before=None):
     """Compute commit features for commits in [after, before).
 
-    [IMPROVEMENT 6]: sampled_test_cowrite_rate is computed only over commits
+    [IMPROVEMENT 5]: sampled_test_cowrite_rate is computed only over commits
     where file_sampled is True, so None values from unsampled commits don't
     pollute the denominator.
     """
@@ -976,7 +937,7 @@ def _window_commit_features(commits, after, before=None):
     burst_count = sum(1 for h in inter_commit_hours if h <= 2.0)
     frac_burst = burst_count / len(inter_commit_hours) if inter_commit_hours else 0.0
 
-    # [IMPROVEMENT 6]: File-sample-aware test cowrite rate.
+    # [IMPROVEMENT 5]: File-sample-aware test cowrite rate.
     # Only consider commits where file_sampled is True — these are the ones
     # where we actually fetched file lists.  Commits with file_sampled=False
     # have has_test_file=None and would silently drop out of the old logic,
@@ -1043,16 +1004,19 @@ def _window_pr_features(prs, after, before=None):
 def stage4_features(positives, negatives_matched, all_data):
     """Extract pre/post features and compute deltas.
 
-    [IMPROVEMENT 3]: For positive accounts, the post window starts at their
-    first_marker_date (the earliest evidence of Claude Code usage) instead of
-    the global POST_START.  This prevents early post-period commits that were
-    actually pre-adoption from diluting the signal.
+    [IMPROVEMENT 2]: For positive accounts with marker_confidence="high"
+    (GH Archive co-author), the post window starts at their first_marker_date.
+    For marker_confidence="low" (Code Search), we fall back to the global
+    POST_START because repo.created_at is not a reliable proxy for when
+    CLAUDE.md was actually committed.  This avoids the bug where a repo
+    created in 2021 with CLAUDE.md added in 2025 would label the entire
+    commit history as "post-adoption".
 
-    [IMPROVEMENT 4]: Positives are also filtered by the both-window threshold.
+    [IMPROVEMENT 3]: Positives are also filtered by the both-window threshold.
     Any positive without enough commits in both windows is dropped, ensuring
     symmetric treatment of both groups.
 
-    [IMPROVEMENT 10]: Commits are deduplicated by SHA before feature extraction.
+    [IMPROVEMENT 9]: Commits are deduplicated by SHA before feature extraction.
     """
     print("\n=== STAGE 4: Feature extraction ===")
     rows = []
@@ -1063,30 +1027,39 @@ def stage4_features(positives, negatives_matched, all_data):
             print(f"  {login}: skipped ({data['error']})")
             continue
 
-        # [IMPROVEMENT 10]: Deduplicate commits across repos
+        # [IMPROVEMENT 9]: Deduplicate commits across repos
         commits = _deduplicate_commits(data.get("commits", []))
         prs = data.get("prs", [])
         is_positive = login in positives
         label = 1 if is_positive else 0
 
-        # [IMPROVEMENT 3]: Per-account post window for positives.
-        # Use the first_marker_date as the start of the post window so we
-        # only measure behaviour AFTER the developer started using Claude Code.
-        # Fall back to global POST_START if marker date is missing or invalid.
+        # [IMPROVEMENT 2]: Per-account post window for high-confidence positives.
+        # Only use the per-account marker date when we have a trustworthy
+        # timestamp (GH Archive co-author push events).  Code Search positives
+        # use the global cutoff because repo.created_at != CLAUDE.md commit date.
         if is_positive:
-            marker_date_str = positives[login].get("first_marker_date", "")
-            marker_dt = _parse_dt(marker_date_str)
-            if marker_dt and marker_dt > PRE_START:
-                account_post_start = marker_dt
-                account_pre_cutoff = marker_dt  # pre ends where post begins
+            confidence = positives[login].get("marker_confidence", "low")
+            if confidence == "high":
+                marker_dt = _parse_dt(positives[login].get("first_marker_date", ""))
+                if marker_dt and marker_dt > PRE_START:
+                    account_post_start = marker_dt
+                    account_pre_cutoff = marker_dt
+                else:
+                    # High confidence but bad/missing date — fall back to global
+                    account_post_start = POST_START
+                    account_pre_cutoff = PRE_CUTOFF
             else:
+                # [IMPROVEMENT 2]: Low confidence (Code Search) — use global
+                # cutoff.  repo.created_at can predate CLAUDE.md by years;
+                # using it as post_start would label pre-adoption commits as
+                # post-adoption.
                 account_post_start = POST_START
                 account_pre_cutoff = PRE_CUTOFF
         else:
             account_post_start = POST_START
             account_pre_cutoff = PRE_CUTOFF
 
-        # [IMPROVEMENT 4]: Apply both-window filter symmetrically to ALL
+        # [IMPROVEMENT 3]: Apply both-window filter symmetrically to ALL
         # accounts (positives AND negatives).  The v1 code only filtered
         # negatives, creating structural asymmetry in activity distributions
         # that the classifier could exploit as a shortcut.
@@ -1109,6 +1082,16 @@ def stage4_features(positives, negatives_matched, all_data):
         post_commit_feats.update(post_pr_feats)
 
         row = {"login": login, "label": label}
+
+        # [IMPROVEMENT 2]: Include marker confidence and discovery method so
+        # downstream analysis can stratify or filter by temporal split quality.
+        if is_positive:
+            row["discovery_method"]  = positives[login].get("discovery_method", "")
+            row["marker_confidence"] = positives[login].get("marker_confidence", "")
+        else:
+            row["discovery_method"]  = "negative"
+            row["marker_confidence"] = ""
+
         for k, v in pre_commit_feats.items():
             row[f"pre_{k}"] = v
         for k, v in post_commit_feats.items():
@@ -1119,8 +1102,8 @@ def stage4_features(positives, negatives_matched, all_data):
 
         rows.append(row)
 
-        print(f"  {login} (label={label}): pre={pre_count} commits, "
-              f"post={post_count} commits, "
+        print(f"  {login} (label={label}, conf={row['marker_confidence'] or 'n/a'}): "
+              f"pre={pre_count} commits, post={post_count} commits, "
               f"Δmsg_len={row['delta_mean_message_length']:+.1f}")
 
     feat_path = DATA_DIR / f"classifier_{_RUN_TAG}_features.csv"
@@ -1156,7 +1139,7 @@ def save_login_lists(positives, negatives_matched):
     print("\n=== Saving login lists ===")
 
     pos_path = DATA_DIR / "full_positive_logins.csv"
-    fields = ["login", "discovery_method", "first_marker_date", "marker_type"]
+    fields = ["login", "discovery_method", "first_marker_date", "marker_type", "marker_confidence"]
     with open(pos_path, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
@@ -1178,7 +1161,7 @@ def save_login_lists(positives, negatives_matched):
 
 def main():
     print("=" * 70)
-    print("Classifier full-scale scraper  v2.0")
+    print("Classifier full-scale scraper  v2.1")
     print("=" * 70)
 
     if not ensure_gh_archive():
@@ -1200,14 +1183,9 @@ def main():
                 negatives_candidates[row["login"]] = row
         print(f"  Loaded {len(positives)} positives, {len(negatives_candidates)} negative candidates")
     else:
-        # Stage 1 — positives from multiple sources
+        # Stage 1 — positives from Code Search + GH Archive co-author
         positives = stage1a_code_search()
         positives.update(stage1b_gh_archive())
-
-        # [IMPROVEMENT 2]: Additional discovery via contributors API
-        extra = stage1c_contributors_api(positives)
-        positives.update(extra)
-
         print(f"\nTotal unique positives: {len(positives)}")
 
         # Stage 2 — negative candidates
@@ -1216,10 +1194,10 @@ def main():
 
         _save_csv(pos_csv,
                   list(positives.values()),
-                  ["login", "discovery_method", "first_marker_date", "marker_type"])
+                  ["login", "discovery_method", "first_marker_date", "marker_type", "marker_confidence"])
         _save_csv(neg_csv,
                   list(negatives_candidates.values()),
-                  ["login", "discovery_method", "first_marker_date", "marker_type"])
+                  ["login", "discovery_method", "first_marker_date", "marker_type", "marker_confidence"])
         print(f"  Saved login lists to disk for resume safety")
 
     # Stage 3a — scrape positives (with resume tracking)
@@ -1232,7 +1210,7 @@ def main():
         if login not in all_data:
             all_data[login] = scrape_account(login)
 
-    # [IMPROVEMENT 5]: Stage 3c — match negatives to positives on observables
+    # [IMPROVEMENT 4]: Stage 3c — match negatives to positives on observables
     negatives_matched = stage3c_match_negatives(positives, negatives_accepted, all_data)
 
     # Save final login lists
@@ -1244,7 +1222,6 @@ def main():
     print(f"Raw data saved → {raw_path}")
 
     # Stage 4 — features (uses matched negatives only)
-    # Build filtered all_data containing only positives + matched negatives
     filtered_data = {}
     for login in positives:
         if login in all_data:
@@ -1260,6 +1237,11 @@ def main():
     print("SUMMARY")
     print("=" * 70)
     print(f"  Positives found:        {len(positives)}")
+    if positives:
+        high_conf = sum(1 for p in positives.values() if p.get("marker_confidence") == "high")
+        low_conf  = sum(1 for p in positives.values() if p.get("marker_confidence") == "low")
+        print(f"    high confidence:      {high_conf}  (GH Archive co-author)")
+        print(f"    low confidence:       {low_conf}  (Code Search, global cutoff)")
     print(f"  Negatives candidates:   {len(negatives_candidates)}")
     print(f"  Negatives accepted:     {len(negatives_accepted)}")
     print(f"  Negatives matched:      {len(negatives_matched)}")
