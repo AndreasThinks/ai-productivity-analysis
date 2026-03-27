@@ -273,12 +273,17 @@ def iter_gh_archive():
 # ---------------------------------------------------------------------------
 
 def stage1a_code_search():
-    """Find accounts with CLAUDE.md via GitHub Code Search API (pages 1-10)."""
-    print("\n=== STAGE 1a: Code Search for CLAUDE.md (pages 1-10) ===")
+    """Find accounts with CLAUDE.md via GitHub Code Search API.
+
+    Capped at MAX_POSITIVES // 2 so stage1b_commit_search() can fill the
+    remainder with high-confidence accounts (actual commit timestamps).
+    """
+    print("\n=== STAGE 1a: Code Search for CLAUDE.md (capped at MAX_POSITIVES // 2) ===")
+    cap = max(1, MAX_POSITIVES // 2)
     positives = {}
     page = 1
 
-    while len(positives) < MAX_POSITIVES and page <= 10:
+    while len(positives) < cap and page <= 10:
         url = f"https://api.github.com/search/code?q=filename:CLAUDE.md&per_page=100&page={page}"
         print(f"  page {page}...")
         result = gh_get(url)
@@ -289,7 +294,7 @@ def stage1a_code_search():
             break
 
         for item in result["items"]:
-            if len(positives) >= MAX_POSITIVES:
+            if len(positives) >= cap:
                 break
             owner = item.get("repository", {}).get("owner", {})
             login = owner.get("login", "")
@@ -317,54 +322,84 @@ def stage1a_code_search():
 
 
 # ---------------------------------------------------------------------------
-# Stage 1b — GH Archive co-author scan
-# [IMPROVEMENT 1]: Now scans all configured archive hours.
-# [IMPROVEMENT 2]: These positives get marker_confidence="high" because
-# first_marker_date is the actual push event timestamp — the moment we
-# observed a Claude co-authored commit.
+# Stage 1b — GitHub Commit Search API for Co-Authored-By: Claude
+#
+# Replaces the GH Archive co-author scan. GH Archive samples 6 hours of
+# push events (~250k events/hour) but Claude co-author trailers appear in
+# <1 in 250k commits — we scanned 555k push events across 4 hours and found
+# zero hits. The search is too sparse.
+#
+# GitHub's Commit Search API searches across ALL public commit history:
+#   GET /search/commits?q=Co-Authored-By+noreply@anthropic.com
+# This finds co-authored commits directly regardless of when they were pushed.
+# Returns up to 1000 results (10 pages × 100).
+#
+# These positives get marker_confidence="high" because the commit timestamp
+# is the actual moment Claude Code was used — not a repo creation date.
 # ---------------------------------------------------------------------------
 
-# [FIX]: Broadened regex to match all known Claude Code co-author formats:
-#   Co-Authored-By: Claude <noreply@anthropic.com>
-#   Co-Authored-By: Claude Code <noreply@anthropic.com>
-#   Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
-#   Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
-#   Co-Authored-By: Claude noreply@anthropic.com  (no angle brackets)
-# The previous regex required "Claude" immediately followed by "<", which
-# missed "Claude Code", "Claude Opus 4.6", etc.  Angle brackets are now
-# optional to catch the bare-email variant.
-CLAUDE_COAUTHOR_RE = re.compile(
-    r"Co-[Aa]uthored-[Bb]y:\s*Claude[\s\w.]*<?noreply@anthropic\.com>?",
-    re.IGNORECASE,
-)
-
-
-def stage1b_gh_archive():
-    """Find accounts with Co-Authored-By: Claude across all archive hours."""
-    print("\n=== STAGE 1b: GH Archive Co-Authored-By scan ===")
+def stage1b_commit_search():
+    """Find accounts with Co-Authored-By: Claude via GitHub Commit Search API."""
+    print("\n=== STAGE 1b: GitHub Commit Search for Co-Authored-By: Claude ===")
     positives = {}
+    page = 1
 
-    for event in iter_gh_archive():
-        if event.get("type") != "PushEvent":
-            continue
-        login = event.get("actor", {}).get("login", "")
-        if not login or login in positives:
-            continue
-        for commit in event.get("payload", {}).get("commits", []):
-            if CLAUDE_COAUTHOR_RE.search(commit.get("message", "")):
-                positives[login] = {
-                    "login": login,
-                    "discovery_method": "gh_archive_coauthor",
-                    "first_marker_date": event.get("created_at", ""),
-                    "marker_type": "Co-Authored-By: Claude",
-                    # [IMPROVEMENT 2]: High confidence — this is an actual
-                    # observed push event timestamp, not a repo creation date.
-                    "marker_confidence": "high",
-                }
-                print(f"    {login}")
+    while len(positives) < MAX_POSITIVES and page <= 10:
+        url = (
+            "https://api.github.com/search/commits"
+            f"?q=Co-Authored-By+noreply%40anthropic.com&per_page=100&page={page}&sort=committer-date&order=asc"
+        )
+        # Commit search requires a special Accept header
+        req = urllib.request.Request(url, headers={
+            **_gh_headers(),
+            "Accept": "application/vnd.github.cloak-preview+json",
+        })
+        try:
+            with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
+                result = json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            if e.code in (403, 429):
+                wait = max(SECONDARY_RATE_LIMIT_FLOOR, 30)
+                print(f"  Rate limited on commit search, waiting {wait}s")
+                time.sleep(wait)
+                continue
+            else:
+                print(f"  Commit search HTTP {e.code} on page {page}, stopping")
                 break
+        except Exception as e:
+            print(f"  Commit search error: {e}")
+            break
 
-    print(f"GH Archive co-author scan: {len(positives)} accounts")
+        _sleep()
+        items = result.get("items", [])
+        if not items:
+            print(f"  No more results at page {page}")
+            break
+
+        for item in items:
+            if len(positives) >= MAX_POSITIVES:
+                break
+            author = item.get("author") or {}
+            login = author.get("login", "")
+            if not login or login in positives:
+                continue
+            commit_date = (item.get("commit", {}).get("committer", {}).get("date", "")
+                           or item.get("commit", {}).get("author", {}).get("date", ""))
+            positives[login] = {
+                "login": login,
+                "discovery_method": "commit_search_coauthor",
+                "first_marker_date": commit_date,
+                "marker_type": "Co-Authored-By: Claude (commit search)",
+                "marker_confidence": "high",
+            }
+            print(f"    {login}  (commit date: {commit_date[:10] or '?'})")
+
+        total = result.get("total_count", "?")
+        print(f"  Page {page}: {len(items)} results (total_count={total}), "
+              f"{len(positives)} unique positives so far")
+        page += 1
+
+    print(f"Commit search: {len(positives)} unique user accounts")
     return positives
 
 
@@ -1202,9 +1237,9 @@ def main():
                 negatives_candidates[row["login"]] = row
         print(f"  Loaded {len(positives)} positives, {len(negatives_candidates)} negative candidates")
     else:
-        # Stage 1 — positives from Code Search + GH Archive co-author
+        # Stage 1 — positives from Code Search + Commit Search co-author
         positives = stage1a_code_search()
-        positives.update(stage1b_gh_archive())
+        positives.update(stage1b_commit_search())
         print(f"\nTotal unique positives: {len(positives)}")
 
         # Stage 2 — negative candidates
