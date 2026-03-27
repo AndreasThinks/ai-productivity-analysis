@@ -324,8 +324,17 @@ def stage1a_code_search():
 # observed a Claude co-authored commit.
 # ---------------------------------------------------------------------------
 
+# [FIX]: Broadened regex to match all known Claude Code co-author formats:
+#   Co-Authored-By: Claude <noreply@anthropic.com>
+#   Co-Authored-By: Claude Code <noreply@anthropic.com>
+#   Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+#   Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+#   Co-Authored-By: Claude noreply@anthropic.com  (no angle brackets)
+# The previous regex required "Claude" immediately followed by "<", which
+# missed "Claude Code", "Claude Opus 4.6", etc.  Angle brackets are now
+# optional to catch the bare-email variant.
 CLAUDE_COAUTHOR_RE = re.compile(
-    r"Co-[Aa]uthored-[Bb]y:\s*Claude\s*<.*@anthropic\.com>",
+    r"Co-[Aa]uthored-[Bb]y:\s*Claude[\s\w.]*<?noreply@anthropic\.com>?",
     re.IGNORECASE,
 )
 
@@ -397,14 +406,23 @@ def stage2_negatives(positive_logins):
 # Stage 3 — Per-account deep scrape with file sampling
 # ---------------------------------------------------------------------------
 
-def _scrape_commits_for_repo(owner, repo_name, max_commits=200):
-    """Fetch up to max_commits commits for one repo via /commits API."""
+def _scrape_commits_for_repo(owner, repo_name, account_login, max_commits=200):
+    """Fetch up to max_commits commits for one repo via /commits API.
+
+    [FIX]: Filters commits to only include those authored by account_login.
+    The GitHub /commits endpoint returns ALL commits on a repo regardless of
+    author.  Without filtering, commits from other contributors (PR authors,
+    co-maintainers) get mixed into the account's feature set, diluting the
+    signal and attributing other people's coding patterns to this account.
+    We use the ?author= query parameter to filter server-side, which is both
+    more efficient and more reliable than post-hoc filtering.
+    """
     commits = []
     page = 1
     while len(commits) < max_commits and page <= 2:
         url = (
             f"https://api.github.com/repos/{owner}/{repo_name}/commits"
-            f"?per_page=100&page={page}"
+            f"?author={account_login}&per_page=100&page={page}"
         )
         result = gh_get(url)
         _sleep()
@@ -583,7 +601,8 @@ def scrape_account(login):
             "size":       repo.get("size"),
         })
 
-        commits = _scrape_commits_for_repo(owner_name, repo_name)
+        # [FIX]: Pass login so commits are filtered to this account's author
+        commits = _scrape_commits_for_repo(owner_name, repo_name, login)
         _sample_commit_files(owner_name, repo_name, commits)
         data["commits"].extend(commits)
 
