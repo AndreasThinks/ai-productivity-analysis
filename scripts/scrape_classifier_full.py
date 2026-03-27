@@ -344,7 +344,8 @@ def stage1b_commit_search():
     positives = {}
     page = 1
 
-    while len(positives) < MAX_POSITIVES and page <= 10:
+    cap = max(1, MAX_POSITIVES // 2)
+    while len(positives) < cap and page <= 10:
         url = (
             "https://api.github.com/search/commits"
             f"?q=Co-Authored-By+noreply%40anthropic.com&per_page=100&page={page}&sort=committer-date&order=asc"
@@ -377,11 +378,12 @@ def stage1b_commit_search():
             break
 
         for item in items:
-            if len(positives) >= MAX_POSITIVES:
+            if len(positives) >= cap:
                 break
             author = item.get("author") or {}
             login = author.get("login", "")
-            if not login or login in positives:
+            # H1 fix: skip bots, orgs, and service accounts — only User accounts
+            if not login or author.get("type") not in ("User", None) or login in positives:
                 continue
             commit_date = (item.get("commit", {}).get("committer", {}).get("date", "")
                            or item.get("commit", {}).get("author", {}).get("date", ""))
@@ -420,7 +422,8 @@ def stage2_negatives(positive_logins):
 
     print(f"  {len(all_actors)} unique actors in GH Archive (excluding positives)")
 
-    candidates = list(all_actors)
+    # M2 fix: sort before sampling for reproducibility across restarts
+    candidates = sorted(all_actors)
     sampled = random.sample(candidates, min(MAX_NEGATIVES_CANDIDATES, len(candidates)))
 
     negatives = {
@@ -748,9 +751,13 @@ def stage3b_scrape_negatives_dynamic(negative_candidates):
     accepted = []
     rejected = []
 
+    # H4 fix: check file size BEFORE opening in append mode so we can detect
+    # the edge case where the file exists but only contains the header row
+    # (dict is empty but file already has a header — would write a duplicate).
+    status_file_is_new = not status_file.exists() or status_file.stat().st_size == 0
     status_fh = open(status_file, "a", newline="")
     status_writer = csv.DictWriter(status_fh, fieldnames=["login", "status"])
-    if not existing_status:
+    if status_file_is_new:
         status_writer.writeheader()
         status_fh.flush()
 
@@ -1294,7 +1301,7 @@ def main():
     if positives:
         high_conf = sum(1 for p in positives.values() if p.get("marker_confidence") == "high")
         low_conf  = sum(1 for p in positives.values() if p.get("marker_confidence") == "low")
-        print(f"    high confidence:      {high_conf}  (GH Archive co-author)")
+        print(f"    high confidence:      {high_conf}  (commit_search_coauthor)")
         print(f"    low confidence:       {low_conf}  (Code Search, global cutoff)")
     print(f"  Negatives candidates:   {len(negatives_candidates)}")
     print(f"  Negatives accepted:     {len(negatives_accepted)}")
