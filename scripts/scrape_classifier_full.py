@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Full-scale scraper for Claude Code user classifier — v2.4
+Full-scale scraper for Claude Code user classifier — v2.5
 
 Improvements over v1 (each marked with # [IMPROVEMENT: ...] in-line):
 
@@ -148,16 +148,21 @@ def _gh_headers():
     }
 
 
-def gh_get(url):
+def gh_get(url, extra_headers=None):
     """GET a GitHub API URL with retry + rate-limit-aware backoff.
 
     [IMPROVEMENT 6]: Secondary rate limits now sleep for at least
     SECONDARY_RATE_LIMIT_FLOOR (60s) instead of short exponential backoff
     (2/4/8s), and MAX_RETRIES is 5 to survive longer throttle windows.
+
+    [v2.5]: Optional extra_headers dict merges on top of _gh_headers().
+    Used by stage1b to set the commit-search Accept header without losing
+    retry/backoff logic.
     """
+    headers = {**_gh_headers(), **(extra_headers or {})}
     for attempt in range(MAX_RETRIES):
         try:
-            req = urllib.request.Request(url, headers=_gh_headers())
+            req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
                 body = resp.read().decode("utf-8")
                 return json.loads(body) if body else {}
@@ -264,60 +269,84 @@ def iter_gh_archive():
 
 
 # ---------------------------------------------------------------------------
-# Stage 1a — Code Search for CLAUDE.md (pages 1-10)
+# Stage 1a — Code Search for Claude Code artefacts (pages 1-10 per query)
 #
-# [IMPROVEMENT 2]: first_marker_date is still repo.created_at here, but we
-# now tag these with marker_confidence="low" because created_at != the date
-# CLAUDE.md was actually committed.  Feature extraction will fall back to the
-# global POST_START for low-confidence accounts.
+# [IMPROVEMENT 2]: first_marker_date is repo.created_at, flagged low-confidence
+# because created_at != the date the file was actually committed.
+# Feature extraction falls back to global POST_START for these accounts.
+#
+# [v2.5 FIX]: Broadened from filename:CLAUDE.md only to also search for
+# AGENTS.md and filename:.claude (directory marker). These catch users who
+# follow the Hermes/Claude Code convention but don't use CLAUDE.md.
+# Queries are run in sequence; cap is shared so total stays ≤ MAX_POSITIVES//2.
 # ---------------------------------------------------------------------------
 
-def stage1a_code_search():
-    """Find accounts with CLAUDE.md via GitHub Code Search API.
+# [v2.5]: Multiple code search queries — all produce low-confidence positives
+# because repo.created_at is an unreliable proxy for actual adoption date.
+_CODE_SEARCH_QUERIES = [
+    ("filename:CLAUDE.md", "CLAUDE.md"),
+    ("filename:AGENTS.md+claude", "AGENTS.md (claude content)"),
+    ("filename:.claude", ".claude directory marker"),
+]
 
-    Capped at MAX_POSITIVES // 2 so stage1b_commit_search() can fill the
-    remainder with high-confidence accounts (actual commit timestamps).
+
+def stage1a_code_search():
+    """Find accounts with Claude Code artefacts via GitHub Code Search API.
+
+    [v2.5]: Runs multiple queries. Cap is shared so combined output ≤ MAX_POSITIVES//2.
+    Capped so stage1b_commit_search() can fill the remainder with high-confidence accounts.
     """
-    print("\n=== STAGE 1a: Code Search for CLAUDE.md (capped at MAX_POSITIVES // 2) ===")
+    print("\n=== STAGE 1a: Code Search for Claude artefacts (multi-query, v2.5) ===")
     cap = max(1, MAX_POSITIVES // 2)
     positives = {}
-    page = 1
 
-    while len(positives) < cap and page <= 10:
-        url = f"https://api.github.com/search/code?q=filename:CLAUDE.md&per_page=100&page={page}"
-        print(f"  page {page}...")
-        result = gh_get(url)
-        _sleep()
-
-        if not result or "items" not in result:
-            print("  no more results")
+    for query_str, query_label in _CODE_SEARCH_QUERIES:
+        if len(positives) >= cap:
+            print(f"  Cap reached ({cap}), skipping remaining queries")
             break
 
-        for item in result["items"]:
-            if len(positives) >= cap:
+        print(f"\n  Query: {query_label}")
+        page = 1
+
+        while len(positives) < cap and page <= 10:
+            url = f"https://api.github.com/search/code?q={query_str}&per_page=100&page={page}"
+            print(f"    page {page}...")
+            result = gh_get(url)
+            _sleep()
+
+            if not result or "items" not in result:
+                print("    no more results")
                 break
-            owner = item.get("repository", {}).get("owner", {})
-            login = owner.get("login", "")
-            if owner.get("type") != "User" or not login or login in positives:
-                continue
 
-            repo_full    = item.get("repository", {}).get("full_name", "")
-            repo_created = item.get("repository", {}).get("created_at", "")
+            new_this_page = 0
+            for item in result["items"]:
+                if len(positives) >= cap:
+                    break
+                owner = item.get("repository", {}).get("owner", {})
+                login = owner.get("login", "")
+                if owner.get("type") != "User" or not login or login in positives:
+                    continue
 
-            positives[login] = {
-                "login": login,
-                "discovery_method": "code_search",
-                "first_marker_date": repo_created,
-                "marker_type": "CLAUDE.md",
-                # [IMPROVEMENT 2]: Flag that this date is unreliable.
-                # repo.created_at can predate CLAUDE.md by years.
-                "marker_confidence": "low",
-            }
-            print(f"    {login}  ({repo_full}, created {repo_created[:10] or '?'})")
+                repo_full    = item.get("repository", {}).get("full_name", "")
+                repo_created = item.get("repository", {}).get("created_at", "")
 
-        page += 1
+                positives[login] = {
+                    "login": login,
+                    "discovery_method": "code_search",
+                    "first_marker_date": repo_created,
+                    "marker_type": query_label,
+                    # [IMPROVEMENT 2]: repo.created_at can predate the artefact by years.
+                    "marker_confidence": "low",
+                }
+                new_this_page += 1
+                print(f"      {login}  ({repo_full}, created {repo_created[:10] or '?'})")
 
-    print(f"Code search: {len(positives)} unique user accounts")
+            total = result.get("total_count", "?")
+            print(f"    page {page}: {result.get('items') and len(result['items'])} results "
+                  f"(total={total}), +{new_this_page} new, {len(positives)} total")
+            page += 1
+
+    print(f"\nCode search total: {len(positives)} unique user accounts")
     return positives
 
 
@@ -414,27 +443,18 @@ def stage1b_commit_search():
                 "https://api.github.com/search/commits"
                 f"?q={query_str}&per_page=100&page={page}&sort=committer-date&order=desc"
             )
-            req = urllib.request.Request(url, headers={
-                **_gh_headers(),
+            # [v2.5 FIX]: Route through gh_get() so we get the full retry/backoff
+            # logic (5 retries, X-RateLimit-Reset-aware sleep, secondary rate-limit
+            # floor). The previous inline urlopen handler was missing all of this.
+            # Commit search needs a special Accept header — we temporarily override
+            # the default by passing extra_headers.
+            result = gh_get(url, extra_headers={
                 "Accept": "application/vnd.github.cloak-preview+json",
             })
-            try:
-                with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
-                    result = json.loads(resp.read().decode("utf-8"))
-            except urllib.error.HTTPError as e:
-                if e.code in (403, 429):
-                    wait = max(SECONDARY_RATE_LIMIT_FLOOR, 30)
-                    print(f"    Rate limited, waiting {wait}s")
-                    time.sleep(wait)
-                    continue
-                else:
-                    print(f"    HTTP {e.code} on page {page}, skipping query")
-                    break
-            except Exception as e:
-                print(f"    Request error: {e}, skipping query")
-                break
-
             _sleep()
+            if result is None:
+                print(f"    Request failed on page {page}, skipping query")
+                break
             items = result.get("items", [])
             if not items:
                 print(f"    No more results at page {page}")
@@ -446,8 +466,10 @@ def stage1b_commit_search():
                     break
                 author = item.get("author") or {}
                 login = author.get("login", "")
-                # Skip bots, orgs, service accounts, and already-found accounts
-                if not login or author.get("type") not in ("User", None) or login in positives:
+                # Skip bots, orgs, service accounts, and already-found accounts.
+                # [v2.5 FIX]: Require type == "User" explicitly (consistent with
+                # stage1a). Allowing None let ghost/deleted accounts slip through.
+                if not login or author.get("type") != "User" or login in positives:
                     continue
                 commit_date = (item.get("commit", {}).get("committer", {}).get("date", "")
                                or item.get("commit", {}).get("author", {}).get("date", ""))
