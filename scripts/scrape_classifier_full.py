@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Full-scale scraper for Claude Code user classifier — v2.5
+Full-scale scraper for Claude Code user classifier — v2.6
 
 Improvements over v1 (each marked with # [IMPROVEMENT: ...] in-line):
 
@@ -79,10 +79,10 @@ if TEST_RUN:
     print("*** TEST MODE — caps: 20 positives, 20 negatives ***")
 else:
     CACHE_DIR               = DATA_DIR / "classifier_cache_full"
-    MAX_POSITIVES           = 200
-    MAX_NEGATIVES_TARGET    = 200
-    MAX_NEGATIVES_CANDIDATES = 400
-    SCRAPE_CAP_POSITIVE     = 200
+    MAX_POSITIVES           = 500
+    MAX_NEGATIVES_TARGET    = 500
+    MAX_NEGATIVES_CANDIDATES = 2000
+    SCRAPE_CAP_POSITIVE     = 500
     _RUN_TAG                = "full"
 
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -97,16 +97,27 @@ BACKOFF_BASE = 2
 SECONDARY_RATE_LIMIT_FLOOR = 60  # seconds — minimum wait on secondary limits
 
 # [IMPROVEMENT 1]: Multiple GH Archive hours spread across different days and
-# times of day.  A single hour captured a tiny slice of push activity; this
-# samples 6 hours across 3 weekdays (morning, afternoon, evening UTC) for
-# much broader coverage of co-author commits.
+# times of day.  A single hour captured a tiny slice of push activity.
+# [v2.6]: Expanded from 6 hours (Jan 2025 only) to 12 hours across 3 months
+# (Nov 2024, Jan 2025, Mar 2025) to diversify the negative candidate pool
+# and reduce the January 2025 selection bias. Now supports the larger
+# MAX_NEGATIVES_CANDIDATES target of 2000.
 GH_ARCHIVE_HOURS = [
+    # November 2024
+    ("2024-11-05", 10),  # Tuesday morning UTC
+    ("2024-11-07", 16),  # Thursday afternoon UTC
+    # January 2025 (original window)
     ("2025-01-13", 9),   # Monday morning UTC
     ("2025-01-13", 18),  # Monday evening UTC
-    ("2025-01-15", 3),   # Wednesday early morning UTC (original hour)
+    ("2025-01-15", 3),   # Wednesday early morning UTC
     ("2025-01-15", 14),  # Wednesday afternoon UTC
     ("2025-01-17", 11),  # Friday midday UTC
     ("2025-01-17", 21),  # Friday night UTC
+    # March 2025
+    ("2025-03-04", 8),   # Tuesday morning UTC
+    ("2025-03-04", 20),  # Tuesday evening UTC
+    ("2025-03-06", 12),  # Thursday midday UTC
+    ("2025-03-07", 5),   # Friday early morning UTC
 ]
 
 # Temporal split defaults
@@ -401,13 +412,26 @@ def stage1a_code_search():
 # dated garbage (2035-2089 from misconfigured clocks). Relevance sort
 # surfaces genuine Claude Code commits with valid dates. A post-hoc date
 # filter rejects commits outside [CLAUDE_LAUNCH, today].
+# [v2.6]: Date-chunked queries bypass the GitHub Search API's 1000-result hard
+# limit. Each chunk returns up to 1000 results independently, so N chunks
+# give up to N×1000 total results. Combined with deduplication by login, this
+# dramatically increases the pool of discoverable high-confidence accounts.
+#
+# Chunks are 6 months wide for the anthropic email query (high volume, 22M+
+# total results) and unchunked for the claude.ai/code footer (lower volume).
 _COMMIT_SEARCH_QUERIES = [
-    # Query 1: email trailer — catches all Co-Authored-By: Claude* <noreply@anthropic.com>
-    # variants regardless of model name/version tokens before the email.
-    # Newest first so cap fills with genuine recent adopters.
-    ("noreply%40anthropic.com", "Co-Authored-By: Claude <noreply@anthropic.com>"),
-    # Query 2: claude.ai/code footer injected by Claude Code into commit messages
-    # Matches: "🤖 Generated with [Claude](https://claude.ai/code)"
+    # Anthropic email — date-chunked to bypass 1000-result cap
+    ("noreply%40anthropic.com+committer-date%3A2026-01-01..2026-12-31",
+     "anthropic email (2026-H1+)"),
+    ("noreply%40anthropic.com+committer-date%3A2025-07-01..2025-12-31",
+     "anthropic email (2025-H2)"),
+    ("noreply%40anthropic.com+committer-date%3A2025-01-01..2025-06-30",
+     "anthropic email (2025-H1)"),
+    ("noreply%40anthropic.com+committer-date%3A2024-01-01..2024-12-31",
+     "anthropic email (2024)"),
+    ("noreply%40anthropic.com+committer-date%3A2023-11-01..2023-12-31",
+     "anthropic email (2023-Q4)"),
+    # claude.ai/code footer — lower volume, single unchunked query is fine
     ("claude.ai%2Fcode", "claude.ai/code footer"),
 ]
 
@@ -506,6 +530,10 @@ def stage1b_commit_search():
             total = result.get("total_count", "?")
             print(f"    Page {page}: {len(items)} results (total={total}), "
                   f"+{new_this_page} new, {len(positives)} total unique positives")
+            # [v2.6]: Early break when results are exhausted — saves one
+            # wasted API call per query that doesn't fill a full page.
+            if len(items) < 100:
+                break
             page += 1
 
     print(f"\nCommit search total: {len(positives)} unique user accounts")
@@ -875,59 +903,69 @@ def stage3b_scrape_negatives_dynamic(negative_candidates):
     # the edge case where the file exists but only contains the header row
     # (dict is empty but file already has a header — would write a duplicate).
     status_file_is_new = not status_file.exists() or status_file.stat().st_size == 0
+
+    # [v2.6 FIX]: Sort candidates before shuffling, then use a locally seeded
+    # Random instance. The global random state drifts between restarts depending
+    # on how many earlier stages ran, making the shuffle non-reproducible.
+    # A local rng = Random(42) on sorted input gives identical queue order
+    # regardless of execution path.
+    candidates_list = sorted(negative_candidates.keys())
+    rng = random.Random(42)
+    rng.shuffle(candidates_list)
+
+    # [v2.6 FIX]: Wrap the file handle in try/finally so it closes even on
+    # crash, preventing half-written CSV lines and leaked file descriptors.
     status_fh = open(status_file, "a", newline="")
-    status_writer = csv.DictWriter(status_fh, fieldnames=["login", "status"])
-    if status_file_is_new:
-        status_writer.writeheader()
-        status_fh.flush()
+    try:
+        status_writer = csv.DictWriter(status_fh, fieldnames=["login", "status"])
+        if status_file_is_new:
+            status_writer.writeheader()
+            status_fh.flush()
 
-    candidates_list = list(negative_candidates.keys())
-    random.shuffle(candidates_list)
+        for i, login in enumerate(candidates_list):
+            if login in existing_status:
+                status = existing_status[login]
+                if status == "accepted":
+                    accepted.append(login)
+                elif status == "rejected":
+                    rejected.append(login)
+                continue
 
-    for i, login in enumerate(candidates_list):
-        if login in existing_status:
-            status = existing_status[login]
-            if status == "accepted":
-                accepted.append(login)
-            elif status == "rejected":
+            data = scrape_account(login)
+
+            if data.get("error"):
+                existing_status[login] = "rejected"
                 rejected.append(login)
-            continue
+                status_writer.writerow({"login": login, "status": "rejected"})
+                status_fh.flush()
+                continue
 
-        data = scrape_account(login)
+            commits = data.get("commits", [])
+            pre_count  = _count_commits_in_window(commits, after=PRE_START, before=PRE_CUTOFF)
+            post_count = _count_commits_in_window(commits, after=POST_START)
 
-        if data.get("error"):
-            existing_status[login] = "rejected"
-            rejected.append(login)
-            status_writer.writerow({"login": login, "status": "rejected"})
-            status_fh.flush()
-            continue
+            if pre_count >= MIN_PRE_COMMITS and post_count >= MIN_POST_COMMITS:
+                existing_status[login] = "accepted"
+                accepted.append(login)
+                status_writer.writerow({"login": login, "status": "accepted"})
+                status_fh.flush()
+                print(f"  {login}: ACCEPTED ({pre_count} pre, {post_count} post)")
+            else:
+                existing_status[login] = "rejected"
+                rejected.append(login)
+                status_writer.writerow({"login": login, "status": "rejected"})
+                status_fh.flush()
+                print(f"  {login}: rejected ({pre_count} pre, {post_count} post)")
 
-        commits = data.get("commits", [])
-        pre_count  = _count_commits_in_window(commits, after=PRE_START, before=PRE_CUTOFF)
-        post_count = _count_commits_in_window(commits, after=POST_START)
+            if (len(accepted) + len(rejected)) % PROGRESS_INTERVAL == 0:
+                print(f"Progress: {len(accepted)}/{MAX_NEGATIVES_TARGET} negatives accepted "
+                      f"({len(rejected)} rejected so far)")
 
-        if pre_count >= MIN_PRE_COMMITS and post_count >= MIN_POST_COMMITS:
-            existing_status[login] = "accepted"
-            accepted.append(login)
-            status_writer.writerow({"login": login, "status": "accepted"})
-            status_fh.flush()
-            print(f"  {login}: ACCEPTED ({pre_count} pre, {post_count} post)")
-        else:
-            existing_status[login] = "rejected"
-            rejected.append(login)
-            status_writer.writerow({"login": login, "status": "rejected"})
-            status_fh.flush()
-            print(f"  {login}: rejected ({pre_count} pre, {post_count} post)")
-
-        if (len(accepted) + len(rejected)) % PROGRESS_INTERVAL == 0:
-            print(f"Progress: {len(accepted)}/{MAX_NEGATIVES_TARGET} negatives accepted "
-                  f"({len(rejected)} rejected so far)")
-
-        if len(accepted) >= MAX_NEGATIVES_TARGET:
-            print(f"Reached target of {MAX_NEGATIVES_TARGET} accepted negatives")
-            break
-
-    status_fh.close()
+            if len(accepted) >= MAX_NEGATIVES_TARGET:
+                print(f"Reached target of {MAX_NEGATIVES_TARGET} accepted negatives")
+                break
+    finally:
+        status_fh.close()
 
     print(f"\nNegative scraping complete:")
     print(f"  Accepted: {len(accepted)}")
@@ -982,16 +1020,21 @@ def stage3c_match_negatives(positives_data, negatives_accepted, all_data):
         print("  Not enough data for matching; returning all accepted negatives")
         return negatives_accepted
 
-    # Normalise features (z-score) for distance computation
-    all_ages = [f[1] for f in pos_features + neg_features]
-    all_pres = [f[2] for f in pos_features + neg_features]
-    age_mean = sum(all_ages) / len(all_ages)
-    age_std  = max((sum((a - age_mean)**2 for a in all_ages) / len(all_ages)) ** 0.5, 1)
-    pre_mean = sum(all_pres) / len(all_pres)
-    pre_std  = max((sum((p - pre_mean)**2 for p in all_pres) / len(all_pres)) ** 0.5, 1)
+    # [v2.6 FIX]: Log-transform commit counts before Z-score normalisation.
+    # Commit counts are massively right-skewed — a single power-user with
+    # 10,000+ commits would dominate the Euclidean distance and effectively
+    # make matching single-dimensional. log1p() compresses the scale so the
+    # matching weighs account age and commit volume more equally.
+    import math
+    all_ages    = [f[1] for f in pos_features + neg_features]
+    all_log_pre = [math.log1p(f[2]) for f in pos_features + neg_features]
+    age_mean    = sum(all_ages) / len(all_ages)
+    age_std     = max((sum((a - age_mean)**2 for a in all_ages) / len(all_ages)) ** 0.5, 1)
+    pre_mean    = sum(all_log_pre) / len(all_log_pre)
+    pre_std     = max((sum((p - pre_mean)**2 for p in all_log_pre) / len(all_log_pre)) ** 0.5, 1)
 
     def _norm(age, pre):
-        return ((age - age_mean) / age_std, (pre - pre_mean) / pre_std)
+        return ((age - age_mean) / age_std, (math.log1p(pre) - pre_mean) / pre_std)
 
     def _dist(a, b):
         return ((a[0] - b[0])**2 + (a[1] - b[1])**2) ** 0.5
