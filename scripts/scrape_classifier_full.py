@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Full-scale scraper for Claude Code user classifier — v2.1
+Full-scale scraper for Claude Code user classifier — v2.3
 
 Improvements over v1 (each marked with # [IMPROVEMENT: ...] in-line):
 
@@ -322,86 +322,141 @@ def stage1a_code_search():
 
 
 # ---------------------------------------------------------------------------
-# Stage 1b — GitHub Commit Search API for Co-Authored-By: Claude
+# Stage 1b — GitHub Commit Search API for Claude Code commit markers
 #
 # Replaces the GH Archive co-author scan. GH Archive samples 6 hours of
 # push events (~250k events/hour) but Claude co-author trailers appear in
 # <1 in 250k commits — we scanned 555k push events across 4 hours and found
 # zero hits. The search is too sparse.
 #
-# GitHub's Commit Search API searches across ALL public commit history:
-#   GET /search/commits?q=Co-Authored-By+noreply@anthropic.com
-# This finds co-authored commits directly regardless of when they were pushed.
-# Returns up to 1000 results (10 pages × 100).
+# GitHub's Commit Search API searches across ALL public commit history.
+# We run MULTIPLE query strings to capture all known Claude Code commit traces:
+#
+#   Query 1: noreply@anthropic.com  — catches all Co-Authored-By variants
+#             (Claude, Claude Code, Claude Opus 4.6, Claude Sonnet 4.5, etc.)
+#   Query 2: "claude.ai/code"       — footer injected by Claude Code into
+#             commit messages: "🤖 Generated with [Claude](https://claude.ai/code)"
+#   Query 3: "Co-authored-by: Claude" — plain text variant (no email)
+#
+# Each query returns up to 1000 results (10 pages × 100), mostly disjoint users.
+# Combined, this is a much broader net than the single narrow query in v2.2.
+#
+# [v2.3 FIX]: v2.2 used the narrow query "Co-Authored-By+noreply%40anthropic.com"
+# which only matched the exact string. This missed:
+#   - "claude.ai/code" footer commits (very common)
+#   - Angle-bracket-free co-author formats
+# The commit search queries below are additive — results are deduplicated by login.
 #
 # These positives get marker_confidence="high" because the commit timestamp
 # is the actual moment Claude Code was used — not a repo creation date.
 # ---------------------------------------------------------------------------
 
+# [v2.3]: Multiple search queries to maximise high-confidence recall.
+# Each query searches different Claude Code commit traces.
+_COMMIT_SEARCH_QUERIES = [
+    # Query 1: email trailer — catches all Co-Authored-By: Claude* <noreply@anthropic.com>
+    # variants regardless of model name/version tokens before the email
+    ("noreply%40anthropic.com", "Co-Authored-By: Claude <noreply@anthropic.com>"),
+    # Query 2: claude.ai/code footer injected by Claude Code into commit messages
+    # Matches: "🤖 Generated with [Claude](https://claude.ai/code)"
+    ("claude.ai%2Fcode", "claude.ai/code footer"),
+    # Query 3: plain-text co-author without email (seen in some editors/tools)
+    ("Co-authored-by%3A+Claude", "Co-authored-by: Claude (no email)"),
+]
+
+# [v2.3 FIX from 111aac7]: Broadened regex to match all known Claude Code
+# co-author trailer formats when stripping markers from commit messages
+# before feature extraction (prevents label leakage).
+# Previous regex: r"Co-[Aa]uthored-[Bb]y:\s*Claude<" — missed model name tokens
+# New regex: accepts any whitespace/word/dot chars between "Claude" and email,
+# and makes angle brackets optional.
+COAUTHOR_STRIP_RE = re.compile(
+    r"Co-[Aa]uthored-[Bb]y:\s*Claude[\s\w.]*<?noreply@anthropic\.com>?",
+    re.IGNORECASE,
+)
+# Also strip the claude.ai/code footer line
+CLAUDE_FOOTER_STRIP_RE = re.compile(
+    r"🤖\s*Generated with.*?claude\.ai/code[^\n]*",
+    re.IGNORECASE,
+)
+
+
 def stage1b_commit_search():
-    """Find accounts with Co-Authored-By: Claude via GitHub Commit Search API."""
-    print("\n=== STAGE 1b: GitHub Commit Search for Co-Authored-By: Claude ===")
+    """Find accounts via multiple GitHub Commit Search queries for Claude Code markers.
+
+    [v2.3]: Runs _COMMIT_SEARCH_QUERIES sequentially, deduplicating by login.
+    Cap is shared across all queries so combined output stays ≤ MAX_POSITIVES // 2.
+    """
+    print("\n=== STAGE 1b: GitHub Commit Search (multi-query, v2.3) ===")
     positives = {}
-    page = 1
-
     cap = max(1, MAX_POSITIVES // 2)
-    while len(positives) < cap and page <= 10:
-        url = (
-            "https://api.github.com/search/commits"
-            f"?q=Co-Authored-By+noreply%40anthropic.com&per_page=100&page={page}&sort=committer-date&order=asc"
-        )
-        # Commit search requires a special Accept header
-        req = urllib.request.Request(url, headers={
-            **_gh_headers(),
-            "Accept": "application/vnd.github.cloak-preview+json",
-        })
-        try:
-            with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
-                result = json.loads(resp.read().decode("utf-8"))
-        except urllib.error.HTTPError as e:
-            if e.code in (403, 429):
-                wait = max(SECONDARY_RATE_LIMIT_FLOOR, 30)
-                print(f"  Rate limited on commit search, waiting {wait}s")
-                time.sleep(wait)
-                continue
-            else:
-                print(f"  Commit search HTTP {e.code} on page {page}, stopping")
-                break
-        except Exception as e:
-            print(f"  Commit search error: {e}")
+
+    for query_str, query_label in _COMMIT_SEARCH_QUERIES:
+        if len(positives) >= cap:
+            print(f"  Cap reached ({cap}), skipping remaining queries")
             break
 
-        _sleep()
-        items = result.get("items", [])
-        if not items:
-            print(f"  No more results at page {page}")
-            break
+        print(f"\n  Query: {query_label}")
+        page = 1
 
-        for item in items:
-            if len(positives) >= cap:
+        while len(positives) < cap and page <= 10:
+            url = (
+                "https://api.github.com/search/commits"
+                f"?q={query_str}&per_page=100&page={page}&sort=committer-date&order=asc"
+            )
+            req = urllib.request.Request(url, headers={
+                **_gh_headers(),
+                "Accept": "application/vnd.github.cloak-preview+json",
+            })
+            try:
+                with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
+                    result = json.loads(resp.read().decode("utf-8"))
+            except urllib.error.HTTPError as e:
+                if e.code in (403, 429):
+                    wait = max(SECONDARY_RATE_LIMIT_FLOOR, 30)
+                    print(f"    Rate limited, waiting {wait}s")
+                    time.sleep(wait)
+                    continue
+                else:
+                    print(f"    HTTP {e.code} on page {page}, skipping query")
+                    break
+            except Exception as e:
+                print(f"    Request error: {e}, skipping query")
                 break
-            author = item.get("author") or {}
-            login = author.get("login", "")
-            # H1 fix: skip bots, orgs, and service accounts — only User accounts
-            if not login or author.get("type") not in ("User", None) or login in positives:
-                continue
-            commit_date = (item.get("commit", {}).get("committer", {}).get("date", "")
-                           or item.get("commit", {}).get("author", {}).get("date", ""))
-            positives[login] = {
-                "login": login,
-                "discovery_method": "commit_search_coauthor",
-                "first_marker_date": commit_date,
-                "marker_type": "Co-Authored-By: Claude (commit search)",
-                "marker_confidence": "high",
-            }
-            print(f"    {login}  (commit date: {commit_date[:10] or '?'})")
 
-        total = result.get("total_count", "?")
-        print(f"  Page {page}: {len(items)} results (total_count={total}), "
-              f"{len(positives)} unique positives so far")
-        page += 1
+            _sleep()
+            items = result.get("items", [])
+            if not items:
+                print(f"    No more results at page {page}")
+                break
 
-    print(f"Commit search: {len(positives)} unique user accounts")
+            new_this_page = 0
+            for item in items:
+                if len(positives) >= cap:
+                    break
+                author = item.get("author") or {}
+                login = author.get("login", "")
+                # Skip bots, orgs, service accounts, and already-found accounts
+                if not login or author.get("type") not in ("User", None) or login in positives:
+                    continue
+                commit_date = (item.get("commit", {}).get("committer", {}).get("date", "")
+                               or item.get("commit", {}).get("author", {}).get("date", ""))
+                positives[login] = {
+                    "login": login,
+                    "discovery_method": "commit_search_coauthor",
+                    "first_marker_date": commit_date,
+                    "marker_type": f"commit_search: {query_label}",
+                    "marker_confidence": "high",
+                }
+                new_this_page += 1
+                print(f"    {login}  (commit date: {commit_date[:10] or '?'})")
+
+            total = result.get("total_count", "?")
+            print(f"    Page {page}: {len(items)} results (total={total}), "
+                  f"+{new_this_page} new, {len(positives)} total unique positives")
+            page += 1
+
+    print(f"\nCommit search total: {len(positives)} unique user accounts")
     return positives
 
 
@@ -966,22 +1021,34 @@ def _window_commit_features(commits, after, before=None):
     active_weeks = len({_parse_dt(c["created_at"]).isocalendar()[:2] for c in window
                         if _parse_dt(c["created_at"])})
     repos        = len({c.get("repo", "") for c in window if c.get("repo")})
-    msg_lengths  = [len(c.get("message", "")) for c in window]
+    # [v2.3 FIX from 111aac7]: Strip Claude Code marker trailers from commit
+    # messages BEFORE computing any features. Without this, the co-author
+    # trailer text leaks label information directly into msg_lengths,
+    # multiline_count, and other message-derived features — the classifier
+    # would be cheating by reading the label from the feature.
+    def _strip_markers(msg):
+        msg = COAUTHOR_STRIP_RE.sub("", msg)
+        msg = CLAUDE_FOOTER_STRIP_RE.sub("", msg)
+        return msg.strip()
+
+    cleaned_messages = [_strip_markers(c.get("message", "")) for c in window]
+
+    msg_lengths  = [len(m) for m in cleaned_messages]
 
     # Commit message structure features
-    multiline_count = sum(1 for c in window if "\n" in c.get("message", ""))
+    multiline_count = sum(1 for m in cleaned_messages if "\n" in m)
 
     conventional_re = re.compile(
         r"^(feat|fix|chore|refactor|docs|test|style|perf|ci|build)(\(.*\))?:", re.IGNORECASE
     )
-    conventional_count = sum(1 for c in window if conventional_re.match(c.get("message", "")))
+    conventional_count = sum(1 for m in cleaned_messages if conventional_re.match(m))
 
     _test_re = re.compile(r"\btest[s]?\b", re.IGNORECASE)
-    test_count = sum(1 for c in window if _test_re.search(c.get("message", "")))
+    test_count = sum(1 for m in cleaned_messages if _test_re.search(m))
 
     bullets_count = sum(
-        1 for c in window
-        if "- " in c.get("message", "") or "* " in c.get("message", "")
+        1 for m in cleaned_messages
+        if "- " in m or "* " in m
     )
 
     # Inter-commit burst features
