@@ -120,6 +120,12 @@ PRE_CUTOFF  = datetime(2024, 1, 1)
 POST_START  = datetime(2024, 1, 1)  # global fallback
 PRE_START   = datetime(2022, 1, 1)
 
+# [v2.5]: Date sanity bounds for commit search results. Commits with dates
+# outside this range are rejected — either from misconfigured clocks (future)
+# or from pre-Claude-Code era (a human named Claude, not the tool).
+CLAUDE_LAUNCH = datetime(2023, 11, 1)  # Claude Code first available
+DATE_SANITY_MAX = datetime(2027, 1, 1)  # generous upper bound for clock drift
+
 # Both-window threshold
 MIN_PRE_COMMITS  = 10
 MIN_POST_COMMITS = 10
@@ -389,10 +395,12 @@ def stage1a_code_search():
 # found in the v2.2 full run. Without an email anchor to noreply@anthropic.com
 # there is no reliable way to distinguish the tool from a human collaborator.
 #
-# [v2.4 FIX]: Sort order flipped from asc to desc (newest commits first).
-# asc means the cap fills with the oldest commits — mostly pre-Nov 2023
-# edge cases and false positives — before the genuine 2024+ Claude Code
-# adopters. desc puts the most recent, most clearly genuine adopters first.
+# [v2.5 FIX]: Use default relevance sort (no sort param). Both asc and desc
+# were broken: asc filled the cap with pre-Claude-Code false positives
+# (2017-2023 commits by humans named Claude); desc filled it with future-
+# dated garbage (2035-2089 from misconfigured clocks). Relevance sort
+# surfaces genuine Claude Code commits with valid dates. A post-hoc date
+# filter rejects commits outside [CLAUDE_LAUNCH, today].
 _COMMIT_SEARCH_QUERIES = [
     # Query 1: email trailer — catches all Co-Authored-By: Claude* <noreply@anthropic.com>
     # variants regardless of model name/version tokens before the email.
@@ -441,7 +449,7 @@ def stage1b_commit_search():
         while len(positives) < cap and page <= 10:
             url = (
                 "https://api.github.com/search/commits"
-                f"?q={query_str}&per_page=100&page={page}&sort=committer-date&order=desc"
+                f"?q={query_str}&per_page=100&page={page}"
             )
             # [v2.5 FIX]: Route through gh_get() so we get the full retry/backoff
             # logic (5 retries, X-RateLimit-Reset-aware sleep, secondary rate-limit
@@ -473,6 +481,18 @@ def stage1b_commit_search():
                     continue
                 commit_date = (item.get("commit", {}).get("committer", {}).get("date", "")
                                or item.get("commit", {}).get("author", {}).get("date", ""))
+                # [v2.5 FIX]: Date sanity check — reject commits outside
+                # [CLAUDE_LAUNCH, DATE_SANITY_MAX]. Catches future-dated
+                # garbage (misconfigured clocks) and pre-Claude-Code false
+                # positives (humans named Claude, not the tool).
+                try:
+                    cdt = datetime.fromisoformat(
+                        commit_date.replace("Z", "+00:00")
+                    ).replace(tzinfo=None)
+                    if not (CLAUDE_LAUNCH <= cdt <= DATE_SANITY_MAX):
+                        continue  # silently skip invalid dates
+                except (ValueError, AttributeError):
+                    continue  # unparseable date
                 positives[login] = {
                     "login": login,
                     "discovery_method": "commit_search_coauthor",
