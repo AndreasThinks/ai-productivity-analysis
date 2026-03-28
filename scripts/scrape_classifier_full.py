@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Full-scale scraper for Claude Code user classifier — v2.3
+Full-scale scraper for Claude Code user classifier — v2.4
 
 Improvements over v1 (each marked with # [IMPROVEMENT: ...] in-line):
 
@@ -353,15 +353,25 @@ def stage1a_code_search():
 
 # [v2.3]: Multiple search queries to maximise high-confidence recall.
 # Each query searches different Claude Code commit traces.
+#
+# [v2.4 FIX]: Removed Query 3 ("Co-authored-by: Claude" without email).
+# This query matched any human named Claude as a co-author — 4 confirmed
+# false positives with marker dates in 2017-2023 (pre-Claude Code) were
+# found in the v2.2 full run. Without an email anchor to noreply@anthropic.com
+# there is no reliable way to distinguish the tool from a human collaborator.
+#
+# [v2.4 FIX]: Sort order flipped from asc to desc (newest commits first).
+# asc means the cap fills with the oldest commits — mostly pre-Nov 2023
+# edge cases and false positives — before the genuine 2024+ Claude Code
+# adopters. desc puts the most recent, most clearly genuine adopters first.
 _COMMIT_SEARCH_QUERIES = [
     # Query 1: email trailer — catches all Co-Authored-By: Claude* <noreply@anthropic.com>
-    # variants regardless of model name/version tokens before the email
+    # variants regardless of model name/version tokens before the email.
+    # Newest first so cap fills with genuine recent adopters.
     ("noreply%40anthropic.com", "Co-Authored-By: Claude <noreply@anthropic.com>"),
     # Query 2: claude.ai/code footer injected by Claude Code into commit messages
     # Matches: "🤖 Generated with [Claude](https://claude.ai/code)"
     ("claude.ai%2Fcode", "claude.ai/code footer"),
-    # Query 3: plain-text co-author without email (seen in some editors/tools)
-    ("Co-authored-by%3A+Claude", "Co-authored-by: Claude (no email)"),
 ]
 
 # [v2.3 FIX from 111aac7]: Broadened regex to match all known Claude Code
@@ -402,7 +412,7 @@ def stage1b_commit_search():
         while len(positives) < cap and page <= 10:
             url = (
                 "https://api.github.com/search/commits"
-                f"?q={query_str}&per_page=100&page={page}&sort=committer-date&order=asc"
+                f"?q={query_str}&per_page=100&page={page}&sort=committer-date&order=desc"
             )
             req = urllib.request.Request(url, headers={
                 **_gh_headers(),
@@ -544,11 +554,21 @@ def _scrape_commits_for_repo(owner, repo_name, account_login, max_commits=200):
     return commits
 
 
-def _scrape_prs_for_repo(owner, repo_name, max_prs=100):
-    """Fetch up to max_prs closed/merged PRs for one repo."""
+def _scrape_prs_for_repo(owner, repo_name, account_login, max_prs=100):
+    """Fetch up to max_prs closed/merged PRs for one repo, filtered to account_login.
+
+    [v2.4 FIX]: Added ?creator={account_login} filter. Without it, all PRs from
+    any contributor to the repo are included, creating structural asymmetry:
+    positives who own popular repos get their PR features diluted by external
+    contributors' PRs, while negatives (who tend to own quieter repos) get
+    mostly their own PRs. This biases mean_pr_body_length and frac_pr_has_body.
+
+    Also stores author_login in each PR dict so downstream code can verify
+    and for future filtering use.
+    """
     url = (
         f"https://api.github.com/repos/{owner}/{repo_name}/pulls"
-        f"?state=closed&per_page={max_prs}&sort=updated&direction=desc"
+        f"?state=closed&creator={account_login}&per_page={max_prs}&sort=updated&direction=desc"
     )
     result = gh_get(url)
     _sleep()
@@ -556,8 +576,11 @@ def _scrape_prs_for_repo(owner, repo_name, max_prs=100):
         return []
     prs = []
     for pr in result:
+        # Store author_login for verification; title dropped (not used in features,
+        # could be a future leakage vector if anyone adds title-based features)
+        pr_author = (pr.get("user") or {}).get("login", "")
         prs.append({
-            "title": (pr.get("title") or "")[:100],
+            "author_login": pr_author,
             "body_length": len(pr.get("body") or ""),
             "created_at": pr.get("created_at"),
             "merged_at": pr.get("merged_at"),
@@ -699,7 +722,7 @@ def scrape_account(login):
         _sample_commit_files(owner_name, repo_name, commits)
         data["commits"].extend(commits)
 
-        prs = _scrape_prs_for_repo(owner_name, repo_name)
+        prs = _scrape_prs_for_repo(owner_name, repo_name, login)
         data["prs"].extend(prs)
 
     # Write marker info to separate labeling file (append-safe)
