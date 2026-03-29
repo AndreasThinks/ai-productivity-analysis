@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Full-scale scraper for Claude Code user classifier — v2.6
+Full-scale scraper for Claude Code user classifier — v2.7
 
 Improvements over v1 (each marked with # [IMPROVEMENT: ...] in-line):
 
@@ -52,6 +52,7 @@ from pathlib import Path
 from collections import defaultdict
 import urllib.request
 import urllib.error
+import socket
 
 # ---------------------------------------------------------------------------
 # Config
@@ -95,6 +96,13 @@ REQUEST_TIMEOUT = 15
 MAX_RETRIES = 5
 BACKOFF_BASE = 2
 SECONDARY_RATE_LIMIT_FLOOR = 60  # seconds — minimum wait on secondary limits
+
+# [v2.7]: Network resilience — detect transient DNS/connection failures and
+# retry with longer backoff instead of treating them as permanent errors.
+NETWORK_RETRY_FLOOR = 120         # seconds — minimum wait on network errors
+NETWORK_MAX_RETRIES = 8           # more patience for transient outages
+CONSECUTIVE_NETWORK_FAIL_LIMIT = 5  # circuit breaker threshold
+CIRCUIT_BREAKER_PAUSE = 300       # 5 minutes pause when circuit trips
 
 # [IMPROVEMENT 1]: Multiple GH Archive hours spread across different days and
 # times of day.  A single hour captured a tiny slice of push activity.
@@ -165,6 +173,26 @@ def _gh_headers():
     }
 
 
+class NetworkError(Exception):
+    """Raised when gh_get fails due to transient network issues (DNS, connection)."""
+    pass
+
+
+def _is_network_error(exc):
+    """Check if an exception is a transient network/DNS error."""
+    if isinstance(exc, (socket.gaierror, socket.timeout, ConnectionError,
+                        ConnectionResetError, ConnectionRefusedError, BrokenPipeError)):
+        return True
+    if isinstance(exc, urllib.error.URLError) and not isinstance(exc, urllib.error.HTTPError):
+        # URLError wrapping a socket error (DNS failure, connection refused, etc.)
+        return True
+    if isinstance(exc, OSError) and exc.errno in (101, 110, 111, 113):
+        # 101=Network unreachable, 110=Connection timed out,
+        # 111=Connection refused, 113=No route to host
+        return True
+    return False
+
+
 def gh_get(url, extra_headers=None):
     """GET a GitHub API URL with retry + rate-limit-aware backoff.
 
@@ -175,9 +203,15 @@ def gh_get(url, extra_headers=None):
     [v2.5]: Optional extra_headers dict merges on top of _gh_headers().
     Used by stage1b to set the commit-search Accept header without losing
     retry/backoff logic.
+
+    [v2.7]: Network errors (DNS, connection) raise NetworkError instead of
+    returning None, so callers can distinguish transient outages from
+    permanent API failures.
     """
     headers = {**_gh_headers(), **(extra_headers or {})}
-    for attempt in range(MAX_RETRIES):
+    last_network_error = None
+
+    for attempt in range(NETWORK_MAX_RETRIES):
         try:
             req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
@@ -198,16 +232,19 @@ def gh_get(url, extra_headers=None):
                     # Primary rate limit — sleep until reset
                     wait = max(reset_ts - int(time.time()) + 5, 5)
                     print(f"    Rate limit exhausted. Sleeping {wait}s until reset "
-                          f"(attempt {attempt+1}/{MAX_RETRIES})")
+                          f"(attempt {attempt+1}/{NETWORK_MAX_RETRIES})")
                     time.sleep(wait)
                 else:
-                    # [IMPROVEMENT 6]: Secondary rate limit — use a much longer
-                    # floor (60s) because GitHub's secondary limits can persist
-                    # for 60-120s.  The old 2/4/8s backoff often wasn't enough.
+                    # [IMPROVEMENT 6]: Secondary rate limit
                     wait = max(SECONDARY_RATE_LIMIT_FLOOR, (BACKOFF_BASE ** attempt) * 2)
                     print(f"    Secondary rate limit. Waiting {wait}s "
-                          f"(attempt {attempt+1}/{MAX_RETRIES})")
+                          f"(attempt {attempt+1}/{NETWORK_MAX_RETRIES})")
                     time.sleep(wait)
+
+                # Only burn MAX_RETRIES attempts on rate limits (not NETWORK_MAX_RETRIES)
+                if attempt >= MAX_RETRIES - 1:
+                    print(f"    Failed after {MAX_RETRIES} rate-limit retries: {url}")
+                    return None
 
             elif e.code == 404:
                 return None
@@ -218,11 +255,24 @@ def gh_get(url, extra_headers=None):
                 return None
 
         except Exception as e:
-            wait = (BACKOFF_BASE ** attempt)
-            print(f"    request error ({e}), waiting {wait}s")
-            time.sleep(wait)
+            if _is_network_error(e):
+                last_network_error = e
+                wait = max(NETWORK_RETRY_FLOOR, (BACKOFF_BASE ** attempt) * 2)
+                print(f"    Network error ({e}), waiting {wait}s "
+                      f"(attempt {attempt+1}/{NETWORK_MAX_RETRIES})")
+                time.sleep(wait)
+            else:
+                wait = (BACKOFF_BASE ** attempt)
+                print(f"    request error ({e}), waiting {wait}s")
+                time.sleep(wait)
+                # Non-network errors still use the old retry limit
+                if attempt >= MAX_RETRIES - 1:
+                    print(f"    Failed after {MAX_RETRIES} retries: {url}")
+                    return None
 
-    print(f"    Failed after {MAX_RETRIES} retries: {url}")
+    if last_network_error:
+        raise NetworkError(f"Network unavailable after {NETWORK_MAX_RETRIES} retries: {last_network_error}")
+    print(f"    Failed after {NETWORK_MAX_RETRIES} retries: {url}")
     return None
 
 
@@ -729,6 +779,7 @@ def scrape_account(login):
     data = {"login": login, "profile": None, "repos": [], "commits": [], "prs": [], "error": None}
 
     # Profile
+    # [v2.7]: Let NetworkError propagate — caller decides whether to skip or pause
     profile = gh_get(f"https://api.github.com/users/{login}")
     _sleep()
     if profile is None:
@@ -829,6 +880,9 @@ def stage3a_scrape_positives(positives):
     all_data = {}
     pos_logins = list(positives)[:SCRAPE_CAP_POSITIVE]
 
+    # [v2.7]: Circuit breaker for positives too
+    consecutive_network_fails = 0
+
     for i, login in enumerate(pos_logins):
         if login in completed:
             # Load from cache without re-scraping
@@ -838,7 +892,22 @@ def stage3a_scrape_positives(positives):
                     all_data[login] = json.load(f)
             continue
 
-        all_data[login] = scrape_account(login)
+        try:
+            all_data[login] = scrape_account(login)
+            consecutive_network_fails = 0
+        except NetworkError as e:
+            consecutive_network_fails += 1
+            print(f"  {login}: SKIPPED (network error: {e})")
+
+            if consecutive_network_fails >= CONSECUTIVE_NETWORK_FAIL_LIMIT:
+                print(f"\n    ⚠ Circuit breaker tripped: {consecutive_network_fails} "
+                      f"consecutive network failures.")
+                print(f"    Pausing {CIRCUIT_BREAKER_PAUSE}s before retrying...")
+                time.sleep(CIRCUIT_BREAKER_PAUSE)
+                consecutive_network_fails = 0
+                print(f"    Resuming...")
+            continue
+
         completed.add(login)
 
         # [IMPROVEMENT 7]: Persist progress after each account
@@ -922,6 +991,9 @@ def stage3b_scrape_negatives_dynamic(negative_candidates):
             status_writer.writeheader()
             status_fh.flush()
 
+        # [v2.7]: Circuit breaker — track consecutive network failures
+        consecutive_network_fails = 0
+
         for i, login in enumerate(candidates_list):
             if login in existing_status:
                 status = existing_status[login]
@@ -931,7 +1003,23 @@ def stage3b_scrape_negatives_dynamic(negative_candidates):
                     rejected.append(login)
                 continue
 
-            data = scrape_account(login)
+            try:
+                data = scrape_account(login)
+                consecutive_network_fails = 0  # reset on success
+            except NetworkError as e:
+                consecutive_network_fails += 1
+                print(f"  {login}: SKIPPED (network error: {e})")
+
+                if consecutive_network_fails >= CONSECUTIVE_NETWORK_FAIL_LIMIT:
+                    print(f"\n    ⚠ Circuit breaker tripped: {consecutive_network_fails} "
+                          f"consecutive network failures.")
+                    print(f"    Pausing {CIRCUIT_BREAKER_PAUSE}s before retrying...")
+                    time.sleep(CIRCUIT_BREAKER_PAUSE)
+                    consecutive_network_fails = 0
+                    print(f"    Resuming...")
+
+                # Don't write to status file — this account will be retried on next run
+                continue
 
             if data.get("error"):
                 existing_status[login] = "rejected"

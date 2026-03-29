@@ -131,3 +131,62 @@ Priority order:
 4. **Switch to `linearmodels.PanelOLS`** with both country and time fixed effects once the panel is cleaner. The current run uses statsmodels OLS with manual country dummies; `PanelOLS` handles the double-FE structure and clustered SEs more cleanly.
 
 5. **Scale further**: 500 users/window still yields median 2 developers/country/year. Either increase to ~2000 users/window or run multiple hourly windows per quarter to get ≥ 10 developers per major country per year.
+
+---
+
+## Phase 2: Individual-Level Classifier (Full Run) — 2026-03-29
+
+A new approach: instead of aggregating to country-year, classify individual GitHub accounts by whether they are likely AI coding tool adopters, and compare commit behaviour before vs. after a fixed cutoff date (2024-06-01).
+
+### Dataset
+
+**Scrape summary:**
+
+| Metric | Value |
+|--|--|
+| Accounts scraped | 702 |
+| Positive labels (AI adopters, high-confidence) | 33 |
+| Negative labels (non-adopters, sampled) | 202 |
+| Total rows in features file | 235 |
+| Both-window filter (≥10 commits pre AND post) | 235 (all passed) |
+| Feature columns | 45 (pre/post/delta prefix groups) |
+
+Labels are derived from commit message analysis: accounts whose messages show clear markers of AI coding tool adoption (e.g. Copilot, Cursor, AI-generated commit patterns) are labelled positive.
+
+### Classifier Results
+
+5-fold stratified cross-validation (AUC, higher = better):
+
+| Model | AUC Mean | AUC Std |
+|--|--|--|
+| Random Forest (200 trees, max_depth=4) | **0.938** | ±0.052 |
+| Gradient Boosting (100 trees, max_depth=2) | 0.918 | ±0.063 |
+| Logistic Regression (C=0.1) | 0.909 | ±0.063 |
+
+**Best model: Random Forest, AUC 0.938**
+
+Note: Logistic Regression showed convergence warnings (lbfgs did not converge at 1000 iterations). Results are still reported as directionally valid, but LR should be treated with caution.
+
+### Top 10 Features by Importance (Random Forest)
+
+| Feature | Importance |
+|--|--|
+| post_mean_message_length | 0.1303 |
+| pre_mean_message_length | 0.1197 |
+| post_mean_inter_commit_hours | 0.1093 |
+| post_active_weeks | 0.0659 |
+| post_mean_commits_per_active_week | 0.0605 |
+| pre_frac_has_bullets | 0.0590 |
+| post_frac_multiline | 0.0441 |
+| post_frac_has_bullets | 0.0394 |
+| pre_frac_multiline | 0.0361 |
+| delta_mean_commits_per_active_week | 0.0304 |
+
+**Interpretation:** Commit message length (pre and post) dominates, followed by inter-commit timing. The model is partly picking up on writing style differences rather than pure commit velocity — AI-assisted commit messages tend to be more verbose/structured. `post_mean_inter_commit_hours` being 3rd suggests pacing differences too. The `frac_has_bullets` and `frac_multiline` features confirm the structured-message hypothesis.
+
+### Caveats
+
+- **Class imbalance**: 33 positives vs 202 negatives (~1:6). Cross-validation uses stratification but performance may be optimistic.
+- **Label quality**: positives identified via commit message heuristics — some genuine adopters may be miscategorised as negatives if they don't mention tools by name. Negatives are sampled from accounts with no adoption markers, which is a softer criterion.
+- **Small positive class**: 33 positives is marginal for a reliable 5-fold CV. Treat AUC estimates as directional indicators, not precise measurements.
+- **Feature leakage risk**: `post_mean_message_length` may partly reflect the labelling signal (if AI adopters were identified partly by message length). This warrants further investigation.

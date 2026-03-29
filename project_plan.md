@@ -430,9 +430,9 @@ The message length delta is the most promising feature by far and survives the b
 
 ## scrape_classifier_full.py — Status and Design (March 2026)
 
-### Current version: v2.1
+### Current version: v2.7
 
-`scripts/scrape_classifier_full.py` is the full-scale production scraper. v2.1 incorporates lessons from two test runs plus two rounds of code review.
+`scripts/scrape_classifier_full.py` is the full-scale production scraper. v2.7 incorporates lessons from multiple runs, two code reviews, and a DNS-failure incident.
 
 **v1 → v2.0 improvements (first code review):**
 - Negative sampling: random (no activity threshold), dynamic loop until 200 accepted, both-window filter enforced at scrape time with correct PRE_START lower bound
@@ -449,13 +449,26 @@ The message length delta is the most promising feature by far and survives the b
 - **Stage 1c removed**: Contributors API discovery loop was an expensive no-op — it only checked repos already owned by known positives, so it could never surface new accounts. Removed cleanly; deferred to future iteration if a cross-GitHub approach is designed.
 - **Repo sort**: changed from `pushed` ascending (surfaced dormant repos with thin histories) to `created` ascending (oldest repos first — more likely to have meaningful pre-period history while still having commit depth to pass the both-window filter).
 
+**v2.5 → v2.6 improvements:**
+- GH Archive hours expanded from 6 to 12 across 3 months (Nov 2024, Jan 2025, Mar 2025) to diversify the negative candidate pool and reduce January 2025 selection bias.
+- MAX_NEGATIVES_TARGET and MAX_NEGATIVES_CANDIDATES raised to 500 and 2000 respectively.
+- Negative candidate shuffle uses a locally-seeded `Random(42)` on sorted input for reproducible queue order regardless of execution path.
+- Status file handle wrapped in try/finally for crash safety.
+
+**v2.6 → v2.7 improvements (network resilience, March 29 2026):**
+- **NetworkError exception class**: DNS/connection failures (`socket.gaierror`, `ConnectionError`, `URLError` wrapping socket errors, OS errors 101/110/111/113) are now distinguished from GitHub API errors. `gh_get()` raises `NetworkError` instead of returning `None` for transient outages.
+- **Network-aware retry**: transient network errors use a 120s retry floor with up to 8 attempts (vs 60s/5 for rate limits). Gives DNS outages time to resolve before giving up.
+- **Circuit breaker**: if 5 consecutive accounts fail with `NetworkError`, the scraper pauses for 5 minutes then resumes. Prevents burning through the entire candidate list during a prolonged outage.
+- **Skip-not-reject on network error**: accounts that fail due to network issues are NOT written to the status file. They remain unprocessed and will be retried on the next run, instead of being permanently marked as rejected.
+- Both stage3a (positives) and stage3b (negatives) are protected by the circuit breaker.
+
 ### TEST_RUN flag
 
 Single flag at top of script controls scale:
 
 ```
 TEST_RUN = True   →  20 pos, 20 neg, cache: classifier_cache_test/, files: test_*
-TEST_RUN = False  →  200 pos, 200 neg, cache: classifier_cache_full/, files: full_*
+TEST_RUN = False  →  500 pos, 500 neg, cache: classifier_cache_full/, files: full_*
 ```
 
 ### Output files (tagged by run type)
@@ -507,11 +520,14 @@ Signal is real — three independent features all point the same direction at 15
 
 ## Immediate Next Steps
 
-1. **Run full scrape with v2.1** — `TEST_RUN = False`, run overnight (~14-20 hours)
-2. **Check both-window coverage** — key question: do high-confidence (GH Archive co-author) positives have better pre-window coverage than low-confidence (Code Search)?
-3. **First classifier** — logistic regression on both-window accounts once full features CSV is ready; stratify by marker_confidence
-4. **Validate on other tool markers** — collect Aider co-author accounts, run classifier, compare score distributions
+1. ~~Run full scrape with v2.1~~ **Done** — multiple runs completed (v2.1 through v2.6)
+2. ~~Check both-window coverage~~ **Done** — 102 accounts passed (30 pos / 72 neg) in v2.2; 65 in v2.6 (18 pos / 47 neg)
+3. ~~First classifier~~ **Done** — RF best model, CV AUC 0.828 (see Classifier Training Results below)
+4. **v2.7 scrape in progress** (March 29) — resuming from 129/500 negatives accepted. Targeting 500 negatives total. Scraper has new network resilience (circuit breaker, skip-not-reject). Log: `/tmp/scraper_v27.log`
+5. **Retrain classifier on expanded dataset** — once v2.7 completes with ~500 negatives, retrain RF and check if CV AUC improves with larger N
+6. **Validate on other tool markers** — collect Aider co-author accounts, run classifier, compare score distributions
+7. **Build `scripts/build_panel_v2.py`** — replace `ai_readiness_score` in panel with per-country fraction of accounts classified as AI users
 
 ---
 
-*Last updated: March 2026*
+*Last updated: March 29, 2026*
