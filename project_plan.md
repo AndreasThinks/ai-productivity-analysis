@@ -527,9 +527,10 @@ Signal is real — three independent features all point the same direction at 15
 5. ~~Retrain classifier on expanded dataset~~ **Done** — RF CV AUC **0.940 ± 0.054** on N=235 (script run: `scripts/train_classifier.py`). Model saved to `data/classifier_model.pkl`.
 5b. ~~Writing-style ablation~~ **Done** — dropping all message length, bullets, multiline, conventional commits, PR body features costs only 3.1 AUC points (0.940 → 0.909). Activity signals (inter-commit hours, active weeks, commit cadence) carry the model on their own. See AGENTS.md for full results.
 6. ~~**Validate on other tool markers**~~ **Done — March 30, 2026.** Aider validation complete. 36 accounts scored. Mean score: 0.727 (vs 0.776 Claude positives, 0.033 negatives). Mann-Whitney p=0.0000 vs negatives, p=0.065 vs Claude positives. **Generalisation confirmed** — classifier detects AI-assisted coding beyond Claude Code. See AGENTS.md for full score distribution table.
-7. **Build `scripts/build_panel_v2.py`** — IN PROGRESS. Replaces `ai_readiness_score` in the panel regression with per-country fraction of accounts classified as AI users. Rerun PanelOLS with country + time FE and clustered SEs.
+7. ~~**Build `scripts/build_panel_v2.py`**~~ **Done (prototype)** — confirmed the IV construction problem: proxy was a constant time trend, perfectly collinear with time FE. Regression B produced nonsense coefficients. Root cause: training data accounts are not a representative population sample. Need step 9 first.
 8. ~~Save model pkl~~ **Done** — `scripts/train_classifier.py` saves RF + imputer + feature list to `data/classifier_model.pkl`.
-9. **Score broader population** — apply classifier to a random sample of 5k–10k GitHub accounts to estimate population-level AI adoption prevalence and generate the per-country-quarter metric.
+9. **Population scrape + country-quarter IV** — IN PROGRESS. Script: `scripts/scrape_population.py`. Target: 3,000 accounts from GH Archive with location fields, covering all 54 panel countries. Light scrape mode: no file sampling, capped at 5 repos and 100 commits each (~25 API calls per account vs 122 in the classifier scraper). Estimated runtime: ~15 hours. Once complete, aggregate to per-country-quarter `pct_ai_users`, merge onto panel, rerun PanelOLS.
+10. **Rerun build_panel_v2.py with real IV** — once population scrape completes. This is the final regression: pct_ai_users (genuine cross-country variation) as IV, log(commits_per_dev) as DV, country + time FE, clustered SE by country.
 
 ---
 
