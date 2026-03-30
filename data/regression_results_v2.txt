@@ -1,0 +1,89 @@
+======================================================================
+PANEL REGRESSION RESULTS v2
+Date: 2026-03-30
+======================================================================
+
+Panel: github_panel_flat.csv
+N observations: 347
+Countries: 54
+DV: log(commits_per_dev + 1)
+
+NOTE ON IV:
+  pct_ai_users is a TIME-BASED PROXY (not true per-country adoption).
+  Value = 0 for 2022 and 2023; value = mean classifier score
+  (0.138) for 2024.
+  True country-quarter adoption requires a full population scrape.
+  See project_plan.md Step 9 for the path to the real IV.
+
+REGRESSION A — Phase 1 Baseline (Oxford Insights AI Readiness)
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:            log_commits   R-squared:                        0.0345
+Estimator:                   PanelOLS   R-squared (Between):             -6.2445
+No. Observations:                  88   R-squared (Within):               0.0052
+Date:                Mon, Mar 30 2026   R-squared (Overall):             -4.9742
+Time:                        12:07:42   Log-likelihood                    1.5750
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      1.2509
+Entities:                          51   P-value                           0.2710
+Avg Obs:                       1.7255   Distribution:                    F(1,35)
+Min Obs:                       1.0000                                           
+Max Obs:                       2.0000   F-statistic (robust):             0.5536
+                                        P-value                           0.4618
+Time periods:                       2   Distribution:                    F(1,35)
+Avg Obs:                       44.000                                           
+Min Obs:                       39.000                                           
+Max Obs:                       49.000                                           
+                                                                                
+                                 Parameter Estimates                                  
+======================================================================================
+                    Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+--------------------------------------------------------------------------------------
+ai_readiness_score     0.0667     0.0896     0.7441     0.4618     -0.1152      0.2486
+======================================================================================
+
+F-test for Poolability: 4.1921
+P-value: 0.0000
+Distribution: F(51,35)
+
+Included effects: Entity, Time
+
+REGRESSION B — Phase 2 (classifier-based IV, time proxy)
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:            log_commits   R-squared:                     3.522e-05
+Estimator:                   PanelOLS   R-squared (Between):          -1.152e+24
+No. Observations:                 142   R-squared (Within):           -1.764e+25
+Date:                Mon, Mar 30 2026   R-squared (Overall):           -2.26e+24
+Time:                        12:07:42   Log-likelihood                    9.3841
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      0.0030
+Entities:                          54   P-value                           0.9565
+Avg Obs:                       2.6296   Distribution:                    F(1,85)
+Min Obs:                       1.0000                                           
+Max Obs:                       3.0000   F-statistic (robust):             0.0020
+                                        P-value                           0.9645
+Time periods:                       3   Distribution:                    F(1,85)
+Avg Obs:                       47.333                                           
+Min Obs:                       40.000                                           
+Max Obs:                       51.000                                           
+                                                                                
+                              Parameter Estimates                               
+================================================================================
+              Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+--------------------------------------------------------------------------------
+pct_ai_users -1.502e+13  3.363e+14    -0.0447     0.9645  -6.837e+14   6.536e+14
+================================================================================
+
+F-test for Poolability: 1.0601
+P-value: 0.3991
+Distribution: F(55,85)
+
+Included effects: Entity, Time
+
+
+COMPARISON TABLE
+--------------------------------------------------------------------------------
+                         Model                          IV   N                 Coef                   SE p-value     R²
+          A — Phase 1 Baseline ai_readiness_score (Oxford)  88               0.0667               0.0896  0.4618 0.0345
+B — Phase 2 (classifier proxy)   pct_ai_users (time proxy) 142 -15022162014276.7812 336296137271499.9375  0.9645 0.0000
