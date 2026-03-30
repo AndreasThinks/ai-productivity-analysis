@@ -773,7 +773,8 @@ def main():
     accounts_path = DATA_DIR / "aider_accounts.csv"
     with open(accounts_path, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["login", "discovery_method",
-                                           "first_marker_date", "marker_type"])
+                                           "first_marker_date", "marker_type",
+                                           "marker_confidence"])
         w.writeheader()
         w.writerows(aider_accounts.values())
     print(f"  Saved {len(aider_accounts)} accounts → {accounts_path}")
