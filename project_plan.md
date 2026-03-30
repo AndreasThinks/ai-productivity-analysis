@@ -522,12 +522,14 @@ Signal is real — three independent features all point the same direction at 15
 
 1. ~~Run full scrape with v2.1~~ **Done** — multiple runs completed (v2.1 through v2.6)
 2. ~~Check both-window coverage~~ **Done** — 102 accounts passed (30 pos / 72 neg) in v2.2; 65 in v2.6 (18 pos / 47 neg)
-3. ~~First classifier~~ **Done** — RF best model, CV AUC 0.828 (see Classifier Training Results below)
-4. **v2.7 scrape in progress** (March 29) — resuming from 129/500 negatives accepted. Targeting 500 negatives total. Scraper has new network resilience (circuit breaker, skip-not-reject). Log: `/tmp/scraper_v27.log`
-5. **Retrain classifier on expanded dataset** — once v2.7 completes with ~500 negatives, retrain RF and check if CV AUC improves with larger N
-6. **Validate on other tool markers** — collect Aider co-author accounts, run classifier, compare score distributions
-7. **Build `scripts/build_panel_v2.py`** — replace `ai_readiness_score` in panel with per-country fraction of accounts classified as AI users
+3. ~~First classifier~~ **Done** — RF best model, CV AUC 0.828 (N=65)
+4. ~~v2.7 scrape~~ **Done** — completed March 29/30. 235 accounts (33 pos, 202 neg), both-window filter applied. Data: `data/classifier_full_features.csv`
+5. ~~Retrain classifier on expanded dataset~~ **Done** — RF CV AUC **0.938 ± 0.052** on N=235. Run via `notebooks/analysis.ipynb`. Significant improvement over N=65 (0.828 ± 0.150).
+6. **Validate on other tool markers** — collect Aider co-author accounts (`noreply@aider.chat` trailers), run classifier over them, compare score distributions vs. random sample baseline. Answers: does the model generalise beyond Claude Code?
+7. **Build `scripts/build_panel_v2.py`** — replace `ai_readiness_score` in the panel regression with per-country fraction of accounts classified as AI users. Rerun PanelOLS with country + time FE and clustered SEs.
+8. **Save model pkl** — `scripts/train_classifier.py` should save the trained RF to `data/classifier_model.pkl` for use by `build_panel_v2.py`. Currently only runs in notebook; needs a standalone script.
+9. **Score broader population** — apply classifier to a random sample of 5k–10k GitHub accounts to estimate population-level AI adoption prevalence and generate the per-country-quarter metric.
 
 ---
 
-*Last updated: March 29, 2026*
+*Last updated: March 30, 2026*
