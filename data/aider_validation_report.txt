@@ -1,0 +1,27 @@
+=================================================================
+AIDER VALIDATION REPORT
+=================================================================
+  Date: 2026-03-30 11:44
+  Model: Random Forest
+  Aider accounts scored: 36
+
+  Score distributions (classifier probability of AI use):
+  Group                    N    Mean   Median    Std    P25    P75   >0.5
+  ---------------------------------------------------------------
+  Claude (train +)        33   0.776    0.856  0.211  0.684  0.925  90.9%
+  Negatives (train)      202   0.033    0.016  0.045  0.004  0.049   0.0%
+  Aider                   36   0.727    0.820  0.219  0.662  0.876  80.6%
+
+  Mann-Whitney: Aider > Negatives  p=0.0000
+  Mann-Whitney: Aider < Claude     p=0.0651
+
+  Interpretation:
+  ✓ Aider scores significantly above negatives (p=0.0000)
+    Gap vs negatives: +0.694
+  ✓ Majority of Aider accounts score above 0.5 threshold
+  ✓ Gap vs Claude positives is small — model generalises well
+
+  Files written:
+    /home/andreasclaw/projects/ai_productivity_analysis/data/aider_validation_results.csv
+    /home/andreasclaw/projects/ai_productivity_analysis/data/aider_validation_report.txt
+=================================================================
