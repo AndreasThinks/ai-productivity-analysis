@@ -524,10 +524,11 @@ Signal is real — three independent features all point the same direction at 15
 2. ~~Check both-window coverage~~ **Done** — 102 accounts passed (30 pos / 72 neg) in v2.2; 65 in v2.6 (18 pos / 47 neg)
 3. ~~First classifier~~ **Done** — RF best model, CV AUC 0.828 (N=65)
 4. ~~v2.7 scrape~~ **Done** — completed March 29/30. 235 accounts (33 pos, 202 neg), both-window filter applied. Data: `data/classifier_full_features.csv`
-5. ~~Retrain classifier on expanded dataset~~ **Done** — RF CV AUC **0.938 ± 0.052** on N=235. Run via `notebooks/analysis.ipynb`. Significant improvement over N=65 (0.828 ± 0.150).
+5. ~~Retrain classifier on expanded dataset~~ **Done** — RF CV AUC **0.940 ± 0.054** on N=235 (script run: `scripts/train_classifier.py`). Model saved to `data/classifier_model.pkl`.
+5b. ~~Writing-style ablation~~ **Done** — dropping all message length, bullets, multiline, conventional commits, PR body features costs only 3.1 AUC points (0.940 → 0.909). Activity signals (inter-commit hours, active weeks, commit cadence) carry the model on their own. See AGENTS.md for full results.
 6. **Validate on other tool markers** — collect Aider co-author accounts (`noreply@aider.chat` trailers), run classifier over them, compare score distributions vs. random sample baseline. Answers: does the model generalise beyond Claude Code?
 7. **Build `scripts/build_panel_v2.py`** — replace `ai_readiness_score` in the panel regression with per-country fraction of accounts classified as AI users. Rerun PanelOLS with country + time FE and clustered SEs.
-8. **Save model pkl** — `scripts/train_classifier.py` should save the trained RF to `data/classifier_model.pkl` for use by `build_panel_v2.py`. Currently only runs in notebook; needs a standalone script.
+8. ~~Save model pkl~~ **Done** — `scripts/train_classifier.py` saves RF + imputer + feature list to `data/classifier_model.pkl`.
 9. **Score broader population** — apply classifier to a random sample of 5k–10k GitHub accounts to estimate population-level AI adoption prevalence and generate the per-country-quarter metric.
 
 ---

@@ -1,5 +1,11 @@
 """
 Train a binary classifier to detect AI coding tool usage from GitHub behavioural features.
+
+Runs two passes:
+  1. Full model — all behavioural features.
+  2. Ablation — writing-style features removed (message length, bullets, multiline,
+     conventional commits, PR body, mentions_test). Tests whether the model generalises
+     to activity-only signals, independent of Claude's distinctive writing fingerprint.
 """
 
 import sys
@@ -251,3 +257,90 @@ _RESULTS = {
     "n_neg": int((y==0).sum()),
     "best_cv_mean": best_cv_mean,
 }
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ABLATION — drop writing-style features, rerun CV
+# Tests whether activity-only signals can detect AI tool usage without relying on
+# Claude's distinctive writing fingerprint (verbose, structured commit messages).
+# ═══════════════════════════════════════════════════════════════════════════════
+print("\n" + "=" * 65)
+print("ABLATION — writing-style features removed")
+print("=" * 65)
+
+WRITING_STYLE_STEMS = [
+    "message_length",
+    "frac_has_bullets",
+    "frac_multiline",
+    "frac_conventional",
+    "frac_pr_has_body",
+    "mean_pr_body_length",
+    "frac_mentions_test",
+]
+
+writing_style_cols = [
+    c for c in feature_cols
+    if any(stem in c for stem in WRITING_STYLE_STEMS)
+]
+activity_cols = [c for c in feature_cols if c not in writing_style_cols]
+
+print(f"\n  Writing-style features dropped ({len(writing_style_cols)}):")
+for c in sorted(writing_style_cols):
+    print(f"    - {c}")
+print(f"\n  Activity features retained ({len(activity_cols)}):")
+for c in sorted(activity_cols):
+    print(f"    + {c}")
+
+# Re-impute on activity-only columns
+X_raw_abl = df.drop(columns=list(drop_set))[activity_cols]
+imputer_abl = SimpleImputer(strategy="median")
+X_abl = imputer_abl.fit_transform(X_raw_abl)
+
+print(f"\n  Running 5-fold CV on activity-only feature set (N={len(y)})...")
+cv_abl = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+abl_cv_results = {}
+for name, clf_cls in [
+    ("Logistic Regression", LogisticRegression(penalty="l2", C=1.0, max_iter=1000, random_state=42)),
+    ("Random Forest",       RandomForestClassifier(n_estimators=200, max_depth=5, random_state=42)),
+    ("Gradient Boosting",   GradientBoostingClassifier(n_estimators=200, max_depth=3, learning_rate=0.05, random_state=42)),
+]:
+    scores = cross_val_score(clf_cls, X_abl, y, cv=cv_abl, scoring="roc_auc")
+    abl_cv_results[name] = (scores.mean(), scores.std())
+    delta = scores.mean() - cv_results[name][0]
+    sign = "▼" if delta < 0 else "▲"
+    print(f"  {name:<26}: {scores.mean():.3f} ± {scores.std():.3f}  "
+          f"({sign} {abs(delta):.3f} vs full model)")
+
+best_abl_name = max(abl_cv_results, key=lambda k: abl_cv_results[k][0])
+
+print("\n" + "=" * 65)
+print("ABLATION SUMMARY")
+print("=" * 65)
+print(f"\n  {'Model':<26}  {'Full AUC':>9}  {'Ablation AUC':>13}  {'Drop':>6}")
+print("  " + "-" * 60)
+for name in cv_results:
+    full_mean, full_std = cv_results[name]
+    abl_mean, abl_std   = abl_cv_results[name]
+    drop = full_mean - abl_mean
+    marker = " *" if name == best_abl_name else "  "
+    print(f"  {name:<26}  {full_mean:.3f}±{full_std:.3f}  "
+          f"{abl_mean:.3f}±{abl_std:.3f}  {drop:+.3f}{marker}")
+print("  (* = best ablation model)")
+
+full_best_auc  = cv_results[best_name][0]
+abl_best_auc   = abl_cv_results[best_abl_name][0]
+auc_drop       = full_best_auc - abl_best_auc
+pct_drop       = 100 * auc_drop / full_best_auc
+
+print(f"\n  Writing style removal: AUC {full_best_auc:.3f} → {abl_best_auc:.3f}  "
+      f"(drop {auc_drop:+.3f}, {pct_drop:.1f}%)")
+
+if abl_best_auc >= 0.85:
+    print("  Interpretation: strong activity signal — model generalises well without writing style.")
+elif abl_best_auc >= 0.70:
+    print("  Interpretation: moderate activity signal — writing style helps but isn't the whole story.")
+else:
+    print("  Interpretation: writing style is load-bearing — activity features alone are insufficient.")
+
+print("\n" + "=" * 65)
+print("DONE")
+print("=" * 65)
