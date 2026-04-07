@@ -115,58 +115,226 @@ random.seed(99)  # different seed from classifier scraper
 # ---------------------------------------------------------------------------
 
 COUNTRY_NAME_MAP = {
+    # United States
     "united states of america": "US", "united states": "US", "usa": "US",
-    "us": "US", "u.s.": "US", "u.s.a.": "US",
+    "us": "US", "u.s.": "US", "u.s.a.": "US", "united state": "US",
     "san francisco": "US", "new york": "US", "san francisco, ca": "US",
     "new york, ny": "US", "seattle, wa": "US", "austin, tx": "US",
     "los angeles, ca": "US", "chicago, il": "US", "boston, ma": "US",
-    "singapore": "SG", "sg": "SG",
+    "cambridge, ma": "US", "washington, dc": "US", "washington dc": "US",
+    "brooklyn, ny": "US", "oakland, ca": "US", "san jose, ca": "US",
+    "menlo park": "US", "mountain view": "US", "mountain view, ca": "US",
+    "palo alto": "US", "seattle": "US", "austin": "US", "boston": "US",
+    "chicago": "US", "los angeles": "US", "portland": "US",
+    "portland, or": "US", "denver": "US", "denver, co": "US",
+    "atlanta": "US", "atlanta, ga": "US", "houston": "US",
+    "houston, tx": "US", "dallas": "US", "dallas, tx": "US",
+    "san diego": "US", "san diego, ca": "US", "phoenix": "US",
+    "hawaii": "US", "oklahoma city": "US", "oklahoma city, oklahoma": "US",
+    "san jose california": "US",
+    # US state abbreviations (common standalone entries)
+    "ca": "US", "ny": "US", "tx": "US", "wa": "US", "or": "US",
+    "ma": "US", "il": "US", "co": "US", "ga": "US", "fl": "US",
+    "tn": "US", "nc": "US", "va": "US", "pa": "US", "oh": "US",
+    # United Kingdom
     "united kingdom": "GB", "uk": "GB", "england": "GB", "london": "GB",
     "great britain": "GB", "scotland": "GB", "wales": "GB",
-    "finland": "FI", "canada": "CA", "france": "FR", "paris": "FR",
+    "manchester": "GB", "birmingham": "GB", "leeds": "GB",
+    "cambridge": "GB", "oxford": "GB", "bristol": "GB",
+    "edinburgh": "GB", "glasgow": "GB", "cornwall": "GB",
+    # Canada
+    "canada": "CA", "toronto": "CA", "vancouver": "CA", "montreal": "CA",
+    "ottawa": "CA", "calgary": "CA", "edmonton": "CA",
+    "nanaimo, bc": "CA", "nanaimo": "CA", "bc": "CA",
+    "ontario": "CA", "cornwall/kingston ontario": "CA",
+    # Germany
+    "germany": "DE", "berlin": "DE", "munich": "DE", "hamburg": "DE",
+    "frankfurt": "DE", "cologne": "DE", "düsseldorf": "DE",
+    "stuttgart": "DE", "dortmund": "DE", "essen": "DE",
+    # France
+    "france": "FR", "paris": "FR", "lyon": "FR", "marseille": "FR",
+    "toulouse": "FR", "nice": "FR", "nantes": "FR", "strasbourg": "FR",
+    "bordeaux": "FR",
+    # Singapore
+    "singapore": "SG", "sg": "SG",
+    # Finland
+    "finland": "FI", "helsinki": "FI",
+    # South Korea
     "republic of korea": "KR", "south korea": "KR", "korea": "KR",
-    "germany": "DE", "berlin": "DE", "munich": "DE",
-    "japan": "JP", "tokyo": "JP",
+    "seoul": "KR", "s. korea": "KR", "busan": "KR", "대한민국": "KR",
+    # Japan
+    "japan": "JP", "tokyo": "JP", "osaka": "JP", "kyoto": "JP",
+    "tochigi": "JP", "tochigi,tochigi": "JP",
+    # Australia
     "australia": "AU", "sydney": "AU", "melbourne": "AU",
-    "sweden": "SE", "netherlands": "NL", "amsterdam": "NL",
-    "denmark": "DK", "new zealand": "NZ", "norway": "NO",
-    "austria": "AT", "switzerland": "CH", "zurich": "CH",
-    "israel": "IL", "china": "CN", "beijing": "CN", "shanghai": "CN",
-    "estonia": "EE", "ireland": "IE", "dublin": "IE",
-    "spain": "ES", "madrid": "ES", "barcelona": "ES",
-    "belgium": "BE", "luxembourg": "LU", "iceland": "IS",
-    "portugal": "PT", "czech republic": "CZ", "czechia": "CZ",
-    "italy": "IT", "milan": "IT", "rome": "IT",
-    "malta": "MT", "taiwan": "TW",
+    "brisbane": "AU", "perth": "AU", "adelaide": "AU",
+    # Sweden
+    "sweden": "SE", "stockholm": "SE", "gothenburg": "SE",
+    # Netherlands
+    "netherlands": "NL", "the netherlands": "NL", "amsterdam": "NL",
+    "rotterdam": "NL", "the hague": "NL", "venlo": "NL",
+    "venlo (the netherlands)": "NL",
+    # Denmark
+    "denmark": "DK", "copenhagen": "DK",
+    # New Zealand
+    "new zealand": "NZ", "auckland": "NZ", "wellington": "NZ",
+    # Norway
+    "norway": "NO", "oslo": "NO",
+    # Austria
+    "austria": "AT", "vienna": "AT",
+    # Switzerland
+    "switzerland": "CH", "zurich": "CH", "zürich": "CH", "geneva": "CH",
+    "bern": "CH",
+    # Israel
+    "israel": "IL", "tel aviv": "IL",
+    # China
+    "china": "CN", "beijing": "CN", "shanghai": "CN", "shenzhen": "CN",
+    "hangzhou": "CN", "chengdu": "CN", "chengdu,sichuan": "CN",
+    "guangzhou": "CN", "wuhan": "CN", "nanjing": "CN",
+    # Estonia
+    "estonia": "EE", "tallinn": "EE",
+    # Ireland
+    "ireland": "IE", "dublin": "IE",
+    # Spain
+    "spain": "ES", "madrid": "ES", "barcelona": "ES", "seville": "ES",
+    "canary islands": "ES",
+    # Belgium
+    "belgium": "BE", "brussels": "BE",
+    # Portugal
+    "portugal": "PT", "lisbon": "PT", "porto": "PT",
+    # Czech Republic
+    "czech republic": "CZ", "czechia": "CZ", "prague": "CZ",
+    # Italy
+    "italy": "IT", "milan": "IT", "rome": "IT", "naples": "IT",
+    "turin": "IT",
+    # Taiwan
+    "taiwan": "TW", "taipei": "TW",
+    # Russia
     "russian federation": "RU", "russia": "RU", "moscow": "RU",
-    "brazil": "BR", "são paulo": "BR", "sao paulo": "BR",
+    "saint-petersburg": "RU", "st. petersburg": "RU",
+    "saint petersburg": "RU", "novosibirsk": "RU",
+    # Brazil
+    "brazil": "BR", "brasil": "BR", "são paulo": "BR", "sao paulo": "BR",
+    "rio de janeiro": "BR", "rio": "BR", "florianópolis": "BR",
+    "brasil, mg": "BR", "americana-sp, brasil": "BR",
+    "florianópolis / sc / brazil": "BR", "jundiaí, sp": "BR",
+    "são paulo - sp": "BR", "quixadá": "BR",
+    # India
     "india": "IN", "bangalore": "IN", "bengaluru": "IN", "mumbai": "IN",
-    "delhi": "IN", "hyderabad": "IN", "chennai": "IN", "pune": "IN",
-    "ukraine": "UA", "kyiv": "UA", "bangladesh": "BD", "dhaka": "BD",
-    "poland": "PL", "warsaw": "PL", "pakistan": "PK", "karachi": "PK",
-    "kenya": "KE", "nairobi": "KE", "egypt": "EG", "cairo": "EG",
+    "delhi": "IN", "new delhi": "IN", "new delhi": "IN", "new delhi": "IN",
+    "new delhi": "IN", "new elhi": "IN", "new delhi": "IN",
+    "hyderabad": "IN", "chennai": "IN", "pune": "IN",
+    "kolkata": "IN", "ahmedabad": "IN", "jaipur": "IN",
+    "nashik": "IN", "kochi": "IN", "banglore": "IN",
+    "panchkula, haryana": "IN", "maharashtra": "IN",
+    "panchkula": "IN", "haryana": "IN",
+    # Ukraine
+    "ukraine": "UA", "kyiv": "UA", "cherkassy": "UA",
+    "kharkiv": "UA", "odessa": "UA", "lviv": "UA",
+    # Bangladesh
+    "bangladesh": "BD", "dhaka": "BD",
+    # Poland
+    "poland": "PL", "warsaw": "PL", "krakow": "PL", "kraków": "PL",
+    "wroclaw": "PL", "wrocław": "PL", "gdansk": "PL",
+    # Pakistan
+    "pakistan": "PK", "karachi": "PK", "lahore": "PK",
+    "pakistan punjab lahore": "PK", "lahore, punjab pakistan": "PK",
+    "islamabad": "PK",
+    # Kenya
+    "kenya": "KE", "nairobi": "KE",
+    # Egypt
+    "egypt": "EG", "cairo": "EG",
+    # Turkey
     "turkey": "TR", "türkiye": "TR", "istanbul": "TR", "ankara": "TR",
-    "latvia": "LV", "lithuania": "LT", "hungary": "HU", "budapest": "HU",
-    "croatia": "HR", "slovakia": "SK", "slovenia": "SI",
-    "romania": "RO", "bucharest": "RO", "bulgaria": "BG", "sofia": "BG",
-    "greece": "GR", "athens": "GR", "cyprus": "CY",
+    "i̇stanbul": "TR", "ankara/türkiye": "TR",
+    # Hungary
+    "hungary": "HU", "budapest": "HU",
+    # Latvia
+    "latvia": "LV", "riga": "LV",
+    # Lithuania
+    "lithuania": "LT", "vilnius": "LT",
+    # Croatia
+    "croatia": "HR", "zagreb": "HR",
+    # Slovakia
+    "slovakia": "SK", "bratislava": "SK",
+    # Slovenia
+    "slovenia": "SI", "ljubljana": "SI",
+    # Romania
+    "romania": "RO", "bucharest": "RO", "cluj": "RO",
+    # Bulgaria
+    "bulgaria": "BG", "sofia": "BG",
+    # Greece
+    "greece": "GR", "athens": "GR", "thessaloniki": "GR",
+    # Moldova
+    "moldova": "MD", "chisinau": "MD", "chișinău": "MD",
+    "chisinau, moldova": "MD",
+    # UAE
     "united arab emirates": "AE", "uae": "AE", "dubai": "AE",
-    "saudi arabia": "SA", "riyadh": "SA", "qatar": "QA", "doha": "QA",
-    "bahrain": "BH", "kuwait": "KW", "oman": "OM",
+    "abu dhabi": "AE",
+    # Saudi Arabia
+    "saudi arabia": "SA", "riyadh": "SA", "jeddah": "SA",
+    # South Africa
     "south africa": "ZA", "cape town": "ZA", "johannesburg": "ZA",
+    "durban": "ZA",
+    # Nigeria
     "nigeria": "NG", "lagos": "NG", "abuja": "NG",
-    "ghana": "GH", "accra": "GH", "morocco": "MA", "casablanca": "MA",
-    "tunisia": "TN", "mexico": "MX", "mexico city": "MX",
-    "argentina": "AR", "buenos aires": "AR",
-    "colombia": "CO", "bogota": "CO", "bogotá": "CO",
-    "chile": "CL", "santiago": "CL", "peru": "PE", "lima": "PE",
-    "uruguay": "UY", "costa rica": "CR", "panama": "PA",
+    # Ethiopia
+    "ethiopia": "ET", "addis ababa": "ET", "addis ababa, ethiopia": "ET",
+    # Madagascar
+    "madagascar": "MG",
+    # Mexico
+    "mexico": "MX", "mexico city": "MX", "ciudad de méxico": "MX",
+    "guadalajara": "MX", "monterrey": "MX",
+    "merida, yucatan": "MX", "merida": "MX",
+    # Argentina
+    "argentina": "AR", "buenos aires": "AR", "córdoba": "AR",
+    # Colombia
+    "colombia": "CO", "bogota": "CO", "bogotá": "CO", "medellín": "CO",
+    # Chile
+    "chile": "CL", "santiago": "CL",
+    # Malaysia
     "malaysia": "MY", "kuala lumpur": "MY",
+    # Thailand
     "thailand": "TH", "bangkok": "TH",
+    # Indonesia
     "indonesia": "ID", "jakarta": "ID",
+    # Philippines
     "philippines": "PH", "manila": "PH",
-    "vietnam": "VN", "ho chi minh city": "VN", "hanoi": "VN",
-    "sri lanka": "LK", "nepal": "NP", "kathmandu": "NP",
+    # Vietnam
+    "vietnam": "VN", "viet nam": "VN", "ho chi minh city": "VN",
+    "hanoi": "VN", "hcmc": "VN",
+    # Sri Lanka
+    "sri lanka": "LK", "colombo": "LK",
+    # Nepal
+    "nepal": "NP", "kathmandu": "NP",
+    # Iraq
+    "iraq": "IQ", "baghdad": "IQ", "iraq - sulaimaiyah": "IQ",
+    # Ecuador
+    "ecuador": "EC", "quito": "EC", "quito, ecuador.": "EC",
+    # Hong Kong
+    "hong kong": "HK",
+    # Bharat (Hindi name for India)
+    "bharat": "IN",
+    # Additional cities/regions from observed failures
+    "sevilla": "ES", "seville": "ES", "tarragona": "ES",
+    "dresden": "DE", "heidelberg": "DE",
+    "gdańsk": "PL", "gdansk": "PL",
+    "hull": "GB",
+    "florida": "US", "gainesville, florida": "US", "gainesville": "US",
+    "iowa": "US", "des moines": "US", "des moines,, ia": "US",
+    "indore": "IN", "patna": "IN", "patna, bihar india": "IN",
+    "zirakpur, punjab": "IN", "zirakpur": "IN",
+    "karachi pakistan": "PK", "e11/3 islamabad": "PK",
+    "fortaleza": "BR", "fortaleza,ce": "BR", "salvador": "BR",
+    "salvador,ba": "BR", "piauí, teresina": "BR",
+    "iran": "IR", "tehran": "IR",
+    "uzbekistan": "UZ", "tashkent": "UZ", "tashkent, uzbekistan": "UZ",
+    "serbia": "RS", "belgrade": "RS",
+    "brno": "CZ", "brno, cz": "CZ",
+    "jerusalem": "IL",
+    "pekanbaru": "ID",
+    "lisbon": "PT", "lisboa": "PT", "lisboa - portugal": "PT",
+    "lagos state": "NG",
 }
 
 # Countries present in the panel dataset

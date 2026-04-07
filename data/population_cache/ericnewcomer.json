@@ -1,0 +1,1 @@
+{"login": "ericnewcomer", "location": "Seattle", "commits": [{"sha": "3a3579f816a366000591a354a1cc2b422c6920b6", "message": "Initial recursive replace", "created_at": "2014-11-07T19:10:00Z", "repo": "utils", "file_sampled": false, "has_test_file": null, "has_impl_file": null}], "prs": []}

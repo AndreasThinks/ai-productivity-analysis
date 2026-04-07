@@ -1,0 +1,1 @@
+{"login": "dplewis", "location": "UTC-6", "commits": [{"sha": "1ec55ad6ad3e246b04420862e7e7c3ac79b1ad40", "message": "Initial commit", "created_at": "2016-12-03T00:09:55Z", "repo": "ParseLiveQuery", "file_sampled": false, "has_test_file": null, "has_impl_file": null}], "prs": []}

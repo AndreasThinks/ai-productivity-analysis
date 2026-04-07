@@ -1,0 +1,1 @@
+{"login": "Skoczowianin", "location": null, "commits": [{"sha": "d0c0676f0cce8b3859838b2da791648f186cbd52", "message": "Initial commit", "created_at": "2024-05-07T12:25:20Z", "repo": "crossfit-planer-ui", "file_sampled": false, "has_test_file": null, "has_impl_file": null}], "prs": [{"created_at": "2024-06-04T08:54:29Z", "body_length": 0}]}

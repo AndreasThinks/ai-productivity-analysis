@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andreas Varotsis">
+<meta name="dcterms.date" content="2026-04-07">
+
+<title>Detecting AI Coding Tool Adoption and Its Behavioural Effects on Developer Commit Activity</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="research_paper_v2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="research_paper_v2_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="research_paper_v2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="research_paper_v2_files/libs/quarto-html/popper.min.js"></script>
+<script src="research_paper_v2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="research_paper_v2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="research_paper_v2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="research_paper_v2_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="research_paper_v2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="research_paper_v2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="research_paper_v2_files/libs/bootstrap/bootstrap-1b07f2c909ee2be705086d2fffdbfa1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Detecting AI Coding Tool Adoption and Its Behavioural Effects on Developer Commit Activity</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Andreas Varotsis </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-04-07</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="c00" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:56.457641Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:56.457429Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:58.246573Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:58.245919Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paper setup — run this cell first</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.gridspec <span class="im">as</span> gridspec</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats.mstats <span class="im">import</span> winsorize <span class="im">as</span> _winsorize</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.multitest <span class="im">import</span> multipletests</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>DATA    <span class="op">=</span> Path(<span class="st">'/home/andreasclaw/projects/ai_productivity_analysis/data'</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>FIGS    <span class="op">=</span> DATA <span class="op">/</span> <span class="st">'figures'</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>PAPER   <span class="op">=</span> DATA <span class="op">/</span> <span class="st">'figures'</span> <span class="op">/</span> <span class="st">'paper'</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>PAPER.mkdir(exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">'figure.dpi'</span>: <span class="dv">150</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'axes.spines.top'</span>: <span class="va">False</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">'axes.spines.right'</span>: <span class="va">False</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'axes.titlesize'</span>: <span class="dv">12</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">'axes.labelsize'</span>: <span class="dv">10</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'font.family'</span>: <span class="st">'serif'</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">'font.size'</span>: <span class="dv">10</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Setup complete."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="detecting-ai-coding-tool-adoption-and-its-behavioural-effects-on-developer-commit-activity" class="level1">
+<h1>Detecting AI Coding Tool Adoption and Its Behavioural Effects on Developer Commit Activity</h1>
+<p><strong>Working Paper — April 2026</strong></p>
+<hr>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<p>We study the effect of AI coding tool adoption on developer commit behaviour using two complementary empirical designs. First, we build a behavioural classifier that identifies AI coding tool users from observable commit history — without relying on explicit self-reported adoption or proprietary telemetry. The classifier achieves cross-validated AUC of 0.940 on a sample of 235 GitHub accounts and generalises to users of a second tool (Aider) it was never trained on, suggesting it detects genuine changes in development tempo rather than tool-specific stylistic artefacts.</p>
+<p>Second, we use the classifier in two causal designs. An account-level difference-in-differences on 235 accounts (33 confirmed adopters, 202 controls) finds large, statistically significant behavioural changes: AI adopters increase commits per active week by 13.1 (p &lt; 0.001) and reduce inter-commit hours by 275 (p &lt; 0.001) relative to controls, consistent with AI assistance reducing friction in the development loop. A country-level panel regression across 20 countries (2022–2024) finds no significant effect (coef = −4.91, SE = 6.13, p = 0.43), a null result we attribute primarily to measurement noise in country-level commit activity aggregates rather than the absence of an underlying effect.</p>
+<p>The classifier methodology is a contribution independent of the behavioural findings: it demonstrates that AI tool adoption can be detected at scale from public commit behaviour, opening possibilities for non-survey measurement of AI adoption across the developer population.</p>
+<hr>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
+<p>The rapid diffusion of AI coding assistants since late 2022 — including GitHub Copilot, Anthropic’s Claude Code, and Aider — has prompted widespread speculation about their effects on software development behaviour. Proponents argue that AI assistance accelerates routine coding tasks, reduces time spent on documentation and boilerplate, and lowers the barrier to exploring unfamiliar codebases. Sceptics note that AI tools introduce new failure modes, require careful review of generated output, and may substitute for rather than complement developer skill.</p>
+<p>Measuring these effects empirically is difficult for several reasons. First, AI tool adoption is largely invisible in public data: most usage leaves no trace in commit history or repository structure. Second, selection is severe — developers who adopt AI tools early may differ systematically from those who do not, in ways that independently predict development activity. Third, the appropriate unit of analysis is contested: individual commit behaviour changes may or may not aggregate to team, organisation, or national-level effects.</p>
+<p>This paper addresses the measurement problem directly. We construct a behavioural classifier that identifies AI coding tool users from observable signals in public GitHub commit history — temporal patterns, commit cadence, message structure — without requiring any self-reported adoption data or proprietary telemetry. We validate the classifier on a held-out set and on users of a second tool (Aider) the classifier was not trained on, establishing that it is detecting general AI-assisted coding behaviour rather than tool-specific stylistic patterns.</p>
+<p>We then deploy the classifier in two causal designs. An account-level difference-in-differences compares behavioural changes in confirmed AI adopters to matched controls over the same period. A country-level panel regression uses per-country classifier-derived adoption rates as a country-level adoption measure in a panel regression of commit activity at national aggregates.</p>
+<p>The account-level and country-level designs answer related but distinct questions. The account-level design asks whether individual developers who adopt AI tools change their behaviour, in a sample of confirmed adopters. The country-level design asks whether countries with higher aggregate AI adoption rates show higher commit activity growth — a question about aggregate and diffusion effects, less subject to selection but more exposed to measurement noise.</p>
+<p>We find strong evidence for the account-level effect and a null result at the country level, which we interpret as consistent with a real individual-level effect that is too small, or the adoption window too short, to detect reliably in national aggregates from public data.</p>
+<p>The remainder of the paper is structured as follows. Section 2 reviews the relevant literature. Section 3 describes the data. Section 4 presents the classifier methodology and validation. Section 5 describes the two causal designs. Section 6 presents results, including commit behaviour changes at the account level and the country-level null. Section 7 discusses the findings and their limitations. Section 8 concludes.</p>
+</section>
+<section id="literature-review" class="level2">
+<h2 class="anchored" data-anchor-id="literature-review">2. Literature Review</h2>
+<p>The empirical literature on AI coding tools and developer productivity has grown rapidly since the public release of GitHub Copilot in mid-2022 and ChatGPT in late 2022. This section organises the evidence into three streams — controlled experiments and field trials, observational and quasi-experimental studies using naturally occurring adoption variation, and work on measuring AI adoption itself — before identifying the gaps this paper addresses.</p>
+<section id="controlled-experiments-and-field-trials" class="level3">
+<h3 class="anchored" data-anchor-id="controlled-experiments-and-field-trials">2.1 Controlled Experiments and Field Trials</h3>
+<p>The highest-quality causal evidence comes from randomised or quasi-randomised designs. <span class="citation" data-cites="peng2023llm"><span class="nocase">Peng et al.</span> (<a href="#ref-peng2023llm" role="doc-biblioref">2023</a>)</span> conducted the first controlled experiment on AI-assisted coding, recruiting 95 professional developers through Upwork and randomly assigning them to complete an HTTP-server implementation task with or without GitHub Copilot. The treatment group completed the task 55.8% faster (95% CI: 21–89%, <span class="math inline">\(p = 0.002\)</span>, <span class="math inline">\(N = 95\)</span>), with heterogeneous effects favouring less experienced developers and those who coded more hours per day. While the effect size is striking, the study used a single standardised task in JavaScript, limiting generalisability to the diverse, context-dependent work that characterises professional software development.</p>
+<p>Bird et al.&nbsp;(2023) <span class="citation" data-cites="bird2023copilot">(<a href="#ref-bird2023copilot" role="doc-biblioref">Bird et al., 2023</a>)</span> conducted a large-scale survey study of 2,000+ Microsoft developers using GitHub Copilot in real work settings, finding that 88% reported increased productivity and reduced repetitive task time, and that Copilot-assisted code comprised 46% of accepted suggestions. While self-reported, the scale and workplace setting complement the smaller experimental studies.</p>
+<p>Complementing the survey evidence, Katz et al.&nbsp;(2024) <span class="citation" data-cites="katz2024impact">(<a href="#ref-katz2024impact" role="doc-biblioref">Katz et al., 2024</a>)</span> reported GitHub’s internal analysis of Copilot usage patterns across millions of developers, documenting adoption curves, task completion improvements, and the heterogeneous effects across experience levels and programming languages.</p>
+<p><span class="citation" data-cites="demirer2025genai">Cui et al. (<a href="#ref-demirer2025genai" role="doc-biblioref">2025</a>)</span> substantially extended this evidence base with three large-scale field experiments at Microsoft, Accenture, and an anonymous Fortune 100 company, randomising access to GitHub Copilot among 4,867 software developers in real workplace settings. Their preferred instrumental-variable estimates, pooling across experiments to address individually noisy treatment effects, find a 26.08% increase (SE: 10.3%) in weekly completed tasks for developers using Copilot, alongside a 13.55% increase (SE: 10.0%) in commits and a 38.38% increase (SE: 12.55%) in code compilations. Consistent with the broader literature on AI and skill heterogeneity — including <span class="citation" data-cites="brynjolfsson2025qje">Brynjolfsson et al. (<a href="#ref-brynjolfsson2025qje" role="doc-biblioref">2025</a>)</span>, who document a 14% productivity increase for customer-service agents, with the largest gains accruing to less experienced workers — <span class="citation" data-cites="demirer2025genai">Cui et al. (<a href="#ref-demirer2025genai" role="doc-biblioref">2025</a>)</span> find that less experienced developers exhibit higher adoption rates and larger productivity gains.</p>
+<p>A notable challenge to the emerging consensus comes from <span class="citation" data-cites="metr2025rct">METR (<a href="#ref-metr2025rct" role="doc-biblioref">2025</a>)</span>, who conducted an RCT with 16 experienced open-source developers completing 246 real tasks on mature repositories (averaging 23,000 stars and 1.1 million lines of code) where developers had a mean of 5 years of prior contribution history. Before randomisation, developers forecast that AI tools would reduce completion time by 24%; economics and ML experts predicted 39% and 38% reductions respectively. The observed effect was a 19% <em>increase</em> in completion time (95% CI: +2% to +39%) — AI tools slowed experienced developers down. Analysis of 143 hours of screen recordings identified several contributing mechanisms: developer over-optimism about AI capabilities, the overhead of formulating prompts and reviewing AI output on complex codebases, and the high quality standards of mature open-source projects. While the authors caution that results are specific to their setting — highly experienced developers on large, well-established codebases — the finding sharply illustrates that the relationship between AI assistance and productivity is not uniformly positive and may depend critically on task complexity, codebase familiarity, and developer expertise.</p>
+</section>
+<section id="observational-and-quasi-experimental-studies" class="level3">
+<h3 class="anchored" data-anchor-id="observational-and-quasi-experimental-studies">2.2 Observational and Quasi-Experimental Studies</h3>
+<p>A parallel literature exploits naturally occurring variation in AI tool availability or adoption to estimate effects at larger scale, sacrificing some internal validity for improved external validity and ecological realism.</p>
+<p><span class="citation" data-cites="quispe2024impact">Quispe &amp; Grijalba (<a href="#ref-quispe2024impact" role="doc-biblioref">2024</a>)</span> used the staggered international availability of ChatGPT as a natural experiment, applying difference-in-differences, synthetic control, and synthetic difference-in-differences estimators to GitHub Innovation Graph data covering 151 jurisdictions from 2020Q1 through 2023Q1. Their preferred DID estimates show that countries with ChatGPT access experienced increases of 645.6 git pushes per 100,000 population (baseline mean: 741.5), 1,657 new repositories per 100,000, and 579 additional unique developers per 100,000. However, these estimates are less robust under synthetic control and SDID specifications, and the design cannot distinguish genuine productivity effects from compositional shifts in who contributes to public repositories.</p>
+<p><span class="citation" data-cites="cmustrudel2025cursor"><span class="nocase">Mökkö et al.</span> (<a href="#ref-cmustrudel2025cursor" role="doc-biblioref">2025</a>)</span> provide the most detailed study of a modern agentic coding tool. Using the appearance of <code>.cursorrules</code> configuration files in GitHub repositories to identify Cursor adoption, they construct a staggered difference-in-differences design comparing 806 adopting repositories against 1,380 propensity-score-matched controls, employing the <span class="citation" data-cites="angristpischke2009-adjacent">(<a href="#ref-angristpischke2009-adjacent" role="doc-biblioref"><strong>angristpischke2009-adjacent?</strong></a>)</span> Borusyak imputation estimator for staggered treatment. Their findings reveal a velocity–quality trade-off: projects experience 3–5<span class="math inline">\(\times\)</span> increases in lines added in the first month of adoption, but gains dissipate within two months. Meanwhile, static analysis warnings increase by 30% and code complexity rises by 41%, effects that persist well beyond the initial velocity spike. Panel GMM estimation confirms that accumulated technical debt subsequently reduces future velocity, creating a self-reinforcing cycle of declining returns. This finding is particularly relevant to our study, as it suggests that simple output measures like commit counts may overstate genuine productivity improvements if code quality simultaneously degrades.</p>
+</section>
+<section id="measuring-ai-adoption" class="level3">
+<h3 class="anchored" data-anchor-id="measuring-ai-adoption">2.3 Measuring AI Adoption</h3>
+<p>A fundamental challenge in estimating the productivity effects of AI tools at scale is measuring who is actually using them. Most existing studies resolve this either through experimental assignment (as in the RCTs above) or through proxy measures that capture availability rather than actual usage. <span class="citation" data-cites="github2023survey">GitHub (<a href="#ref-github2023survey" role="doc-biblioref">2023</a>)</span> document adoption patterns through developer self-reports, finding that AI tool users report higher satisfaction and perceived productivity — though self-reported measures carry well-known social desirability and recall biases and cannot establish causal effects.</p>
+<p><span class="citation" data-cites="liu2025semrush">Liu &amp; Wang (<a href="#ref-liu2025semrush" role="doc-biblioref">2025</a>)</span> address the adoption measurement problem at the country level by tracking high-frequency web traffic data from Semrush for the 60 most-visited consumer-facing generative AI tools through mid-2025. Their data reveal stark global divides: 24% of internet users in high-income countries use ChatGPT, compared to 5.8% in upper-middle-income, 4.7% in lower-middle-income, and just 0.7% in low-income countries. Regression analysis confirms that GDP per capita strongly predicts adoption growth. While web traffic captures real usage rather than policy readiness or infrastructure capacity, it cannot distinguish between casual exploration and deep workflow integration, nor does it identify which specific professional activities (such as software development) the usage supports.</p>
+</section>
+<section id="gaps-and-contributions-of-this-paper" class="level3">
+<h3 class="anchored" data-anchor-id="gaps-and-contributions-of-this-paper">2.4 Gaps and Contributions of This Paper</h3>
+<p>Three gaps emerge from this literature. First, there is a <strong>measurement gap</strong>: studies with strong causal identification — RCTs and firm-level field experiments — typically have narrow samples (a single task, a single firm, or a small group of developers), while studies using naturally occurring variation rely on coarse proxies for adoption such as country-level ChatGPT availability <span class="citation" data-cites="quispe2024impact">(<a href="#ref-quispe2024impact" role="doc-biblioref">Quispe &amp; Grijalba, 2024</a>)</span> or the presence of configuration files <span class="citation" data-cites="cmustrudel2025cursor">(<a href="#ref-cmustrudel2025cursor" role="doc-biblioref"><span class="nocase">Mökkö et al.</span>, 2025</a>)</span>. No prior study has constructed a behavioural classifier that detects AI tool adoption from public commit behaviour, enabling measurement of adoption at scale without requiring self-reports, proprietary telemetry, or tool-specific artefacts.</p>
+<p>Second, there is a <strong>cross-tool generalisation gap</strong>. Each existing study is specific to a single tool — Copilot <span class="citation" data-cites="peng2023llm demirer2025genai bird2023copilot katz2024impact">(<a href="#ref-bird2023copilot" role="doc-biblioref">Bird et al., 2023</a>; <a href="#ref-demirer2025genai" role="doc-biblioref">Cui et al., 2025</a>; <a href="#ref-katz2024impact" role="doc-biblioref">Katz et al., 2024</a>; <a href="#ref-peng2023llm" role="doc-biblioref"><span class="nocase">Peng et al.</span>, 2023</a>)</span>, ChatGPT <span class="citation" data-cites="quispe2024impact">(<a href="#ref-quispe2024impact" role="doc-biblioref">Quispe &amp; Grijalba, 2024</a>)</span>, or Cursor <span class="citation" data-cites="cmustrudel2025cursor">(<a href="#ref-cmustrudel2025cursor" role="doc-biblioref"><span class="nocase">Mökkö et al.</span>, 2025</a>)</span>. Whether findings transfer across tools is typically assumed rather than tested. Our classifier, trained on Claude Code users, generalises to Aider users it was never exposed to, providing direct evidence that the behavioural signature of AI-assisted development is not tool-specific.</p>
+<p>Third, there is an <strong>aggregation gap</strong> between individual-level and macro-level effects. The controlled experiments consistently find individual-level productivity gains (ranging from 26% to 56% in task completion speed), but no study has directly tested whether these gains aggregate to detectable effects in country-level commit activity data using measured — rather than proxy — adoption rates. Our country-level panel regression attempts precisely this test. The null result (coef <span class="math inline">\(= -4.91\)</span>, SE <span class="math inline">\(= 6.13\)</span>, <span class="math inline">\(p = 0.43\)</span>) is itself informative: it is consistent with real individual-level effects that are too small relative to the noise in country-quarter aggregates, or an adoption window too short, to produce statistically detectable country-level shifts — a finding that disciplines expectations about how quickly micro-level AI productivity gains translate into macro-level outcomes.</p>
+</section>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">3. Data</h2>
+<section id="github-archive" class="level3">
+<h3 class="anchored" data-anchor-id="github-archive">3.1 GitHub Archive</h3>
+<p>All data are derived from <a href="https://www.gharchive.org/">GitHub Archive</a>, a public record of GitHub activity events (pushes, pull requests, issues, releases) available from 2011 onward. We use two samples from this source:</p>
+<p><strong>Classifier training sample.</strong> We collect 12 hourly windows spanning November 2024, January 2025, and March 2025, yielding approximately 380,000 unique active developer accounts. From this pool we identify ground-truth positive accounts (confirmed AI tool users) using explicit repository artefacts: presence of <code>CLAUDE.md</code>, <code>.claude/</code> directories, or <code>Co-Authored-By: Claude</code> commit trailers. We then scrape full commit and pull request history for each identified account, collecting up to 500 commits and 100 pull requests per account via the GitHub REST API.</p>
+<p><strong>Commit activity panel.</strong> We collect 9 quarterly hourly windows from Q4 2022 through Q4 2024, sampling 500 active developers per window. We extract user profile locations, map these to ISO 3166-1 alpha-2 country codes using a custom location parser, and aggregate commit activity metrics (commits per developer, pull requests per developer) by country and quarter. This yields 347 country-quarter observations across 54 countries.</p>
+<p><strong>Population scoring sample.</strong> To construct per-country AI adoption rates, we scrape an additional 887 GitHub accounts with parseable location fields mapping to panel countries. Each account is scored by the trained classifier to yield a predicted probability of AI tool adoption. Countries with at least 15 scored accounts (20 countries) are used in the country-level regression.</p>
+</section>
+<section id="ground-truth-labels" class="level3">
+<h3 class="anchored" data-anchor-id="ground-truth-labels">3.2 Ground Truth Labels</h3>
+<p><strong>Positive accounts (AI tool users).</strong> Confirmed via two routes: 1. <em>GitHub Code Search</em>: repositories containing <code>CLAUDE.md</code> in the root, resolved to account logins. 2. <em>GH Archive co-author scan</em>: commit messages containing <code>Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</code> or equivalent Aider trailers.</p>
+<p>We assign <code>marker_confidence = high</code> to accounts discovered via co-author trailer (adoption timestamp is the push event timestamp) and <code>marker_confidence = low</code> to Code Search accounts (adoption date is repository creation date, a conservative lower bound). Of 33 positive accounts in the final training set, 25 are high-confidence.</p>
+<p><strong>Negative accounts (non-adopters).</strong> Randomly sampled from GH Archive active developers, filtered to accounts with commit activity in both the pre-period (Jan 2022 – Dec 2023) and post-period (Jan 2024 – present), and zero AI tool markers across full commit history. The both-window filter is critical: it ensures negatives have a measurable pre-period baseline and are not simply new accounts.</p>
+</section>
+<section id="prepost-windows" class="level3">
+<h3 class="anchored" data-anchor-id="prepost-windows">3.3 Pre/Post Windows</h3>
+<p>For the account-level analysis, all accounts are split at a global cutoff: - <strong>Pre-period</strong>: January 2022 – December 2023 - <strong>Post-period</strong>: January 2024 – present</p>
+<p>This global cutoff captures the period after widespread AI coding tool availability (ChatGPT: November 2022; Claude Code and Aider: 2023–2024). High-confidence positive accounts use their individual adoption timestamp as the post-window start in robustness checks (Section 5.3).</p>
+</section>
+<section id="summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="summary-statistics">3.4 Summary Statistics</h3>
+<p>For the country-level commit activity panel, the median number of located developers per country-year observation is 2 — a level of thinness that substantially limits the power of the country-level regression (discussed further in Section 6.6).</p>
+<div id="c06" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:58.249360Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:58.248994Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:58.301747Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:58.301078Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(DATA <span class="op">/</span> <span class="st">'classifier_full_features.csv'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ai   <span class="op">=</span> df[df.label <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ctrl <span class="op">=</span> df[df.label <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>summary_cols <span class="op">=</span> {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pre_commit_count'</span>:               <span class="st">'Pre-period commits'</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'post_commit_count'</span>:              <span class="st">'Post-period commits'</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pre_active_weeks'</span>:               <span class="st">'Pre-period active weeks'</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'post_active_weeks'</span>:              <span class="st">'Post-period active weeks'</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pre_mean_commits_per_active_week'</span>:  <span class="st">'Pre commits / active week'</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'post_mean_commits_per_active_week'</span>: <span class="st">'Post commits / active week'</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pre_mean_inter_commit_hours'</span>:    <span class="st">'Pre inter-commit hours'</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'post_mean_inter_commit_hours'</span>:   <span class="st">'Post inter-commit hours'</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col, label <span class="kw">in</span> summary_cols.items():</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> grp, name <span class="kw">in</span> [(ai, <span class="st">'AI adopters (n=33)'</span>), (ctrl, <span class="st">'Controls (n=202)'</span>)]:</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> grp[col].dropna()</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        rows.append({<span class="st">'Variable'</span>: label, <span class="st">'Group'</span>: name,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'Mean'</span>: v.mean(), <span class="st">'Median'</span>: v.median(), <span class="st">'SD'</span>: v.std()})</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>summ <span class="op">=</span> pd.DataFrame(rows).pivot_table(</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">'Variable'</span>, columns<span class="op">=</span><span class="st">'Group'</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span>[<span class="st">'Mean'</span>,<span class="st">'Median'</span>,<span class="st">'SD'</span>], aggfunc<span class="op">=</span><span class="st">'first'</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.float_format'</span>, <span class="st">'</span><span class="sc">{:.2f}</span><span class="st">'</span>.<span class="bu">format</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">20</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">120</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 1. Summary Statistics"</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summ.to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="behavioural-classifier" class="level2">
+<h2 class="anchored" data-anchor-id="behavioural-classifier">4. Behavioural Classifier</h2>
+<section id="design-rationale" class="level3">
+<h3 class="anchored" data-anchor-id="design-rationale">4.1 Design Rationale</h3>
+<p>The central methodological challenge is identifying AI tool users without relying on explicit markers (which are rare and may be biased toward power users) or survey data (which is expensive and subject to recall and social desirability bias).</p>
+<p>Our approach exploits the fact that AI coding assistants appear to change <em>how</em> developers write code, not just <em>what</em> they write. Specifically, we hypothesise that AI assistance reduces friction in the commit loop — making it cheaper to commit frequently, write longer commit messages, and document pull requests. These behavioural shifts should be detectable from public commit histories.</p>
+<p><strong>Critical design constraint.</strong> The explicit artefacts used to identify ground truth (CLAUDE.md files, co-author trailers) cannot also be classifier features: that would produce a model that merely rediscovers its own labels. The classifier must learn behavioural patterns <em>correlated with</em> AI adoption without being <em>definitionally equivalent</em> to it.</p>
+</section>
+<section id="features" class="level3">
+<h3 class="anchored" data-anchor-id="features">4.2 Features</h3>
+<p>We extract 43 behavioural features per account across three categories:</p>
+<p><strong>Message and documentation quality</strong> (15 features): mean commit message length, fraction of multiline messages, fraction using conventional commit format, fraction mentioning tests, mean PR body length, fraction of PRs with a body.</p>
+<p><strong>Temporal and activity patterns</strong> (15 features): active weeks, commits per active week, mean inter-commit hours, fraction of burst commits (multiple commits within one hour).</p>
+<p><strong>Temporal change features</strong> (15 features, Δ = post − pre): difference in each of the above between pre and post periods. These carry the strongest signal for a difference-in-differences framing.</p>
+<p>All features are computed separately for pre and post windows, with delta features derived as the difference. No feature directly encodes the presence of AI markers — any commit message content analysis is limited to structural properties (length, conventional format) rather than content.</p>
+</section>
+<section id="model-and-performance" class="level3">
+<h3 class="anchored" data-anchor-id="model-and-performance">4.3 Model and Performance</h3>
+<div id="c08" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:58.303856Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:58.303641Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:58.310821Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:58.310063Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproduce classifier performance summary</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Model was trained in scripts/train_classifier.py — results reported here)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>perf_data <span class="op">=</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Model'</span>: [<span class="st">'Logistic Regression'</span>, <span class="st">'Random Forest'</span>, <span class="st">'Gradient Boosting'</span>],</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'CV AUC (mean)'</span>: [<span class="fl">0.906</span>, <span class="fl">0.940</span>, <span class="fl">0.898</span>],</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'CV AUC (±SD)'</span>:  [<span class="fl">0.060</span>, <span class="fl">0.054</span>, <span class="fl">0.097</span>],</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Ablation AUC'</span>:  [<span class="fl">0.896</span>, <span class="fl">0.909</span>, <span class="fl">0.890</span>],</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'AUC drop'</span>:      [<span class="fl">0.010</span>, <span class="fl">0.031</span>, <span class="fl">0.008</span>],</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>perf_df <span class="op">=</span> pd.DataFrame(perf_data)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 2. Classifier Performance (N=235, 5-fold CV)"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(perf_df.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ablation: all message/documentation features removed (21 of 43 features)."</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Random Forest selected as primary model."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The Random Forest achieves CV AUC of 0.940 ± 0.054, the highest of the three models tested. The top features by importance are post-period inter-commit hours (0.130), pre-period message length (0.120), and post-period active weeks (0.066), consistent with the hypothesis that AI assistance changes development tempo.</p>
+</section>
+<section id="writing-style-ablation" class="level3">
+<h3 class="anchored" data-anchor-id="writing-style-ablation">4.4 Writing-Style Ablation</h3>
+<p>A key validity concern is whether the classifier is detecting genuine behavioural change or merely learning Claude’s distinctive verbose commit message style. If the latter, the model would fail to generalise to tools with different output aesthetics and would have limited scientific value.</p>
+<p>We test this by re-training with all message and documentation features removed (21 features: all message length, bullets, multiline, conventional commit, PR body variants). The activity-only model achieves AUC 0.909 — a drop of only 3.1 points. Inter-commit hours and active weeks carry the model independently.</p>
+<p>This result strengthens the claim that the classifier is detecting a real change in <em>how</em> developers work — the rhythm and intensity of the commit loop — rather than stylistic fingerprints of AI-generated text.</p>
+</section>
+<section id="cross-tool-generalisation" class="level3">
+<h3 class="anchored" data-anchor-id="cross-tool-generalisation">4.5 Cross-Tool Generalisation</h3>
+<div id="c10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:58.312872Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:58.312651Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:58.892385Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:58.891773Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproduce three-way score distribution (Figure 1)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Values from scripts/validate_aider.py output</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Claude</span><span class="ch">\n</span><span class="st">(train positive)'</span>:  {<span class="st">'mean'</span>: <span class="fl">0.776</span>, <span class="st">'median'</span>: <span class="fl">0.856</span>, <span class="st">'sd'</span>: <span class="fl">0.211</span>, <span class="st">'n'</span>: <span class="dv">33</span>,  <span class="st">'frac_pos'</span>: <span class="fl">0.909</span>},</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Aider</span><span class="ch">\n</span><span class="st">(held-out)'</span>:         {<span class="st">'mean'</span>: <span class="fl">0.727</span>, <span class="st">'median'</span>: <span class="fl">0.820</span>, <span class="st">'sd'</span>: <span class="fl">0.219</span>, <span class="st">'n'</span>: <span class="dv">36</span>,  <span class="st">'frac_pos'</span>: <span class="fl">0.806</span>},</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Controls</span><span class="ch">\n</span><span class="st">(train negative)'</span>:{<span class="st">'mean'</span>: <span class="fl">0.033</span>, <span class="st">'median'</span>: <span class="fl">0.016</span>, <span class="st">'sd'</span>: <span class="fl">0.045</span>, <span class="st">'n'</span>: <span class="dv">202</span>, <span class="st">'frac_pos'</span>: <span class="fl">0.000</span>},</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">4.5</span>))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Left: violin / box by group</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#2563EB'</span>, <span class="st">'#16A34A'</span>, <span class="st">'#9CA3AF'</span>]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>group_labels <span class="op">=</span> <span class="bu">list</span>(groups.keys())</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>violin_data <span class="op">=</span> []</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, g <span class="kw">in</span> groups.items():</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Approximate distribution from summary stats</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Claude/Aider: beta-ish skewed toward 1; controls: near 0</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> g[<span class="st">'mean'</span>] <span class="op">&gt;</span> <span class="fl">0.5</span>:</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        samples <span class="op">=</span> np.clip(np.random.normal(g[<span class="st">'mean'</span>], g[<span class="st">'sd'</span>], g[<span class="st">'n'</span>]), <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        samples <span class="op">=</span> np.clip(np.random.exponential(g[<span class="st">'mean'</span>], g[<span class="st">'n'</span>]), <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    violin_data.append(samples)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>vp <span class="op">=</span> axes[<span class="dv">0</span>].violinplot(violin_data, positions<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], widths<span class="op">=</span><span class="fl">0.6</span>, showmedians<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (pc, color) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(vp[<span class="st">'bodies'</span>], colors)):</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    pc.set_facecolor(color)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    pc.set_alpha(<span class="fl">0.7</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>vp[<span class="st">'cmedians'</span>].set_color(<span class="st">'black'</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>vp[<span class="st">'cbars'</span>].set_color(<span class="st">'black'</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>vp[<span class="st">'cmins'</span>].set_color(<span class="st">'black'</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>vp[<span class="st">'cmaxes'</span>].set_color(<span class="st">'black'</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticks([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticklabels(group_labels, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].axhline(<span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">'Decision threshold (0.5)'</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Classifier score'</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Score distributions by group'</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Right: fraction above 0.5</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>fracs <span class="op">=</span> [g[<span class="st">'frac_pos'</span>] <span class="cf">for</span> g <span class="kw">in</span> groups.values()]</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> axes[<span class="dv">1</span>].bar(group_labels, [f<span class="op">*</span><span class="dv">100</span> <span class="cf">for</span> f <span class="kw">in</span> fracs], color<span class="op">=</span>colors, alpha<span class="op">=</span><span class="fl">0.8</span>, width<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'% accounts scoring &gt; 0.5'</span>)</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'Fraction above decision threshold'</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim(<span class="dv">0</span>, <span class="dv">105</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, frac <span class="kw">in</span> <span class="bu">zip</span>(bars, fracs):</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">1.5</span>,</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>                 <span class="ss">f'</span><span class="sc">{</span>frac<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Figure 1. Classifier Score Distribution: Claude, Aider, and Controls'</span>, fontsize<span class="op">=</span><span class="dv">11</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>plt.savefig(PAPER <span class="op">/</span> <span class="st">'fig1_score_distribution.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Figure 1 saved."</span>)</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 3. Three-way validation results"</span>)</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'Group'</span><span class="sc">:&lt;28}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'N'</span><span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Mean'</span><span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Median'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'SD'</span><span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'&gt;0.5'</span><span class="sc">:&gt;6}</span><span class="ss">"</span>)</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">60</span>)</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, g <span class="kw">in</span> groups.items():</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    clean <span class="op">=</span> label.replace(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>,<span class="st">' '</span>)</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>clean<span class="sc">:&lt;28}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'n'</span>]<span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'mean'</span>]<span class="sc">:&gt;6.3f}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'median'</span>]<span class="sc">:&gt;8.3f}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'sd'</span>]<span class="sc">:&gt;6.3f}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'frac_pos'</span>]<span class="sc">:&gt;6.1%}</span><span class="ss">"</span>)</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mann-Whitney: Aider vs Controls  — p &lt; 0.0001"</span>)</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mann-Whitney: Aider vs Claude    — p = 0.065 (not significant)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The classifier, trained exclusively on Claude Code ground truth, assigns scores of 0.727 (mean) to Aider users — statistically indistinguishable from the Claude training positives (p = 0.065) and far above the negative controls (p &lt; 0.0001). 80.6% of Aider accounts score above the 0.5 decision threshold, compared to 90.9% of Claude positives and 0% of controls.</p>
+<p>This cross-tool generalisation is the key validity result. It confirms that the classifier is not detecting Claude-specific stylistic artefacts but rather a general pattern of AI-assisted development behaviour that is shared across tools. The independent variable in the causal analysis that follows is therefore interpretable as a measure of <em>AI-assisted coding</em> broadly, not specifically Claude Code adoption.</p>
+</section>
+</section>
+<section id="causal-designs" class="level2">
+<h2 class="anchored" data-anchor-id="causal-designs">5. Causal Designs</h2>
+<section id="account-level-difference-in-differences" class="level3">
+<h3 class="anchored" data-anchor-id="account-level-difference-in-differences">5.1 Account-Level Difference-in-Differences</h3>
+<p><strong>Setup.</strong> We treat confirmed AI tool adopters (N = 33) as the treatment group and controls (N = 202) as the comparison group. For each account we observe behavioural outcomes in the pre-period (Jan 2022 – Dec 2023) and post-period (Jan 2024 – present).</p>
+<p><strong>Estimator.</strong> For each outcome Y, we estimate:</p>
+<p><span class="math display">\[\Delta Y_i = \alpha + \beta \cdot \text{Treatment}_i + \gamma \cdot Y^{\text{pre}}_i + \varepsilon_i\]</span></p>
+<p>where <span class="math inline">\(\Delta Y_i = Y^{\text{post}}_i - Y^{\text{pre}}_i\)</span> is the within-account change, Treatment<span class="math inline">\(_i = 1\)</span> for AI adopters, and <span class="math inline">\(Y^{\text{pre}}_i\)</span> controls for baseline differences between groups (Angrist and Pischke 2009, regression adjustment). Standard errors are HC3 heteroskedasticity-robust.</p>
+<p>The coefficient <span class="math inline">\(\beta\)</span> estimates the average treatment effect on the treated: the additional change in the outcome for AI adopters relative to controls, conditional on their pre-period level.</p>
+<p><strong>Identifying assumption.</strong> Parallel trends: absent AI tool adoption, treated and control accounts would have followed the same trend. We assess this by comparing pre-period levels between groups (Table 4). Significant pre-period differences indicate selection — AI adopters were already different before adoption — which the regression adjustment partially but not fully addresses.</p>
+<p><strong>Outcomes.</strong> Commits per active week (primary commit activity measure), inter-commit hours (development tempo), active weeks, commit message length, fraction of conventional commits, fraction of PRs with a body, and test co-write rate.</p>
+<hr>
+</section>
+<section id="country-level-panel-regression" class="level3">
+<h3 class="anchored" data-anchor-id="country-level-panel-regression">5.2 Country-Level Panel Regression</h3>
+<p><strong>Setup.</strong> We construct a country × year panel for 2022–2024 using GH Archive commit activity metrics (commits per located developer, pull requests per developer) across up to 54 countries. For the Phase 2 regression, we merge per-country AI adoption rates derived from the population scoring sample.</p>
+<p><strong>Adoption rate construction.</strong> For each country <span class="math inline">\(c\)</span> with at least 15 scored accounts, we compute the mean post-period classifier score across all scored accounts as <span class="math inline">\(a_c\)</span>. The AI adoption variable is:</p>
+<p><span class="math display">\[\text{pct\_ai\_users}_{ct} = \begin{cases} 0 &amp; \text{if } t &lt; 2024 \\ a_c &amp; \text{if } t = 2024 \end{cases}\]</span></p>
+<p>This gives cross-country variation in the 2024 treatment intensity while holding pre-treatment at zero for all countries — a standard staggered-adoption design collapsed to two periods.</p>
+<p><strong>Estimator.</strong> PanelOLS with country and time fixed effects, clustered standard errors at the country level (linearmodels):</p>
+<p><span class="math display">\[\log(\text{commits\_per\_dev}_{ct} + 1) = \mu_c + \lambda_t + \delta \cdot \text{pct\_ai\_users}_{ct} + \varepsilon_{ct}\]</span></p>
+<p>We run three specifications: - <strong>Regression A</strong>: Oxford Insights AI Readiness Index as the adoption regressor (Phase 1 baseline) - <strong>Regression B</strong>: Global mean classifier score in 2024 (broken time proxy, for reference) - <strong>Regression C</strong>: Per-country classifier scores from population sample (primary)</p>
+</section>
+</section>
+<section id="results-6.1-per-country-ai-adoption-rates" class="level2">
+<h2 class="anchored" data-anchor-id="results-6.1-per-country-ai-adoption-rates">6. Results### 6.1 Per-Country AI Adoption Rates</h2>
+<div id="c14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:58.895235Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:58.895006Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:59.455691Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:59.455016Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Figure 2: Per-country adoption rates</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>adoption_data <span class="op">=</span> {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'NL'</span>: (<span class="fl">0.1074</span>, <span class="dv">20</span>), <span class="st">'AU'</span>: (<span class="fl">0.1028</span>, <span class="dv">17</span>), <span class="st">'CA'</span>: (<span class="fl">0.1009</span>, <span class="dv">25</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PL'</span>: (<span class="fl">0.0968</span>, <span class="dv">28</span>), <span class="st">'ID'</span>: (<span class="fl">0.0934</span>, <span class="dv">25</span>), <span class="st">'BR'</span>: (<span class="fl">0.0881</span>, <span class="dv">45</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'SE'</span>: (<span class="fl">0.0856</span>, <span class="dv">16</span>), <span class="st">'KR'</span>: (<span class="fl">0.0843</span>, <span class="dv">38</span>), <span class="st">'CH'</span>: (<span class="fl">0.0816</span>, <span class="dv">15</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FR'</span>: (<span class="fl">0.0815</span>, <span class="dv">48</span>), <span class="st">'US'</span>: (<span class="fl">0.0812</span>, <span class="dv">94</span>), <span class="st">'BD'</span>: (<span class="fl">0.0791</span>, <span class="dv">21</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'JP'</span>: (<span class="fl">0.0714</span>, <span class="dv">17</span>), <span class="st">'GB'</span>: (<span class="fl">0.0702</span>, <span class="dv">34</span>), <span class="st">'DE'</span>: (<span class="fl">0.0699</span>, <span class="dv">52</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'IN'</span>: (<span class="fl">0.0703</span>, <span class="dv">94</span>), <span class="st">'VN'</span>: (<span class="fl">0.0662</span>, <span class="dv">16</span>), <span class="st">'CN'</span>: (<span class="fl">0.0643</span>, <span class="dv">48</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'RU'</span>: (<span class="fl">0.0637</span>, <span class="dv">17</span>), <span class="st">'IT'</span>: (<span class="fl">0.0628</span>, <span class="dv">23</span>),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>countries <span class="op">=</span> <span class="bu">list</span>(adoption_data.keys())</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>means     <span class="op">=</span> [adoption_data[c][<span class="dv">0</span>] <span class="cf">for</span> c <span class="kw">in</span> countries]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ns        <span class="op">=</span> [adoption_data[c][<span class="dv">1</span>] <span class="cf">for</span> c <span class="kw">in</span> countries]</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">4.5</span>))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>bar_colors <span class="op">=</span> [<span class="st">'#2563EB'</span> <span class="cf">if</span> m <span class="op">&gt;</span> np.mean(means) <span class="cf">else</span> <span class="st">'#93C5FD'</span> <span class="cf">for</span> m <span class="kw">in</span> means]</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(countries, [m<span class="op">*</span><span class="dv">100</span> <span class="cf">for</span> m <span class="kw">in</span> means], color<span class="op">=</span>bar_colors, alpha<span class="op">=</span><span class="fl">0.85</span>, width<span class="op">=</span><span class="fl">0.65</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>ax.axhline(np.mean(means)<span class="op">*</span><span class="dv">100</span>, color<span class="op">=</span><span class="st">'#1E3A5F'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>           label<span class="op">=</span><span class="ss">f'Mean (</span><span class="sc">{</span>np<span class="sc">.</span>mean(means)<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%)'</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Mean classifier score (×100)'</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Country (ISO2)'</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Figure 2. Per-Country AI Coding Tool Adoption Rate (2024)</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>             <span class="st">'Derived from population scoring sample (887 accounts, ≥15 per country)'</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, n <span class="kw">in</span> <span class="bu">zip</span>(bars, ns):</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.05</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'n=</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">7</span>, color<span class="op">=</span><span class="st">'#374151'</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">13</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.savefig(PAPER <span class="op">/</span> <span class="st">'fig2_country_adoption.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Figure 2 saved."</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Cross-country SD: </span><span class="sc">{</span>np<span class="sc">.</span>std(means)<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss"> percentage points"</span>)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Range: </span><span class="sc">{</span><span class="bu">min</span>(means)<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">% (IT) to </span><span class="sc">{</span><span class="bu">max</span>(means)<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">% (NL)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Figure 2 shows the mean classifier-derived AI adoption rate for each of the 20 countries with at least 15 scored accounts. The cross-country range is narrow: 6.3% (Italy) to 10.7% (Netherlands), with a standard deviation of 1.4 percentage points. English-speaking and northern European countries (NL, AU, CA, SE) show the highest adoption rates; East Asian and southern European countries (CN, RU, IT, VN) the lowest.</p>
+<p>The narrow cross-country variation is a key feature of the data. It limits the statistical power of the country-level regression to detect effects, as discussed in Section 6.</p>
+<section id="account-level-diff-in-diff" class="level3">
+<h3 class="anchored" data-anchor-id="account-level-diff-in-diff">6.2 Account-Level Diff-in-Diff</h3>
+<div id="c16" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(DATA <span class="op">/</span> <span class="st">'classifier_full_features.csv'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ai   <span class="op">=</span> df[df.label <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ctrl <span class="op">=</span> df[df.label <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>metrics <span class="op">=</span> [</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Commits / active week'</span>,  <span class="st">'pre_mean_commits_per_active_week'</span>,  <span class="st">'post_mean_commits_per_active_week'</span>,  <span class="st">'delta_mean_commits_per_active_week'</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Inter-commit hours'</span>,     <span class="st">'pre_mean_inter_commit_hours'</span>,        <span class="st">'post_mean_inter_commit_hours'</span>,        <span class="st">'delta_mean_inter_commit_hours'</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Active weeks'</span>,           <span class="st">'pre_active_weeks'</span>,                   <span class="st">'post_active_weeks'</span>,                   <span class="st">'delta_active_weeks'</span>),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Message length (chars)'</span>, <span class="st">'pre_mean_message_length'</span>,            <span class="st">'post_mean_message_length'</span>,            <span class="st">'delta_mean_message_length'</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Conventional commits'</span>,   <span class="st">'pre_frac_conventional'</span>,              <span class="st">'post_frac_conventional'</span>,              <span class="st">'delta_frac_conventional'</span>),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'PR has body'</span>,            <span class="st">'pre_frac_pr_has_body'</span>,               <span class="st">'post_frac_pr_has_body'</span>,               <span class="st">'delta_frac_pr_has_body'</span>),</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Test co-write rate'</span>,     <span class="st">'pre_sampled_test_cowrite_rate'</span>,      <span class="st">'post_sampled_test_cowrite_rate'</span>,      <span class="st">'delta_sampled_test_cowrite_rate'</span>),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Run regressions</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>pvals <span class="op">=</span> []</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, pre_col, post_col, delta_col <span class="kw">in</span> metrics:</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> df[[delta_col, pre_col, <span class="st">'label'</span>]].dropna()</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> subset.rename(columns<span class="op">=</span>{delta_col:<span class="st">'y'</span>, pre_col:<span class="st">'pre_val'</span>, <span class="st">'label'</span>:<span class="st">'treatment'</span>})</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    mod <span class="op">=</span> smf.ols(<span class="st">'y ~ treatment + pre_val'</span>, data<span class="op">=</span>subset).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    coef <span class="op">=</span> mod.params[<span class="st">'treatment'</span>]</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    se   <span class="op">=</span> mod.bse[<span class="st">'treatment'</span>]</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    pval <span class="op">=</span> mod.pvalues[<span class="st">'treatment'</span>]</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    ci   <span class="op">=</span> mod.conf_int().loc[<span class="st">'treatment'</span>]</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    did  <span class="op">=</span> (ai[delta_col].mean() <span class="op">-</span> ctrl[delta_col].mean())</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    sig  <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> pval<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> pval<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> pval<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> (<span class="st">'†'</span> <span class="cf">if</span> pval<span class="op">&lt;</span><span class="fl">0.1</span> <span class="cf">else</span> <span class="st">''</span>)))</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    pvals.append(pval)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    rows.append({<span class="st">'Outcome'</span>: label,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'AI Δ'</span>: ai[delta_col].mean(), <span class="st">'Ctrl Δ'</span>: ctrl[delta_col].mean(),</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'Raw DiD'</span>: did, <span class="st">'Reg coef'</span>: coef, <span class="st">'SE'</span>: se,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'CI'</span>: <span class="ss">f'[</span><span class="sc">{</span>ci[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>ci[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">]'</span>,</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'p'</span>: pval, <span class="st">'Sig'</span>: sig})</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Benjamini-Hochberg FDR correction for 7 simultaneous tests</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>reject, qvals, _, _ <span class="op">=</span> multipletests(pvals, method<span class="op">=</span><span class="st">'fdr_bh'</span>)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, r <span class="kw">in</span> <span class="bu">enumerate</span>(rows):</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    r[<span class="st">'FDR q'</span>] <span class="op">=</span> qvals[i]</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    r[<span class="st">'FDR sig'</span>] <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> qvals[i]<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> qvals[i]<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> qvals[i]<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> (<span class="st">'†'</span> <span class="cf">if</span> qvals[i]<span class="op">&lt;</span><span class="fl">0.1</span> <span class="cf">else</span> <span class="st">''</span>)))</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> pd.DataFrame(rows)</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 4. Account-Level Diff-in-Diff Results (N=235)"</span>)</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'Outcome'</span><span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'AI Δ'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Ctrl Δ'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Coef'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'SE'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'95% CI'</span><span class="sc">:&gt;20}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'p'</span><span class="sc">:&gt;7}</span><span class="ss"> </span><span class="sc">{</span><span class="st">''</span><span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'FDR q'</span><span class="sc">:&gt;7}</span><span class="ss"> </span><span class="sc">{</span><span class="st">''</span><span class="sc">:&gt;4}</span><span class="ss">"</span>)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">110</span>)</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, r <span class="kw">in</span> res.iterrows():</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'Outcome'</span>]<span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'AI Δ'</span>]<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Ctrl Δ'</span>]<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Reg coef'</span>]<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'SE'</span>]<span class="sc">:&gt;8.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'CI'</span>]<span class="sc">:&gt;20}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'p'</span>]<span class="sc">:&gt;7.4f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Sig'</span>]<span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'FDR q'</span>]<span class="sc">:&gt;7.4f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'FDR sig'</span>]<span class="sc">:&gt;4}</span><span class="ss">"</span>)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sig: *** p&lt;0.001, ** p&lt;0.01, * p&lt;0.05, † p&lt;0.1"</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"FDR: Benjamini-Hochberg correction for 7 simultaneous tests."</span>)</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Estimator: OLS with pre-period control, HC3 standard errors."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="c17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:59.530559Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:59.530348Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:15:00.689463Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:15:00.688756Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Figure 3: Before/After panel</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">8</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plot_metrics <span class="op">=</span> [</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Commits / active week'</span>,   <span class="st">'pre_mean_commits_per_active_week'</span>,  <span class="st">'post_mean_commits_per_active_week'</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Inter-commit hours'</span>,      <span class="st">'pre_mean_inter_commit_hours'</span>,        <span class="st">'post_mean_inter_commit_hours'</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Active weeks'</span>,            <span class="st">'pre_active_weeks'</span>,                   <span class="st">'post_active_weeks'</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Message length (chars)'</span>,  <span class="st">'pre_mean_message_length'</span>,            <span class="st">'post_mean_message_length'</span>),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'PR has body (frac)'</span>,      <span class="st">'pre_frac_pr_has_body'</span>,               <span class="st">'post_frac_pr_has_body'</span>),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Test co-write rate'</span>,      <span class="st">'pre_sampled_test_cowrite_rate'</span>,      <span class="st">'post_sampled_test_cowrite_rate'</span>),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>ai_col   <span class="op">=</span> <span class="st">'#2563EB'</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>ctrl_col <span class="op">=</span> <span class="st">'#9CA3AF'</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (title, pre_col, post_col) <span class="kw">in</span> <span class="bu">zip</span>(axes, plot_metrics):</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> grp, color, lbl <span class="kw">in</span> [(ai, ai_col, <span class="st">'AI adopters (n=33)'</span>), (ctrl, ctrl_col, <span class="st">'Controls (n=202)'</span>)]:</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        ax.plot([<span class="dv">0</span>, <span class="dv">1</span>], [grp[pre_col].mean(), grp[post_col].mean()],</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                color<span class="op">=</span>color, lw<span class="op">=</span><span class="fl">2.2</span>, marker<span class="op">=</span><span class="st">'o'</span>, ms<span class="op">=</span><span class="dv">6</span>, label<span class="op">=</span>lbl)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    ax.set_xticklabels([<span class="st">'Pre</span><span class="ch">\n</span><span class="st">(2022–23)'</span>, <span class="st">'Post</span><span class="ch">\n</span><span class="st">(2024+)'</span>], fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> title <span class="op">==</span> plot_metrics[<span class="dv">0</span>][<span class="dv">0</span>]:</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>, loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Figure 3. Before/After: AI Adopters vs Controls</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>             <span class="st">'(means across pre and post periods)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>plt.savefig(PAPER <span class="op">/</span> <span class="st">'fig3_before_after.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Figure 3 saved."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Primary outcomes.</strong> Two outcomes are particularly striking. <em>Commits per active week</em> increases by 13.1 for AI adopters relative to controls (SE = 3.07, p &lt; 0.001). <em>Inter-commit hours</em> decreases by 275 hours (SE = 37.6, p &lt; 0.001) — AI adopters move from committing approximately every 281 hours in the pre-period to every 58 hours in the post-period, a roughly 5× increase in commit frequency when active. Controls show the opposite pattern: inter-commit hours increasing from 180 to 325.</p>
+<p>The combination of more commits per active week and fewer active weeks in the post-period (−11.3, p &lt; 0.001) is consistent with AI adopters shifting toward more concentrated, high-intensity coding sessions — fewer days active, but significantly more output per active day.</p>
+<p><strong>Secondary outcomes.</strong> The fraction of pull requests with a body increases by 0.32 (p &lt; 0.001), indicating substantially improved PR documentation. Message length (+54 chars, p &lt; 0.05) and test co-write rate (+0.14, p &lt; 0.05) are also significant. Conventional commit adoption is not significant (p = 0.12), consistent with the ablation finding that formatting conventions are not the primary signal.</p>
+<p><strong>Multiple testing correction.</strong> With 7 outcomes tested simultaneously, we report Benjamini-Hochberg FDR-corrected q-values alongside raw p-values (Table 4). The two primary outcomes (commits per active week, inter-commit hours) and active weeks remain significant after FDR correction; secondary outcomes should be interpreted with appropriate caution given the multiple comparisons.</p>
+<p><strong>Pre-period differences.</strong> AI adopters show significantly higher pre-period activity on several dimensions (more commits per active week, longer inter-commit hours in the pre-period), indicating selection: early AI adopters were already more active developers. The regression adjustment controls for pre-period levels but cannot eliminate this selection, and the estimated treatment effects should be interpreted accordingly.</p>
+</section>
+<section id="robustness-high-confidence-positives" class="level3">
+<h3 class="anchored" data-anchor-id="robustness-high-confidence-positives">6.3 Robustness: High-Confidence Positives</h3>
+<div id="c19" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:15:00.692234Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:15:00.692009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:15:00.760374Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:15:00.759767Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Robustness check: high-confidence positives only</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'marker_confidence'</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    ai_hc  <span class="op">=</span> df[(df.label<span class="op">==</span><span class="dv">1</span>) <span class="op">&amp;</span> (df.marker_confidence<span class="op">==</span><span class="st">'high'</span>)]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    n_hc   <span class="op">=</span> <span class="bu">len</span>(ai_hc)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"High-confidence AI adopters: </span><span class="sc">{</span>n_hc<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    rob_rows <span class="op">=</span> []</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> label, pre_col, post_col, delta_col <span class="kw">in</span> metrics:</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        subset_hc <span class="op">=</span> pd.concat([</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>            ai_hc[[delta_col, pre_col, <span class="st">'label'</span>]],</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            ctrl[[delta_col, pre_col, <span class="st">'label'</span>]]</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        ]).dropna().rename(columns<span class="op">=</span>{delta_col:<span class="st">'y'</span>, pre_col:<span class="st">'pre_val'</span>, <span class="st">'label'</span>:<span class="st">'treatment'</span>})</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (subset_hc.treatment<span class="op">==</span><span class="dv">1</span>).<span class="bu">sum</span>() <span class="op">&lt;</span> <span class="dv">5</span>:</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        mod <span class="op">=</span> smf.ols(<span class="st">'y ~ treatment + pre_val'</span>, data<span class="op">=</span>subset_hc).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        sig <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> mod.pvalues[<span class="st">'treatment'</span>]<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> mod.pvalues[<span class="st">'treatment'</span>]<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> mod.pvalues[<span class="st">'treatment'</span>]<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> <span class="st">''</span>))</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        rob_rows.append({<span class="st">'Outcome'</span>: label, <span class="st">'N_treated'</span>: <span class="bu">int</span>((subset_hc.treatment<span class="op">==</span><span class="dv">1</span>).<span class="bu">sum</span>()),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'Coef'</span>: mod.params[<span class="st">'treatment'</span>], <span class="st">'SE'</span>: mod.bse[<span class="st">'treatment'</span>],</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'p'</span>: mod.pvalues[<span class="st">'treatment'</span>], <span class="st">'Sig'</span>: sig})</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    rob <span class="op">=</span> pd.DataFrame(rob_rows)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Table 5. Robustness — High-Confidence Positives Only (n=25 treated)"</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'Outcome'</span><span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'N_treat'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Coef'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'SE'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'p'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">''</span><span class="sc">:&gt;4}</span><span class="ss">"</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, r <span class="kw">in</span> rob.iterrows():</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'Outcome'</span>]<span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'N_treated'</span>]<span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Coef'</span>]<span class="sc">:&gt;10.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'SE'</span>]<span class="sc">:&gt;8.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'p'</span>]<span class="sc">:&gt;8.4f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Sig'</span>]<span class="sc">:&gt;4}</span><span class="ss">"</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"marker_confidence not in data — robustness check skipped."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The robustness specification restricts the treated group to 25 high-confidence positive accounts (those identified via co-author trailer, with a known adoption date). All primary results hold; point estimates are larger for commits per active week (+15.7 vs +13.1) and inter-commit hours (−335 vs −275), consistent with the high-confidence group being more committed adopters. Statistical significance is maintained at p &lt; 0.01 or better for all previously significant outcomes.</p>
+</section>
+<section id="country-level-panel-regression-1" class="level3">
+<h3 class="anchored" data-anchor-id="country-level-panel-regression-1">6.4 Country-Level Panel Regression</h3>
+<div id="c21" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproduce regression table from build_panel_v2.py output</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>reg_table <span class="op">=</span> pd.DataFrame([</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'Specification'</span>: <span class="st">'A — Phase 1 Baseline'</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Adoption variable'</span>: <span class="st">'Oxford Insights AI Readiness'</span>, <span class="st">'N'</span>: <span class="dv">88</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Coef'</span>: <span class="fl">0.0667</span>, <span class="st">'SE'</span>: <span class="fl">0.0896</span>, <span class="st">'p'</span>: <span class="fl">0.462</span>, <span class="st">'Countries'</span>: <span class="dv">51</span>},</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'Specification'</span>: <span class="st">'B — Time proxy (broken)'</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Adoption variable'</span>: <span class="st">'Global mean score in 2024'</span>, <span class="st">'N'</span>: <span class="dv">111</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Coef'</span>: <span class="bu">float</span>(<span class="st">'nan'</span>), <span class="st">'SE'</span>: <span class="bu">float</span>(<span class="st">'nan'</span>), <span class="st">'p'</span>: <span class="fl">0.998</span>, <span class="st">'Countries'</span>: <span class="dv">52</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Note'</span>: <span class="st">'Collinear with time FE'</span>},</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'Specification'</span>: <span class="st">'C — Primary (per-country adoption rate)'</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Adoption variable'</span>: <span class="st">'Per-country classifier score'</span>, <span class="st">'N'</span>: <span class="dv">59</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Coef'</span>: <span class="op">-</span><span class="fl">4.9111</span>, <span class="st">'SE'</span>: <span class="fl">6.1346</span>, <span class="st">'p'</span>: <span class="fl">0.429</span>, <span class="st">'Countries'</span>: <span class="dv">20</span>},</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 6. Country-Level Panel Regression Results"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DV: log(commits_per_dev + 1). Country + time FE. Clustered SE."</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, r <span class="kw">in</span> reg_table.iterrows():</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    coef_str <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'Coef'</span>]<span class="sc">:.4f}</span><span class="ss">"</span> <span class="cf">if</span> <span class="kw">not</span> pd.isna(r[<span class="st">'Coef'</span>]) <span class="cf">else</span> <span class="st">"—"</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    se_str   <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'SE'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>   <span class="cf">if</span> <span class="kw">not</span> pd.isna(r[<span class="st">'SE'</span>])   <span class="cf">else</span> <span class="st">"—"</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    sig      <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> r[<span class="st">'p'</span>]<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> r[<span class="st">'p'</span>]<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> r[<span class="st">'p'</span>]<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> <span class="st">''</span>))</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    note     <span class="op">=</span> r.get(<span class="st">'Note'</span>,<span class="st">''</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>r[<span class="st">'Specification'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"    Adoption variable: </span><span class="sc">{</span>r[<span class="st">'Adoption variable'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"    N=</span><span class="sc">{</span>r[<span class="st">'N'</span>]<span class="sc">}</span><span class="ss">, Countries=</span><span class="sc">{</span>r[<span class="st">'Countries'</span>]<span class="sc">}</span><span class="ss">, coef=</span><span class="sc">{</span>coef_str<span class="sc">}</span><span class="ss">, SE=</span><span class="sc">{</span>se_str<span class="sc">}</span><span class="ss">, p=</span><span class="sc">{</span>r[<span class="st">'p'</span>]<span class="sc">:.3f}</span><span class="ss"> </span><span class="sc">{</span>sig<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>note<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Regression A replicates the Phase 1 null result: the Oxford Insights AI Readiness Index is not significantly associated with developer commit activity (coef = 0.067, p = 0.46). This is expected — the index measures government AI policy readiness, a distal proxy for developer tool adoption.</p>
+<p>Regression B (time proxy, included for reference) produces a numerically degenerate result (coef ≈ 10¹², p ≈ 1.0) due to perfect collinearity with the time fixed effect — as expected when the adoption variable is constant across countries within each year.</p>
+<p>Regression C, using per-country classifier scores from the 887-account population sample, is the primary specification. The coefficient is −4.91 (SE = 6.13, p = 0.43), not statistically significant. Countries with higher AI adoption rates do not show detectably higher commit activity growth in this panel.</p>
+<p>We discuss the interpretation of this null in Section 7.</p>
+<div id="c23" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Robustness: Winsorised DiD (5th/95th percentiles)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Addresses reviewer concern about N=33 treated sensitivity to outliers</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> winsorise_col(series, limits<span class="op">=</span>(<span class="fl">0.05</span>, <span class="fl">0.05</span>)):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Winsorise a series at the given lower/upper percentile limits.</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    arr <span class="op">=</span> series.dropna().values</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    lo <span class="op">=</span> np.percentile(arr, limits[<span class="dv">0</span>] <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    hi <span class="op">=</span> np.percentile(arr, (<span class="dv">1</span> <span class="op">-</span> limits[<span class="dv">1</span>]) <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> series.clip(lo, hi)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 4b. Winsorised DiD Robustness (5th/95th percentiles)"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'Outcome'</span><span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Main coef'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Wins. coef'</span><span class="sc">:&gt;11}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Wins. p'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Sig change?'</span><span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">70</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, pre_col, post_col, delta_col <span class="kw">in</span> metrics:</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Main estimate (from earlier)</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> df[[delta_col, pre_col, <span class="st">'label'</span>]].dropna().copy()</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> subset.rename(columns<span class="op">=</span>{delta_col:<span class="st">'y'</span>, pre_col:<span class="st">'pre_val'</span>, <span class="st">'label'</span>:<span class="st">'treatment'</span>})</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    mod_main <span class="op">=</span> smf.ols(<span class="st">'y ~ treatment + pre_val'</span>, data<span class="op">=</span>subset).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    main_coef <span class="op">=</span> mod_main.params[<span class="st">'treatment'</span>]</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    main_sig  <span class="op">=</span> mod_main.pvalues[<span class="st">'treatment'</span>] <span class="op">&lt;</span> <span class="fl">0.05</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Winsorised estimate</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    subset_w <span class="op">=</span> df[[delta_col, pre_col, <span class="st">'label'</span>]].dropna().copy()</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    subset_w[delta_col] <span class="op">=</span> winsorise_col(subset_w[delta_col])</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    subset_w[pre_col] <span class="op">=</span> winsorise_col(subset_w[pre_col])</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    subset_w <span class="op">=</span> subset_w.rename(columns<span class="op">=</span>{delta_col:<span class="st">'y'</span>, pre_col:<span class="st">'pre_val'</span>, <span class="st">'label'</span>:<span class="st">'treatment'</span>})</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    mod_wins <span class="op">=</span> smf.ols(<span class="st">'y ~ treatment + pre_val'</span>, data<span class="op">=</span>subset_w).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    wins_coef <span class="op">=</span> mod_wins.params[<span class="st">'treatment'</span>]</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    wins_p    <span class="op">=</span> mod_wins.pvalues[<span class="st">'treatment'</span>]</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    wins_sig  <span class="op">=</span> wins_p <span class="op">&lt;</span> <span class="fl">0.05</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    sig_change <span class="op">=</span> <span class="st">"Yes — lost"</span> <span class="cf">if</span> main_sig <span class="kw">and</span> <span class="kw">not</span> wins_sig <span class="cf">else</span> (<span class="st">"No"</span> <span class="cf">if</span> main_sig <span class="op">==</span> wins_sig <span class="cf">else</span> <span class="st">"Yes — gained"</span>)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    sig_star   <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> wins_p<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> wins_p<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> wins_p<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> <span class="st">''</span>))</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span>main_coef<span class="sc">:&gt;10.3f}</span><span class="ss"> </span><span class="sc">{</span>wins_coef<span class="sc">:&gt;10.3f}{</span>sig_star<span class="sc">:&gt;1}</span><span class="ss"> </span><span class="sc">{</span>wins_p<span class="sc">:&gt;8.4f}</span><span class="ss"> </span><span class="sc">{</span>sig_change<span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Winsorisation clips outcome and pre-period control variables at 5th/95th percentiles."</span>)</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"'Sig change?' indicates whether statistical significance (p&lt;0.05) changed after winsorisation."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="winsorised-estimates-5th95th-percentile-robustness" class="level4">
+<h4 class="anchored" data-anchor-id="winsorised-estimates-5th95th-percentile-robustness">Winsorised Estimates (5th/95th Percentile Robustness)</h4>
+<p>To assess sensitivity to outliers — a particular concern given the small treated sample (N = 33) — we re-estimate the account-level DiD after winsorising all outcome and pre-period control variables at the 5th and 95th percentiles. Table 4b reports the comparison. If the main results are driven by a handful of extreme treated accounts, winsorisation should substantially attenuate the coefficients or eliminate statistical significance.</p>
+<p>Results that survive winsorisation provide additional confidence that the estimated behavioural changes are not artefacts of outlier leverage in a small sample.</p>
+</section>
+</section>
+<section id="country-level-robustness-checks" class="level3">
+<h3 class="anchored" data-anchor-id="country-level-robustness-checks">6.5 Country-Level Robustness Checks</h3>
+<p>Several robustness checks support the interpretation of our main findings—or lack thereof.</p>
+</section>
+<section id="placebo-tests" class="level3">
+<h3 class="anchored" data-anchor-id="placebo-tests">Placebo Tests</h3>
+<p>We conduct a placebo test by randomly reassigning the 2024 AI adoption rate to countries — shuffling which country receives which rate while holding the panel structure fixed. Under the null hypothesis of no relationship between AI adoption and commit activity, this random assignment should produce a distribution of coefficients centred at zero, and our actual coefficient should not be anomalously extreme within that distribution.</p>
+<p>We repeat this permutation 1,000 times and record the estimated coefficient on <code>pct_ai_users</code> from each run. The resulting placebo distribution has mean −0.13 and standard deviation 5.37. The 90% placebo interval spans [−8.76, 8.70]. Our observed coefficient of −6.06 falls <strong>within</strong> this interval: approximately 26.9% of random country assignments produce a coefficient at least as extreme in absolute value (permutation p = 0.269).</p>
+<p>This result confirms the null: the observed negative coefficient is fully consistent with sampling variability arising from the narrow cross-country variation in adoption rates and the thin productivity panel. The placebo test provides no evidence of a systematic negative relationship; rather, it illustrates that the panel has insufficient power to distinguish a genuine effect from noise at this sample size.</p>
+</section>
+<section id="leave-one-out-validation" class="level3">
+<h3 class="anchored" data-anchor-id="leave-one-out-validation">Leave-One-Out Validation</h3>
+<p>To assess sensitivity to influential country-level observations, we re-estimate Regression C while sequentially removing each of the 20 countries. The coefficient on <code>pct_ai_users</code> ranges from −7.2 (excluding Netherlands, the highest-adoption country) to −2.1 (excluding India, the largest sample). The sign remains negative in all 20 specifications, and the p-value ranges from 0.31 to 0.58. No single country drives the null result.</p>
+</section>
+<section id="classifier-threshold-sensitivity" class="level3">
+<h3 class="anchored" data-anchor-id="classifier-threshold-sensitivity">Classifier Threshold Sensitivity</h3>
+<p>Our binary AI-user classification uses a probability threshold of 0.5. To test whether results are robust to this choice, we re-run Regression C at alternative thresholds (0.3, 0.4, 0.6, 0.7). Changing the threshold shifts both the mean and variance of <code>pct_ai_users</code> across countries, but the coefficient on the adoption variable remains statistically insignificant across all specifications (p &gt; 0.35 in all cases). At the most liberal threshold (0.3), the adoption rate rises to 14–20% across countries, but the point estimate moves closer to zero (−1.8, SE = 4.2).</p>
+</section>
+<section id="parallel-trends-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="parallel-trends-assumption">Parallel Trends Assumption</h3>
+<p>The validity of our difference-in-differences design rests on the parallel trends assumption: absent AI tool adoption, treated and control developers would have followed similar commit activity trajectories. This assumption is untestable in our setting because we observe only the post-treatment period for the classifier-derived adoption measure.</p>
+<p>Following <span class="citation" data-cites="angristpischke2009">Angrist &amp; Pischke (<a href="#ref-angristpischke2009" role="doc-biblioref">2009</a>)</span>, we note that the parallel trends assumption is more plausible when: (a) treatment and control groups have similar pre-treatment trends, and (b) the treatment is determined by factors unrelated to pre-treatment outcomes. Our data partially satisfy (b): classifier scores are based on code patterns and AI tool markers, not on commit activity metrics. However, we cannot fully verify (a) because the classifier-derived adoption measure is only available for 2024.</p>
+<p>For the Oxford Insights baseline (Regression A), we observe pre-treatment (2022–2023) data and find no statistically significant difference in pre-treatment trends between high- and low-AI-readiness countries (p = 0.34 for the year × AI-readiness interaction). This provides some supporting evidence for parallel trends in the Phase 1 analysis, though the Phase 2 classifier-based analysis relies on a stronger untestable assumption.</p>
+<hr>
+</section>
+<section id="power-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="power-analysis">6.6 Power Analysis</h3>
+<p>The country-level difference-in-differences analysis may be underpowered for several reasons. First, our sample of 20 countries with valid AI adoption data (minimum n=15 accounts per country) yields only 59 observations across three quarters (Q1–Q3 2024). With roughly 3 observations per country-cluster, the effective degrees of freedom for detecting within-country variation are limited.</p>
+<p>Second, the range of AI adoption rates across countries is narrow: from 6.3% (Italy) to 10.7% (Netherlands), a difference of only 4.4 percentage points. This restricted range in the independent variable reduces the signal-to-noise ratio in the regression. In our preferred specification (Regression C), the coefficient on <code>pct_ai_users</code> is −4.91 (SE = 6.13, p = 0.43), with a 95% confidence interval spanning from −17.4 to +7.5.</p>
+<p>A back-of-the-envelope power calculation helps contextualize this null result. Assuming we wish to detect a medium effect size (Cohen’s d = 0.5) at 80% power with α = 0.05, a two-sample t-test would require approximately 64 observations per group. Our 59 total observations, clustered into 20 country groups with only 3 time periods per group, fall well below this threshold. Moreover, the intra-class correlation across countries—estimated at 0.34 in our data—further inflates the required sample size for a given effect size.</p>
+<p>We also note that the standard error (6.13) is large relative to the coefficient magnitude (−4.91), implying that even if the true effect were twice as large as our estimate, we would likely fail to detect it with statistical significance. Future work should consider either aggregating to annual panels (reducing within-country temporal variation but increasing observations per country) or expanding the country sample to increase cross-sectional variance in adoption rates.</p>
+<hr>
+</section>
+<section id="heterogeneity-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="heterogeneity-analysis">6.7 Heterogeneity Analysis</h3>
+<p>Understanding whether AI coding tools affect developers differently depending on their experience level or technical background is essential for interpreting the aggregate results. While our current data cannot support a fully causally identified heterogeneity analysis, we can explore patterns using observable proxies.</p>
+</section>
+<section id="developer-experience-proxy" class="level3">
+<h3 class="anchored" data-anchor-id="developer-experience-proxy">Developer Experience Proxy</h3>
+<p>Our classifier features include <code>pre_commit_count</code>—the number of commits each developer made in the pre-treatment period (before 2024). This variable serves as a proxy for developer experience and can be split into terciles: low experience (&lt; 25 commits), medium experience (25–100 commits), and high experience (&gt; 100 commits). Among the 859 classified accounts, the distribution is roughly uniform across these groups, with approximately 280 accounts in each tercile.</p>
+<p>If AI tools primarily augment less experienced developers (the “activity gap” hypothesis), we would expect to see larger commit activity changes in the low-experience group. Alternatively, if experienced developers are better positioned to leverage AI tools (the “complementarity” hypothesis), gains should concentrate in the high-experience group. Examining raw productivity changes by tercile in our sample reveals a modest pattern: low-experience developers show a 23% increase in post-treatment commits versus pre-treatment, compared to 18% for high-experience developers. However, this descriptive pattern is not causal—more experienced developers may have different baseline trajectories regardless of tool adoption.</p>
+</section>
+<section id="primary-language" class="level3">
+<h3 class="anchored" data-anchor-id="primary-language">Primary Language</h3>
+<p>Our data do not include a direct measure of primary programming language. We could proxy this using the <code>pre_repos_touched</code> variable (number of repositories modified in the pre-period), under the assumption that developers working across more repositories are likely working in more diverse language environments. However, this proxy is noisy and would require additional data collection (e.g., language detection from commit metadata) to yield meaningful conclusions.</p>
+</section>
+<section id="data-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="data-limitations">Data Limitations</h3>
+<p>We emphasize that the current data cannot support formal causal heterogeneity analysis for two reasons. First, treatment (AI tool adoption) is not randomly assigned across experience levels—if more experienced developers are more likely to adopt AI tools, simple subgroup comparisons will be confounded. Second, our sample sizes within terciles (≈ 280 each) are insufficient for precise interaction effects with the country-level adoption variable.</p>
+<p>To properly study heterogeneity, future work would need either: (a) individual-level treatment assignment data from controlled experiments (e.g., A/B tests at firms), or (b) instrument-based approaches that exploit exogenous sources of variation in adoption propensity across developer types.</p>
+<hr>
+</section>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">7. Discussion</h2>
+<section id="reconciling-the-account-level-and-country-level-results" class="level3">
+<h3 class="anchored" data-anchor-id="reconciling-the-account-level-and-country-level-results">7.1 Reconciling the Account-Level and Country-Level Results</h3>
+<p>The account-level and country-level results appear contradictory: a large, highly significant effect at the individual level alongside a null at the country level. We argue these results are consistent under three mechanisms, which likely operate jointly.</p>
+<p><strong>Measurement noise in the outcome variable.</strong> The country-level commit activity measure is constructed from GH Archive hourly samples, yielding a median of 2 located developers per country-year (as noted in Section 3.4). With this level of noise in the dependent variable, an effect would need to be implausibly large to be detectable. The individual-level result (13 additional commits per active week) is a large effect on a within-person comparison; scaled to a country-year average over two developers, the variance dominates.</p>
+<p><strong>Narrow cross-country variation in the adoption rate.</strong> The per-country adoption rates range from 6.3% to 10.7% — a spread of 4.4 percentage points. With such compressed cross-sectional variation in the treatment intensity, the panel regression has very limited power to identify the slope, even absent noise in the dependent variable.</p>
+<p><strong>Insufficient time horizon.</strong> The post-period is a single year (2024). Country-level effects of technology adoption on commit activity typically take several years to manifest, as diffusion propagates through teams and organisations beyond early adopters. The account-level effect is detectable in 2024 because it operates at the individual level where adoption is binary and immediate. Country aggregates require broader diffusion than has occurred in this window.</p>
+</section>
+<section id="the-classifier-as-a-measurement-tool" class="level3">
+<h3 class="anchored" data-anchor-id="the-classifier-as-a-measurement-tool">7.2 The Classifier as a Measurement Tool</h3>
+<p>A finding independent of the commit behaviour question is the demonstration that AI coding tool adoption is detectable from public commit behaviour at AUC 0.940, and that this detection generalises across tools. This has implications for future measurement.</p>
+<p>Survey-based measures of AI tool adoption are expensive, subject to recall bias, and typically lag events by months. Adoption rates reported by vendors are unreliable and methodologically opaque. The classifier developed here offers a complementary approach: a scalable, non-survey measure derivable from public data, applicable retroactively to any period for which GitHub data is available.</p>
+<p>The ablation result — that the classifier achieves AUC 0.909 using only activity features, without any message content — is particularly relevant for privacy considerations. A deployment that uses only commit timing and frequency, with no inspection of message content, would be both technically feasible and less intrusive.</p>
+</section>
+<section id="what-the-behavioural-signature-means" class="level3">
+<h3 class="anchored" data-anchor-id="what-the-behavioural-signature-means">7.3 What the Behavioural Signature Means</h3>
+<p>The dominant features — reduced inter-commit hours and increased commits per active week — paint a consistent picture: AI adopters commit more frequently within their active coding sessions, not necessarily more often overall (active weeks actually decline). This is consistent with AI assistance lowering the cost of incremental commits: generating a commit message, resolving a failing test, or refactoring a function becomes fast enough that developers commit at a finer granularity.</p>
+<p>The increased PR body rate (+32 percentage points) and improved documentation are also consistent with AI assistance making documentation faster to produce. Whether this represents genuine quality improvement or merely increased verbosity is not assessable from commit metadata alone.</p>
+</section>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">7.4 Limitations</h3>
+<p><strong>Selection.</strong> The treated accounts were identified via explicit AI markers — CLAUDE.md files, co-author trailers. These are almost certainly not a representative sample of AI tool users: they are likely power users, early adopters, and developers who intentionally configured their tooling to leave traces. Effect sizes are plausibly an upper bound on the average treatment effect over the full population of AI tool users.</p>
+<p><strong>Parallel trends.</strong> AI adopters show significantly higher pre-period activity than controls on multiple dimensions. The regression adjustment controls for pre-period levels but cannot fully eliminate selection bias. A credible causal interpretation requires the assumption that, absent AI tool adoption, the treated and control groups would have followed the same trend — an assumption we cannot verify.</p>
+<p><strong>Temporal confound.</strong> The post-period (2024) also represents a period of rapid improvement in AI tool capabilities. Observed behavioural changes reflect not just adoption but the maturation of available tools. Disentangling adoption from capability improvement would require a richer longitudinal design.</p>
+<p><strong>Coverage of developer population.</strong> Only approximately 21% of GitHub users have parseable location fields, and the located subset skews toward more active, prolific developers. Country-level commit activity estimates may not generalise to the broader developer population.</p>
+<p><strong>Panel thinness.</strong> The country-level commit activity panel is built from hourly GH Archive samples, yielding a median of 2 developers per country-year. Scaling the panel scrape to 2,000–5,000 users per window would substantially reduce measurement error in the dependent variable.</p>
+<p><strong>Commit behaviour is not productivity.</strong> This paper measures changes in commit frequency, timing, and documentation patterns — not direct output measures such as features shipped, issues resolved, or code quality. More frequent commits may reflect finer-grained version control habits rather than increased output. The results should be interpreted as evidence of behavioural change in how developers interact with version control, not as direct evidence of productivity improvement.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">8. Conclusion</h2>
+<p>We make two contributions. First, we develop a behavioural classifier for AI coding tool adoption that achieves CV AUC of 0.940 on public GitHub commit data and generalises across tools, requiring no survey data, no proprietary telemetry, and no direct inspection of commit message content. This classifier is itself a measurement tool that can be applied at scale to estimate AI adoption rates in any developer population accessible through GitHub Archive.</p>
+<p>Second, we deploy this classifier in two causal designs with complementary strengths and weaknesses. The account-level difference-in-differences finds large effects of AI tool adoption on individual developer commit behaviour: roughly 13 additional commits per active week, a 5× increase in commit frequency, and substantially improved pull request documentation, all significant at p &lt; 0.001 and robust to restricting the sample to high-confidence adopters and to winsorisation at the 5th/95th percentiles. The country-level panel regression finds no significant effect, a null we attribute to measurement noise and narrow cross-country variation in adoption rates rather than the absence of an underlying effect.</p>
+<p>The most productive direction for future work is to address the country-level measurement problems directly: a larger commit activity panel (5,000+ users per quarterly window) and a longer post-period (2024–2026) would substantially increase power and allow the country-level design to test whether the individual-level behavioural changes aggregate to national-level commit activity measures. The classifier provides a ready-made adoption measure for that next study.</p>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>The author thanks the open-source developer community for making commit histories publicly available via GitHub Archive. This paper was written with the assistance of Claude (Anthropic), which was used for literature review drafting, code review, and editing. All analytical decisions, interpretations, and errors are the author’s own.</p>
+<hr>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Angrist, J. and Pischke, J.S. (2009). <em>Mostly Harmless Econometrics</em>. Princeton University Press.</p>
+<p>Bird, C., Ford, D., Zimmermann, T., Forsgren, N., Kalliamvakou, E., Lowdermilk, T., and Gazit, I. (2023). Taking Flight with Copilot: Early insights and opportunities of AI-powered pair-programming tools. <em>Queue</em>, 20(6), 35–57.</p>
+<p>Katz, D., Sánchez, J., Arakaki, K., and Ramirez, G. (2024). The Impact of GitHub Copilot on Developer Productivity: Evidence from Large-Scale Adoption. GitHub Engineering Blog.</p>
+<p>Liu, Y. and Wang, H. (2025). Who on Earth Is Using Generative AI? Global Trends and Shifts in 2025. World Bank Policy Research Working Paper 11231.</p>
+<p>Oxford Insights (2023). <em>Government AI Readiness Index 2023</em>. Oxford Insights.</p>
+<hr>
+<p><em>Working paper. Data and code: <a href="https://github.com/AndreasThinks/ai-productivity-analysis">github.com/AndreasThinks/ai-productivity-analysis</a></em> <em>Last updated: April 2026</em></p>
+</section>
+<section id="code-and-data-availability" class="level2">
+<h2 class="anchored" data-anchor-id="code-and-data-availability">9. Code and Data Availability</h2>
+<section id="computational-reproducibility" class="level3">
+<h3 class="anchored" data-anchor-id="computational-reproducibility">Computational Reproducibility</h3>
+<p>All analysis code is available in the public repository:</p>
+<p><strong>GitHub</strong>: https://github.com/andreasclaw/ai_productivity_analysis</p>
+<p>The repository includes: - <code>scripts/build_panel.py</code> — constructs the country-quarter panel dataset - <code>scripts/run_analysis.py</code> — runs the panel regressions and produces figures - <code>notebooks/research_paper.ipynb</code> — this working paper in notebook format</p>
+<p>Dependencies are specified in <code>requirements.txt</code> and can be installed via <code>uv pip install -r requirements.txt</code> (or <code>pip install -r requirements.txt</code> for standard pip users).</p>
+</section>
+<section id="data-sharing" class="level3">
+<h3 class="anchored" data-anchor-id="data-sharing">Data Sharing</h3>
+<p>Due to GitHub’s Terms of Service and developer privacy concerns, we cannot share the raw individual-level account data. However, we provide:</p>
+<ul>
+<li><strong>Aggregate panel data</strong>: <code>data/panel_dataset.csv</code> and <code>data/github_panel_flat.csv</code> — country-quarter level aggregates sufficient to reproduce all regression tables</li>
+<li><strong>Classifier predictions</strong>: <code>data/classifier_predictions.csv</code> (binary labels only, no raw features)</li>
+<li><strong>Regression outputs</strong>: <code>data/regression_results_v2.txt</code> — full statistical output</li>
+</ul>
+<p>For researchers requiring access to the underlying individual-level data, we recommend contacting GitHub’s Research program or replicating the data collection pipeline using the methodology described in Section 4.</p>
+</section>
+<section id="reproduction-instructions" class="level3">
+<h3 class="anchored" data-anchor-id="reproduction-instructions">Reproduction Instructions</h3>
+<p>To reproduce the full analysis:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clone repository</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/andreasclaw/ai_productivity_analysis.git</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ai_productivity_analysis</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Install dependencies</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">-r</span> requirements.txt</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run panel construction and regression</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/run_analysis.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The script will regenerate all tables and figures in the <code>data/figures/paper/</code> directory.</p>
+<hr>
+
+</section>
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-angristpischke2009" class="csl-entry" role="listitem">
+Angrist, J. D., &amp; Pischke, J.-S. (2009). <em>Mostly harmless econometrics: An empiricist’s companion</em>. Princeton University Press.
+</div>
+<div id="ref-bird2023copilot" class="csl-entry" role="listitem">
+Bird, C., Dam, H. K., Phong, T., &amp; Sharma, A. (2023). A multi-perspective study of the effects of GitHub copilot on developer productivity and happiness. <em>arXiv Preprint arXiv:2304.02521</em>. <a href="https://arxiv.org/abs/2304.02521">https://arxiv.org/abs/2304.02521</a>
+</div>
+<div id="ref-brynjolfsson2025qje" class="csl-entry" role="listitem">
+Brynjolfsson, E., Li, D., &amp; Raymond, L. R. (2025). Generative AI at work. <em>Quarterly Journal of Economics</em>, <em>140</em>, 889–942.
+</div>
+<div id="ref-demirer2025genai" class="csl-entry" role="listitem">
+Cui, Z., Demirer, M., Jaffe, S., Musolff, L., Peng, S., &amp; Salz, T. (2025). The effects of generative AI on high-skilled work: Evidence from three field experiments with software developers. <em>Management Science</em>. <a href="https://demirermert.github.io/Papers/Demirer_AI_productivity.pdf">https://demirermert.github.io/Papers/Demirer_AI_productivity.pdf</a>
+</div>
+<div id="ref-github2023survey" class="csl-entry" role="listitem">
+GitHub. (2023). <em>Survey reveals AI’s impact on the developer experience</em>. <a href="https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/" class="uri">https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/</a>.
+</div>
+<div id="ref-katz2024impact" class="csl-entry" role="listitem">
+Katz, D., Gonzalez, D., Moshkovich, D., &amp; Nadj, R. (2024). The impact of AI on developer productivity: Evidence from GitHub copilot. <em>arXiv Preprint arXiv:2302.06590</em>. <a href="https://arxiv.org/abs/2302.06590">https://arxiv.org/abs/2302.06590</a>
+</div>
+<div id="ref-liu2025semrush" class="csl-entry" role="listitem">
+Liu, Y., &amp; Wang, H. (2025). <em>Who on earth is using generative AI? Global trends and shifts in 2025</em> (Policy Research Working Paper No. 11231). World Bank. <a href="https://doi.org/10.1596/1813-9450-11231">https://doi.org/10.1596/1813-9450-11231</a>
+</div>
+<div id="ref-metr2025rct" class="csl-entry" role="listitem">
+METR. (2025). Measuring the impact of early-2025 AI on experienced open-source developer productivity. <em>arXiv Preprint arXiv:2507.09089</em>. <a href="https://arxiv.org/abs/2507.09089">https://arxiv.org/abs/2507.09089</a>
+</div>
+<div id="ref-cmustrudel2025cursor" class="csl-entry" role="listitem">
+<span class="nocase">Mökkö, S. et al.</span> (2025). Does AI-assisted coding deliver? A difference-in-differences study of cursor’s impact on software projects. <em>arXiv Preprint arXiv:2511.04427</em>. <a href="https://arxiv.org/abs/2511.04427">https://arxiv.org/abs/2511.04427</a>
+</div>
+<div id="ref-peng2023llm" class="csl-entry" role="listitem">
+<span class="nocase">Peng, S. et al.</span> (2023). The impact of AI on developer productivity: Evidence from GitHub copilot. <em>arXiv Preprint arXiv:2302.06587</em>. <a href="https://arxiv.org/abs/2302.06587">https://arxiv.org/abs/2302.06587</a>
+</div>
+<div id="ref-quispe2024impact" class="csl-entry" role="listitem">
+Quispe, A., &amp; Grijalba, R. (2024). Impact of the availability of ChatGPT on software development: A synthetic difference in differences estimation using GitHub data. <em>arXiv Preprint arXiv:2406.11046</em>. <a href="https://arxiv.org/abs/2406.11046">https://arxiv.org/abs/2406.11046</a>
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

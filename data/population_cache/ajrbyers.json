@@ -1,0 +1,1 @@
+{"login": "ajrbyers", "location": "Falkirk, Scotland", "commits": [{"sha": "9c1e23491ef5de1db802864cbd283b9d1eb96c25", "message": "Merge pull request #1 from JosephMcArthur/patch-1\n\nfixes missing links in footer (&removes facebook)", "created_at": "2017-10-25T09:59:19Z", "repo": "paywallwatch", "file_sampled": false, "has_test_file": null, "has_impl_file": null}], "prs": []}

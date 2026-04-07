@@ -4,7 +4,21 @@
 
 ---
 
-## Project Status: Phase 2 — Classifier Design
+## Project Status: Phase 2 — IV Fix Required (April 6, 2026)
+
+**Where we are:** Classifier is done and validated (AUC 0.940, Aider generalisation confirmed).
+Population scrape collected 887 accounts across 52 countries. **Critical blocker: the IV
+(pct_ai_users) in `build_panel_v2.py` has not been wired to use per-country scores — it still
+assigns the global mean to every country, making it collinear with the time FE. No valid
+regression result exists yet.**
+
+**Immediate next action:** Fix `build_panel_v2.py` to aggregate `population_scores.csv` +
+`population_scores_v2.csv` by country and use those as the IV. Run regression on the 20
+countries already at ≥15 accounts. See AGENTS.md "Current status" for the full step list.
+
+**Both scrapers stopped April 6. Systemd service disabled. Do not restart until IV fix is done.**
+
+---
 
 Phase 1 (panel regression with Oxford Insights AI Readiness Index) returned a null result. The likely cause is that the independent variable measures government AI policy readiness, not whether individual developers are actually using AI tools. Phase 2 replaces it with an account-level classifier.
 
@@ -518,20 +532,61 @@ Signal is real — three independent features all point the same direction at 15
 
 ---
 
-## Immediate Next Steps
+## Immediate Next Steps (April 6, 2026)
 
-1. ~~Run full scrape with v2.1~~ **Done** — multiple runs completed (v2.1 through v2.6)
-2. ~~Check both-window coverage~~ **Done** — 102 accounts passed (30 pos / 72 neg) in v2.2; 65 in v2.6 (18 pos / 47 neg)
-3. ~~First classifier~~ **Done** — RF best model, CV AUC 0.828 (N=65)
-4. ~~v2.7 scrape~~ **Done** — completed March 29/30. 235 accounts (33 pos, 202 neg), both-window filter applied. Data: `data/classifier_full_features.csv`
-5. ~~Retrain classifier on expanded dataset~~ **Done** — RF CV AUC **0.940 ± 0.054** on N=235 (script run: `scripts/train_classifier.py`). Model saved to `data/classifier_model.pkl`.
-5b. ~~Writing-style ablation~~ **Done** — dropping all message length, bullets, multiline, conventional commits, PR body features costs only 3.1 AUC points (0.940 → 0.909). Activity signals (inter-commit hours, active weeks, commit cadence) carry the model on their own. See AGENTS.md for full results.
-6. ~~**Validate on other tool markers**~~ **Done — March 30, 2026.** Aider validation complete. 36 accounts scored. Mean score: 0.727 (vs 0.776 Claude positives, 0.033 negatives). Mann-Whitney p=0.0000 vs negatives, p=0.065 vs Claude positives. **Generalisation confirmed** — classifier detects AI-assisted coding beyond Claude Code. See AGENTS.md for full score distribution table.
-7. ~~**Build `scripts/build_panel_v2.py`**~~ **Done (prototype)** — confirmed the IV construction problem: proxy was a constant time trend, perfectly collinear with time FE. Regression B produced nonsense coefficients. Root cause: training data accounts are not a representative population sample. Need step 9 first.
-8. ~~Save model pkl~~ **Done** — `scripts/train_classifier.py` saves RF + imputer + feature list to `data/classifier_model.pkl`.
-9. **Population scrape + country-quarter IV** — IN PROGRESS. Script: `scripts/scrape_population.py`. Target: 3,000 accounts from GH Archive with location fields, covering all 54 panel countries. Light scrape mode: no file sampling, capped at 5 repos and 100 commits each (~25 API calls per account vs 122 in the classifier scraper). Estimated runtime: ~15 hours. Once complete, aggregate to per-country-quarter `pct_ai_users`, merge onto panel, rerun PanelOLS.
-10. **Rerun build_panel_v2.py with real IV** — once population scrape completes. This is the final regression: pct_ai_users (genuine cross-country variation) as IV, log(commits_per_dev) as DV, country + time FE, clustered SE by country.
+### Completed
+
+1. ~~Full scraper runs v2.1 through v2.7~~ **Done**
+2. ~~Both-window coverage check~~ **Done** — 235 accounts (33 pos, 202 neg)
+3. ~~Classifier training~~ **Done** — RF CV AUC 0.940 ± 0.054. `data/classifier_model.pkl`
+4. ~~Writing-style ablation~~ **Done** — 0.940 → 0.909 without style features. Behavioural signals carry the model.
+5. ~~Aider validation~~ **Done** — mean score 0.727. Generalisation confirmed.
+6. ~~`build_panel_v2.py` prototype~~ **Done** — IV broken (global mean collinear with time FE). Confirmed broken; not fixed yet.
+7. ~~Population scrape~~ **STOPPED April 6** — 887 accounts (v1+v2), 52 countries, 20 at ≥15 threshold. Systemd service disabled.
+
+### Up next — in priority order
+
+**1. Fix IV aggregation in `build_panel_v2.py` (critical path)**
+
+The `data/country_quarter_ai_adoption.csv` assigns the global mean (0.13756) to all countries
+in 2024 and 0.0 before that. Zero cross-country variation. The regression is numerically singular.
+
+Fix: load `population_scrape_status.csv` (status=scored), join to `population_scores.csv` on
+login for classifier scores, merge in `population_scores_v2.csv` (deduplicate by login),
+compute per-country mean, write to adoption CSV. Filter to countries with ≥15 accounts.
+
+Run Phase 2 regression immediately on the 20 countries already at threshold — don't wait for
+more data. This is the only thing blocking a valid result.
+
+**2. Trim PANEL_COUNTRIES in `scrape_population.py`**
+
+Drop 16 countries (54 → 38). See `country_trim_analysis.md` for full list and rationale.
+Countries to remove: LK, SA, GR, IE, MY, RO, TW, ZA, UA, NZ, CO, BE, TH, HU, NP (AR conditional).
+
+**3. Restart scraper after steps 1 and 2**
+
+Use `bash run_population_scrape.sh` directly. Do NOT re-enable the systemd service — the
+`Restart=on-failure` policy caused a duplicate-instance incident on April 6.
+Target: get remaining 18 countries from current threshold to ≥15.
+
+**4. Rerun regression when ≥25 countries at ≥15 accounts**
+
+Same PanelOLS spec as prototype: `log(commits_per_dev) ~ pct_ai_users + EntityEffects + TimeEffects`,
+clustered SE by country. No automation — run manually, review output.
+
+**5. Address GitHub productivity panel thinness (parallel track)**
+
+Median n_developers per country-year = 2. Options:
+- Apply ≥5 developer minimum filter before regression merge
+- Increase `scrape_github_panel.py` from 500 to 2000+ users/window
+- Drop quarterly granularity, aggregate to country-year only
+
+**6. Robustness checks (after first valid result)**
+
+- Subset to countries with ≥30 accounts
+- Google Trends "ChatGPT" as alternative IV (free, fast to download)
+- Flag dropped countries (ZA, RO, UA, MY) as limitations re: middle-income coverage
 
 ---
 
-*Last updated: March 30, 2026*
+*Last updated: April 6, 2026*

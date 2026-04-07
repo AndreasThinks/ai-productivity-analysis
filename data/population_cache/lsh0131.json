@@ -1,0 +1,1 @@
+{"login": "lsh0131", "location": null, "commits": [{"sha": "07a17ebcfd5d93fdf14168c915447da5644301bf", "message": "Initial commit", "created_at": "2024-11-06T00:27:52Z", "repo": "myproject", "file_sampled": false, "has_test_file": null, "has_impl_file": null}], "prs": [{"created_at": "2024-11-06T02:09:36Z", "body_length": 21}]}

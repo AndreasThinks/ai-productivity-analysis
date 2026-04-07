@@ -1,0 +1,1 @@
+{"login": "tatdadmin", "location": null, "commits": [{"sha": "9ea1fe0e9345e0f7b077c84b8b5e138dd654be02", "message": "Initial commit", "created_at": "2025-02-26T08:15:02Z", "repo": "localse-admin-panel", "file_sampled": false, "has_test_file": null, "has_impl_file": null}], "prs": []}

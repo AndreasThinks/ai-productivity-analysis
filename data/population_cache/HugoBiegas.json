@@ -1,0 +1,1 @@
+{"login": "HugoBiegas", "location": null, "commits": [{"sha": "74f9397f620c02de45b83a4988fe191ecbd0f9ca", "message": "Delete facture/vendor directory", "created_at": "2025-03-16T16:57:16Z", "repo": "facture", "file_sampled": false, "has_test_file": null, "has_impl_file": null}], "prs": []}

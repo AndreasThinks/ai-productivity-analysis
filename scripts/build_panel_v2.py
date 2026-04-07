@@ -137,72 +137,77 @@ print(f"  Countries in panel: {panel['country'].nunique()}")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 4e. Score panel accounts / build country-year AI adoption fraction
+# 4e. Build country-level AI adoption fraction from population scrape
 # ─────────────────────────────────────────────────────────────────────────────
 print()
 print("=" * 70)
-print("4e. Building country-year AI adoption fraction")
+print("4e. Building country-level AI adoption fraction from population scrape")
 print("=" * 70)
 
-# The panel doesn't contain individual logins — it's already aggregated by
-# country-quarter. We can't score individual accounts here.
-#
-# PROXY APPROACH:
-# For accounts in classifier_predictions.csv (training+eval set), we have
-# predicted_prob. But these accounts don't map to the panel's country-quarter
-# aggregates — the panel was built from GH Archive activity, not from the
-# classifier training accounts.
-#
-# Since the panel data is already a country-quarter aggregate with no individual
-# account breakdown, and we don't have a location breakdown for the classifier
-# training accounts that links them to the panel, we use the following approach:
-#
-# Option A (preferred, used here): Use the panel's quarterly time structure as
-# a proxy for AI adoption intensity over time. AI tools launched late 2023 /
-# early 2024. We create a TIME-BASED adoption proxy:
-#   - pre-AI era (2022, 2023): pct_ai_users_proxy = 0.0
-#   - post-AI launch (2024):   pct_ai_users_proxy = mean classifier score from
-#                               classifier_predictions.csv (our best estimate
-#                               of the fraction of active GitHub developers
-#                               using AI tools by 2024)
-#
-# This is a valid (if coarse) instrument: it gives cross-sectional variation if
-# we interact it with country-level characteristics, and it creates a structural
-# break at the AI launch that can be compared to productivity trends.
-#
-# Limitation: without per-account location data from the full panel scrape, we
-# cannot compute TRUE country-quarter adoption fractions. Flag this prominently.
+POP_SCORES_V1  = os.path.join(DATA, "population_scores.csv")
+POP_SCORES_V2  = os.path.join(DATA, "population_scores_v2.csv")
+MIN_ACCOUNTS   = 15   # minimum scored accounts per country to include in regression C
 
-# Load predictions to get the mean AI probability estimate for 2024 accounts
+# Load v1 and v2 population scores, deduplicate by login
+scores_v1 = pd.read_csv(POP_SCORES_V1) if os.path.exists(POP_SCORES_V1) else pd.DataFrame()
+scores_v2 = pd.read_csv(POP_SCORES_V2) if os.path.exists(POP_SCORES_V2) else pd.DataFrame()
+
+print(f"  Population scores v1: {len(scores_v1)} accounts")
+print(f"  Population scores v2: {len(scores_v2)} accounts")
+
+scores_all = pd.concat([scores_v1, scores_v2], ignore_index=True)
+scores_all = scores_all.drop_duplicates(subset="login", keep="first")
+print(f"  Combined unique accounts: {len(scores_all)}")
+
+# Per-country mean of post_classifier_score (post-period behaviour = the IV)
+country_adoption = (
+    scores_all.groupby("country")
+    .agg(
+        mean_ai_score=("post_classifier_score", "mean"),
+        n_accounts=("login", "count"),
+    )
+    .reset_index()
+)
+
+# Countries meeting minimum threshold
+country_adoption_filtered = country_adoption[
+    country_adoption["n_accounts"] >= MIN_ACCOUNTS
+].copy()
+
+print(f"\n  Countries with >= {MIN_ACCOUNTS} accounts: {len(country_adoption_filtered)}")
+print(country_adoption_filtered.sort_values("mean_ai_score", ascending=False).to_string(index=False))
+
+# Build IV: pct_ai_users = 0 in 2022/2023 (pre-launch), = country mean score in 2024
+# This gives cross-country AND cross-time variation (unlike the old global-mean proxy).
+country_score_map = dict(zip(
+    country_adoption_filtered["country"],
+    country_adoption_filtered["mean_ai_score"]
+))
+country_n_map = dict(zip(
+    country_adoption_filtered["country"],
+    country_adoption_filtered["n_accounts"]
+))
+
+def get_pct_ai(row):
+    if row["year"] < 2024:
+        return 0.0
+    return country_score_map.get(row["country"], float("nan"))
+
+def get_pct_ai_n(row):
+    if row["year"] < 2024:
+        return 0
+    return country_n_map.get(row["country"], 0)
+
+panel["pct_ai_users"]   = panel.apply(get_pct_ai, axis=1)
+panel["pct_ai_users_n"] = panel.apply(get_pct_ai_n, axis=1)
+
+# Also keep the old time-proxy for Regression B (for comparison)
 preds = pd.read_csv(PREDICTIONS_CSV)
-mean_2024_ai_score = preds["predicted_prob"].mean()
+mean_2024_ai_score   = preds["predicted_prob"].mean()
 frac_above_threshold = (preds["predicted_prob"] > 0.5).mean()
+panel["pct_ai_users_proxy"] = panel["year"].map({2022: 0.0, 2023: 0.0, 2024: float(mean_2024_ai_score)})
 
-print(f"  Classifier predictions: n={len(preds)}")
-print(f"  Mean predicted_prob (training accounts): {mean_2024_ai_score:.3f}")
-print(f"  Fraction above 0.5 threshold: {frac_above_threshold:.1%}")
-print()
-print("  NOTE: Panel does not contain individual account logins.")
-print("  Cannot compute true per-country AI adoption fraction without a full")
-print("  population scrape linking accounts to countries.")
-print()
-print("  Proxy: using time-based AI adoption indicator:")
-print("    2022, 2023 → pct_ai_users = 0.0 (pre-launch baseline)")
-print("    2024       → pct_ai_users = mean classifier score from training set")
-print("  This gives a structural break at AI tool launch date.")
-print("  Cross-country variation requires broader population scoring (Step 9).")
-
-# Build the time-based proxy
-adoption_by_year = {
-    2022: 0.0,
-    2023: 0.0,
-    2024: float(mean_2024_ai_score),
-}
-
-panel["pct_ai_users"] = panel["year"].map(adoption_by_year)
-panel["pct_ai_users_n"] = panel["year"].map({2022: 0, 2023: 0, 2024: len(preds)})
-
-# Country-quarter adoption summary
+# Save adoption CSV (per-country real IV)
 cq_adoption = (
     panel[["country", "year", "quarter", "pct_ai_users", "pct_ai_users_n"]]
     .drop_duplicates()
@@ -211,6 +216,9 @@ cq_adoption = (
 cq_adoption.to_csv(ADOPTION_OUT, index=False)
 print(f"\n  Country-quarter adoption data saved: {ADOPTION_OUT}")
 print(f"  Rows: {len(cq_adoption)}")
+print(f"\n  NOTE: pct_ai_users = 0 for 2022/2023 (pre-launch), per-country mean")
+print(f"  post_classifier_score for 2024. Only countries with >= {MIN_ACCOUNTS} accounts")
+print(f"  contribute to Regression C — all others get NaN and are dropped.")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -342,14 +350,27 @@ if not reg_a_run:
         "R²": "N/A",
     })
 
-# ── Regression B: Phase 2 (classifier-based time proxy) ─────────────────────
+# ── Regression B: Phase 2 (classifier-based time proxy — kept for comparison) ─
 print()
-print("  Regression B: Phase 2 (pct_ai_users — time-based proxy)")
+print("  Regression B: Phase 2 (pct_ai_users_proxy — time-based proxy, BROKEN, for comparison only)")
+
+panel_year_proxy = (
+    panel_clean.groupby(["country", "year"])
+    .agg(
+        log_commits=("log_commits", "mean"),
+        log_prs=("log_prs", "mean"),
+        log_events=("log_events", "mean"),
+        pct_ai_users=("pct_ai_users_proxy", "mean"),
+        n_developers=("n_developers", "sum"),
+    )
+    .reset_index()
+    .set_index(["country", "year"])
+)
 
 try:
     mod_b = PanelOLS.from_formula(
         "log_commits ~ pct_ai_users + EntityEffects + TimeEffects",
-        data=panel_year,
+        data=panel_year_proxy,
         drop_absorbed=True,
     )
     res_b = mod_b.fit(cov_type="clustered", cluster_entity=True)
@@ -359,12 +380,14 @@ try:
     r2_b   = res_b.rsquared
     n_b    = int(res_b.nobs)
     print(f"  B — N={n_b}, coef={coef_b:.4f}, SE={se_b:.4f}, p={pval_b:.4f}, R²={r2_b:.4f}")
-    results_text.append("REGRESSION B — Phase 2 (classifier-based IV, time proxy)")
+    print(f"  (expected singular/garbage — this is the broken time-proxy for reference)")
+    results_text.append("REGRESSION B — Phase 2 (classifier-based IV, time proxy — BROKEN BASELINE)")
+    results_text.append("NOTE: pct_ai_users_proxy is collinear with time FE. Coefficient is meaningless.")
     results_text.append(str(res_b.summary))
     results_text.append("")
     comparison_rows.append({
-        "Model": "B — Phase 2 (classifier proxy)",
-        "IV": "pct_ai_users (time proxy)",
+        "Model": "B — Phase 2 (time proxy, broken)",
+        "IV": "pct_ai_users_proxy (global mean in 2024)",
         "N": n_b,
         "Coef": f"{coef_b:.4f}",
         "SE": f"{se_b:.4f}",
@@ -379,14 +402,91 @@ except Exception as e:
     reg_b_ok = False
     coef_b = se_b = pval_b = r2_b = n_b = None
     comparison_rows.append({
-        "Model": "B — Phase 2 (classifier proxy)",
-        "IV": "pct_ai_users (time proxy)",
+        "Model": "B — Phase 2 (time proxy, broken)",
+        "IV": "pct_ai_users_proxy (global mean in 2024)",
         "N": "N/A",
         "Coef": "N/A",
         "SE": "N/A",
         "p-value": "N/A",
         "R²": "N/A",
     })
+
+# ── Regression C: Phase 2 REAL IV (per-country adoption from population scrape) ─
+print()
+print("  Regression C: Phase 2 REAL IV (per-country mean classifier score)")
+print(f"  Using countries with >= {MIN_ACCOUNTS} scored accounts only")
+
+# Filter panel to countries in our scored set + drop NaN pct_ai_users (countries without scores)
+panel_c_clean = panel_clean.dropna(subset=["pct_ai_users"]).copy()
+panel_c_clean = panel_c_clean[panel_c_clean["country"].isin(country_score_map.keys())]
+
+panel_year_c = (
+    panel_c_clean.groupby(["country", "year"])
+    .agg(
+        log_commits=("log_commits", "mean"),
+        log_prs=("log_prs", "mean"),
+        log_events=("log_events", "mean"),
+        pct_ai_users=("pct_ai_users", "mean"),
+        n_developers=("n_developers", "sum"),
+    )
+    .reset_index()
+    .set_index(["country", "year"])
+)
+
+print(f"  Panel C: {len(panel_year_c)} country-year obs, {panel_year_c.reset_index()['country'].nunique()} countries")
+
+coef_c = se_c = pval_c = r2_c = n_c = None
+reg_c_ok = False
+
+if len(panel_year_c) < 10:
+    print("  Too few observations for regression C — need more countries at >= 15 accounts")
+    results_text.append("REGRESSION C: Skipped — insufficient country overlap between panel and scored accounts")
+    results_text.append("")
+    comparison_rows.append({
+        "Model": "C — Phase 2 (REAL per-country IV)",
+        "IV": f"pct_ai_users (pop. scrape, n>={MIN_ACCOUNTS})",
+        "N": "insufficient",
+        "Coef": "N/A", "SE": "N/A", "p-value": "N/A", "R²": "N/A",
+    })
+else:
+    try:
+        mod_c = PanelOLS.from_formula(
+            "log_commits ~ pct_ai_users + EntityEffects + TimeEffects",
+            data=panel_year_c,
+            drop_absorbed=True,
+        )
+        res_c = mod_c.fit(cov_type="clustered", cluster_entity=True)
+        coef_c = res_c.params["pct_ai_users"]
+        se_c   = res_c.std_errors["pct_ai_users"]
+        pval_c = res_c.pvalues["pct_ai_users"]
+        r2_c   = res_c.rsquared
+        n_c    = int(res_c.nobs)
+        print(f"  C — N={n_c}, coef={coef_c:.4f}, SE={se_c:.4f}, p={pval_c:.4f}, R²={r2_c:.4f}")
+        results_text.append("REGRESSION C — Phase 2 REAL IV (per-country classifier score from population scrape)")
+        results_text.append(f"Countries included: {sorted(panel_year_c.reset_index()['country'].unique().tolist())}")
+        results_text.append(f"Min accounts per country: {MIN_ACCOUNTS}")
+        results_text.append(str(res_c.summary))
+        results_text.append("")
+        comparison_rows.append({
+            "Model": "C — Phase 2 (REAL per-country IV)",
+            "IV": f"pct_ai_users (pop. scrape, n>={MIN_ACCOUNTS})",
+            "N": n_c,
+            "Coef": f"{coef_c:.4f}",
+            "SE": f"{se_c:.4f}",
+            "p-value": f"{pval_c:.4f}",
+            "R²": f"{r2_c:.4f}",
+        })
+        reg_c_ok = True
+    except Exception as e:
+        print(f"  Regression C failed: {e}")
+        results_text.append(f"Regression C: FAILED — {e}")
+        results_text.append("")
+        comparison_rows.append({
+            "Model": "C — Phase 2 (REAL per-country IV)",
+            "IV": f"pct_ai_users (pop. scrape, n>={MIN_ACCOUNTS})",
+            "N": "N/A",
+            "Coef": "N/A", "SE": "N/A", "p-value": "N/A", "R²": "N/A",
+        })
 
 # Comparison table
 results_text.append("")
@@ -423,25 +523,32 @@ print("COMPARISON TABLE:")
 print(comp_df.to_string(index=False))
 print()
 
+print("Regression B (time proxy — for reference only, DO NOT interpret):")
 if reg_b_ok:
-    direction = "POSITIVE" if coef_b > 0 else "NEGATIVE"
-    sig = "SIGNIFICANT" if pval_b < 0.05 else "NOT significant"
-    print(f"Regression B — pct_ai_users coefficient: {coef_b:.4f} (SE={se_b:.4f}, p={pval_b:.4f})")
-    print(f"Direction: {direction} effect on log(commits_per_dev + 1)")
-    print(f"Significance at p<0.05: {sig}")
-    print()
-    if pval_b < 0.05:
-        print("→ The classifier-based AI adoption proxy is significantly associated with")
-        print("  developer productivity in the panel. This improves on Phase 1's null result.")
-    else:
-        print("→ The classifier-based proxy is not significant in this regression.")
-        print("  IMPORTANT CAVEAT: pct_ai_users is a TIME proxy (2024 vs 2022/23), not a")
-        print("  true cross-country variation measure. It is collinear with the time FE and")
-        print("  will be absorbed or nearly absorbed by them. This is a known limitation.")
-        print("  The coefficient reflects the 2022→2024 trend unexplained by country FE,")
-        print("  not cross-country variation in AI adoption rates.")
+    print(f"  coef={coef_b:.4f}, SE={se_b:.4f}, p={pval_b:.4f} — collinear with time FE, meaningless")
 else:
-    print("Regression B did not run successfully.")
+    print("  Did not run.")
+
+print()
+print("Regression C (REAL per-country IV — primary result):")
+if reg_c_ok:
+    direction = "POSITIVE" if coef_c > 0 else "NEGATIVE"
+    sig = "SIGNIFICANT (p<0.05)" if pval_c < 0.05 else "not significant (p>0.05)"
+    print(f"  coef={coef_c:.4f}, SE={se_c:.4f}, p={pval_c:.4f}, R²={r2_c:.4f}, N={n_c}")
+    print(f"  Direction: {direction} effect on log(commits_per_dev + 1)")
+    print(f"  Significance: {sig}")
+    print()
+    if pval_c < 0.05:
+        print("→ Countries with higher AI tool adoption (per classifier) show")
+        print(f"  {'higher' if coef_c > 0 else 'lower'} developer productivity in 2024 vs their own baseline.")
+        print("  This is the first valid Phase 2 result.")
+    else:
+        print("→ No significant association between per-country AI adoption and productivity.")
+        print("  Possible reasons: panel thinness (median 2 devs/country-year), narrow")
+        print("  country set (only those with >=15 scored accounts), or genuine null.")
+        print("  Increase scrape coverage before concluding.")
+else:
+    print("  Regression C did not run — insufficient country overlap between panel and scored set.")
 
 print()
 print("KEY LIMITATIONS:")

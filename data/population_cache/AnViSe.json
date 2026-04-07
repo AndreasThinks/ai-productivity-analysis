@@ -1,0 +1,1 @@
+{"login": "AnViSe", "location": "Grodno", "commits": [{"sha": "fea061af57b7a68551e1c3f0b4cbad0d93cde50d", "message": "Initial commit", "created_at": "2021-11-23T13:29:29Z", "repo": "fastapi-sqlmodel", "file_sampled": false, "has_test_file": null, "has_impl_file": null}], "prs": []}
