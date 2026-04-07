@@ -1,4 +1,5 @@
 % AI Coding Tools & Developer Productivity Literature
+% Local PDFs in data/references/ (gitignored — not committed)
 
 @article{quispe2024impact,
   title = {Impact of the Availability of ChatGPT on Software Development: A Synthetic Difference in Differences Estimation using GitHub Data},
@@ -8,7 +9,8 @@
   month = {June},
   eprint = {2406.11046},
   archiveprefix = {arXiv},
-  primaryclass = {cs.SE}
+  primaryclass = {cs.SE},
+  url = {https://arxiv.org/abs/2406.11046}
 }
 
 @article{cmustrudel2025cursor,
@@ -20,7 +22,8 @@
   eprint = {2511.04427},
   archiveprefix = {arXiv},
   primaryclass = {cs.SE},
-  note = {Carnegie Mellon University}
+  note = {Carnegie Mellon University},
+  url = {https://arxiv.org/abs/2511.04427}
 }
 
 @article{bird2023copilot,
@@ -31,17 +34,19 @@
   eprint = {2304.02521},
   archiveprefix = {arXiv},
   primaryclass = {cs.SE},
-  note = {Microsoft Copilot field experiment, ICSE 2023}
+  note = {Microsoft Copilot field experiment, ICSE 2023},
+  url = {https://arxiv.org/abs/2304.02521}
 }
 
 @article{peng2023llm,
-  title = {Impact of Large Language Models on Programming: A Comprehensive Study},
+  title = {The Impact of AI on Developer Productivity: Evidence from GitHub Copilot},
   author = {Peng, S. and others},
   journal = {arXiv preprint arXiv:2302.06587},
   year = {2023},
   eprint = {2302.06587},
   archiveprefix = {arXiv},
-  primaryclass = {cs.SE}
+  primaryclass = {cs.SE},
+  url = {https://arxiv.org/abs/2302.06587}
 }
 
 @article{katz2024impact,
@@ -51,7 +56,19 @@
   year = {2024},
   eprint = {2302.06590},
   archiveprefix = {arXiv},
-  primaryclass = {cs.SE}
+  primaryclass = {cs.SE},
+  url = {https://arxiv.org/abs/2302.06590}
+}
+
+@article{metr2025rct,
+  title = {Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity},
+  author = {{METR}},
+  journal = {arXiv preprint arXiv:2507.09089},
+  year = {2025},
+  eprint = {2507.09089},
+  archiveprefix = {arXiv},
+  primaryclass = {cs.SE},
+  url = {https://arxiv.org/abs/2507.09089}
 }
 
 @book{angristpischke2009,
@@ -61,28 +78,46 @@
   publisher = {Princeton University Press}
 }
 
-@article{brynjolfsson2025generative,
-  title = {The Effects of Generative AI on High-Skilled Work},
-  author = {Brynjolfsson, Erik and Li, D. and Ray, B.},
+% NOTE: the bib previously cited this as Brynjolfsson/Li/Ray in Management Science —
+% that attribution was wrong. The Management Science paper on AI and software developer
+% productivity is Cui, Demirer et al. The Brynjolfsson/Li/Raymond paper is
+% "Generative AI at Work" (QJE 2025) — a separate paper on call-centre workers.
+@article{demirer2025genai,
+  title = {The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers},
+  author = {Cui, Zheyuan and Demirer, Mert and Jaffe, Sonia and Musolff, Leon and Peng, Sida and Salz, Tobias},
   journal = {Management Science},
   year = {2025},
-  publisher = {INFORMS},
-  note = {Forthcoming}
+  note = {Forthcoming. SSRN 4945566},
+  url = {https://demirermert.github.io/Papers/Demirer_AI_productivity.pdf}
+}
+
+@article{brynjolfsson2025qje,
+  title = {Generative AI at Work},
+  author = {Brynjolfsson, Erik and Li, Danielle and Raymond, Lindsey R.},
+  journal = {Quarterly Journal of Economics},
+  volume = {140},
+  pages = {889--942},
+  year = {2025},
+  publisher = {Oxford University Press}
 }
 
 @misc{github2023survey,
   title = {Survey reveals AI's impact on the developer experience},
-  author = {GitHub},
+  author = {{GitHub}},
   year = {2023},
   howpublished = {\url{https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/}}
 }
 
-@article{liu2025semrush,
-  title = {Measuring AI adoption via web traffic data},
-  author = {Liu, Wei and Wang, Chen},
+% Actual authors: Liu, Yan and Wang, He (not Wei/Chen as previously noted)
+@techreport{liu2025semrush,
+  title = {Who on Earth Is Using Generative AI? Global Trends and Shifts in 2025},
+  author = {Liu, Yan and Wang, He},
   year = {2025},
-  journal = {Working Paper},
-  note = {World Bank / Semrush data}
+  institution = {World Bank},
+  type = {Policy Research Working Paper},
+  number = {11231},
+  doi = {10.1596/1813-9450-11231},
+  url = {https://openknowledge.worldbank.org/entities/publication/f4eea48b-41cd-4242-87ad-82dfa0dc85f2}
 }
 
 @article{svyatkovskiy2023intellicode,

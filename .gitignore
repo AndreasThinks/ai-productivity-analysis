@@ -15,6 +15,9 @@ data/classifier_full_raw.json
 data/oxford_insights/*.xlsx
 data/oxford_insights/*.pdf
 
+# Downloaded reference PDFs — local only, not committed
+data/references/
+
 # Python
 __pycache__/
 *.pyc
