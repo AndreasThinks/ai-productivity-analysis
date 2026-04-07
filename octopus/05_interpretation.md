@@ -10,7 +10,11 @@
 
 ## 1. Reconciling the Individual and Country-Level Results
 
-The account-level and country-level results appear to contradict each other. The account-level difference-in-differences finds large, highly significant changes in commit behaviour for AI adopters: 13 additional commits per active week, a five-fold increase in commit frequency, and substantially improved pull request documentation, all significant at p < 0.001 and robust to high-confidence restriction and outlier winsorisation. The country-level panel regression, by contrast, finds no detectable effect (coef = −6.06, SE = 7.96, p = 0.451), with the observed coefficient falling well within the range of what random country assignment would produce.
+The account-level and country-level results appear to contradict each other. The account-level difference-in-differences finds large, highly significant changes in commit behaviour for AI adopters: 13 additional commits per active week, a five-fold increase in commit frequency, and substantially improved pull request documentation, all significant at p < 0.001 and robust to high-confidence restriction and outlier winsorisation.
+
+These estimates are likely upper bounds, as the treated sample consists of early, intensive adopters and the classifier selection mechanism is partly based on the same behavioural features used as DiD outcomes.
+
+The country-level panel regression, by contrast, finds no detectable effect (coef = −6.06, SE = 7.96, p = 0.451), with the observed coefficient falling well within the range of what random country assignment would produce.
 
 We argue these results are consistent under three mechanisms that likely operate jointly.
 
@@ -47,6 +51,8 @@ The ablation result — AUC 0.909 using only commit timing and frequency feature
 **Selection.** The treated accounts are identified via explicit public AI markers — CLAUDE.md files, co-author trailers. These are almost certainly not representative of the full population of AI tool users. They are likely power users, early adopters, and developers who intentionally configured their tooling to leave traces. The effect sizes are plausibly upper bounds on the average treatment effect for the broader AI-using developer population.
 
 **Parallel trends.** AI adopters show significantly higher pre-period activity on several dimensions, indicating that they were on a steeper trajectory before adoption. The regression adjustment controls for pre-period levels but cannot fully eliminate this selection. The treatment effect estimates should be interpreted as upper bounds, not unbiased causal estimates.
+
+**Classifier–DiD circularity.** The classifier is trained using behavioural features — changes in commits per active week and inter-commit hours — that also serve as primary DiD outcome variables. Accounts classified as AI adopters are partly those with the largest shifts in these same metrics, creating a mechanical upward bias in the treatment effect estimates. The DiD adds information about the magnitude of change conditional on the classifier's selection, and the cross-tool generalisation confirms the behavioural signature is real, but the effect sizes should be interpreted as upper bounds rather than unbiased causal estimates of the ATT.
 
 **Temporal confound.** The post-period (2024) also corresponds to a period of rapid improvement in AI tool capabilities. Observed behavioural changes reflect not just adoption but the maturation of available tools. Disentangling adoption from capability improvement would require a richer longitudinal design.
 

@@ -47,14 +47,15 @@ Outcomes winsorised at 5th/95th percentiles to assess sensitivity to outliers:
 
 | Outcome | Main coef | Winsorised coef | Direction change? |
 |---|---|---|---|
-| Commits / active week | +13.1 | +11.8 | No |
-| Inter-commit hours | −275 | −198 | No |
-| Active weeks | −11.3 | −9.7 | No |
-| PR has body (frac) | +0.32 | +0.30 | No |
-| Message length (chars) | +54 | +41 | No |
-| Test co-write rate | +0.14 | +0.12 | No |
+| Commits / active week | +13.07 | +7.95 | No (−39% attenuation) |
+| Inter-commit hours | −275.26 | −179.16 | No (−35% attenuation) |
+| Active weeks | −11.25 | −9.19 | No (−18% attenuation) |
+| Message length (chars) | +54.26 | +30.26 | No (−44% attenuation) |
+| Conventional commits (frac) | +0.08 | +0.05 | No (−31% attenuation) |
+| PR has body (frac) | +0.32 | +0.28 | No (−13% attenuation) |
+| Test co-write rate | +0.14 | +0.11 | No (−21% attenuation) |
 
-No sign changes. Magnitudes reduce modestly, consistent with some influence from high-activity outliers in the treated group, but the pattern is robust.
+The two primary outcomes (commits per active week and inter-commit hours) attenuate by 35–39% under winsorisation, consistent with some influence from high-activity outliers in the treated group. No outcome changes sign. The effects are practically large even under winsorisation — roughly 8 additional commits per active week and a 3-day reduction in inter-commit time — supporting the robustness of the direction while confirming that headline estimates should be treated as upper bounds.
 
 ---
 

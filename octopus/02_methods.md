@@ -74,6 +74,8 @@ where ΔYᵢ is the within-account change, Treatmentᵢ = 1 for AI adopters, and
 
 **Identifying assumption.** Parallel trends: absent AI tool adoption, treated and control accounts would have followed the same behavioural trajectory. AI adopters show significantly higher pre-period activity on several dimensions, indicating selection. The regression adjustment controls for pre-period levels but does not fully eliminate selection bias; estimates should be interpreted as upper bounds on the average treatment effect rather than unbiased causal estimates.
 
+**Note on classifier–DiD relationship.** The classifier is trained using features that overlap with the DiD outcomes, creating a mechanical relationship between the two analyses. The DiD should be interpreted as evidence of the direction and magnitude of behavioural change conditional on classifier selection, not as a fully independent causal estimate.
+
 ### Country-Level Panel Regression
 
 **Setup.** A country × year panel for 2022–2024 using GH Archive commit activity metrics (commits per located developer) across 20 countries with at least 15 classifier-scored accounts in the population sample.
