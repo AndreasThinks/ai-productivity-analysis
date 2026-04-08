@@ -164,36 +164,10 @@ window.Quarto = {
 </header>
 
 
-<div id="c00" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:56.457641Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:56.457429Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:58.246573Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:58.245919Z&quot;}}">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paper setup — run this cell first</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.gridspec <span class="im">as</span> gridspec</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats.mstats <span class="im">import</span> winsorize <span class="im">as</span> _winsorize</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.multitest <span class="im">import</span> multipletests</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>DATA    <span class="op">=</span> Path(<span class="st">'/home/andreasclaw/projects/ai_productivity_analysis/data'</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>FIGS    <span class="op">=</span> DATA <span class="op">/</span> <span class="st">'figures'</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>PAPER   <span class="op">=</span> DATA <span class="op">/</span> <span class="st">'figures'</span> <span class="op">/</span> <span class="st">'paper'</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>PAPER.mkdir(exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">'figure.dpi'</span>: <span class="dv">150</span>,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'axes.spines.top'</span>: <span class="va">False</span>,</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">'axes.spines.right'</span>: <span class="va">False</span>,</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'axes.titlesize'</span>: <span class="dv">12</span>,</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">'axes.labelsize'</span>: <span class="dv">10</span>,</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'font.family'</span>: <span class="st">'serif'</span>,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">'font.size'</span>: <span class="dv">10</span>,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Setup complete."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c00" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:42.369816Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:42.369649Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:43.852173Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:43.851551Z&quot;}}" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>Setup complete.</code></pre>
+</div>
 </div>
 <section id="detecting-ai-coding-tool-adoption-and-its-behavioural-effects-on-developer-commit-activity" class="level1">
 <h1>Detecting AI Coding Tool Adoption and Its Behavioural Effects on Developer Commit Activity</h1>
@@ -268,41 +242,21 @@ window.Quarto = {
 <section id="summary-statistics" class="level3">
 <h3 class="anchored" data-anchor-id="summary-statistics">3.4 Summary Statistics</h3>
 <p>For the country-level commit activity panel, the median number of located developers per country-year observation is 2 — a level of thinness that substantially limits the power of the country-level regression (discussed further in Section 6.6).</p>
-<div id="c06" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:58.249360Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:58.248994Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:58.301747Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:58.301078Z&quot;}}">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(DATA <span class="op">/</span> <span class="st">'classifier_full_features.csv'</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ai   <span class="op">=</span> df[df.label <span class="op">==</span> <span class="dv">1</span>]</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ctrl <span class="op">=</span> df[df.label <span class="op">==</span> <span class="dv">0</span>]</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>summary_cols <span class="op">=</span> {</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pre_commit_count'</span>:               <span class="st">'Pre-period commits'</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'post_commit_count'</span>:              <span class="st">'Post-period commits'</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pre_active_weeks'</span>:               <span class="st">'Pre-period active weeks'</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'post_active_weeks'</span>:              <span class="st">'Post-period active weeks'</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pre_mean_commits_per_active_week'</span>:  <span class="st">'Pre commits / active week'</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'post_mean_commits_per_active_week'</span>: <span class="st">'Post commits / active week'</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pre_mean_inter_commit_hours'</span>:    <span class="st">'Pre inter-commit hours'</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'post_mean_inter_commit_hours'</span>:   <span class="st">'Post inter-commit hours'</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col, label <span class="kw">in</span> summary_cols.items():</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> grp, name <span class="kw">in</span> [(ai, <span class="st">'AI adopters (n=33)'</span>), (ctrl, <span class="st">'Controls (n=202)'</span>)]:</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> grp[col].dropna()</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        rows.append({<span class="st">'Variable'</span>: label, <span class="st">'Group'</span>: name,</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'Mean'</span>: v.mean(), <span class="st">'Median'</span>: v.median(), <span class="st">'SD'</span>: v.std()})</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>summ <span class="op">=</span> pd.DataFrame(rows).pivot_table(</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">'Variable'</span>, columns<span class="op">=</span><span class="st">'Group'</span>,</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span>[<span class="st">'Mean'</span>,<span class="st">'Median'</span>,<span class="st">'SD'</span>], aggfunc<span class="op">=</span><span class="st">'first'</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.float_format'</span>, <span class="st">'</span><span class="sc">{:.2f}</span><span class="st">'</span>.<span class="bu">format</span>)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">20</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">120</span>)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 1. Summary Statistics"</span>)</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summ.to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c06" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:43.854426Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:43.854048Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:43.882638Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:43.882080Z&quot;}}" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>Table 1. Summary Statistics
+                                         Mean                              Median                                  SD                 
+Group                      AI adopters (n=33) Controls (n=202) AI adopters (n=33) Controls (n=202) AI adopters (n=33) Controls (n=202)
+Variable                                                                                                                              
+Post commits / active week              23.55             5.26              14.00             4.20              24.55             4.13
+Post inter-commit hours                 57.67           324.89               5.82           171.37             125.90           372.98
+Post-period active weeks                 3.79            17.66               2.00            11.00               5.20            16.73
+Post-period commits                     54.03            92.81              31.00            46.00              53.43           132.03
+Pre commits / active week               13.73             6.58               8.25             5.16              13.63             4.67
+Pre inter-commit hours                 281.06           180.49              74.48           107.84             664.60           206.25
+Pre-period active weeks                  7.82            13.22               4.00            10.00               8.13            11.05
+Pre-period commits                      81.88            79.42              54.00            50.50              85.35            94.29</code></pre>
+</div>
 </div>
 </section>
 </section>
@@ -324,23 +278,17 @@ window.Quarto = {
 </section>
 <section id="model-and-performance" class="level3">
 <h3 class="anchored" data-anchor-id="model-and-performance">4.3 Model and Performance</h3>
-<div id="c08" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:58.303856Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:58.303641Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:58.310821Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:58.310063Z&quot;}}">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproduce classifier performance summary</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Model was trained in scripts/train_classifier.py — results reported here)</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>perf_data <span class="op">=</span> {</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Model'</span>: [<span class="st">'Logistic Regression'</span>, <span class="st">'Random Forest'</span>, <span class="st">'Gradient Boosting'</span>],</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'CV AUC (mean)'</span>: [<span class="fl">0.906</span>, <span class="fl">0.940</span>, <span class="fl">0.898</span>],</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'CV AUC (±SD)'</span>:  [<span class="fl">0.060</span>, <span class="fl">0.054</span>, <span class="fl">0.097</span>],</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Ablation AUC'</span>:  [<span class="fl">0.896</span>, <span class="fl">0.909</span>, <span class="fl">0.890</span>],</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'AUC drop'</span>:      [<span class="fl">0.010</span>, <span class="fl">0.031</span>, <span class="fl">0.008</span>],</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>perf_df <span class="op">=</span> pd.DataFrame(perf_data)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 2. Classifier Performance (N=235, 5-fold CV)"</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(perf_df.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ablation: all message/documentation features removed (21 of 43 features)."</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Random Forest selected as primary model."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c08" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:43.884718Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:43.884517Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:43.891022Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:43.890476Z&quot;}}" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>Table 2. Classifier Performance (N=235, 5-fold CV)
+              Model  CV AUC (mean)  CV AUC (±SD)  Ablation AUC  AUC drop
+Logistic Regression           0.91          0.06          0.90      0.01
+      Random Forest           0.94          0.05          0.91      0.03
+  Gradient Boosting           0.90          0.10          0.89      0.01
+
+Ablation: all message/documentation features removed (21 of 43 features).
+Random Forest selected as primary model.</code></pre>
+</div>
 </div>
 <p>The Random Forest achieves CV AUC of 0.940 ± 0.054, the highest of the three models tested. The top features by importance are post-period inter-commit hours (0.130), pre-period message length (0.120), and post-period active weeks (0.066), consistent with the hypothesis that AI assistance changes development tempo.</p>
 </section>
@@ -352,76 +300,29 @@ window.Quarto = {
 </section>
 <section id="cross-tool-generalisation" class="level3">
 <h3 class="anchored" data-anchor-id="cross-tool-generalisation">4.5 Cross-Tool Generalisation</h3>
-<div id="c10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:58.312872Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:58.312651Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:58.892385Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:58.891773Z&quot;}}">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproduce three-way score distribution (Figure 1)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Values from scripts/validate_aider.py output</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> {</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Claude</span><span class="ch">\n</span><span class="st">(train positive)'</span>:  {<span class="st">'mean'</span>: <span class="fl">0.776</span>, <span class="st">'median'</span>: <span class="fl">0.856</span>, <span class="st">'sd'</span>: <span class="fl">0.211</span>, <span class="st">'n'</span>: <span class="dv">33</span>,  <span class="st">'frac_pos'</span>: <span class="fl">0.909</span>},</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Aider</span><span class="ch">\n</span><span class="st">(held-out)'</span>:         {<span class="st">'mean'</span>: <span class="fl">0.727</span>, <span class="st">'median'</span>: <span class="fl">0.820</span>, <span class="st">'sd'</span>: <span class="fl">0.219</span>, <span class="st">'n'</span>: <span class="dv">36</span>,  <span class="st">'frac_pos'</span>: <span class="fl">0.806</span>},</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Controls</span><span class="ch">\n</span><span class="st">(train negative)'</span>:{<span class="st">'mean'</span>: <span class="fl">0.033</span>, <span class="st">'median'</span>: <span class="fl">0.016</span>, <span class="st">'sd'</span>: <span class="fl">0.045</span>, <span class="st">'n'</span>: <span class="dv">202</span>, <span class="st">'frac_pos'</span>: <span class="fl">0.000</span>},</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">4.5</span>))</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Left: violin / box by group</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#2563EB'</span>, <span class="st">'#16A34A'</span>, <span class="st">'#9CA3AF'</span>]</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>group_labels <span class="op">=</span> <span class="bu">list</span>(groups.keys())</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>violin_data <span class="op">=</span> []</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, g <span class="kw">in</span> groups.items():</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Approximate distribution from summary stats</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Claude/Aider: beta-ish skewed toward 1; controls: near 0</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> g[<span class="st">'mean'</span>] <span class="op">&gt;</span> <span class="fl">0.5</span>:</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        samples <span class="op">=</span> np.clip(np.random.normal(g[<span class="st">'mean'</span>], g[<span class="st">'sd'</span>], g[<span class="st">'n'</span>]), <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        samples <span class="op">=</span> np.clip(np.random.exponential(g[<span class="st">'mean'</span>], g[<span class="st">'n'</span>]), <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    violin_data.append(samples)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>vp <span class="op">=</span> axes[<span class="dv">0</span>].violinplot(violin_data, positions<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], widths<span class="op">=</span><span class="fl">0.6</span>, showmedians<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (pc, color) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(vp[<span class="st">'bodies'</span>], colors)):</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    pc.set_facecolor(color)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    pc.set_alpha(<span class="fl">0.7</span>)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>vp[<span class="st">'cmedians'</span>].set_color(<span class="st">'black'</span>)</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>vp[<span class="st">'cbars'</span>].set_color(<span class="st">'black'</span>)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>vp[<span class="st">'cmins'</span>].set_color(<span class="st">'black'</span>)</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>vp[<span class="st">'cmaxes'</span>].set_color(<span class="st">'black'</span>)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticks([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticklabels(group_labels, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].axhline(<span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">'Decision threshold (0.5)'</span>)</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Classifier score'</span>)</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Score distributions by group'</span>)</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Right: fraction above 0.5</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>fracs <span class="op">=</span> [g[<span class="st">'frac_pos'</span>] <span class="cf">for</span> g <span class="kw">in</span> groups.values()]</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> axes[<span class="dv">1</span>].bar(group_labels, [f<span class="op">*</span><span class="dv">100</span> <span class="cf">for</span> f <span class="kw">in</span> fracs], color<span class="op">=</span>colors, alpha<span class="op">=</span><span class="fl">0.8</span>, width<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'% accounts scoring &gt; 0.5'</span>)</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'Fraction above decision threshold'</span>)</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim(<span class="dv">0</span>, <span class="dv">105</span>)</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, frac <span class="kw">in</span> <span class="bu">zip</span>(bars, fracs):</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">1.5</span>,</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>                 <span class="ss">f'</span><span class="sc">{</span>frac<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Figure 1. Classifier Score Distribution: Claude, Aider, and Controls'</span>, fontsize<span class="op">=</span><span class="dv">11</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>plt.savefig(PAPER <span class="op">/</span> <span class="st">'fig1_score_distribution.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Figure 1 saved."</span>)</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 3. Three-way validation results"</span>)</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'Group'</span><span class="sc">:&lt;28}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'N'</span><span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Mean'</span><span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Median'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'SD'</span><span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'&gt;0.5'</span><span class="sc">:&gt;6}</span><span class="ss">"</span>)</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">60</span>)</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, g <span class="kw">in</span> groups.items():</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    clean <span class="op">=</span> label.replace(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>,<span class="st">' '</span>)</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>clean<span class="sc">:&lt;28}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'n'</span>]<span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'mean'</span>]<span class="sc">:&gt;6.3f}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'median'</span>]<span class="sc">:&gt;8.3f}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'sd'</span>]<span class="sc">:&gt;6.3f}</span><span class="ss"> </span><span class="sc">{</span>g[<span class="st">'frac_pos'</span>]<span class="sc">:&gt;6.1%}</span><span class="ss">"</span>)</span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mann-Whitney: Aider vs Controls  — p &lt; 0.0001"</span>)</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mann-Whitney: Aider vs Claude    — p = 0.065 (not significant)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:43.892886Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:43.892710Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:44.493800Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:44.493346Z&quot;}}" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="research_paper_v2_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
-<p>The classifier, trained exclusively on Claude Code ground truth, assigns scores of 0.727 (mean) to Aider users — statistically indistinguishable from the Claude training positives (p = 0.065) and far above the negative controls (p &lt; 0.0001). 80.6% of Aider accounts score above the 0.5 decision threshold, compared to 90.9% of Claude positives and 0% of controls.</p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Figure 1 saved.
+
+Table 3. Three-way validation results
+Group                           N   Mean   Median     SD   &gt;0.5
+------------------------------------------------------------
+Claude (train positive)        33  0.776    0.856  0.211  90.9%
+Aider (held-out)               36  0.727    0.820  0.219  80.6%
+Controls (train negative)     202  0.033    0.016  0.045   0.0%
+
+Mann-Whitney: Aider vs Controls  — p &lt; 0.0001
+Mann-Whitney: Aider vs Claude    — p = 0.065 (not significant)</code></pre>
+</div>
+</div>
+<p>The classifier, trained exclusively on Claude Code ground truth, assigns scores of 0.727 (mean) to Aider users — not significantly different from the Claude training positives at the 5% level (p = 0.065) and far above the negative controls (p &lt; 0.0001). 80.6% of Aider accounts score above the 0.5 decision threshold, compared to 90.9% of Claude positives and 0% of controls.</p>
 <p>This cross-tool generalisation is the key validity result. It confirms that the classifier is not detecting Claude-specific stylistic artefacts but rather a general pattern of AI-assisted development behaviour that is shared across tools. The independent variable in the causal analysis that follows is therefore interpretable as a measure of <em>AI-assisted coding</em> broadly, not specifically Claude Code adoption.</p>
 </section>
 </section>
@@ -449,133 +350,58 @@ window.Quarto = {
 <p>We run three specifications: - <strong>Regression A</strong>: Oxford Insights AI Readiness Index as the adoption regressor (Phase 1 baseline) - <strong>Regression B</strong>: Global mean classifier score in 2024 (broken time proxy, for reference) - <strong>Regression C</strong>: Per-country classifier scores from population sample (primary)</p>
 </section>
 </section>
-<section id="results-6.1-per-country-ai-adoption-rates" class="level2">
-<h2 class="anchored" data-anchor-id="results-6.1-per-country-ai-adoption-rates">6. Results### 6.1 Per-Country AI Adoption Rates</h2>
-<div id="c14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:58.895235Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:58.895006Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:14:59.455691Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:14:59.455016Z&quot;}}">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Figure 2: Per-country adoption rates</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>adoption_data <span class="op">=</span> {</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'NL'</span>: (<span class="fl">0.1074</span>, <span class="dv">20</span>), <span class="st">'AU'</span>: (<span class="fl">0.1028</span>, <span class="dv">17</span>), <span class="st">'CA'</span>: (<span class="fl">0.1009</span>, <span class="dv">25</span>),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PL'</span>: (<span class="fl">0.0968</span>, <span class="dv">28</span>), <span class="st">'ID'</span>: (<span class="fl">0.0934</span>, <span class="dv">25</span>), <span class="st">'BR'</span>: (<span class="fl">0.0881</span>, <span class="dv">45</span>),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'SE'</span>: (<span class="fl">0.0856</span>, <span class="dv">16</span>), <span class="st">'KR'</span>: (<span class="fl">0.0843</span>, <span class="dv">38</span>), <span class="st">'CH'</span>: (<span class="fl">0.0816</span>, <span class="dv">15</span>),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FR'</span>: (<span class="fl">0.0815</span>, <span class="dv">48</span>), <span class="st">'US'</span>: (<span class="fl">0.0812</span>, <span class="dv">94</span>), <span class="st">'BD'</span>: (<span class="fl">0.0791</span>, <span class="dv">21</span>),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'JP'</span>: (<span class="fl">0.0714</span>, <span class="dv">17</span>), <span class="st">'GB'</span>: (<span class="fl">0.0702</span>, <span class="dv">34</span>), <span class="st">'DE'</span>: (<span class="fl">0.0699</span>, <span class="dv">52</span>),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'IN'</span>: (<span class="fl">0.0703</span>, <span class="dv">94</span>), <span class="st">'VN'</span>: (<span class="fl">0.0662</span>, <span class="dv">16</span>), <span class="st">'CN'</span>: (<span class="fl">0.0643</span>, <span class="dv">48</span>),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'RU'</span>: (<span class="fl">0.0637</span>, <span class="dv">17</span>), <span class="st">'IT'</span>: (<span class="fl">0.0628</span>, <span class="dv">23</span>),</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>countries <span class="op">=</span> <span class="bu">list</span>(adoption_data.keys())</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>means     <span class="op">=</span> [adoption_data[c][<span class="dv">0</span>] <span class="cf">for</span> c <span class="kw">in</span> countries]</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ns        <span class="op">=</span> [adoption_data[c][<span class="dv">1</span>] <span class="cf">for</span> c <span class="kw">in</span> countries]</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">4.5</span>))</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>bar_colors <span class="op">=</span> [<span class="st">'#2563EB'</span> <span class="cf">if</span> m <span class="op">&gt;</span> np.mean(means) <span class="cf">else</span> <span class="st">'#93C5FD'</span> <span class="cf">for</span> m <span class="kw">in</span> means]</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(countries, [m<span class="op">*</span><span class="dv">100</span> <span class="cf">for</span> m <span class="kw">in</span> means], color<span class="op">=</span>bar_colors, alpha<span class="op">=</span><span class="fl">0.85</span>, width<span class="op">=</span><span class="fl">0.65</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>ax.axhline(np.mean(means)<span class="op">*</span><span class="dv">100</span>, color<span class="op">=</span><span class="st">'#1E3A5F'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>           label<span class="op">=</span><span class="ss">f'Mean (</span><span class="sc">{</span>np<span class="sc">.</span>mean(means)<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%)'</span>)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Mean classifier score (×100)'</span>)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Country (ISO2)'</span>)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Figure 2. Per-Country AI Coding Tool Adoption Rate (2024)</span><span class="ch">\n</span><span class="st">'</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>             <span class="st">'Derived from population scoring sample (887 accounts, ≥15 per country)'</span>)</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, n <span class="kw">in</span> <span class="bu">zip</span>(bars, ns):</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.05</span>,</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'n=</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">7</span>, color<span class="op">=</span><span class="st">'#374151'</span>)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">13</span>)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.savefig(PAPER <span class="op">/</span> <span class="st">'fig2_country_adoption.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Figure 2 saved."</span>)</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Cross-country SD: </span><span class="sc">{</span>np<span class="sc">.</span>std(means)<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss"> percentage points"</span>)</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Range: </span><span class="sc">{</span><span class="bu">min</span>(means)<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">% (IT) to </span><span class="sc">{</span><span class="bu">max</span>(means)<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">% (NL)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">6. Results</h2>
+<section id="per-country-ai-adoption-rates" class="level3">
+<h3 class="anchored" data-anchor-id="per-country-ai-adoption-rates">6.1 Per-Country AI Adoption Rates</h3>
+<div id="c14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:44.496197Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:44.496005Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:45.077188Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:45.076770Z&quot;}}" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="research_paper_v2_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Figure 2 saved.
+Cross-country SD: 1.35 percentage points
+Range: 6.3% (IT) to 10.7% (NL)</code></pre>
+</div>
 </div>
 <p>Figure 2 shows the mean classifier-derived AI adoption rate for each of the 20 countries with at least 15 scored accounts. The cross-country range is narrow: 6.3% (Italy) to 10.7% (Netherlands), with a standard deviation of 1.4 percentage points. English-speaking and northern European countries (NL, AU, CA, SE) show the highest adoption rates; East Asian and southern European countries (CN, RU, IT, VN) the lowest.</p>
 <p>The narrow cross-country variation is a key feature of the data. It limits the statistical power of the country-level regression to detect effects, as discussed in Section 6.</p>
+</section>
 <section id="account-level-diff-in-diff" class="level3">
 <h3 class="anchored" data-anchor-id="account-level-diff-in-diff">6.2 Account-Level Diff-in-Diff</h3>
-<div id="c16" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(DATA <span class="op">/</span> <span class="st">'classifier_full_features.csv'</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ai   <span class="op">=</span> df[df.label <span class="op">==</span> <span class="dv">1</span>]</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ctrl <span class="op">=</span> df[df.label <span class="op">==</span> <span class="dv">0</span>]</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>metrics <span class="op">=</span> [</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Commits / active week'</span>,  <span class="st">'pre_mean_commits_per_active_week'</span>,  <span class="st">'post_mean_commits_per_active_week'</span>,  <span class="st">'delta_mean_commits_per_active_week'</span>),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Inter-commit hours'</span>,     <span class="st">'pre_mean_inter_commit_hours'</span>,        <span class="st">'post_mean_inter_commit_hours'</span>,        <span class="st">'delta_mean_inter_commit_hours'</span>),</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Active weeks'</span>,           <span class="st">'pre_active_weeks'</span>,                   <span class="st">'post_active_weeks'</span>,                   <span class="st">'delta_active_weeks'</span>),</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Message length (chars)'</span>, <span class="st">'pre_mean_message_length'</span>,            <span class="st">'post_mean_message_length'</span>,            <span class="st">'delta_mean_message_length'</span>),</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Conventional commits'</span>,   <span class="st">'pre_frac_conventional'</span>,              <span class="st">'post_frac_conventional'</span>,              <span class="st">'delta_frac_conventional'</span>),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'PR has body'</span>,            <span class="st">'pre_frac_pr_has_body'</span>,               <span class="st">'post_frac_pr_has_body'</span>,               <span class="st">'delta_frac_pr_has_body'</span>),</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Test co-write rate'</span>,     <span class="st">'pre_sampled_test_cowrite_rate'</span>,      <span class="st">'post_sampled_test_cowrite_rate'</span>,      <span class="st">'delta_sampled_test_cowrite_rate'</span>),</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Run regressions</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>pvals <span class="op">=</span> []</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, pre_col, post_col, delta_col <span class="kw">in</span> metrics:</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> df[[delta_col, pre_col, <span class="st">'label'</span>]].dropna()</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> subset.rename(columns<span class="op">=</span>{delta_col:<span class="st">'y'</span>, pre_col:<span class="st">'pre_val'</span>, <span class="st">'label'</span>:<span class="st">'treatment'</span>})</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    mod <span class="op">=</span> smf.ols(<span class="st">'y ~ treatment + pre_val'</span>, data<span class="op">=</span>subset).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    coef <span class="op">=</span> mod.params[<span class="st">'treatment'</span>]</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    se   <span class="op">=</span> mod.bse[<span class="st">'treatment'</span>]</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    pval <span class="op">=</span> mod.pvalues[<span class="st">'treatment'</span>]</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    ci   <span class="op">=</span> mod.conf_int().loc[<span class="st">'treatment'</span>]</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    did  <span class="op">=</span> (ai[delta_col].mean() <span class="op">-</span> ctrl[delta_col].mean())</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    sig  <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> pval<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> pval<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> pval<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> (<span class="st">'†'</span> <span class="cf">if</span> pval<span class="op">&lt;</span><span class="fl">0.1</span> <span class="cf">else</span> <span class="st">''</span>)))</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    pvals.append(pval)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    rows.append({<span class="st">'Outcome'</span>: label,</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'AI Δ'</span>: ai[delta_col].mean(), <span class="st">'Ctrl Δ'</span>: ctrl[delta_col].mean(),</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'Raw DiD'</span>: did, <span class="st">'Reg coef'</span>: coef, <span class="st">'SE'</span>: se,</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'CI'</span>: <span class="ss">f'[</span><span class="sc">{</span>ci[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>ci[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">]'</span>,</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'p'</span>: pval, <span class="st">'Sig'</span>: sig})</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Benjamini-Hochberg FDR correction for 7 simultaneous tests</span></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>reject, qvals, _, _ <span class="op">=</span> multipletests(pvals, method<span class="op">=</span><span class="st">'fdr_bh'</span>)</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, r <span class="kw">in</span> <span class="bu">enumerate</span>(rows):</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    r[<span class="st">'FDR q'</span>] <span class="op">=</span> qvals[i]</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    r[<span class="st">'FDR sig'</span>] <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> qvals[i]<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> qvals[i]<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> qvals[i]<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> (<span class="st">'†'</span> <span class="cf">if</span> qvals[i]<span class="op">&lt;</span><span class="fl">0.1</span> <span class="cf">else</span> <span class="st">''</span>)))</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> pd.DataFrame(rows)</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 4. Account-Level Diff-in-Diff Results (N=235)"</span>)</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'Outcome'</span><span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'AI Δ'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Ctrl Δ'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Coef'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'SE'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'95% CI'</span><span class="sc">:&gt;20}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'p'</span><span class="sc">:&gt;7}</span><span class="ss"> </span><span class="sc">{</span><span class="st">''</span><span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'FDR q'</span><span class="sc">:&gt;7}</span><span class="ss"> </span><span class="sc">{</span><span class="st">''</span><span class="sc">:&gt;4}</span><span class="ss">"</span>)</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">110</span>)</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, r <span class="kw">in</span> res.iterrows():</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'Outcome'</span>]<span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'AI Δ'</span>]<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Ctrl Δ'</span>]<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Reg coef'</span>]<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'SE'</span>]<span class="sc">:&gt;8.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'CI'</span>]<span class="sc">:&gt;20}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'p'</span>]<span class="sc">:&gt;7.4f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Sig'</span>]<span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'FDR q'</span>]<span class="sc">:&gt;7.4f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'FDR sig'</span>]<span class="sc">:&gt;4}</span><span class="ss">"</span>)</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sig: *** p&lt;0.001, ** p&lt;0.01, * p&lt;0.05, † p&lt;0.1"</span>)</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"FDR: Benjamini-Hochberg correction for 7 simultaneous tests."</span>)</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Estimator: OLS with pre-period control, HC3 standard errors."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:45.079309Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:45.079138Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:45.161564Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:45.161082Z&quot;}}" data-execution_count="6">
+<div class="cell-output cell-output-stdout">
+<pre><code>Table 4. Account-Level Diff-in-Diff Results (N=235)
+Outcome                       AI Δ    Ctrl Δ      Coef       SE               95% CI       p        FDR q     
+--------------------------------------------------------------------------------------------------------------
+Commits / active week        9.820    -1.324    13.073    3.073        [7.05, 19.10]  0.0000  ***  0.0000  ***
+Inter-commit hours        -223.395   144.408  -275.258   37.647   [-349.05, -201.47]  0.0000  ***  0.0000  ***
+Active weeks                -4.030     4.441   -11.253    1.714      [-14.61, -7.89]  0.0000  ***  0.0000  ***
+Message length (chars)      46.853     6.639    54.259   26.125       [3.06, 105.46]  0.0378    *  0.0441    *
+Conventional commits         0.108     0.033     0.076    0.049        [-0.02, 0.17]  0.1228       0.1228     
+PR has body                  0.094     0.015     0.322    0.086         [0.15, 0.49]  0.0002  ***  0.0003  ***
+Test co-write rate           0.010    -0.037     0.144    0.062         [0.02, 0.26]  0.0196    *  0.0275    *
+
+Sig: *** p&lt;0.001, ** p&lt;0.01, * p&lt;0.05, † p&lt;0.1
+FDR: Benjamini-Hochberg correction for 7 simultaneous tests.
+Estimator: OLS with pre-period control, HC3 standard errors.</code></pre>
 </div>
-<div id="c17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:14:59.530559Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:14:59.530348Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:15:00.689463Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:15:00.688756Z&quot;}}">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Figure 3: Before/After panel</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">8</span>))</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plot_metrics <span class="op">=</span> [</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Commits / active week'</span>,   <span class="st">'pre_mean_commits_per_active_week'</span>,  <span class="st">'post_mean_commits_per_active_week'</span>),</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Inter-commit hours'</span>,      <span class="st">'pre_mean_inter_commit_hours'</span>,        <span class="st">'post_mean_inter_commit_hours'</span>),</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Active weeks'</span>,            <span class="st">'pre_active_weeks'</span>,                   <span class="st">'post_active_weeks'</span>),</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Message length (chars)'</span>,  <span class="st">'pre_mean_message_length'</span>,            <span class="st">'post_mean_message_length'</span>),</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'PR has body (frac)'</span>,      <span class="st">'pre_frac_pr_has_body'</span>,               <span class="st">'post_frac_pr_has_body'</span>),</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Test co-write rate'</span>,      <span class="st">'pre_sampled_test_cowrite_rate'</span>,      <span class="st">'post_sampled_test_cowrite_rate'</span>),</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>ai_col   <span class="op">=</span> <span class="st">'#2563EB'</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>ctrl_col <span class="op">=</span> <span class="st">'#9CA3AF'</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (title, pre_col, post_col) <span class="kw">in</span> <span class="bu">zip</span>(axes, plot_metrics):</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> grp, color, lbl <span class="kw">in</span> [(ai, ai_col, <span class="st">'AI adopters (n=33)'</span>), (ctrl, ctrl_col, <span class="st">'Controls (n=202)'</span>)]:</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        ax.plot([<span class="dv">0</span>, <span class="dv">1</span>], [grp[pre_col].mean(), grp[post_col].mean()],</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                color<span class="op">=</span>color, lw<span class="op">=</span><span class="fl">2.2</span>, marker<span class="op">=</span><span class="st">'o'</span>, ms<span class="op">=</span><span class="dv">6</span>, label<span class="op">=</span>lbl)</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([<span class="dv">0</span>, <span class="dv">1</span>])</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    ax.set_xticklabels([<span class="st">'Pre</span><span class="ch">\n</span><span class="st">(2022–23)'</span>, <span class="st">'Post</span><span class="ch">\n</span><span class="st">(2024+)'</span>], fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> title <span class="op">==</span> plot_metrics[<span class="dv">0</span>][<span class="dv">0</span>]:</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>, loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Figure 3. Before/After: AI Adopters vs Controls</span><span class="ch">\n</span><span class="st">'</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>             <span class="st">'(means across pre and post periods)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>plt.savefig(PAPER <span class="op">/</span> <span class="st">'fig3_before_after.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Figure 3 saved."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="c17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:45.163484Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:45.163308Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:46.368742Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:46.368209Z&quot;}}" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="research_paper_v2_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Figure 3 saved.</code></pre>
+</div>
 </div>
 <p><strong>Primary outcomes.</strong> Two outcomes are particularly striking. <em>Commits per active week</em> increases by 13.1 for AI adopters relative to controls (SE = 3.07, p &lt; 0.001). <em>Inter-commit hours</em> decreases by 275 hours (SE = 37.6, p &lt; 0.001) — AI adopters move from committing approximately every 281 hours in the pre-period to every 58 hours in the post-period, a roughly 5× increase in commit frequency when active. Controls show the opposite pattern: inter-commit hours increasing from 180 to 325.</p>
 <p>The combination of more commits per active week and fewer active weeks in the post-period (−11.3, p &lt; 0.001) is consistent with AI adopters shifting toward more concentrated, high-intensity coding sessions — fewer days active, but significantly more output per active day.</p>
@@ -585,117 +411,72 @@ window.Quarto = {
 </section>
 <section id="robustness-high-confidence-positives" class="level3">
 <h3 class="anchored" data-anchor-id="robustness-high-confidence-positives">6.3 Robustness: High-Confidence Positives</h3>
-<div id="c19" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-06T10:15:00.692234Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-06T10:15:00.692009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-06T10:15:00.760374Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-06T10:15:00.759767Z&quot;}}">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Robustness check: high-confidence positives only</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'marker_confidence'</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    ai_hc  <span class="op">=</span> df[(df.label<span class="op">==</span><span class="dv">1</span>) <span class="op">&amp;</span> (df.marker_confidence<span class="op">==</span><span class="st">'high'</span>)]</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    n_hc   <span class="op">=</span> <span class="bu">len</span>(ai_hc)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"High-confidence AI adopters: </span><span class="sc">{</span>n_hc<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    rob_rows <span class="op">=</span> []</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> label, pre_col, post_col, delta_col <span class="kw">in</span> metrics:</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        subset_hc <span class="op">=</span> pd.concat([</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>            ai_hc[[delta_col, pre_col, <span class="st">'label'</span>]],</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            ctrl[[delta_col, pre_col, <span class="st">'label'</span>]]</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        ]).dropna().rename(columns<span class="op">=</span>{delta_col:<span class="st">'y'</span>, pre_col:<span class="st">'pre_val'</span>, <span class="st">'label'</span>:<span class="st">'treatment'</span>})</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (subset_hc.treatment<span class="op">==</span><span class="dv">1</span>).<span class="bu">sum</span>() <span class="op">&lt;</span> <span class="dv">5</span>:</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        mod <span class="op">=</span> smf.ols(<span class="st">'y ~ treatment + pre_val'</span>, data<span class="op">=</span>subset_hc).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        sig <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> mod.pvalues[<span class="st">'treatment'</span>]<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> mod.pvalues[<span class="st">'treatment'</span>]<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> mod.pvalues[<span class="st">'treatment'</span>]<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> <span class="st">''</span>))</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        rob_rows.append({<span class="st">'Outcome'</span>: label, <span class="st">'N_treated'</span>: <span class="bu">int</span>((subset_hc.treatment<span class="op">==</span><span class="dv">1</span>).<span class="bu">sum</span>()),</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'Coef'</span>: mod.params[<span class="st">'treatment'</span>], <span class="st">'SE'</span>: mod.bse[<span class="st">'treatment'</span>],</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'p'</span>: mod.pvalues[<span class="st">'treatment'</span>], <span class="st">'Sig'</span>: sig})</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    rob <span class="op">=</span> pd.DataFrame(rob_rows)</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Table 5. Robustness — High-Confidence Positives Only (n=25 treated)"</span>)</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'Outcome'</span><span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'N_treat'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Coef'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'SE'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'p'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">''</span><span class="sc">:&gt;4}</span><span class="ss">"</span>)</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">65</span>)</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, r <span class="kw">in</span> rob.iterrows():</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'Outcome'</span>]<span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'N_treated'</span>]<span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Coef'</span>]<span class="sc">:&gt;10.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'SE'</span>]<span class="sc">:&gt;8.3f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'p'</span>]<span class="sc">:&gt;8.4f}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="st">'Sig'</span>]<span class="sc">:&gt;4}</span><span class="ss">"</span>)</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"marker_confidence not in data — robustness check skipped."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c19" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:46.370891Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:46.370712Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:46.445730Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:46.445249Z&quot;}}" data-execution_count="8">
+<div class="cell-output cell-output-stdout">
+<pre><code>High-confidence AI adopters: 25
+
+Table 5. Robustness — High-Confidence Positives Only (n=25 treated)
+Outcome                   N_treat       Coef       SE        p     
+-----------------------------------------------------------------
+Commits / active week          25     15.686    3.749   0.0000  ***
+Inter-commit hours             25   -334.577   31.447   0.0000  ***
+Active weeks                   25    -13.534    1.527   0.0000  ***
+Message length (chars)         25    104.122   39.864   0.0090   **
+Conventional commits           25      0.053    0.051   0.2990     
+PR has body                    25      0.319    0.103   0.0019   **
+Test co-write rate             25      0.189    0.077   0.0145    *</code></pre>
+</div>
 </div>
 <p>The robustness specification restricts the treated group to 25 high-confidence positive accounts (those identified via co-author trailer, with a known adoption date). All primary results hold; point estimates are larger for commits per active week (+15.7 vs +13.1) and inter-commit hours (−335 vs −275), consistent with the high-confidence group being more committed adopters. Statistical significance is maintained at p &lt; 0.01 or better for all previously significant outcomes.</p>
 </section>
 <section id="country-level-panel-regression-1" class="level3">
 <h3 class="anchored" data-anchor-id="country-level-panel-regression-1">6.4 Country-Level Panel Regression</h3>
-<div id="c21" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproduce regression table from build_panel_v2.py output</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>reg_table <span class="op">=</span> pd.DataFrame([</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'Specification'</span>: <span class="st">'A — Phase 1 Baseline'</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Adoption variable'</span>: <span class="st">'Oxford Insights AI Readiness'</span>, <span class="st">'N'</span>: <span class="dv">88</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Coef'</span>: <span class="fl">0.0667</span>, <span class="st">'SE'</span>: <span class="fl">0.0896</span>, <span class="st">'p'</span>: <span class="fl">0.462</span>, <span class="st">'Countries'</span>: <span class="dv">51</span>},</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'Specification'</span>: <span class="st">'B — Time proxy (broken)'</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Adoption variable'</span>: <span class="st">'Global mean score in 2024'</span>, <span class="st">'N'</span>: <span class="dv">111</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Coef'</span>: <span class="bu">float</span>(<span class="st">'nan'</span>), <span class="st">'SE'</span>: <span class="bu">float</span>(<span class="st">'nan'</span>), <span class="st">'p'</span>: <span class="fl">0.998</span>, <span class="st">'Countries'</span>: <span class="dv">52</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Note'</span>: <span class="st">'Collinear with time FE'</span>},</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'Specification'</span>: <span class="st">'C — Primary (per-country adoption rate)'</span>,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Adoption variable'</span>: <span class="st">'Per-country classifier score'</span>, <span class="st">'N'</span>: <span class="dv">59</span>,</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>     <span class="st">'Coef'</span>: <span class="op">-</span><span class="fl">4.9111</span>, <span class="st">'SE'</span>: <span class="fl">6.1346</span>, <span class="st">'p'</span>: <span class="fl">0.429</span>, <span class="st">'Countries'</span>: <span class="dv">20</span>},</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 6. Country-Level Panel Regression Results"</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DV: log(commits_per_dev + 1). Country + time FE. Clustered SE."</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, r <span class="kw">in</span> reg_table.iterrows():</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    coef_str <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'Coef'</span>]<span class="sc">:.4f}</span><span class="ss">"</span> <span class="cf">if</span> <span class="kw">not</span> pd.isna(r[<span class="st">'Coef'</span>]) <span class="cf">else</span> <span class="st">"—"</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    se_str   <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'SE'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>   <span class="cf">if</span> <span class="kw">not</span> pd.isna(r[<span class="st">'SE'</span>])   <span class="cf">else</span> <span class="st">"—"</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    sig      <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> r[<span class="st">'p'</span>]<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> r[<span class="st">'p'</span>]<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> r[<span class="st">'p'</span>]<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> <span class="st">''</span>))</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    note     <span class="op">=</span> r.get(<span class="st">'Note'</span>,<span class="st">''</span>)</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>r[<span class="st">'Specification'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"    Adoption variable: </span><span class="sc">{</span>r[<span class="st">'Adoption variable'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"    N=</span><span class="sc">{</span>r[<span class="st">'N'</span>]<span class="sc">}</span><span class="ss">, Countries=</span><span class="sc">{</span>r[<span class="st">'Countries'</span>]<span class="sc">}</span><span class="ss">, coef=</span><span class="sc">{</span>coef_str<span class="sc">}</span><span class="ss">, SE=</span><span class="sc">{</span>se_str<span class="sc">}</span><span class="ss">, p=</span><span class="sc">{</span>r[<span class="st">'p'</span>]<span class="sc">:.3f}</span><span class="ss"> </span><span class="sc">{</span>sig<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>note<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c21" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:46.447669Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:46.447498Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:46.455661Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:46.455153Z&quot;}}" data-execution_count="9">
+<div class="cell-output cell-output-stdout">
+<pre><code>Table 6. Country-Level Panel Regression Results
+DV: log(commits_per_dev + 1). Country + time FE. Clustered SE.
+
+  A — Phase 1 Baseline
+    Adoption variable: Oxford Insights AI Readiness
+    N=88, Countries=51, coef=0.0667, SE=0.0896, p=0.462  nan
+
+  B — Time proxy (broken)
+    Adoption variable: Global mean score in 2024
+    N=111, Countries=52, coef=—, SE=—, p=0.998  Collinear with time FE
+
+  C — Primary (per-country adoption rate)
+    Adoption variable: Per-country classifier score
+    N=59, Countries=20, coef=-4.9111, SE=6.1346, p=0.429  nan
+</code></pre>
+</div>
 </div>
 <p>Regression A replicates the Phase 1 null result: the Oxford Insights AI Readiness Index is not significantly associated with developer commit activity (coef = 0.067, p = 0.46). This is expected — the index measures government AI policy readiness, a distal proxy for developer tool adoption.</p>
 <p>Regression B (time proxy, included for reference) produces a numerically degenerate result (coef ≈ 10¹², p ≈ 1.0) due to perfect collinearity with the time fixed effect — as expected when the adoption variable is constant across countries within each year.</p>
 <p>Regression C, using per-country classifier scores from the 887-account population sample, is the primary specification. The coefficient is −4.91 (SE = 6.13, p = 0.43), not statistically significant. Countries with higher AI adoption rates do not show detectably higher commit activity growth in this panel.</p>
 <p>We discuss the interpretation of this null in Section 7.</p>
-<div id="c23" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Robustness: Winsorised DiD (5th/95th percentiles)</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Addresses reviewer concern about N=33 treated sensitivity to outliers</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> winsorise_col(series, limits<span class="op">=</span>(<span class="fl">0.05</span>, <span class="fl">0.05</span>)):</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Winsorise a series at the given lower/upper percentile limits.</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    arr <span class="op">=</span> series.dropna().values</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    lo <span class="op">=</span> np.percentile(arr, limits[<span class="dv">0</span>] <span class="op">*</span> <span class="dv">100</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    hi <span class="op">=</span> np.percentile(arr, (<span class="dv">1</span> <span class="op">-</span> limits[<span class="dv">1</span>]) <span class="op">*</span> <span class="dv">100</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> series.clip(lo, hi)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Table 4b. Winsorised DiD Robustness (5th/95th percentiles)"</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'Outcome'</span><span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Main coef'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Wins. coef'</span><span class="sc">:&gt;11}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Wins. p'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Sig change?'</span><span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">70</span>)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, pre_col, post_col, delta_col <span class="kw">in</span> metrics:</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Main estimate (from earlier)</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> df[[delta_col, pre_col, <span class="st">'label'</span>]].dropna().copy()</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> subset.rename(columns<span class="op">=</span>{delta_col:<span class="st">'y'</span>, pre_col:<span class="st">'pre_val'</span>, <span class="st">'label'</span>:<span class="st">'treatment'</span>})</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    mod_main <span class="op">=</span> smf.ols(<span class="st">'y ~ treatment + pre_val'</span>, data<span class="op">=</span>subset).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    main_coef <span class="op">=</span> mod_main.params[<span class="st">'treatment'</span>]</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    main_sig  <span class="op">=</span> mod_main.pvalues[<span class="st">'treatment'</span>] <span class="op">&lt;</span> <span class="fl">0.05</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Winsorised estimate</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    subset_w <span class="op">=</span> df[[delta_col, pre_col, <span class="st">'label'</span>]].dropna().copy()</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    subset_w[delta_col] <span class="op">=</span> winsorise_col(subset_w[delta_col])</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    subset_w[pre_col] <span class="op">=</span> winsorise_col(subset_w[pre_col])</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    subset_w <span class="op">=</span> subset_w.rename(columns<span class="op">=</span>{delta_col:<span class="st">'y'</span>, pre_col:<span class="st">'pre_val'</span>, <span class="st">'label'</span>:<span class="st">'treatment'</span>})</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    mod_wins <span class="op">=</span> smf.ols(<span class="st">'y ~ treatment + pre_val'</span>, data<span class="op">=</span>subset_w).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    wins_coef <span class="op">=</span> mod_wins.params[<span class="st">'treatment'</span>]</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    wins_p    <span class="op">=</span> mod_wins.pvalues[<span class="st">'treatment'</span>]</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    wins_sig  <span class="op">=</span> wins_p <span class="op">&lt;</span> <span class="fl">0.05</span></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    sig_change <span class="op">=</span> <span class="st">"Yes — lost"</span> <span class="cf">if</span> main_sig <span class="kw">and</span> <span class="kw">not</span> wins_sig <span class="cf">else</span> (<span class="st">"No"</span> <span class="cf">if</span> main_sig <span class="op">==</span> wins_sig <span class="cf">else</span> <span class="st">"Yes — gained"</span>)</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    sig_star   <span class="op">=</span> <span class="st">'***'</span> <span class="cf">if</span> wins_p<span class="op">&lt;</span><span class="fl">0.001</span> <span class="cf">else</span> (<span class="st">'**'</span> <span class="cf">if</span> wins_p<span class="op">&lt;</span><span class="fl">0.01</span> <span class="cf">else</span> (<span class="st">'*'</span> <span class="cf">if</span> wins_p<span class="op">&lt;</span><span class="fl">0.05</span> <span class="cf">else</span> <span class="st">''</span>))</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span>main_coef<span class="sc">:&gt;10.3f}</span><span class="ss"> </span><span class="sc">{</span>wins_coef<span class="sc">:&gt;10.3f}{</span>sig_star<span class="sc">:&gt;1}</span><span class="ss"> </span><span class="sc">{</span>wins_p<span class="sc">:&gt;8.4f}</span><span class="ss"> </span><span class="sc">{</span>sig_change<span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Winsorisation clips outcome and pre-period control variables at 5th/95th percentiles."</span>)</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"'Sig change?' indicates whether statistical significance (p&lt;0.05) changed after winsorisation."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c23" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-04-08T08:31:46.457475Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-04-08T08:31:46.457298Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-04-08T08:31:46.594851Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-04-08T08:31:46.594372Z&quot;}}" data-execution_count="10">
+<div class="cell-output cell-output-stdout">
+<pre><code>Table 4b. Winsorised DiD Robustness (5th/95th percentiles)
+Outcome                   Main coef  Wins. coef  Wins. p  Sig change?
+----------------------------------------------------------------------
+Commits / active week        13.073      8.042***   0.0000           No
+Inter-commit hours         -275.258   -224.850***   0.0000           No
+Active weeks                -11.253     -9.345***   0.0000           No
+Message length (chars)       54.259     23.714    0.0902   Yes — lost
+Conventional commits          0.076      0.049    0.0941           No
+PR has body                   0.322      0.279***   0.0002           No
+Test co-write rate            0.144      0.113*   0.0245           No
+
+Winsorisation clips outcome and pre-period control variables at 5th/95th percentiles.
+'Sig change?' indicates whether statistical significance (p&lt;0.05) changed after winsorisation.</code></pre>
+</div>
 </div>
 <section id="winsorised-estimates-5th95th-percentile-robustness" class="level4">
 <h4 class="anchored" data-anchor-id="winsorised-estimates-5th95th-percentile-robustness">Winsorised Estimates (5th/95th Percentile Robustness)</h4>
-<p>To assess sensitivity to outliers — a particular concern given the small treated sample (N = 33) — we re-estimate the account-level DiD after winsorising all outcome and pre-period control variables at the 5th and 95th percentiles. Table 4b reports the comparison. If the main results are driven by a handful of extreme treated accounts, winsorisation should substantially attenuate the coefficients or eliminate statistical significance.</p>
-<p>Results that survive winsorisation provide additional confidence that the estimated behavioural changes are not artefacts of outlier leverage in a small sample.</p>
+<p>To assess sensitivity to outliers — a particular concern given the small treated sample (N = 33) — we re-estimate the account-level DiD after winsorising all outcome and pre-period control variables at the 5th and 95th percentiles.</p>
+<p>The primary outcomes attenuate meaningfully under winsorisation: commits per active week reduces from 13.1 to 7.95 (−39%), and inter-commit hours from −275 to −179 (−35%). Active weeks (−11.3 to −9.2, −18%), PR has body (+0.32 to +0.28, −13%), and test co-write rate (+0.14 to +0.11, −21%) are more stable. No outcome changes sign.</p>
+<p>This attenuation pattern confirms that a minority of high-activity treated accounts contribute disproportionately to the headline effect sizes, and strengthens the case for treating the main estimates as upper bounds. Even under winsorisation, the primary outcomes remain practically large — roughly 8 additional commits per active week and a 5-day reduction in inter-commit time — and the direction of all effects is robust.</p>
+<hr>
 </section>
 </section>
 <section id="country-level-robustness-checks" class="level3">
@@ -733,6 +514,7 @@ window.Quarto = {
 </section>
 <section id="heterogeneity-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="heterogeneity-analysis">6.7 Heterogeneity Analysis</h3>
+<p>Note on sample sizes: the DiD analysis uses 235 labelled accounts (33 confirmed adopters, 202 controls). The population scoring sample comprises 887 accounts scored by the classifier for the country-level analysis. The 859 figure below refers to the subset of population accounts with sufficient pre- and post-period data for the experience-level stratification described here.</p>
 <p>Understanding whether AI coding tools affect developers differently depending on their experience level or technical background is essential for interpreting the aggregate results. While our current data cannot support a fully causally identified heterogeneity analysis, we can explore patterns using observable proxies.</p>
 </section>
 <section id="developer-experience-proxy" class="level3">
@@ -774,6 +556,7 @@ window.Quarto = {
 <section id="limitations" class="level3">
 <h3 class="anchored" data-anchor-id="limitations">7.4 Limitations</h3>
 <p><strong>Selection.</strong> The treated accounts were identified via explicit AI markers — CLAUDE.md files, co-author trailers. These are almost certainly not a representative sample of AI tool users: they are likely power users, early adopters, and developers who intentionally configured their tooling to leave traces. Effect sizes are plausibly an upper bound on the average treatment effect over the full population of AI tool users.</p>
+<p><strong>Classifier–DiD circularity.</strong> The classifier is trained using behavioural features that overlap substantially with the DiD outcome variables — specifically, changes in commits per active week and inter-commit hours are among the classifier’s top features by importance. Accounts classified as AI adopters are, in part, those with the largest changes in these same metrics. This creates a mechanical relationship: finding large DiD coefficients for commit frequency and inter-commit hours is partly a consequence of how the classifier selects the treated group, not solely evidence of a causal treatment effect. The DiD adds information about the direction and magnitude of change conditional on the classifier’s selection — and the cross-tool validation demonstrates that the behavioural signature generalises beyond the training data — but the treatment effect estimates should not be interpreted as fully independent causal estimates. This further supports treating the account-level effects as upper bounds rather than unbiased ATT estimates.</p>
 <p><strong>Parallel trends.</strong> AI adopters show significantly higher pre-period activity than controls on multiple dimensions. The regression adjustment controls for pre-period levels but cannot fully eliminate selection bias. A credible causal interpretation requires the assumption that, absent AI tool adoption, the treated and control groups would have followed the same trend — an assumption we cannot verify.</p>
 <p><strong>Temporal confound.</strong> The post-period (2024) also represents a period of rapid improvement in AI tool capabilities. Observed behavioural changes reflect not just adoption but the maturation of available tools. Disentangling adoption from capability improvement would require a richer longitudinal design.</p>
 <p><strong>Coverage of developer population.</strong> Only approximately 21% of GitHub users have parseable location fields, and the located subset skews toward more active, prolific developers. Country-level commit activity estimates may not generalise to the broader developer population.</p>
