@@ -4,23 +4,43 @@
 
 ---
 
-## Project Status: Phase 2 — IV Fix Required (April 6, 2026)
+## Project Status: Phase 2 — Robustness Checks Done, Paper Revision Pending (April 25, 2026)
 
-**Where we are:** Classifier is done and validated (AUC 0.940, Aider generalisation confirmed).
-Population scrape collected 887 accounts across 52 countries. **Critical blocker: the IV
-(pct_ai_users) in `build_panel_v2.py` has not been wired to use per-country scores — it still
-assigns the global mean to every country, making it collinear with the time FE. No valid
-regression result exists yet.**
+**Where we are:**
+- Classifier is done and validated (AUC 0.940, Aider generalisation confirmed).
+- Population scrape v3 **COMPLETED April 25 morning**: 2,999 accounts scored across
+  53 countries, 102 country-quarter groups with >=15 accounts.
+- Adoption table built: `data/country_quarter_ai_adoption_v3.csv`.
+- `build_panel_v2.py` ran clean. Headline numbers (April 25):
+  - Regression A (Phase 1, Oxford IV): coef=0.067, p=0.46, N=88 — null
+  - Regression C (per-country IV + baseline): coef=-5.14, p=0.25, N=72 — null, NEGATIVE
+  - Regression C-W (weighted): coef=-7.56, p=0.055 — borderline NEGATIVE
+  - Regression D (parallel trends): p=0.62 — passes
+- Country trim analysis completed: dropping 16 low-value countries (54 → 38 panel).
+  See `country_trim_analysis.md` for full rationale.
+- v3 incorporates: 5-minute sleep cap, proactive /rate_limit checks, abuse detection
+  vs quota exhaustion distinction, global cooldown after 3 consecutive 403s, jitter.
+- Pre-period placebo test completed (`scripts/classifier_placebo_test.py`):
+  **RESULT: 6/8 pre-existing metrics significantly differ (p<0.05). Classifier captures
+  pre-existing developer conscientiousness, not purely AI adoption.** Mitigation:
+  `baseline_log_commits` control added to panel regression — but robustness checks
+  (April 25) confirmed it is fully absorbed by entity FE and contributes nothing.
+- Classifier retrained with 41 expansion positives: 74 pos + 202 neg = 276 accounts.
+  AUC 0.936 (±0.031), stable vs original 0.940. Saved as `classifier_model_expanded.pkl`.
 
-**Immediate next action:** Fix `build_panel_v2.py` to aggregate `population_scores.csv` +
-`population_scores_v2.csv` by country and use those as the IV. Run regression on the 20
-countries already at ≥15 accounts. See AGENTS.md "Current status" for the full step list.
+**Critical scrape blocker: RESOLVED.** v3 hit 53 countries, well above the >=25
+threshold. Regression C now runs cleanly with N=72 and 34 countries.
 
-**Both scrapers stopped April 6. Systemd service disabled. Do not restart until IV fix is done.**
+**New blocker: paper revision.** The octopus/ draft is stale (quotes old N=59 / 20-
+country / coef=-6.06 numbers from pre-v3). Needs full rewrite to incorporate v3
+results and the April 25 robustness findings (see below).
 
 ---
 
-Phase 1 (panel regression with Oxford Insights AI Readiness Index) returned a null result. The likely cause is that the independent variable measures government AI policy readiness, not whether individual developers are actually using AI tools. Phase 2 replaces it with an account-level classifier.
+Phase 1 (panel regression with Oxford Insights AI Readiness Index) returned a null
+result. The likely cause is that the independent variable measures government AI
+policy readiness, not whether individual developers are actually using AI tools.
+Phase 2 replaces it with an account-level classifier.
 
 ---
 
@@ -532,61 +552,113 @@ Signal is real — three independent features all point the same direction at 15
 
 ---
 
-## Immediate Next Steps (April 6, 2026)
+## Immediate Next Steps (April 25, 2026)
 
-### Completed
+### Completed since April 22
 
-1. ~~Full scraper runs v2.1 through v2.7~~ **Done**
-2. ~~Both-window coverage check~~ **Done** — 235 accounts (33 pos, 202 neg)
-3. ~~Classifier training~~ **Done** — RF CV AUC 0.940 ± 0.054. `data/classifier_model.pkl`
-4. ~~Writing-style ablation~~ **Done** — 0.940 → 0.909 without style features. Behavioural signals carry the model.
-5. ~~Aider validation~~ **Done** — mean score 0.727. Generalisation confirmed.
-6. ~~`build_panel_v2.py` prototype~~ **Done** — IV broken (global mean collinear with time FE). Confirmed broken; not fixed yet.
-7. ~~Population scrape~~ **STOPPED April 6** — 887 accounts (v1+v2), 52 countries, 20 at ≥15 threshold. Systemd service disabled.
+1. ~~Population scrape v3~~ **Done April 25** — 2,999 accounts, 53 countries, post-processing
+   crashed once on missing pandas dep, fixed in `run_population_scrape_v3.sh` (`--with pandas`).
+2. ~~build_panel_v2.py first run on v3 data~~ **Done** — see April 25 robustness section below.
+3. ~~Robustness check battery~~ **Done** — `scripts/robustness_checks.py` ran cleanly.
+   Results saved to `data/robustness_results.txt`.
 
-### Up next — in priority order
+### April 25 Robustness Findings — IMPORTANT
 
-**1. Fix IV aggregation in `build_panel_v2.py` (critical path)**
+The C-W borderline negative (p=0.055 on commits per dev) survives nearly every spec
+we threw at it: dropping `baseline_log_commits` (which is fully absorbed by entity FE
+and contributes nothing — the placebo mitigation was a no-op), threshold IV
+(`pct_above_0.5`), median classifier score, and a 2024-only OLS cross-section. The
+negative direction is robust across specifications.
 
-The `data/country_quarter_ai_adoption.csv` assigns the global mean (0.13756) to all countries
-in 2024 and 0.0 before that. Zero cross-country variation. The regression is numerically singular.
+**But the headline finding is the dependent variable split:**
 
-Fix: load `population_scrape_status.csv` (status=scored), join to `population_scores.csv` on
-login for classifier scores, merge in `population_scores_v2.csv` (deduplicate by login),
-compute per-country mean, write to adoption CSV. Filter to countries with ≥15 accounts.
+| DV | Coef | p | Interpretation |
+|---|---|---|---|
+| `log_commits_per_dev` | -5.14 to -7.66 | 0.05–0.25 | Negative across all specs |
+| `log_prs_per_dev` | **+1.33** | **0.76** | Near-zero, slightly positive |
+| `log_events_per_dev` | -7.59 | 0.10 | Negative (commits-dominated) |
 
-Run Phase 2 regression immediately on the 20 countries already at threshold — don't wait for
-more data. This is the only thing blocking a valid result.
+PRs are the cleaner productivity proxy. They go in the *opposite* direction to commits
+and sit on zero. This is consistent with AI tools shifting commit granularity (fewer,
+larger commits with longer messages — which is also what the classifier was trained
+to detect) rather than reducing productivity.
 
-**2. Trim PANEL_COUNTRIES in `scrape_population.py`**
+**Permutation placebo (R6, 2024 cross-section, 1000 perms):** observed coef at the
+3.4th percentile of the null distribution. Two-sided p=0.073. Not exonerated, but not
+a smoking gun either.
 
-Drop 16 countries (54 → 38). See `country_trim_analysis.md` for full list and rationale.
-Countries to remove: LK, SA, GR, IE, MY, RO, TW, ZA, UA, NZ, CO, BE, TH, HU, NP (AR conditional).
+### Revised paper framing — to be implemented
 
-**3. Restart scraper after steps 1 and 2**
+The story is no longer "null result, panel too thin." It is now:
 
-Use `bash run_population_scrape.sh` directly. Do NOT re-enable the systemd service — the
-`Restart=on-failure` policy caused a duplicate-instance incident on April 6.
-Target: get remaining 18 countries from current threshold to ≥15.
+1. **No detectable effect on PRs per dev** (cleaner productivity metric, p=0.76)
+2. **Negative association with commits per dev** that is robust across specs but is
+   most plausibly explained as a commit-granularity artefact, not a productivity effect
+3. **Account-level DiD shows pre/post adoption shifts** in commit message length and
+   structure — which is *consistent* with the granularity story
+4. The classifier is itself a publishable methodological contribution (AUC 0.940,
+   Aider cross-tool generalisation 0.727)
 
-**4. Rerun regression when ≥25 countries at ≥15 accounts**
+### Paper revision plan
 
-Same PanelOLS spec as prototype: `log(commits_per_dev) ~ pct_ai_users + EntityEffects + TimeEffects`,
-clustered SE by country. No automation — run manually, review output.
+**Format and audience (decided April 25, 2026):**
+- **Output**: single Jupyter notebook (`.ipynb`) paper. Code + narrative live together,
+  regenerable from data. Convert to PDF for arXiv via Quarto/nbconvert later if needed.
+- **Audience**: rigorous enough for an economics reader (panel methods, robustness,
+  honest caveats, clustered SEs), accessible enough for CS readers (the classifier
+  and behavioural-shift findings are first-class content, not buried in an appendix).
+- **Scope**: ONE paper, not two. Classifier methodology and productivity analysis
+  bound together — the classifier is the instrument that enables the analysis, and
+  separating them weakens both.
+- **Tone**: present findings cleanly but caveat hard. The granularity-shift hypothesis
+  is consistent with the data, not proven by it. The country-level negative is robust
+  across specs but most plausibly a measurement artefact, not a productivity effect.
+  Do not oversell. The blog post (separate, later) is where exploratory speculation
+  lives; the paper stays disciplined.
+- **Octopus format**: deferred. Will be derived from the paper later, not the source.
 
-**5. Address GitHub productivity panel thinness (parallel track)**
+**Structural ordering for the notebook paper:**
+1. Problem & motivation (replicate AI productivity literature with an account-level IV)
+2. The classifier as instrument (methods + validation, AUC 0.94, Aider 0.73)
+3. Country-level panel regression (Phase 1 baseline, Phase 2 results)
+4. Robustness battery (the 14-spec table)
+5. The DV heterogeneity finding (commits negative, PRs flat) — present as observation,
+   discuss granularity-shift as one plausible interpretation among others
+6. Account-level DiD as supporting evidence (without overclaiming causation)
+7. Limitations (classifier confound, panel thinness, IV time-invariance,
+   commit-granularity ambiguity)
+8. Conclusions: a careful null on PRs, a robust-but-ambiguous negative on commits,
+   and a methodological contribution (the classifier)
 
-Median n_developers per country-year = 2. Options:
-- Apply ≥5 developer minimum filter before regression merge
-- Increase `scrape_github_panel.py` from 500 to 2000+ users/window
-- Drop quarterly granularity, aggregate to country-year only
+**Implementation steps:**
+1. **Choose paper output format**: ~~deciding now~~ **Jupyter notebook** (above).
+2. **Update octopus/ chapters with v3 numbers**: ~~deferred~~ — paper first, octopus
+   derived later.
+3. **Fix `baseline_log_commits`** in `build_panel_v2.py` — it's a no-op (fully
+   absorbed by entity FE) and confusing in methods writeup. Either remove or replace
+   with a time-varying pre-period feature (slope, volatility) that isn't collinear
+   with country FE.
+4. **Drop Regression B from the paper** — it's been broken since v2.0 and adds nothing.
+5. **Build the notebook**: `notebooks/paper.ipynb`, regenerable end-to-end from
+   `data/` files. Each section computes its own numbers from source rather than
+   hand-coding values.
+6. **Generate figures inline**: country-level scatter (adoption × productivity, both
+   DVs side by side), DV heterogeneity coefficient plot, account-level pre/post
+   density of commit message length.
+7. **Caveats discipline**: every quantitative claim ties back to a robustness row.
+   No floating effect sizes without the spec they came from.
 
-**6. Robustness checks (after first valid result)**
+### Analytical improvements made (cumulative)
 
-- Subset to countries with ≥30 accounts
-- Google Trends "ChatGPT" as alternative IV (free, fast to download)
-- Flag dropped countries (ZA, RO, UA, MY) as limitations re: middle-income coverage
+- **Weighted regression**: countries weighted by n_developers (reduces single-dev noise).
+- **Minimum-N threshold**: country-years with <5 developers excluded.
+- **Parallel trends test**: 2022→2023 productivity change regressed on 2024 adoption.
+- **Country trim**: 16 low-value countries dropped from PANEL_COUNTRIES in v3.
+- **Placebo test (account-level)**: pre-period classifier scores compared across quartiles.
+- **Robustness battery (April 25)**: 14 specifications across IV variants, DV variants,
+  with/without baseline control, and an honest 2024-only cross-section + permutation
+  placebo. See `data/robustness_results.txt`.
 
 ---
 
-*Last updated: April 6, 2026*
+*Last updated: April 25, 2026*

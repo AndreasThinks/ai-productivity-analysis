@@ -1,23 +1,18 @@
 #!/usr/bin/env python3
 """
-Population Scrape v2 — faster scoring via GraphQL location pre-filter
+Population Scrape v3 — rate-limit-resilient scoring with capped backoff
 
-Key improvements over v1:
-  1. STAGE 1.5: Batch location pre-filter via GraphQL API (20 users per request)
-     — eliminates ~97% of wasteful REST calls on accounts not in panel countries
-  2. API_DELAY reduced from 1.0s → 0.5s (well within GitHub's 5000 req/hr limit)
-  3. Profile REST call skipped for accounts whose country is already known from
-     the GraphQL pre-filter — saves one API call per scored account
+Fixes the v1/v2 rate-limit coma:
+  1. All sleeps capped at MAX_SLEEP (5 min). No more 3600s spirals.
+  2. Proactive /rate_limit check before requests when quota is low.
+  3. Distinguishes primary rate limit (remaining==0) from abuse detection
+     (remaining>0, 403 anyway). Abuse gets shorter, capped backoff.
+  4. Global pause after 3 consecutive rate-limit hits — cools the whole
+     pattern instead of burning retries per-account.
+  5. Jitter on all delays so the request cadence doesn't look robotic.
+  6. GraphQL batch location pre-filter (from v2) for throughput.
 
-Same pipeline as v1:
-  - Resume-safe: own status CSV (population_scrape_status_v2.csv)
-  - Same feature extraction, same model, same scores format
-  - Location pre-filter cache (population_location_cache_v2.csv) survives restarts
-  - Output files use _v2 suffix — safe to run alongside the original
-
-Estimated improvement: ~10-20x throughput on the location-check bottleneck.
-At 0.5s delay and ~7 API calls/account, target ~1000 scored accounts/hr
-vs ~5 scored/hr in v1. Time to 3000 scored: ~3 hours vs ~25 days.
+Output files use _v3 suffix — safe alongside v1 and v2.
 """
 
 import os
@@ -38,55 +33,57 @@ import urllib.error
 # Config
 # ---------------------------------------------------------------------------
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 if not GITHUB_TOKEN:
     raise ValueError("GITHUB_TOKEN environment variable not set")
 
 PROJECT_ROOT = Path("/home/avery/projects/ai_productivity_analysis")
-DATA_DIR     = PROJECT_ROOT / "data"
+DATA_DIR = PROJECT_ROOT / "data"
 
-POP_CACHE_DIR = DATA_DIR / "population_cache_v2"
+POP_CACHE_DIR = DATA_DIR / "population_cache_v3"
 POP_CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
-MODEL_PATH    = DATA_DIR / "classifier_model.pkl"
+MODEL_PATH = DATA_DIR / "classifier_model.pkl"
 
-# v2-specific output paths (safe to run alongside v1)
-STATUS_PATH        = DATA_DIR / "population_scrape_status_v2.csv"
-FEATURES_PATH      = DATA_DIR / "population_features_v2.csv"
-SCORES_PATH        = DATA_DIR / "population_scores_v2.csv"
-ADOPTION_PATH      = DATA_DIR / "country_quarter_ai_adoption_v2.csv"
-LOCATION_CACHE_PATH = DATA_DIR / "population_location_cache_v2.csv"
+# v3-specific output paths
+STATUS_PATH = DATA_DIR / "population_scrape_status_v3.csv"
+FEATURES_PATH = DATA_DIR / "population_features_v3.csv"
+SCORES_PATH = DATA_DIR / "population_scores_v3.csv"
+ADOPTION_PATH = DATA_DIR / "country_quarter_ai_adoption_v3.csv"
+LOCATION_CACHE_PATH = DATA_DIR / "population_location_cache_v3.csv"
 
-# Target accounts
 TARGET_PER_COUNTRY = 30
 MAX_TOTAL_ACCOUNTS = 3000
 PANEL_MIN_ACCOUNTS = 15
 
-# Light scrape caps — same as v1
-MAX_REPOS_PER_ACCOUNT   = 5
+MAX_REPOS_PER_ACCOUNT = 5
 MAX_COMMITS_PER_ACCOUNT = 100
-SKIP_FILE_SAMPLING      = True
+SKIP_FILE_SAMPLING = True
 
-# Rate limiting — reduced delay (v1 was 1.0s)
-API_DELAY                    = 0.5   # REST calls between account scrapes
-GRAPHQL_BATCH_DELAY          = 1.0   # delay between GraphQL batch requests
-LOCATION_BATCH_SIZE          = 20    # users per GraphQL request
-REQUEST_TIMEOUT              = 15
-MAX_RETRIES                  = 5
-SECONDARY_RATE_LIMIT_FLOOR   = 60
-NETWORK_RETRY_FLOOR          = 120
-NETWORK_MAX_RETRIES          = 8
+# Rate limiting — v3: capped, jittered, proactive
+API_DELAY = 0.6                     # REST delay (slightly higher than v2's 0.5)
+GRAPHQL_BATCH_DELAY = 1.2           # GraphQL batch delay
+LOCATION_BATCH_SIZE = 20
+REQUEST_TIMEOUT = 15
+MAX_RETRIES = 3                     # reduced from 5
+MAX_SLEEP = 300                     # HARD CAP: 5 minutes max per sleep
+RATE_LIMIT_MAX_ATTEMPTS = 2         # only retry twice for rate-limit 403s
+ABUSE_BACKOFF_BASE = 60             # base seconds when we have quota but get 403
+SECONDARY_RATE_LIMIT_FLOOR = 60
+NETWORK_RETRY_FLOOR = 120
+NETWORK_MAX_RETRIES = 5             # reduced from 8
 CONSECUTIVE_NETWORK_FAIL_LIMIT = 5
-CIRCUIT_BREAKER_PAUSE        = 300
+CIRCUIT_BREAKER_PAUSE = 300
+CONSECUTIVE_RATE_LIMIT_PAUSE = 3    # global pause after this many 403s in a row
+GLOBAL_RATE_LIMIT_PAUSE = 300       # 5 min global cooldown
 
-# Temporal windows — must match classifier training
-PRE_START        = datetime(2022, 1, 1)
-PRE_CUTOFF       = datetime(2024, 1, 1)
-POST_START       = datetime(2024, 1, 1)
-MIN_PRE_COMMITS  = 5
+# Temporal windows
+PRE_START = datetime(2022, 1, 1)
+PRE_CUTOFF = datetime(2024, 1, 1)
+POST_START = datetime(2024, 1, 1)
+MIN_PRE_COMMITS = 5
 MIN_POST_COMMITS = 5
 
-# GH Archive hours — same set as v1 (reuse cached files)
 GH_ARCHIVE_HOURS = [
     ("2024-11-05", 10),
     ("2024-11-07", 16),
@@ -102,22 +99,88 @@ GH_ARCHIVE_HOURS = [
     ("2025-03-07", 5),
 ]
 
-# AI tool markers — exclude from negative sample pool
 AI_MARKER_RE = re.compile(
     r"(noreply@anthropic\.com|claude\.ai/code|noreply@aider\.chat|aider@aider\.chat"
     r"|copilot\[bot\]|kiro.agent|noreply@github\.com.*copilot)",
     re.IGNORECASE,
 )
 
-random.seed(42)  # different seed from both v1 and classifier scraper
+random.seed(2026)
+
+# ---------------------------------------------------------------------------
+# Global rate-limit state (shared across REST and GraphQL)
+# ---------------------------------------------------------------------------
+
+_rate_limit_state = {"remaining": None, "reset_at": None, "last_check": 0}
+_consecutive_rate_limits = 0
+
+
+def _jitter(base: float) -> float:
+    """Add +/- 25% jitter to a delay so request cadence isn't robotic."""
+    return base * (0.75 + 0.5 * random.random())
+
+
+def _update_rate_limit(headers):
+    """Update global rate limit state from response headers."""
+    global _rate_limit_state
+    try:
+        rem = headers.get("X-RateLimit-Remaining")
+        reset = headers.get("X-RateLimit-Reset")
+        if rem is not None:
+            _rate_limit_state["remaining"] = int(rem)
+        if reset is not None:
+            _rate_limit_state["reset_at"] = int(reset)
+        _rate_limit_state["last_check"] = time.time()
+    except (ValueError, TypeError):
+        pass
+
+
+def _check_global_rate_limit():
+    """
+    Proactive check: if we're close to the primary rate limit,
+    sleep until reset (capped at MAX_SLEEP).
+    """
+    rem = _rate_limit_state.get("remaining")
+    reset_at = _rate_limit_state.get("reset_at")
+    if rem is None or reset_at is None:
+        return
+    if rem <= 10:
+        now = time.time()
+        if reset_at > now:
+            sleep_for = min(reset_at - now + 5, MAX_SLEEP)
+            print(f"  Proactive rate-limit pause ({rem} remaining). Sleeping {sleep_for:.0f}s...")
+            time.sleep(_jitter(sleep_for))
+            # Refresh state after sleep
+            _rate_limit_state["remaining"] = None
+
+
+def _refresh_rate_limit_state():
+    """Hit /rate_limit to get ground-truth remaining quota."""
+    global _rate_limit_state
+    try:
+        req = urllib.request.Request(
+            "https://api.github.com/rate_limit",
+            headers={
+                "Authorization": f"Bearer {GITHUB_TOKEN}",
+                "Accept": "application/vnd.github+json",
+                "User-Agent": "population-scraper-v3/1.0",
+            },
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read().decode())
+            core = data.get("resources", {}).get("core", {})
+            _rate_limit_state["remaining"] = core.get("remaining")
+            _rate_limit_state["reset_at"] = core.get("reset")
+            _rate_limit_state["last_check"] = time.time()
+    except Exception:
+        pass
 
 
 # ---------------------------------------------------------------------------
-# Country map (identical to v1 — kept in sync)
+# Country map
 # ---------------------------------------------------------------------------
 
 COUNTRY_NAME_MAP = {
-    # United States
     "united states of america": "US", "united states": "US", "usa": "US",
     "us": "US", "u.s.": "US", "u.s.a.": "US", "united state": "US",
     "san francisco": "US", "new york": "US", "san francisco, ca": "US",
@@ -137,87 +200,59 @@ COUNTRY_NAME_MAP = {
     "ca": "US", "ny": "US", "tx": "US", "wa": "US", "or": "US",
     "ma": "US", "il": "US", "co": "US", "ga": "US", "fl": "US",
     "tn": "US", "nc": "US", "va": "US", "pa": "US", "oh": "US",
-    # United Kingdom
     "united kingdom": "GB", "uk": "GB", "england": "GB", "london": "GB",
     "great britain": "GB", "scotland": "GB", "wales": "GB",
     "manchester": "GB", "birmingham": "GB", "leeds": "GB",
     "cambridge": "GB", "oxford": "GB", "bristol": "GB",
     "edinburgh": "GB", "glasgow": "GB", "cornwall": "GB", "hull": "GB",
-    # Canada
     "canada": "CA", "toronto": "CA", "vancouver": "CA", "montreal": "CA",
     "ottawa": "CA", "calgary": "CA", "edmonton": "CA",
     "nanaimo, bc": "CA", "nanaimo": "CA", "bc": "CA",
     "ontario": "CA", "cornwall/kingston ontario": "CA",
-    # Germany
     "germany": "DE", "berlin": "DE", "munich": "DE", "hamburg": "DE",
     "frankfurt": "DE", "cologne": "DE", "düsseldorf": "DE",
     "stuttgart": "DE", "dortmund": "DE", "essen": "DE",
     "dresden": "DE", "heidelberg": "DE",
-    # France
     "france": "FR", "paris": "FR", "lyon": "FR", "marseille": "FR",
     "toulouse": "FR", "nice": "FR", "nantes": "FR", "strasbourg": "FR",
     "bordeaux": "FR",
-    # Singapore
     "singapore": "SG", "sg": "SG",
-    # Finland
     "finland": "FI", "helsinki": "FI",
-    # South Korea
     "republic of korea": "KR", "south korea": "KR", "korea": "KR",
     "seoul": "KR", "s. korea": "KR", "busan": "KR", "대한민국": "KR",
-    # Japan
     "japan": "JP", "tokyo": "JP", "osaka": "JP", "kyoto": "JP",
     "tochigi": "JP", "tochigi,tochigi": "JP",
-    # Australia
     "australia": "AU", "sydney": "AU", "melbourne": "AU",
     "brisbane": "AU", "perth": "AU", "adelaide": "AU",
-    # Sweden
     "sweden": "SE", "stockholm": "SE", "gothenburg": "SE",
-    # Netherlands
     "netherlands": "NL", "the netherlands": "NL", "amsterdam": "NL",
     "rotterdam": "NL", "the hague": "NL", "venlo": "NL",
     "venlo (the netherlands)": "NL",
-    # Denmark
     "denmark": "DK", "copenhagen": "DK",
-    # New Zealand
     "new zealand": "NZ", "auckland": "NZ", "wellington": "NZ",
-    # Norway
     "norway": "NO", "oslo": "NO",
-    # Austria
     "austria": "AT", "vienna": "AT",
-    # Switzerland
     "switzerland": "CH", "zurich": "CH", "zürich": "CH", "geneva": "CH",
     "bern": "CH",
-    # Israel
     "israel": "IL", "tel aviv": "IL", "jerusalem": "IL",
-    # China
     "china": "CN", "beijing": "CN", "shanghai": "CN", "shenzhen": "CN",
     "hangzhou": "CN", "chengdu": "CN", "chengdu,sichuan": "CN",
     "guangzhou": "CN", "wuhan": "CN", "nanjing": "CN",
-    # Estonia
     "estonia": "EE", "tallinn": "EE",
-    # Ireland
     "ireland": "IE", "dublin": "IE",
-    # Spain
     "spain": "ES", "madrid": "ES", "barcelona": "ES", "seville": "ES",
     "canary islands": "ES", "sevilla": "ES", "tarragona": "ES",
-    # Belgium
     "belgium": "BE", "brussels": "BE",
-    # Portugal
     "portugal": "PT", "lisbon": "PT", "porto": "PT",
     "lisboa": "PT", "lisboa - portugal": "PT",
-    # Czech Republic
     "czech republic": "CZ", "czechia": "CZ", "prague": "CZ",
     "brno": "CZ", "brno, cz": "CZ",
-    # Italy
     "italy": "IT", "milan": "IT", "rome": "IT", "naples": "IT",
     "turin": "IT",
-    # Taiwan
     "taiwan": "TW", "taipei": "TW",
-    # Russia
     "russian federation": "RU", "russia": "RU", "moscow": "RU",
     "saint-petersburg": "RU", "st. petersburg": "RU",
     "saint petersburg": "RU", "novosibirsk": "RU",
-    # Brazil
     "brazil": "BR", "brasil": "BR", "são paulo": "BR", "sao paulo": "BR",
     "rio de janeiro": "BR", "rio": "BR", "florianópolis": "BR",
     "brasil, mg": "BR", "americana-sp, brasil": "BR",
@@ -225,7 +260,6 @@ COUNTRY_NAME_MAP = {
     "são paulo - sp": "BR", "quixadá": "BR", "fortaleza": "BR",
     "fortaleza,ce": "BR", "salvador": "BR", "salvador,ba": "BR",
     "piauí, teresina": "BR",
-    # India
     "india": "IN", "bangalore": "IN", "bengaluru": "IN", "mumbai": "IN",
     "delhi": "IN", "new delhi": "IN", "new elhi": "IN",
     "hyderabad": "IN", "chennai": "IN", "pune": "IN",
@@ -235,115 +269,75 @@ COUNTRY_NAME_MAP = {
     "panchkula": "IN", "haryana": "IN", "indore": "IN",
     "patna": "IN", "patna, bihar india": "IN",
     "zirakpur, punjab": "IN", "zirakpur": "IN", "bharat": "IN",
-    # Ukraine
     "ukraine": "UA", "kyiv": "UA", "cherkassy": "UA",
     "kharkiv": "UA", "odessa": "UA", "lviv": "UA",
-    # Bangladesh
     "bangladesh": "BD", "dhaka": "BD",
-    # Poland
     "poland": "PL", "warsaw": "PL", "krakow": "PL", "kraków": "PL",
     "wroclaw": "PL", "wrocław": "PL", "gdansk": "PL",
     "gdańsk": "PL", "gdansk": "PL",
-    # Pakistan
     "pakistan": "PK", "karachi": "PK", "lahore": "PK",
     "pakistan punjab lahore": "PK", "lahore, punjab pakistan": "PK",
     "islamabad": "PK", "karachi pakistan": "PK", "e11/3 islamabad": "PK",
-    # Kenya
     "kenya": "KE", "nairobi": "KE",
-    # Egypt
     "egypt": "EG", "cairo": "EG",
-    # Turkey
     "turkey": "TR", "türkiye": "TR", "istanbul": "TR", "ankara": "TR",
     "i̇stanbul": "TR", "ankara/türkiye": "TR",
-    # Hungary
     "hungary": "HU", "budapest": "HU",
-    # Latvia
     "latvia": "LV", "riga": "LV",
-    # Lithuania
     "lithuania": "LT", "vilnius": "LT",
-    # Croatia
     "croatia": "HR", "zagreb": "HR",
-    # Slovakia
     "slovakia": "SK", "bratislava": "SK",
-    # Slovenia
     "slovenia": "SI", "ljubljana": "SI",
-    # Romania
     "romania": "RO", "bucharest": "RO", "cluj": "RO",
-    # Bulgaria
     "bulgaria": "BG", "sofia": "BG",
-    # Greece
     "greece": "GR", "athens": "GR", "thessaloniki": "GR",
-    # Moldova
     "moldova": "MD", "chisinau": "MD", "chișinău": "MD",
     "chisinau, moldova": "MD",
-    # UAE
     "united arab emirates": "AE", "uae": "AE", "dubai": "AE",
     "abu dhabi": "AE",
-    # Saudi Arabia
     "saudi arabia": "SA", "riyadh": "SA", "jeddah": "SA",
-    # South Africa
     "south africa": "ZA", "cape town": "ZA", "johannesburg": "ZA",
     "durban": "ZA",
-    # Nigeria
     "nigeria": "NG", "lagos": "NG", "abuja": "NG", "lagos state": "NG",
-    # Ethiopia
     "ethiopia": "ET", "addis ababa": "ET", "addis ababa, ethiopia": "ET",
-    # Madagascar
     "madagascar": "MG",
-    # Mexico
     "mexico": "MX", "mexico city": "MX", "ciudad de méxico": "MX",
     "guadalajara": "MX", "monterrey": "MX",
     "merida, yucatan": "MX", "merida": "MX",
-    # Argentina
     "argentina": "AR", "buenos aires": "AR", "córdoba": "AR",
-    # Colombia
     "colombia": "CO", "bogota": "CO", "bogotá": "CO", "medellín": "CO",
-    # Chile
     "chile": "CL", "santiago": "CL",
-    # Malaysia
     "malaysia": "MY", "kuala lumpur": "MY",
-    # Thailand
     "thailand": "TH", "bangkok": "TH",
-    # Indonesia
     "indonesia": "ID", "jakarta": "ID", "pekanbaru": "ID",
-    # Philippines
     "philippines": "PH", "manila": "PH",
-    # Vietnam
     "vietnam": "VN", "viet nam": "VN", "ho chi minh city": "VN",
     "hanoi": "VN", "hcmc": "VN",
-    # Sri Lanka
     "sri lanka": "LK", "colombo": "LK",
-    # Nepal
     "nepal": "NP", "kathmandu": "NP",
-    # Iraq
     "iraq": "IQ", "baghdad": "IQ", "iraq - sulaimaiyah": "IQ",
-    # Ecuador
     "ecuador": "EC", "quito": "EC", "quito, ecuador.": "EC",
-    # Hong Kong
     "hong kong": "HK",
-    # Iran
     "iran": "IR", "tehran": "IR",
-    # Uzbekistan
     "uzbekistan": "UZ", "tashkent": "UZ", "tashkent, uzbekistan": "UZ",
-    # Serbia
     "serbia": "RS", "belgrade": "RS",
-    # Florida etc
     "florida": "US", "gainesville, florida": "US", "gainesville": "US",
     "iowa": "US", "des moines": "US", "des moines,, ia": "US",
 }
 
 PANEL_COUNTRIES = {
+    # 38 kept countries (trimmed from 54 on 2026-04-22)
+    # Dropped 16: LK, SA, GR, IE, MY, RO, TW, ZA, UA, NZ, CO, BE, TH, HU, NP, AR
+    # Rationale: <=4 accounts each + geographic redundancy. See country_trim_analysis.md
     "US", "GB", "DE", "FR", "IN", "CN", "BR", "CA", "AU", "RU",
     "JP", "KR", "NL", "SE", "CH", "PL", "NG", "BD", "KE", "TR",
-    "ES", "IT", "NO", "DK", "FI", "PT", "BE", "AT", "GR", "CZ",
-    "RO", "HU", "UA", "PK", "EG", "ZA", "MX", "AR", "CO", "CL",
-    "SG", "MY", "ID", "TH", "PH", "VN", "IL", "AE", "SA", "TW",
-    "IE", "NZ", "LK", "NP",
+    "ES", "IT", "NO", "DK", "FI", "PT", "AT", "CZ",
+    "PK", "EG", "MX", "CL",
+    "SG", "ID", "PH", "VN", "IL", "AE",
 }
 
 
 def parse_location(location_str):
-    """Map a GitHub profile location string to an ISO2 country code."""
     if not location_str:
         return None
     key = location_str.strip().lower()
@@ -360,7 +354,7 @@ def parse_location(location_str):
 
 
 # ---------------------------------------------------------------------------
-# HTTP helpers
+# HTTP helpers — v3: capped, jittered, proactive, abuse-aware
 # ---------------------------------------------------------------------------
 
 def _rest_headers():
@@ -368,14 +362,15 @@ def _rest_headers():
         "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "population-scraper-v2/1.0",
+        "User-Agent": "population-scraper-v3/1.0",
     }
+
 
 def _graphql_headers():
     return {
         "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Content-Type": "application/json",
-        "User-Agent": "population-scraper-v2/1.0",
+        "User-Agent": "population-scraper-v3/1.0",
     }
 
 
@@ -394,50 +389,108 @@ def _is_network_error(exc):
     return False
 
 
+def _global_rate_limit_pause():
+    """Pause the whole script when we've hit too many 403s in a row."""
+    global _consecutive_rate_limits
+    print(f"  GLOBAL PAUSE: {_consecutive_rate_limits} consecutive rate-limit hits. "
+          f"Cooling off for {GLOBAL_RATE_LIMIT_PAUSE}s...")
+    time.sleep(_jitter(GLOBAL_RATE_LIMIT_PAUSE))
+    _refresh_rate_limit_state()
+    _consecutive_rate_limits = 0
+    print("  Global pause complete. Resuming.")
+
+
 def gh_get(url):
-    """REST GET with retry/rate-limit handling. Returns parsed JSON or None."""
+    """
+    REST GET with capped, jittered, proactive rate-limit handling.
+    Returns parsed JSON or None.
+    """
+    global _consecutive_rate_limits
+    _check_global_rate_limit()
     headers = _rest_headers()
     network_attempts = 0
+    rate_limit_attempts = 0
+
     for attempt in range(MAX_RETRIES):
         try:
             req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
+                _update_rate_limit(resp.headers)
+                _consecutive_rate_limits = 0
                 return json.loads(resp.read().decode())
+
         except urllib.error.HTTPError as e:
+            _update_rate_limit(e.headers)
             body = e.read().decode(errors="replace")
+
             if e.code == 403 and "secondary" in body.lower():
-                wait = SECONDARY_RATE_LIMIT_FLOOR * (attempt + 1)
-                print(f"    Secondary rate limit, sleeping {wait}s...")
-                time.sleep(wait)
+                wait = min(SECONDARY_RATE_LIMIT_FLOOR * (attempt + 1), MAX_SLEEP)
+                print(f"    Secondary rate limit, sleeping {wait:.0f}s...")
+                time.sleep(_jitter(wait))
+                _consecutive_rate_limits += 1
+
             elif e.code == 403:
-                reset_ts = e.headers.get("X-RateLimit-Reset")
-                wait = max(5, int(reset_ts) - int(time.time()) + 5) if reset_ts else SECONDARY_RATE_LIMIT_FLOOR
-                print(f"    Rate limit (403), sleeping {wait}s...")
-                time.sleep(wait)
+                remaining = _rate_limit_state.get("remaining")
+                if remaining is not None and remaining > 0:
+                    # Abuse detection or other non-quota 403
+                    wait = min(ABUSE_BACKOFF_BASE * (attempt + 1), MAX_SLEEP)
+                    print(f"    403 with {remaining} quota remaining (abuse?), sleeping {wait:.0f}s...")
+                    time.sleep(_jitter(wait))
+                    _consecutive_rate_limits += 1
+                else:
+                    # Primary rate limit — use reset timestamp, capped
+                    reset_ts = _rate_limit_state.get("reset_at")
+                    now = time.time()
+                    if reset_ts and reset_ts > now:
+                        wait = min(reset_ts - now + 5, MAX_SLEEP)
+                    else:
+                        wait = min(60, MAX_SLEEP)
+                    print(f"    Rate limit (403), sleeping {wait:.0f}s...")
+                    time.sleep(_jitter(wait))
+                    _consecutive_rate_limits += 1
+                rate_limit_attempts += 1
+                if rate_limit_attempts >= RATE_LIMIT_MAX_ATTEMPTS:
+                    print(f"    Rate-limit retries exhausted. Returning None.")
+                    return None
+                if _consecutive_rate_limits >= CONSECUTIVE_RATE_LIMIT_PAUSE:
+                    _global_rate_limit_pause()
+
             elif e.code in (404, 409, 451):
+                _consecutive_rate_limits = 0
                 return None
             elif e.code >= 500:
-                time.sleep(API_DELAY * (2 ** attempt))
+                wait = min(API_DELAY * (2 ** attempt), MAX_SLEEP)
+                time.sleep(_jitter(wait))
             else:
+                _consecutive_rate_limits = 0
                 return None
+
         except Exception as exc:
             if _is_network_error(exc):
                 network_attempts += 1
-                wait = NETWORK_RETRY_FLOOR * network_attempts
-                print(f"    Network error ({exc}), sleeping {wait}s...")
+                wait = min(NETWORK_RETRY_FLOOR * network_attempts, MAX_SLEEP)
+                print(f"    Network error ({exc}), sleeping {wait:.0f}s...")
                 if network_attempts >= NETWORK_MAX_RETRIES:
                     raise NetworkError(f"Network failed after {NETWORK_MAX_RETRIES} attempts") from exc
-                time.sleep(wait)
+                time.sleep(_jitter(wait))
             else:
+                _consecutive_rate_limits = 0
                 return None
+
     return None
 
 
 def graphql_post(query):
-    """POST a GraphQL query. Returns parsed response dict or None."""
+    """
+    GraphQL POST with the same capped, jittered rate-limit discipline.
+    """
+    global _consecutive_rate_limits
+    _check_global_rate_limit()
     payload = json.dumps({"query": query}).encode()
     headers = _graphql_headers()
     network_attempts = 0
+    rate_limit_attempts = 0
+
     for attempt in range(MAX_RETRIES):
         try:
             req = urllib.request.Request(
@@ -447,36 +500,59 @@ def graphql_post(query):
                 method="POST",
             )
             with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
+                _update_rate_limit(resp.headers)
+                _consecutive_rate_limits = 0
                 return json.loads(resp.read().decode())
+
         except urllib.error.HTTPError as e:
+            _update_rate_limit(e.headers)
             body = e.read().decode(errors="replace")
+
             if e.code in (403, 429):
-                wait = SECONDARY_RATE_LIMIT_FLOOR * (attempt + 1)
-                print(f"    GraphQL rate limit ({e.code}), sleeping {wait}s...")
-                time.sleep(wait)
+                remaining = _rate_limit_state.get("remaining")
+                if remaining is not None and remaining > 0:
+                    wait = min(ABUSE_BACKOFF_BASE * (attempt + 1), MAX_SLEEP)
+                    print(f"    GraphQL abuse? ({remaining} remaining), sleeping {wait:.0f}s...")
+                else:
+                    wait = min(SECONDARY_RATE_LIMIT_FLOOR * (attempt + 1), MAX_SLEEP)
+                    print(f"    GraphQL rate limit ({e.code}), sleeping {wait:.0f}s...")
+                time.sleep(_jitter(wait))
+                _consecutive_rate_limits += 1
+                rate_limit_attempts += 1
+                if rate_limit_attempts >= RATE_LIMIT_MAX_ATTEMPTS:
+                    print(f"    GraphQL rate-limit retries exhausted. Returning None.")
+                    return None
+                if _consecutive_rate_limits >= CONSECUTIVE_RATE_LIMIT_PAUSE:
+                    _global_rate_limit_pause()
+
             elif e.code >= 500:
-                time.sleep(GRAPHQL_BATCH_DELAY * (2 ** attempt))
+                wait = min(GRAPHQL_BATCH_DELAY * (2 ** attempt), MAX_SLEEP)
+                time.sleep(_jitter(wait))
             else:
+                _consecutive_rate_limits = 0
                 return None
+
         except Exception as exc:
             if _is_network_error(exc):
                 network_attempts += 1
-                wait = NETWORK_RETRY_FLOOR * network_attempts
-                print(f"    GraphQL network error ({exc}), sleeping {wait}s...")
+                wait = min(NETWORK_RETRY_FLOOR * network_attempts, MAX_SLEEP)
+                print(f"    GraphQL network error ({exc}), sleeping {wait:.0f}s...")
                 if network_attempts >= NETWORK_MAX_RETRIES:
                     raise NetworkError(f"GraphQL network failed") from exc
-                time.sleep(wait)
+                time.sleep(_jitter(wait))
             else:
+                _consecutive_rate_limits = 0
                 return None
+
     return None
 
 
 def _sleep():
-    time.sleep(API_DELAY)
+    time.sleep(_jitter(API_DELAY))
 
 
 # ---------------------------------------------------------------------------
-# Stage 1: GH Archive candidate collection (identical to v1)
+# Stage 1: GH Archive candidate collection
 # ---------------------------------------------------------------------------
 
 def _gh_archive_path(date_str, hour):
@@ -503,13 +579,11 @@ def _download_gh_archive(date_str, hour):
 
 
 def collect_candidates():
-    """Scan GH Archive PushEvents. Returns list of unique logins."""
     print("\n=== STAGE 1: Collecting candidates from GH Archive ===")
-
     all_logins = set()
     for date_str, hour in GH_ARCHIVE_HOURS:
         cached_path = DATA_DIR / "gh_archive_cache" / f"{date_str}-{hour}.jsonl"
-        alt_path    = DATA_DIR / f"gharchive_{date_str}-{hour}.jsonl"
+        alt_path = DATA_DIR / f"gharchive_{date_str}-{hour}.jsonl"
 
         path = None
         if cached_path.exists():
@@ -556,24 +630,21 @@ def collect_candidates():
 
 
 # ---------------------------------------------------------------------------
-# Stage 1.5: GraphQL batch location pre-filter  (NEW in v2)
+# Stage 1.5: GraphQL batch location pre-filter
 # ---------------------------------------------------------------------------
 
 def load_location_cache():
-    """Load cached location lookups. Returns dict: login -> country_code_or_None."""
     cache = {}
     if not LOCATION_CACHE_PATH.exists():
         return cache
     with open(LOCATION_CACHE_PATH, newline="") as f:
         for row in csv.reader(f):
             if len(row) >= 2:
-                # store country code (may be empty string = no match)
                 cache[row[0]] = row[1] if row[1] else None
     return cache
 
 
 def _save_location_batch(results):
-    """Append location lookup results to cache. results: dict login -> country_or_None."""
     with open(LOCATION_CACHE_PATH, "a", newline="") as f:
         w = csv.writer(f)
         for login, country in results.items():
@@ -581,7 +652,6 @@ def _save_location_batch(results):
 
 
 def _build_location_query(logins):
-    """Build a GraphQL query to fetch locations for a batch of logins."""
     aliases = "\n    ".join(
         f'u{i}: user(login: {json.dumps(login)}) {{ login location }}'
         for i, login in enumerate(logins)
@@ -590,63 +660,42 @@ def _build_location_query(logins):
 
 
 def batch_fetch_locations(logins):
-    """
-    Fetch GitHub profile locations for up to LOCATION_BATCH_SIZE logins
-    in a single GraphQL request.
-    Returns dict: login -> location_string_or_None
-    """
     if not logins:
         return {}
-
     query = _build_location_query(logins)
     response = graphql_post(query)
-
     if response is None:
         return {}
-
-    # Partial errors are normal (user not found, suspended, etc.)
-    # Data still contains results for successful lookups.
     data = response.get("data") or {}
     out = {}
     for i, login in enumerate(logins):
         node = data.get(f"u{i}")
         if node:
-            out[login] = node.get("location")  # may be None
+            out[login] = node.get("location")
         else:
-            out[login] = None  # not found / suspended
+            out[login] = None
     return out
 
 
 def prefilter_candidates(candidates, done_logins):
-    """
-    Stage 1.5: batch-fetch locations via GraphQL to pre-filter candidates.
-    Only accounts in panel countries proceed to the full commit scrape.
-    Returns list of (login, country) tuples, excluding already-done logins.
-    """
     print("\n=== STAGE 1.5: GraphQL batch location pre-filter ===")
-
     location_cache = load_location_cache()
     all_done = done_logins
 
-    # Which candidates still need a location lookup?
     uncached = [l for l in candidates if l not in location_cache and l not in all_done]
     print(f"  Total candidates: {len(candidates)}")
     print(f"  Already location-cached: {len(location_cache)}")
     print(f"  To fetch via GraphQL: {len(uncached)}")
     print(f"  Batch size: {LOCATION_BATCH_SIZE}, delay: {GRAPHQL_BATCH_DELAY}s/batch")
 
-    # Batch-fetch uncached locations
     batches_done = 0
     for i in range(0, len(uncached), LOCATION_BATCH_SIZE):
         batch = uncached[i : i + LOCATION_BATCH_SIZE]
         raw_locations = batch_fetch_locations(batch)
-
-        # Parse raw location strings to country codes
         country_results = {
             login: parse_location(loc)
             for login, loc in raw_locations.items()
         }
-
         _save_location_batch(country_results)
         location_cache.update(country_results)
         batches_done += 1
@@ -657,9 +706,8 @@ def prefilter_candidates(candidates, done_logins):
             print(f"  [{pct_done:.0f}%] {i + len(batch)}/{len(uncached)} fetched, "
                   f"{panel_found} panel-country accounts found so far")
 
-        time.sleep(GRAPHQL_BATCH_DELAY)
+        time.sleep(_jitter(GRAPHQL_BATCH_DELAY))
 
-    # Build final filtered list: panel countries only, not already done
     panel_candidates = [
         (login, location_cache[login])
         for login in candidates
@@ -680,7 +728,6 @@ def prefilter_candidates(candidates, done_logins):
 # ---------------------------------------------------------------------------
 
 def load_status():
-    """Load scrape status CSV. Returns dict: login -> row."""
     status = {}
     if not STATUS_PATH.exists():
         return status
@@ -711,16 +758,10 @@ def append_features(row):
 
 
 # ---------------------------------------------------------------------------
-# Light scrape — profile call skipped when country is already known
+# Light scrape
 # ---------------------------------------------------------------------------
 
 def scrape_account_light(login, known_country=None):
-    """
-    Lightweight scrape of commits + PRs.
-    If known_country is provided (from GraphQL pre-filter), skips the
-    profile REST call, saving one API round-trip per account.
-    Returns dict with commits, prs, location.
-    """
     cache_path = POP_CACHE_DIR / f"{login}.json"
     if cache_path.exists():
         with open(cache_path) as f:
@@ -728,7 +769,6 @@ def scrape_account_light(login, known_country=None):
         if not cached.get("error"):
             return cached
 
-    # Only fetch profile if we don't already know the location
     if known_country is None:
         profile = gh_get(f"https://api.github.com/users/{login}")
         _sleep()
@@ -736,7 +776,7 @@ def scrape_account_light(login, known_country=None):
             return {"error": "profile fetch failed", "commits": [], "prs": [], "location": None}
         location = profile.get("location")
     else:
-        location = known_country  # use the pre-filtered country as a stand-in
+        location = known_country
 
     repos_data = gh_get(
         f"https://api.github.com/users/{login}/repos"
@@ -749,7 +789,7 @@ def scrape_account_light(login, known_country=None):
     repos = [r["name"] for r in repos_data if not r.get("fork", False)][:MAX_REPOS_PER_ACCOUNT]
 
     all_commits = []
-    all_prs     = []
+    all_prs = []
     commits_remaining = MAX_COMMITS_PER_ACCOUNT
 
     for repo_name in repos:
@@ -766,10 +806,10 @@ def scrape_account_light(login, known_country=None):
             for item in data:
                 c = item.get("commit", {})
                 all_commits.append({
-                    "sha":        item.get("sha", ""),
-                    "message":    c.get("message", ""),
+                    "sha": item.get("sha", ""),
+                    "message": c.get("message", ""),
                     "created_at": (c.get("committer") or c.get("author") or {}).get("date", ""),
-                    "repo":       repo_name,
+                    "repo": repo_name,
                     "file_sampled": False,
                     "has_test_file": None,
                     "has_impl_file": None,
@@ -789,15 +829,15 @@ def scrape_account_light(login, known_country=None):
                     continue
                 body = pr.get("body") or ""
                 all_prs.append({
-                    "created_at":  pr.get("created_at", ""),
+                    "created_at": pr.get("created_at", ""),
                     "body_length": len(body),
                 })
 
     result = {
-        "login":    login,
+        "login": login,
         "location": location,
-        "commits":  all_commits,
-        "prs":      all_prs,
+        "commits": all_commits,
+        "prs": all_prs,
     }
     with open(cache_path, "w") as f:
         json.dump(result, f)
@@ -805,7 +845,7 @@ def scrape_account_light(login, known_country=None):
 
 
 # ---------------------------------------------------------------------------
-# Feature extraction (identical to v1)
+# Feature extraction
 # ---------------------------------------------------------------------------
 
 def _parse_dt(s):
@@ -875,10 +915,10 @@ def _window_features(commits, prs, after, before=None):
     )
     test_re = re.compile(r"\btest[s]?\b", re.IGNORECASE)
 
-    multiline_n    = sum(1 for m in cleaned if "\n" in m)
+    multiline_n = sum(1 for m in cleaned if "\n" in m)
     conventional_n = sum(1 for m in cleaned if conv_re.match(m))
-    test_n         = sum(1 for m in cleaned if test_re.search(m))
-    bullets_n      = sum(1 for m in cleaned if "- " in m or "* " in m)
+    test_n = sum(1 for m in cleaned if test_re.search(m))
+    bullets_n = sum(1 for m in cleaned if "- " in m or "* " in m)
 
     sorted_w = sorted(window_c, key=lambda c: _parse_dt(c.get("created_at")) or datetime.min)
     inter = []
@@ -899,43 +939,42 @@ def _window_features(commits, prs, after, before=None):
     ]
     if window_p:
         bl = [pr.get("body_length", 0) for pr in window_p]
-        mean_body    = sum(bl) / len(bl)
+        mean_body = sum(bl) / len(bl)
         frac_has_body = sum(1 for b in bl if b > 50) / len(bl)
     else:
         mean_body = frac_has_body = 0.0
 
     n = len(window_c)
     return {
-        "commit_count":                  n,
-        "mean_message_length":           round(sum(msg_lengths) / n, 2),
-        "active_weeks":                  active_weeks,
-        "repos_touched":                 repos,
-        "mean_commits_per_active_week":  round(n / max(active_weeks, 1), 2),
-        "frac_multiline":                round(multiline_n / n, 3),
-        "frac_conventional":             round(conventional_n / n, 3),
-        "frac_mentions_test":            round(test_n / n, 3),
-        "frac_has_bullets":              round(bullets_n / n, 3),
-        "mean_inter_commit_hours":       round(mean_inter, 2),
-        "frac_burst_commits":            round(frac_burst, 3),
-        "sampled_test_cowrite_rate":     0.0,
-        "file_sample_count":             0,
-        "mean_pr_body_length":           round(mean_body, 2),
-        "frac_pr_has_body":              round(frac_has_body, 3),
+        "commit_count": n,
+        "mean_message_length": round(sum(msg_lengths) / n, 2),
+        "active_weeks": active_weeks,
+        "repos_touched": repos,
+        "mean_commits_per_active_week": round(n / max(active_weeks, 1), 2),
+        "frac_multiline": round(multiline_n / n, 3),
+        "frac_conventional": round(conventional_n / n, 3),
+        "frac_mentions_test": round(test_n / n, 3),
+        "frac_has_bullets": round(bullets_n / n, 3),
+        "mean_inter_commit_hours": round(mean_inter, 2),
+        "frac_burst_commits": round(frac_burst, 3),
+        "sampled_test_cowrite_rate": 0.0,
+        "file_sample_count": 0,
+        "mean_pr_body_length": round(mean_body, 2),
+        "frac_pr_has_body": round(frac_has_body, 3),
     }
 
 
 def extract_features_for_account(login, data):
-    """Extract pre/post/delta features. Returns (row, pre_count, post_count) or (None, ...)."""
     commits = _deduplicate(data.get("commits", []))
-    prs     = data.get("prs", [])
+    prs = data.get("prs", [])
 
-    pre_count  = _count_in_window(commits, PRE_START, PRE_CUTOFF)
+    pre_count = _count_in_window(commits, PRE_START, PRE_CUTOFF)
     post_count = _count_in_window(commits, POST_START)
 
     if pre_count < MIN_PRE_COMMITS or post_count < MIN_POST_COMMITS:
         return None, pre_count, post_count
 
-    pre_f  = _window_features(commits, prs, PRE_START, PRE_CUTOFF)
+    pre_f = _window_features(commits, prs, PRE_START, PRE_CUTOFF)
     post_f = _window_features(commits, prs, POST_START)
 
     row = {"login": login}
@@ -967,7 +1006,7 @@ def score_row(model, imputer, feature_cols, row):
 
 
 # ---------------------------------------------------------------------------
-# Aggregation (identical to v1)
+# Aggregation
 # ---------------------------------------------------------------------------
 
 def build_adoption_table(scores_path):
@@ -1012,9 +1051,10 @@ def main():
     import joblib
 
     print("=" * 65)
-    print("POPULATION SCRAPE v2")
+    print("POPULATION SCRAPE v3")
     print(f"Target: {MAX_TOTAL_ACCOUNTS} accounts across {len(PANEL_COUNTRIES)} panel countries")
     print(f"API delay: {API_DELAY}s (REST), {GRAPHQL_BATCH_DELAY}s (GraphQL batch)")
+    print(f"Max sleep per attempt: {MAX_SLEEP}s")
     print(f"GraphQL batch size: {LOCATION_BATCH_SIZE} users/request")
     print("=" * 65)
 
@@ -1022,10 +1062,9 @@ def main():
     model, imputer, feature_cols = load_model()
     print(f"  Model loaded. Feature cols: {len(feature_cols)}")
 
-    # Resume state
     status = load_status()
-    done_logins    = {l for l, s in status.items() if s["status"] in ("scored", "skipped", "error")}
-    scored_logins  = {l for l, s in status.items() if s["status"] == "scored"}
+    done_logins = {l for l, s in status.items() if s["status"] in ("scored", "skipped", "error")}
+    scored_logins = {l for l, s in status.items() if s["status"] == "scored"}
     country_counts = defaultdict(int)
     for l, s in status.items():
         if s["status"] == "scored" and s.get("country") in PANEL_COUNTRIES:
@@ -1039,18 +1078,15 @@ def main():
         build_adoption_table(SCORES_PATH)
         return
 
-    # Stage 1: collect candidates from GH Archive
     candidates = collect_candidates()
     random.shuffle(candidates)
 
-    # Stage 1.5: GraphQL batch location pre-filter
     panel_candidates = prefilter_candidates(candidates, done_logins)
     print(f"\nFresh panel-country candidates to scrape: {len(panel_candidates)}")
 
-    # Open scores file for appending
     scores_write_header = not SCORES_PATH.exists()
-    scores_fieldnames   = ["login", "country", "pre_classifier_score",
-                           "post_classifier_score", "pre_commits", "post_commits"]
+    scores_fieldnames = ["login", "country", "pre_classifier_score",
+                         "post_classifier_score", "pre_commits", "post_commits"]
 
     consecutive_failures = 0
 
@@ -1060,7 +1096,6 @@ def main():
             break
 
         try:
-            # Pass known_country to skip redundant profile REST call
             data = scrape_account_light(login, known_country=country)
         except NetworkError:
             consecutive_failures += 1
@@ -1070,7 +1105,7 @@ def main():
                            "timestamp": datetime.now().isoformat()})
             if consecutive_failures >= CONSECUTIVE_NETWORK_FAIL_LIMIT:
                 print(f"  Circuit breaker — pausing {CIRCUIT_BREAKER_PAUSE}s")
-                time.sleep(CIRCUIT_BREAKER_PAUSE)
+                time.sleep(_jitter(CIRCUIT_BREAKER_PAUSE))
                 consecutive_failures = 0
             continue
 
@@ -1082,7 +1117,6 @@ def main():
                            "timestamp": datetime.now().isoformat()})
             continue
 
-        # Extract features
         feat_row, pre_count, post_count = extract_features_for_account(login, data)
         if feat_row is None:
             append_status({"login": login, "status": "skipped", "country": country,
@@ -1091,7 +1125,6 @@ def main():
                            "timestamp": datetime.now().isoformat()})
             continue
 
-        # Score pre and post windows separately
         pre_feat_row = {k: v for k, v in feat_row.items()}
         for k in list(pre_feat_row.keys()):
             if k.startswith("post_"):
@@ -1101,16 +1134,16 @@ def main():
             if k.startswith("delta_"):
                 pre_feat_row[k] = 0.0
 
-        pre_score  = score_row(model, imputer, feature_cols, pre_feat_row)
+        pre_score = score_row(model, imputer, feature_cols, pre_feat_row)
         post_score = score_row(model, imputer, feature_cols, feat_row)
 
         score_row_dict = {
-            "login":                login,
-            "country":              country,
+            "login": login,
+            "country": country,
             "pre_classifier_score": round(pre_score, 4),
             "post_classifier_score": round(post_score, 4),
-            "pre_commits":          pre_count,
-            "post_commits":         post_count,
+            "pre_commits": pre_count,
+            "post_commits": post_count,
         }
         with open(SCORES_PATH, "a", newline="") as f:
             w = csv.DictWriter(f, fieldnames=scores_fieldnames)
@@ -1149,7 +1182,7 @@ def main():
         print("No scores file found — nothing to aggregate.")
 
     print("\n" + "=" * 65)
-    print("POPULATION SCRAPE v2 COMPLETE")
+    print("POPULATION SCRAPE v3 COMPLETE")
     print(f"  Scored: {total_scored} accounts")
     print(f"  Status: {STATUS_PATH}")
     print(f"  Scores: {SCORES_PATH}")

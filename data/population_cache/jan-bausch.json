@@ -1,1 +1,0 @@
-{"login": "jan-bausch", "location": null, "commits": [{"sha": "d4f4c7be9f59a9c5339cd0f9340e528fab192a86", "message": "Create CNAME", "created_at": "2022-01-07T00:24:24Z", "repo": "jan-bausch.com", "file_sampled": false, "has_test_file": null, "has_impl_file": null}], "prs": [{"created_at": "2018-08-30T18:40:58Z", "body_length": 0}]}

@@ -1,19 +1,17 @@
 ======================================================================
 PANEL REGRESSION RESULTS v2
-Date: 2026-03-30
+Date: 2026-04-22
 ======================================================================
 
 Panel: github_panel_flat.csv
-N observations: 268
-Countries: 52
+N observations: 329
+Countries: 53
 DV: log(commits_per_dev + 1)
 
 NOTE ON IV:
-  pct_ai_users is a TIME-BASED PROXY (not true per-country adoption).
-  Value = 0 for 2022 and 2023; value = mean classifier score
-  (0.138) for 2024.
-  True country-quarter adoption requires a full population scrape.
-  See project_plan.md Step 9 for the path to the real IV.
+  pct_ai_users = 0 for 2022 and 2023; per-country mean classifier score for 2024.
+  Countries with >= 15 scored accounts included.
+  Country-years with < 5 developers dropped.
 
 REGRESSION A — Phase 1 Baseline (Oxford Insights AI Readiness)
                           PanelOLS Estimation Summary                           
@@ -21,8 +19,8 @@ REGRESSION A — Phase 1 Baseline (Oxford Insights AI Readiness)
 Dep. Variable:            log_commits   R-squared:                        0.0345
 Estimator:                   PanelOLS   R-squared (Between):             -6.2445
 No. Observations:                  88   R-squared (Within):               0.0052
-Date:                Mon, Apr 06 2026   R-squared (Overall):             -4.9742
-Time:                        10:54:00   Log-likelihood                    1.5750
+Date:                Sat, Apr 25 2026   R-squared (Overall):             -4.9742
+Time:                        09:19:57   Log-likelihood                    1.5750
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.2509
 Entities:                          51   P-value                           0.2710
@@ -52,75 +50,141 @@ REGRESSION B — Phase 2 (classifier-based IV, time proxy — BROKEN BASELINE)
 NOTE: pct_ai_users_proxy is collinear with time FE. Coefficient is meaningless.
                           PanelOLS Estimation Summary                           
 ================================================================================
-Dep. Variable:            log_commits   R-squared:                     1.241e-07
-Estimator:                   PanelOLS   R-squared (Between):          -1.345e+21
-No. Observations:                 111   R-squared (Within):           -5.493e+22
-Date:                Mon, Apr 06 2026   R-squared (Overall):          -5.098e+21
-Time:                        10:54:00   Log-likelihood                    23.812
+Dep. Variable:            log_commits   R-squared:                     1.917e-06
+Estimator:                   PanelOLS   R-squared (Between):          -4.708e+23
+No. Observations:                 133   R-squared (Within):           -1.072e+25
+Date:                Sat, Apr 25 2026   R-squared (Overall):          -1.181e+24
+Time:                        09:19:57   Log-likelihood                    15.453
 Cov. Estimator:             Clustered                                           
-                                        F-statistic:                   6.949e-06
-Entities:                          52   P-value                           0.9979
-Avg Obs:                       2.1346   Distribution:                    F(1,56)
+                                        F-statistic:                      0.0001
+Entities:                          53   P-value                           0.9903
+Avg Obs:                       2.5094   Distribution:                    F(1,77)
 Min Obs:                       1.0000                                           
-Max Obs:                       3.0000   F-statistic (robust):          5.474e-06
-                                        P-value                           0.9981
-Time periods:                       3   Distribution:                    F(1,56)
-Avg Obs:                       37.000                                           
-Min Obs:                       20.000                                           
+Max Obs:                       3.0000   F-statistic (robust):          9.677e-05
+                                        P-value                           0.9922
+Time periods:                       3   Distribution:                    F(1,77)
+Avg Obs:                       44.333                                           
+Min Obs:                       40.000                                           
 Max Obs:                       51.000                                           
                                                                                 
                               Parameter Estimates                               
 ================================================================================
               Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
 --------------------------------------------------------------------------------
-pct_ai_users  1.006e+12  4.301e+14     0.0023     0.9981  -8.605e+14   8.625e+14
+pct_ai_users -1.162e+13  1.182e+15    -0.0098     0.9922  -2.364e+15   2.341e+15
 ================================================================================
 
-F-test for Poolability: 1.1440
-P-value: 0.3096
-Distribution: F(53,56)
+F-test for Poolability: 1.0489
+P-value: 0.4190
+Distribution: F(54,77)
 
 Included effects: Entity, Time
 
 REGRESSION C — Phase 2 REAL IV (per-country classifier score from population scrape)
-Countries included: ['AU', 'BD', 'BR', 'CA', 'CH', 'CN', 'DE', 'FR', 'GB', 'ID', 'IN', 'IT', 'JP', 'KR', 'NL', 'PL', 'RU', 'SE', 'US', 'VN']
+NOTE: Includes baseline_log_commits control for pre-existing productivity (placebo test showed confound).
+Countries included: ['AR', 'AT', 'AU', 'BD', 'BE', 'BR', 'CA', 'CH', 'CN', 'CZ', 'DE', 'DK', 'EG', 'ES', 'FI', 'FR', 'GB', 'ID', 'IN', 'IT', 'JP', 'KE', 'KR', 'NG', 'NL', 'NO', 'PL', 'PT', 'RU', 'SE', 'SG', 'TR', 'UA', 'US']
 Min accounts per country: 15
+Min developers per obs: 5
                           PanelOLS Estimation Summary                           
 ================================================================================
-Dep. Variable:            log_commits   R-squared:                        0.0221
-Estimator:                   PanelOLS   R-squared (Between):             -0.3803
-No. Observations:                  59   R-squared (Within):              -1.2260
-Date:                Mon, Apr 06 2026   R-squared (Overall):             -0.4475
-Time:                        10:54:00   Log-likelihood                    9.0263
+Dep. Variable:            log_commits   R-squared:                        0.0281
+Estimator:                   PanelOLS   R-squared (Between):             -0.5041
+No. Observations:                  72   R-squared (Within):              -1.7223
+Date:                Sat, Apr 25 2026   R-squared (Overall):             -0.5262
+Time:                        09:19:57   Log-likelihood                    32.763
 Cov. Estimator:             Clustered                                           
-                                        F-statistic:                      0.8143
-Entities:                          20   P-value                           0.3728
-Avg Obs:                       2.9500   Distribution:                    F(1,36)
-Min Obs:                       2.0000                                           
-Max Obs:                       3.0000   F-statistic (robust):             0.6409
-                                        P-value                           0.4286
-Time periods:                       3   Distribution:                    F(1,36)
-Avg Obs:                       19.667                                           
-Min Obs:                       19.000                                           
-Max Obs:                       20.000                                           
+                                        F-statistic:                      1.0113
+Entities:                          34   P-value                           0.3215
+Avg Obs:                       2.1176   Distribution:                    F(1,35)
+Min Obs:                       1.0000                                           
+Max Obs:                       3.0000   F-statistic (robust):             1.3612
+                                        P-value                           0.2512
+Time periods:                       3   Distribution:                    F(1,35)
+Avg Obs:                       24.000                                           
+Min Obs:                       9.0000                                           
+Max Obs:                       32.000                                           
                                                                                 
                               Parameter Estimates                               
 ================================================================================
               Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
 --------------------------------------------------------------------------------
-pct_ai_users    -4.9111     6.1346    -0.8005     0.4286     -17.353      7.5305
+pct_ai_users    -5.1431     4.4082    -1.1667     0.2512     -14.092      3.8061
 ================================================================================
 
-F-test for Poolability: 0.9942
-P-value: 0.4923
-Distribution: F(21,36)
+F-test for Poolability: 1.1556
+P-value: 0.3355
+Distribution: F(35,35)
 
 Included effects: Entity, Time
+
+REGRESSION C-W — Phase 2 REAL IV (WEIGHTED by n_developers)
+NOTE: Includes baseline_log_commits control for pre-existing productivity.
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:            log_commits   R-squared:                        0.0639
+Estimator:                   PanelOLS   R-squared (Between):             -0.8728
+No. Observations:                  72   R-squared (Within):              -4.9968
+Date:                Sat, Apr 25 2026   R-squared (Overall):             -0.9835
+Time:                        09:19:57   Log-likelihood                    42.590
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      1.1605
+Entities:                          34   P-value                           0.3254
+Avg Obs:                       2.1176   Distribution:                    F(2,34)
+Min Obs:                       1.0000                                           
+Max Obs:                       3.0000   F-statistic (robust):             1.9949
+                                        P-value                           0.1516
+Time periods:                       3   Distribution:                    F(2,34)
+Avg Obs:                       24.000                                           
+Min Obs:                       9.0000                                           
+Max Obs:                       32.000                                           
+                                                                                
+                                  Parameter Estimates                                   
+========================================================================================
+                      Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+----------------------------------------------------------------------------------------
+pct_ai_users            -7.5598     3.8020    -1.9884     0.0549     -15.286      0.1668
+baseline_log_commits    -0.0647     0.2354    -0.2751     0.7849     -0.5430      0.4136
+========================================================================================
+
+F-test for Poolability: 0.6395
+P-value: 0.9034
+Distribution: F(35,34)
+
+Included effects: Entity, Time
+
+REGRESSION D — Parallel Trends Diagnostic (2022→2023 change ~ 2024 adoption)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            delta_22_23   R-squared:                       0.037
+Model:                            OLS   Adj. R-squared:                 -0.101
+Method:                 Least Squares   F-statistic:                    0.2674
+Date:                Sat, 25 Apr 2026   Prob (F-statistic):              0.621
+Time:                        09:19:59   Log-Likelihood:                 2.5404
+No. Observations:                   9   AIC:                            -1.081
+Df Residuals:                       7   BIC:                           -0.6863
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+===============================================================================
+                  coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------
+const           0.3722      0.775      0.480      0.646      -1.461       2.205
+adoption_24    -5.0403      9.747     -0.517      0.621     -28.089      18.008
+==============================================================================
+Omnibus:                        1.643   Durbin-Watson:                   2.566
+Prob(Omnibus):                  0.440   Jarque-Bera (JB):                0.731
+Skew:                          -0.019   Prob(JB):                        0.694
+Kurtosis:                       1.604   Cond. No.                         142.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 
 
 COMPARISON TABLE
 --------------------------------------------------------------------------------
-                            Model                                       IV   N               Coef                   SE p-value     R²
-             A — Phase 1 Baseline              ai_readiness_score (Oxford)  88             0.0667               0.0896  0.4618 0.0345
- B — Phase 2 (time proxy, broken) pct_ai_users_proxy (global mean in 2024) 111 1006216566411.5400 430050422935562.9375  0.9981 0.0000
-C — Phase 2 (REAL per-country IV)        pct_ai_users (pop. scrape, n>=15)  59            -4.9111               6.1346  0.4286 0.0221
+                            Model                                       IV   N                 Coef                    SE p-value     R²
+             A — Phase 1 Baseline              ai_readiness_score (Oxford)  88               0.0667                0.0896  0.4618 0.0345
+ B — Phase 2 (time proxy, broken) pct_ai_users_proxy (global mean in 2024) 133 -11623460003697.6387 1181577581104091.5000  0.9922 0.0000
+C — Phase 2 (REAL per-country IV)        pct_ai_users (pop. scrape, n>=15)  72              -5.1431                4.4082  0.2512 0.0281
+         C-W — Phase 2 (weighted)        pct_ai_users (pop. scrape, n>=15)  72              -7.5598                3.8020  0.0549 0.0639
+              D — Parallel trends                       2024 adoption rate   9              -5.0403                9.7473  0.6210 0.0368

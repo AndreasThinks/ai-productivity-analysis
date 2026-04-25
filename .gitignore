@@ -2,6 +2,9 @@
 data/classifier_cache/
 data/classifier_cache_test/
 data/classifier_cache_full/
+data/population_cache/
+data/population_cache_v3/
+data/expansion_cache/
 
 # GH Archive raw dumps — large
 data/gharchive_*.jsonl
@@ -10,6 +13,14 @@ data/gharchive_*.jsonl
 data/classifier_sample_raw.json
 data/classifier_test_raw.json
 data/classifier_full_raw.json
+data/expansion_raw.json
+
+# Location resolution caches — large, regenerable
+data/population_location_cache*.csv
+
+# Status CSVs — regenerable, can be large
+data/population_scrape_status.csv
+data/population_scrape_status_v3.csv
 
 # Oxford Insights data — not redistributable, download separately
 data/oxford_insights/*.xlsx

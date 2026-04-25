@@ -45,7 +45,7 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 if not GITHUB_TOKEN:
     raise ValueError("GITHUB_TOKEN environment variable not set")
 
-PROJECT_ROOT = Path("/home/andreasclaw/projects/ai_productivity_analysis")
+PROJECT_ROOT = Path("/home/avery/projects/ai_productivity_analysis")
 DATA_DIR = PROJECT_ROOT / "data"
 CACHE_DIR = DATA_DIR / "classifier_cache_subsample"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)

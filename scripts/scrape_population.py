@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# /// script
+# dependencies = ["joblib", "scikit-learn", "requests"]
+# ///
 """
 Population Scrape — lightweight scoring of GitHub accounts for country-quarter IV
 
@@ -42,7 +45,7 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 if not GITHUB_TOKEN:
     raise ValueError("GITHUB_TOKEN environment variable not set")
 
-PROJECT_ROOT = Path("/home/andreasclaw/projects/ai_productivity_analysis")
+PROJECT_ROOT = Path("/home/avery/projects/ai_productivity_analysis")
 DATA_DIR     = PROJECT_ROOT / "data"
 
 # Reuse the GH Archive cache from the classifier scraper — already downloaded

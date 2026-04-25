@@ -1,0 +1,24 @@
+ROBUSTNESS CHECKS — AI Productivity Analysis
+Run date: 2026-04-25
+
+                                 Label          DV  N  Countries       Coef        SE        p Sig
+            C-ref (mean IV + baseline) log_commits 70         34  -5.143117  4.346585 0.244683    
+C-W-ref (mean IV + baseline, weighted) log_commits 70         34  -7.559761  3.694841 0.048324  **
+             R1a: mean IV, no baseline log_commits 72         34  -5.143117  4.408242 0.251218    
+   R1b: mean IV, no baseline, weighted log_commits 72         34  -7.559761  3.747253 0.051372   *
+          R2a: threshold IV + baseline log_commits 70         34 -21.717552 13.815766 0.124962    
+        R2b: threshold IV, no baseline log_commits 72         34 -21.717552 14.011744 0.130149    
+             R3a: median IV + baseline log_commits 70         34  -4.541988  8.099853 0.578541    
+           R3b: median IV, no baseline log_commits 72         34  -4.541988  8.214750 0.583842    
+   R4a: DV=log_prs, mean IV + baseline     log_prs 70         34   1.326387  4.395317 0.764611    
+R4b: DV=log_events, mean IV + baseline  log_events 70         34  -7.587814  4.522110 0.102269    
+          R4c: DV=log_prs, no baseline     log_prs 72         34   1.326387  4.457665 0.767804    
+       R4d: DV=log_events, no baseline  log_events 72         34  -7.587814  4.586257 0.106975    
+            R5a: 2024 OLS, no controls log_commits 29         29  -6.193379  3.179448 0.061888   *
+              R5b: 2024 OLS + baseline log_commits 29         29  -6.262680  3.235110 0.063830   *
+              R5c: 2024 WLS + baseline log_commits 29         29  -7.656169  3.202541 0.024351  **
+
+Permutation placebo (R6):
+  Observed coef (2024 OLS + baseline): -6.2627
+  Permutation p (two-sided, 1000 draws): 0.0730
+  Null SD: 3.5412
