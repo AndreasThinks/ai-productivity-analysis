@@ -27,27 +27,45 @@
   (April 25) confirmed it is fully absorbed by entity FE and contributes nothing.
 - Classifier retrained with 41 expansion positives: 74 pos + 202 neg = 276 accounts.
   AUC 0.936 (±0.031), stable vs original 0.940. Saved as `classifier_model_expanded.pkl`.
-- **PR outcome extension drafted and first full run completed May 8:** `scripts/pr_outcome_metrics.py` scrapes authored
+- **PR outcome extension completed May 8:** `scripts/pr_outcome_metrics.py` scrapes authored
   PRs across repositories via GitHub issue search, caches per-account PR details in
   `data/pr_outcome_cache/`, builds `data/account_pr_outcomes.csv`, and writes
   `data/account_pr_did_results.txt`. Hardened with atomic cache writes, per-account
   error handling, and `data/pr_outcome_status.csv`. Durable launch/check scripts:
   `run_pr_outcome_scrape.sh` and `check_pr_outcome_scrape.sh`. Tests live in
-  `tests/test_pr_outcome_metrics.py`. Initial 235-account run found strong account-level
-  PR-volume effects: opened PRs +57.6 (p=0.0011), merged PRs +55.6 (p=0.0011),
-  merge rate +0.26 (p=0.00036), median time-to-merge −19.2h (p=0.027). After
-  double-checking, the PR-volume effects survive FDR correction and robustness filters;
-  merge-rate/time-to-merge are secondary because zero-PR windows distort rates/latencies.
-  Script now supports custom `--features-path`, `--outcomes-path`, and report paths so the
-  expanded 276-account classifier cohort can be rerun. Expanded positive scrape is in progress
-  for the 41 high-confidence positives missing from the first cache.
+  `tests/test_pr_outcome_metrics.py`. Script now supports custom `--features-path`,
+  `--outcomes-path`, `--did-results-path`, and `--status-path` for reproducible analysis.
+
+  **Final expanded cohort results (275 accounts, 73 treated, 202 controls):**
+  - PRs opened: +46.4 (p=0.00013)
+  - PRs merged: +42.6 (p=0.00015)
+  - Opened PRs/month: +1.64 (p=0.00013)
+  - Merged PRs/month: +1.51 (p=0.00015)
+  - Merge rate: +0.16 (p=0.0039)
+  - Median hours to merge: −18.5h (p=0.034)
+  - PRs closed unmerged: +3.66 (p=0.014)
+  - All PR-volume effects survive Benjamini-Hochberg FDR correction.
+  - Robustness: effects survive uncapped-only, nonzero-PRs-only, drop-zero-pre, and
+    high-confidence-treated-only filters.
+  - Merge-rate and time-to-merge effects are secondary and collapse in the
+    both-window-PR-active subsample due to zero-PR-window contamination.
+  - Coverage: 57 zero-PR accounts (15 treated, 42 controls), 23 capped at 300 PRs
+    (13 treated, 10 controls), 104 with PRs in both windows (18 treated, 86 controls).
+
+  **Interpretation:** Account-level PR evidence does not invalidate the country-level
+  PR null. It reveals a scale mismatch: country-level aggregate PR rates are too noisy
+  to carry strong output claims, while account-level PR histories show visible adopters
+  increasing accepted packaged work. Merge-rate and time-to-merge findings are real
+  but mechanically fragile because zero-PR windows distort rate/latency metrics.
 
 **Critical scrape blocker: RESOLVED.** v3 hit 53 countries, well above the >=25
 threshold. Regression C now runs cleanly with N=72 and 34 countries.
 
-**New blocker: paper revision.** The octopus/ draft is stale (quotes old N=59 / 20-
-country / coef=-6.06 numbers from pre-v3). Needs full rewrite to incorporate v3
-results and the April 25 robustness findings (see below).
+**New blocker: paper revision.** The v3 paper draft is stale. Needs revision to
+incorporate v3 panel results, April 25 robustness findings, and the PR outcome
+extension. See `2026-05-08_1845-pr-outcome-paper-revision.md` for the implementation
+plan. Immediate task: update `notebooks/research_paper_v3.ipynb` with the expanded
+PR outcome evidence and reframe the country-level PR null language.
 
 ---
 
