@@ -41,6 +41,7 @@ FEATURES_PATH = DATA_DIR / "classifier_full_features.csv"
 CACHE_DIR = DATA_DIR / "pr_outcome_cache"
 OUTCOMES_PATH = DATA_DIR / "account_pr_outcomes.csv"
 DID_RESULTS_PATH = DATA_DIR / "account_pr_did_results.txt"
+STATUS_PATH = DATA_DIR / "pr_outcome_status.csv"
 
 PRE_START = datetime(2022, 1, 1, tzinfo=timezone.utc)
 POST_START = datetime(2024, 1, 1, tzinfo=timezone.utc)
@@ -344,6 +345,33 @@ def load_feature_accounts(path: Path = FEATURES_PATH) -> pd.DataFrame:
     return pd.read_csv(path)
 
 
+def atomic_write_json(path: Path, payload: dict[str, Any]) -> None:
+    """Write JSON atomically so interrupted scrapes do not leave corrupt caches."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
+    tmp_path.write_text(json.dumps(payload, indent=2))
+    os.replace(tmp_path, path)
+
+
+def record_status(
+    status_path: Path,
+    login: str,
+    status: str,
+    n_prs: int,
+    error: str = "",
+) -> None:
+    """Append one scrape status row and flush it immediately."""
+    status_path.parent.mkdir(parents=True, exist_ok=True)
+    write_header = not status_path.exists()
+    with open(status_path, "a", newline="") as f:
+        writer = csv.writer(f)
+        if write_header:
+            writer.writerow(["timestamp", "login", "status", "n_prs", "error"])
+        writer.writerow([datetime.now(timezone.utc).isoformat(), login, status, n_prs, error])
+        f.flush()
+        os.fsync(f.fileno())
+
+
 def select_accounts_for_scrape(accounts: pd.DataFrame, max_accounts: int | None) -> pd.DataFrame:
     """Select accounts for scraping, balancing treated/control in limited smoke runs."""
     if not max_accounts or max_accounts >= len(accounts) or "label" not in accounts.columns:
@@ -366,6 +394,7 @@ def scrape_accounts(
     token: str | None,
     max_accounts: int | None = None,
     max_prs_per_account: int = DEFAULT_MAX_PRS_PER_ACCOUNT,
+    status_path: Path = STATUS_PATH,
 ) -> None:
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     client = GitHubClient(token)
@@ -374,11 +403,25 @@ def scrape_accounts(
         login = row.login
         cache_file = CACHE_DIR / f"{login}.json"
         if cache_file.exists():
-            print(f"[{i}/{len(selected)}] {login}: cached")
+            try:
+                cached = json.loads(cache_file.read_text())
+                n_prs = len(cached.get("prs", []))
+            except (json.JSONDecodeError, OSError):
+                n_prs = 0
+            print(f"[{i}/{len(selected)}] {login}: cached ({n_prs} PRs)", flush=True)
+            record_status(status_path, login, "cached", n_prs)
             continue
-        print(f"[{i}/{len(selected)}] {login}: scraping PRs")
-        prs = scrape_prs_for_login(login, client, max_prs=max_prs_per_account)
-        cache_file.write_text(json.dumps({"login": login, "prs": prs}, indent=2))
+        print(f"[{i}/{len(selected)}] {login}: scraping PRs", flush=True)
+        try:
+            prs = scrape_prs_for_login(login, client, max_prs=max_prs_per_account)
+            atomic_write_json(cache_file, {"login": login, "prs": prs})
+            record_status(status_path, login, "done", len(prs))
+            print(f"[{i}/{len(selected)}] {login}: done ({len(prs)} PRs)", flush=True)
+        except Exception as exc:
+            message = f"{type(exc).__name__}: {exc}"
+            record_status(status_path, login, "error", 0, message[:500])
+            print(f"[{i}/{len(selected)}] {login}: error: {message}", flush=True)
+            continue
 
 
 def build_outcome_dataset(accounts: pd.DataFrame) -> pd.DataFrame:

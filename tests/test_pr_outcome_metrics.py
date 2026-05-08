@@ -3,8 +3,10 @@ from datetime import datetime, timezone
 import pandas as pd
 
 from scripts.pr_outcome_metrics import (
+    atomic_write_json,
     build_did_row,
     compute_did_results,
+    record_status,
     select_accounts_for_scrape,
     summarize_pr_outcomes,
     window_for_timestamp,
@@ -125,3 +127,25 @@ def test_select_accounts_for_scrape_balances_limited_smoke_runs():
 
     assert selected["login"].tolist() == ["pos1", "pos2", "neg1", "neg2"]
     assert selected["label"].tolist() == [1, 1, 0, 0]
+
+
+def test_atomic_write_json_does_not_leave_tmp_file(tmp_path):
+    target = tmp_path / "dev.json"
+
+    atomic_write_json(target, {"login": "dev", "prs": [{"number": 1}]})
+
+    assert target.exists()
+    assert not target.with_suffix(".json.tmp").exists()
+    assert '"login": "dev"' in target.read_text()
+
+
+def test_record_status_appends_csv_rows_with_header(tmp_path):
+    status_path = tmp_path / "status.csv"
+
+    record_status(status_path, "dev1", "done", 3)
+    record_status(status_path, "dev2", "error", 0, "boom")
+
+    rows = status_path.read_text().splitlines()
+    assert rows[0] == "timestamp,login,status,n_prs,error"
+    assert ",dev1,done,3," in rows[1]
+    assert ",dev2,error,0,boom" in rows[2]

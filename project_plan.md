@@ -30,7 +30,10 @@
 - **PR outcome extension drafted May 8:** `scripts/pr_outcome_metrics.py` scrapes authored
   PRs across repositories via GitHub issue search, caches per-account PR details in
   `data/pr_outcome_cache/`, builds `data/account_pr_outcomes.csv`, and writes
-  `data/account_pr_did_results.txt`. Tests live in `tests/test_pr_outcome_metrics.py`.
+  `data/account_pr_did_results.txt`. Hardened with atomic cache writes, per-account
+  error handling, and `data/pr_outcome_status.csv`. Durable launch/check scripts:
+  `run_pr_outcome_scrape.sh` and `check_pr_outcome_scrape.sh`. Tests live in
+  `tests/test_pr_outcome_metrics.py`.
 
 **Critical scrape blocker: RESOLVED.** v3 hit 53 countries, well above the >=25
 threshold. Regression C now runs cleanly with N=72 and 34 countries.

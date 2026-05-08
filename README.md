@@ -86,6 +86,7 @@ The account-level extension adds authored PR outcomes for the existing classifie
 - Per-account cache: `data/pr_outcome_cache/<login>.json`.
 - Outcome table: `data/account_pr_outcomes.csv`.
 - Regression report: `data/account_pr_did_results.txt`.
+- Status log: `data/pr_outcome_status.csv` records one flushed row per account.
 - Metrics: PRs opened/month, PRs merged/month, merge rate, closed-unmerged rate,
   time-to-merge, PR size, review comments, and commits per PR.
 
@@ -101,6 +102,22 @@ Full run:
 ```bash
 GITHUB_TOKEN=your_pat_here uv run --with pandas --with statsmodels \
   scripts/pr_outcome_metrics.py --scrape --analyse
+```
+
+Durable full run under systemd:
+
+```bash
+systemd-run --user \
+  --unit=ai-productivity-pr-outcome-scrape \
+  --description="AI productivity PR outcome scrape" \
+  --collect \
+  --property=Restart=on-failure \
+  --property=RestartSec=120 \
+  --property=KillMode=control-group \
+  --working-directory=/home/avery/projects/ai_productivity_analysis \
+  /home/avery/projects/ai_productivity_analysis/run_pr_outcome_scrape.sh
+
+./check_pr_outcome_scrape.sh
 ```
 
 Analysis-only rerun from existing cache:
@@ -181,12 +198,15 @@ ai_productivity_analysis/
 │   ├── population_scores_v3.csv            ← v3 population scores (complete)
 │   ├── account_pr_outcomes.csv             ← account-level PR outcome table, generated
 │   ├── account_pr_did_results.txt          ← PR outcome DiD report, generated
+│   ├── pr_outcome_status.csv               ← PR scrape status log, generated
 │   ├── pr_outcome_cache/                   ← per-account authored PR cache, generated
 │   ├── figures/
 │   │   ├── correlation_matrix.png
 │   │   └── scatter_ai_vs_productivity.png
 │   ├── oxford_insights/                    ← not committed — download separately
 │   └── stanford_hai/                       ← HAI Index CSVs, 2023–2024
+├── run_pr_outcome_scrape.sh                ← Durable systemd launcher for PR scrape
+├── check_pr_outcome_scrape.sh              ← PR scrape progress/stall check
 └── scripts/
     ├── scrape_github_panel.py              ← Phase 1 panel scraper
     ├── build_panel.py                      ← merge pipeline
