@@ -1,0 +1,64 @@
+Account-level PR outcome DiD
+============================
+
+Coverage diagnostics
+--------------------
+accounts: 275
+treated: 73
+controls: 202
+zero_pr_accounts: 57
+zero_pr_treated: 15
+zero_pr_controls: 42
+capped_accounts: 23
+capped_treated: 13
+capped_controls: 10
+pr_active_accounts: 218
+pr_active_treated: 58
+pr_active_controls: 160
+both_window_pr_active_accounts: 104
+both_window_pr_active_treated: 18
+both_window_pr_active_controls: 86
+
+Interpretation warning: PR-volume outcomes are the primary accepted-output check. Merge-rate and time-to-merge estimates are secondary because zero-PR windows are encoded as zeros and can distort rate/latency comparisons.
+
+Main estimates
+--------------
+               metric   n  treated_n  control_n  treatment_coef          se  p_value  pre_control_mean  pre_treated_mean  bh_q_value
+           prs_opened 275         73        202       46.405182   12.122004 0.000129         20.029703         17.219178    0.000375
+           prs_merged 275         73        202       42.635537   11.246735 0.000150         17.326733         16.027397    0.000375
+ opened_prs_per_month 275         73        202        1.642245    0.428989 0.000129          0.834571          0.717466    0.000375
+ merged_prs_per_month 275         73        202        1.508840    0.398014 0.000150          0.721947          0.667808    0.000375
+           merge_rate 275         73        202        0.163465    0.056633 0.003897          0.413677          0.243724    0.007794
+median_hours_to_merge 275         73        202      -18.517812    8.758481 0.034492         48.169063        138.639541    0.049274
+   mean_lines_changed 275         73        202    -4080.180794 3783.844311 0.280893       1566.129763       1089.657091    0.312103
+ mean_review_comments 275         73        202       -0.212998    0.473027 0.652503          0.265064          0.187380    0.652503
+  mean_commits_per_pr 275         73        202       -2.419152    1.806072 0.180423          3.144384          1.145817    0.225528
+  prs_closed_unmerged 275         73        202        3.657849    1.487104 0.013905          2.485149          1.123288    0.023175
+
+Sensitivity estimates
+---------------------
+               metric   n  treated_n  control_n  treatment_coef        se  p_value  pre_control_mean  pre_treated_mean  bh_q_value                   spec  capped_n
+           prs_opened 275         73        202       46.405182 12.122004 0.000129         20.029703         17.219178    0.000300                   main        23
+           prs_merged 275         73        202       42.635537 11.246735 0.000150         17.326733         16.027397    0.000300                   main        23
+           merge_rate 275         73        202        0.163465  0.056633 0.003897          0.413677          0.243724    0.005196                   main        23
+median_hours_to_merge 275         73        202      -18.517812  8.758481 0.034492         48.169063        138.639541    0.034492                   main        23
+           prs_opened 252         60        192       27.982876  8.557195 0.001075         11.453125          1.533333    0.003378          uncapped_only         0
+           prs_merged 252         60        192       25.303116  8.058204 0.001689         10.281250          1.350000    0.003378          uncapped_only         0
+           merge_rate 252         60        192        0.165016  0.061619 0.007407          0.392565          0.154940    0.009876          uncapped_only         0
+median_hours_to_merge 252         60        192      -17.594302  9.224575 0.056478         48.245403          2.429190    0.056478          uncapped_only         0
+           prs_opened 218         58        160       58.074748 14.184742 0.000042         25.287500         21.672414    0.000101       nonzero_prs_only        23
+           prs_merged 218         58        160       53.462429 13.192342 0.000051         21.875000         20.172414    0.000101       nonzero_prs_only        23
+           merge_rate 218         58        160        0.145148  0.049864 0.003604          0.522268          0.306756    0.004805       nonzero_prs_only        23
+median_hours_to_merge 218         58        160      -23.340779 11.016386 0.034113         60.813442        174.494595    0.034113       nonzero_prs_only        23
+           prs_opened 104         18         86       83.305903 27.221124 0.002211         32.476744         36.500000    0.003973  both_prepost_activity        14
+           prs_merged 104         18         86       74.879267 25.213144 0.002979         28.720930         32.555556    0.003973  both_prepost_activity        14
+           merge_rate 104         18         86        0.033353  0.038468 0.385924          0.783854          0.880288    0.385924  both_prepost_activity        14
+median_hours_to_merge 104         18         86      -21.953472  6.587136 0.000860        104.913036        562.250625    0.003439  both_prepost_activity        14
+           prs_opened 131         20        111       83.470620 26.402217 0.001570         36.450450         62.850000    0.003012          drop_zero_pre        20
+           prs_merged 131         20        111       74.908863 24.529401 0.002259         31.531532         58.500000    0.003012          drop_zero_pre        20
+           merge_rate 131         20        111        0.113778  0.081501 0.162708          0.752819          0.889592    0.162708          drop_zero_pre        20
+median_hours_to_merge 131         20        111      -16.954441  5.213016 0.001145         87.659015        506.034326    0.003012          drop_zero_pre        20
+           prs_opened 267         65        202       50.806688 13.072111 0.000102         20.029703         19.230769    0.000229 high_conf_treated_only        23
+           prs_merged 267         65        202       46.739371 12.117340 0.000115         17.326733         17.923077    0.000229 high_conf_treated_only        23
+           merge_rate 267         65        202        0.176118  0.059298 0.002978          0.413677          0.249105    0.003970 high_conf_treated_only        23
+median_hours_to_merge 267         65        202      -18.314134  8.757678 0.036509         48.169063        155.672784    0.036509 high_conf_treated_only        23

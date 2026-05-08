@@ -217,6 +217,34 @@ def build_did_row(feature_row: dict[str, Any] | pd.Series, metrics: dict[str, fl
     return row
 
 
+def benjamini_hochberg(p_values: Iterable[float]) -> list[float]:
+    """Return Benjamini-Hochberg adjusted q-values in original p-value order."""
+    indexed = []
+    for i, value in enumerate(p_values):
+        try:
+            p_value = float(value)
+        except (TypeError, ValueError):
+            p_value = float("nan")
+        indexed.append((i, p_value))
+
+    finite = [(i, p) for i, p in indexed if not math.isnan(p)]
+    m = len(finite)
+    q_values = [float("nan")] * len(indexed)
+    if not finite:
+        return q_values
+
+    ranked = sorted(finite, key=lambda item: item[1])
+    adjusted = []
+    for rank, (original_i, p_value) in enumerate(ranked, start=1):
+        adjusted.append((original_i, min(p_value * m / rank, 1.0)))
+
+    running_min = 1.0
+    for original_i, q_value in reversed(adjusted):
+        running_min = min(running_min, q_value)
+        q_values[original_i] = round(running_min, 12)
+    return q_values
+
+
 def compute_did_results(df: pd.DataFrame, metrics: list[str] | None = None) -> pd.DataFrame:
     """Run account-level DiD regressions: delta_metric ~ label + pre_metric."""
     metrics = metrics or DID_METRICS
@@ -241,6 +269,109 @@ def compute_did_results(df: pd.DataFrame, metrics: list[str] | None = None) -> p
             "pre_control_mean": float(subset.loc[subset["label"] == 0, pre_col].mean()),
             "pre_treated_mean": float(subset.loc[subset["label"] == 1, pre_col].mean()),
         })
+    results = pd.DataFrame(rows)
+    if not results.empty:
+        results["bh_q_value"] = benjamini_hochberg(results["p_value"].tolist())
+    return results
+
+
+def build_coverage_diagnostics(
+    outcomes: pd.DataFrame,
+    *,
+    max_prs_per_account: int = DEFAULT_MAX_PRS_PER_ACCOUNT,
+) -> dict[str, int]:
+    """Summarise PR outcome coverage and important caveat counts."""
+    if outcomes.empty:
+        return {
+            "accounts": 0,
+            "treated": 0,
+            "controls": 0,
+            "zero_pr_accounts": 0,
+            "zero_pr_treated": 0,
+            "zero_pr_controls": 0,
+            "capped_accounts": 0,
+            "capped_treated": 0,
+            "capped_controls": 0,
+            "pr_active_accounts": 0,
+            "pr_active_treated": 0,
+            "pr_active_controls": 0,
+            "both_window_pr_active_accounts": 0,
+            "both_window_pr_active_treated": 0,
+            "both_window_pr_active_controls": 0,
+        }
+
+    labels = outcomes["label"].fillna(0).astype(int)
+    if "n_prs" in outcomes:
+        n_prs = outcomes["n_prs"]
+    else:
+        n_prs = outcomes.get("pre_prs_opened", 0) + outcomes.get("post_prs_opened", 0)
+    zero = n_prs == 0
+    capped = n_prs >= max_prs_per_account
+    pr_active = n_prs > 0
+    both_window = (outcomes.get("pre_prs_opened", 0) > 0) & (outcomes.get("post_prs_opened", 0) > 0)
+
+    def count(mask: pd.Series) -> int:
+        return int(mask.sum())
+
+    def treated_count(mask: pd.Series) -> int:
+        return int((mask & (labels == 1)).sum())
+
+    def control_count(mask: pd.Series) -> int:
+        return int((mask & (labels == 0)).sum())
+
+    return {
+        "accounts": int(len(outcomes)),
+        "treated": int((labels == 1).sum()),
+        "controls": int((labels == 0).sum()),
+        "zero_pr_accounts": count(zero),
+        "zero_pr_treated": treated_count(zero),
+        "zero_pr_controls": control_count(zero),
+        "capped_accounts": count(capped),
+        "capped_treated": treated_count(capped),
+        "capped_controls": control_count(capped),
+        "pr_active_accounts": count(pr_active),
+        "pr_active_treated": treated_count(pr_active),
+        "pr_active_controls": control_count(pr_active),
+        "both_window_pr_active_accounts": count(both_window),
+        "both_window_pr_active_treated": treated_count(both_window),
+        "both_window_pr_active_controls": control_count(both_window),
+    }
+
+
+def build_sensitivity_results(
+    outcomes: pd.DataFrame,
+    *,
+    max_prs_per_account: int = DEFAULT_MAX_PRS_PER_ACCOUNT,
+    metrics: list[str] | None = None,
+) -> pd.DataFrame:
+    """Run focused robustness specifications for the strongest PR outcome metrics."""
+    metrics = metrics or ["prs_opened", "prs_merged", "merge_rate", "median_hours_to_merge"]
+    if outcomes.empty:
+        return pd.DataFrame()
+    if "n_prs" in outcomes:
+        n_prs = outcomes["n_prs"]
+    else:
+        n_prs = outcomes.get("pre_prs_opened", 0) + outcomes.get("post_prs_opened", 0)
+    marker_confidence = outcomes.get("marker_confidence", pd.Series("", index=outcomes.index)).fillna("")
+    specs = {
+        "main": outcomes,
+        "uncapped_only": outcomes[n_prs < max_prs_per_account],
+        "nonzero_prs_only": outcomes[n_prs > 0],
+        "both_prepost_activity": outcomes[(outcomes.get("pre_prs_opened", 0) > 0) & (outcomes.get("post_prs_opened", 0) > 0)],
+        "drop_zero_pre": outcomes[outcomes.get("pre_prs_opened", 0) > 0],
+        "high_conf_treated_only": outcomes[(outcomes["label"] == 0) | ((outcomes["label"] == 1) & (marker_confidence == "high"))],
+    }
+    rows = []
+    for spec_name, spec_df in specs.items():
+        if spec_df.empty or spec_df["label"].nunique() < 2:
+            continue
+        results = compute_did_results(spec_df, metrics)
+        for result in results.to_dict("records"):
+            result.update({
+                "spec": spec_name,
+                "capped_n": int((spec_df["n_prs"] >= max_prs_per_account).sum()) if "n_prs" in spec_df else 0,
+            })
+            rows.append(result)
     return pd.DataFrame(rows)
 
 
@@ -394,14 +525,15 @@ def scrape_accounts(
     token: str | None,
     max_accounts: int | None = None,
     max_prs_per_account: int = DEFAULT_MAX_PRS_PER_ACCOUNT,
+    cache_dir: Path = CACHE_DIR,
     status_path: Path = STATUS_PATH,
 ) -> None:
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_dir.mkdir(parents=True, exist_ok=True)
     client = GitHubClient(token)
     selected = select_accounts_for_scrape(accounts, max_accounts)
     for i, row in enumerate(selected.itertuples(index=False), start=1):
         login = row.login
-        cache_file = CACHE_DIR / f"{login}.json"
+        cache_file = cache_dir / f"{login}.json"
         if cache_file.exists():
             try:
                 cached = json.loads(cache_file.read_text())
@@ -424,31 +556,51 @@ def scrape_accounts(
             continue
 
 
-def build_outcome_dataset(accounts: pd.DataFrame) -> pd.DataFrame:
+def build_outcome_dataset(accounts: pd.DataFrame, *, cache_dir: Path = CACHE_DIR) -> pd.DataFrame:
     rows = []
     for _, feature_row in accounts.iterrows():
         login = feature_row["login"]
-        cache_file = CACHE_DIR / f"{login}.json"
+        cache_file = cache_dir / f"{login}.json"
         if not cache_file.exists():
             continue
         cached = json.loads(cache_file.read_text())
         metrics = summarize_pr_outcomes(cached.get("prs", []))
-        rows.append(build_did_row(feature_row, metrics))
+        row = build_did_row(feature_row, metrics)
+        row["n_prs"] = len(cached.get("prs", []))
+        rows.append(row)
     return pd.DataFrame(rows)
 
 
-def write_did_report(outcomes: pd.DataFrame, results: pd.DataFrame) -> None:
-    with open(DID_RESULTS_PATH, "w") as f:
+def write_did_report(
+    outcomes: pd.DataFrame,
+    results: pd.DataFrame,
+    *,
+    path: Path = DID_RESULTS_PATH,
+    sensitivity: pd.DataFrame | None = None,
+    diagnostics: dict[str, int] | None = None,
+) -> None:
+    with open(path, "w") as f:
         f.write("Account-level PR outcome DiD\n")
         f.write("============================\n\n")
-        f.write(f"Accounts with PR cache: {len(outcomes)}\n")
-        if len(outcomes):
-            f.write(f"Treated: {int(outcomes['label'].sum())}\n")
-            f.write(f"Controls: {int((outcomes['label'] == 0).sum())}\n\n")
+        diagnostics = diagnostics or build_coverage_diagnostics(outcomes)
+        f.write("Coverage diagnostics\n")
+        f.write("--------------------\n")
+        for key, value in diagnostics.items():
+            f.write(f"{key}: {value}\n")
+        f.write("\n")
+        f.write("Interpretation warning: PR-volume outcomes are the primary accepted-output check. "
+                "Merge-rate and time-to-merge estimates are secondary because zero-PR windows are encoded as zeros and can distort rate/latency comparisons.\n\n")
         if results.empty:
             f.write("No estimable regressions. Need both treated and control accounts.\n")
         else:
+            f.write("Main estimates\n")
+            f.write("--------------\n")
             f.write(results.to_string(index=False))
+            f.write("\n\n")
+        if sensitivity is not None and not sensitivity.empty:
+            f.write("Sensitivity estimates\n")
+            f.write("---------------------\n")
+            f.write(sensitivity.to_string(index=False))
             f.write("\n")
 
 
@@ -458,12 +610,17 @@ def main() -> None:
     parser.add_argument("--analyse", action="store_true", help="Build account_pr_outcomes.csv and DiD report")
     parser.add_argument("--max-accounts", type=int, default=None, help="Limit accounts for a smoke run")
     parser.add_argument("--max-prs-per-account", type=int, default=DEFAULT_MAX_PRS_PER_ACCOUNT)
+    parser.add_argument("--features-path", type=Path, default=FEATURES_PATH)
+    parser.add_argument("--cache-dir", type=Path, default=CACHE_DIR)
+    parser.add_argument("--outcomes-path", type=Path, default=OUTCOMES_PATH)
+    parser.add_argument("--did-results-path", type=Path, default=DID_RESULTS_PATH)
+    parser.add_argument("--status-path", type=Path, default=STATUS_PATH)
     args = parser.parse_args()
 
     if not args.scrape and not args.analyse:
         parser.error("Choose --scrape, --analyse, or both")
 
-    accounts = load_feature_accounts()
+    accounts = load_feature_accounts(args.features_path)
     if args.scrape:
         token = os.environ.get("GITHUB_TOKEN")
         if not token:
@@ -473,15 +630,27 @@ def main() -> None:
             token=token,
             max_accounts=args.max_accounts,
             max_prs_per_account=args.max_prs_per_account,
+            cache_dir=args.cache_dir,
+            status_path=args.status_path,
         )
 
     if args.analyse:
-        outcomes = build_outcome_dataset(accounts)
-        outcomes.to_csv(OUTCOMES_PATH, index=False, quoting=csv.QUOTE_MINIMAL)
+        outcomes = build_outcome_dataset(accounts, cache_dir=args.cache_dir)
+        args.outcomes_path.parent.mkdir(parents=True, exist_ok=True)
+        outcomes.to_csv(args.outcomes_path, index=False, quoting=csv.QUOTE_MINIMAL)
         results = compute_did_results(outcomes)
-        write_did_report(outcomes, results)
-        print(f"Wrote {OUTCOMES_PATH} ({len(outcomes)} accounts)")
-        print(f"Wrote {DID_RESULTS_PATH}")
+        diagnostics = build_coverage_diagnostics(outcomes, max_prs_per_account=args.max_prs_per_account)
+        sensitivity = build_sensitivity_results(outcomes, max_prs_per_account=args.max_prs_per_account)
+        args.did_results_path.parent.mkdir(parents=True, exist_ok=True)
+        write_did_report(
+            outcomes,
+            results,
+            path=args.did_results_path,
+            sensitivity=sensitivity,
+            diagnostics=diagnostics,
+        )
+        print(f"Wrote {args.outcomes_path} ({len(outcomes)} accounts)")
+        print(f"Wrote {args.did_results_path}")
 
 
 if __name__ == "__main__":

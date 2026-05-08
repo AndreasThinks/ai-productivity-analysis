@@ -27,13 +27,20 @@
   (April 25) confirmed it is fully absorbed by entity FE and contributes nothing.
 - Classifier retrained with 41 expansion positives: 74 pos + 202 neg = 276 accounts.
   AUC 0.936 (±0.031), stable vs original 0.940. Saved as `classifier_model_expanded.pkl`.
-- **PR outcome extension drafted May 8:** `scripts/pr_outcome_metrics.py` scrapes authored
+- **PR outcome extension drafted and first full run completed May 8:** `scripts/pr_outcome_metrics.py` scrapes authored
   PRs across repositories via GitHub issue search, caches per-account PR details in
   `data/pr_outcome_cache/`, builds `data/account_pr_outcomes.csv`, and writes
   `data/account_pr_did_results.txt`. Hardened with atomic cache writes, per-account
   error handling, and `data/pr_outcome_status.csv`. Durable launch/check scripts:
   `run_pr_outcome_scrape.sh` and `check_pr_outcome_scrape.sh`. Tests live in
-  `tests/test_pr_outcome_metrics.py`.
+  `tests/test_pr_outcome_metrics.py`. Initial 235-account run found strong account-level
+  PR-volume effects: opened PRs +57.6 (p=0.0011), merged PRs +55.6 (p=0.0011),
+  merge rate +0.26 (p=0.00036), median time-to-merge −19.2h (p=0.027). After
+  double-checking, the PR-volume effects survive FDR correction and robustness filters;
+  merge-rate/time-to-merge are secondary because zero-PR windows distort rates/latencies.
+  Script now supports custom `--features-path`, `--outcomes-path`, and report paths so the
+  expanded 276-account classifier cohort can be rerun. Expanded positive scrape is in progress
+  for the 41 high-confidence positives missing from the first cache.
 
 **Critical scrape blocker: RESOLVED.** v3 hit 53 countries, well above the >=25
 threshold. Regression C now runs cleanly with N=72 and 34 countries.

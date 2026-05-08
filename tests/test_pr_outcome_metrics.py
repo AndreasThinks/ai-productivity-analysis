@@ -4,8 +4,13 @@ import pandas as pd
 
 from scripts.pr_outcome_metrics import (
     atomic_write_json,
+    benjamini_hochberg,
+    build_coverage_diagnostics,
     build_did_row,
+    build_outcome_dataset,
+    build_sensitivity_results,
     compute_did_results,
+    load_feature_accounts,
     record_status,
     select_accounts_for_scrape,
     summarize_pr_outcomes,
@@ -149,3 +154,94 @@ def test_record_status_appends_csv_rows_with_header(tmp_path):
     assert rows[0] == "timestamp,login,status,n_prs,error"
     assert ",dev1,done,3," in rows[1]
     assert ",dev2,error,0,boom" in rows[2]
+
+
+def test_load_feature_accounts_accepts_custom_path(tmp_path):
+    features_path = tmp_path / "features.csv"
+    features_path.write_text("login,label\ncustom,1\n")
+
+    accounts = load_feature_accounts(features_path)
+
+    assert accounts.to_dict("records") == [{"login": "custom", "label": 1}]
+
+
+def test_build_outcome_dataset_accepts_custom_cache_dir(tmp_path):
+    cache_dir = tmp_path / "cache"
+    cache_dir.mkdir()
+    atomic_write_json(cache_dir / "dev.json", {"login": "dev", "prs": []})
+    accounts = pd.DataFrame([{"login": "dev", "label": 1, "marker_confidence": "high"}])
+
+    outcomes = build_outcome_dataset(accounts, cache_dir=cache_dir)
+
+    assert len(outcomes) == 1
+    assert outcomes.iloc[0]["login"] == "dev"
+    assert outcomes.iloc[0]["label"] == 1
+
+
+def test_benjamini_hochberg_returns_monotonic_q_values():
+    q_values = benjamini_hochberg([0.001, 0.02, 0.03, 0.8])
+
+    assert q_values == [0.004, 0.04, 0.04, 0.8]
+
+
+def test_compute_did_results_adds_bh_q_values():
+    df = pd.DataFrame(
+        [
+            {"label": 0, "pre_prs_merged": 1, "delta_prs_merged": 0, "pre_prs_opened": 1, "delta_prs_opened": 0},
+            {"label": 0, "pre_prs_merged": 2, "delta_prs_merged": 0, "pre_prs_opened": 2, "delta_prs_opened": 0},
+            {"label": 1, "pre_prs_merged": 1, "delta_prs_merged": 2, "pre_prs_opened": 1, "delta_prs_opened": 2},
+            {"label": 1, "pre_prs_merged": 2, "delta_prs_merged": 2, "pre_prs_opened": 2, "delta_prs_opened": 2},
+        ]
+    )
+
+    results = compute_did_results(df, ["prs_merged", "prs_opened"])
+
+    assert "bh_q_value" in results.columns
+    assert results["bh_q_value"].notna().all()
+
+
+def test_build_coverage_diagnostics_counts_zero_capped_and_active_accounts():
+    df = pd.DataFrame(
+        [
+            {"label": 1, "n_prs": 0, "pre_prs_opened": 0, "post_prs_opened": 0},
+            {"label": 1, "n_prs": 300, "pre_prs_opened": 1, "post_prs_opened": 2},
+            {"label": 0, "n_prs": 4, "pre_prs_opened": 0, "post_prs_opened": 3},
+        ]
+    )
+
+    diagnostics = build_coverage_diagnostics(df, max_prs_per_account=300)
+
+    assert diagnostics["accounts"] == 3
+    assert diagnostics["treated"] == 2
+    assert diagnostics["controls"] == 1
+    assert diagnostics["zero_pr_accounts"] == 1
+    assert diagnostics["capped_accounts"] == 1
+    assert diagnostics["pr_active_accounts"] == 2
+    assert diagnostics["both_window_pr_active_accounts"] == 1
+
+
+def test_build_sensitivity_results_returns_expected_specs():
+    rows = []
+    for label in [0, 0, 1, 1]:
+        rows.append(
+            {
+                "label": label,
+                "marker_confidence": "high" if label else "",
+                "n_prs": 10,
+                "pre_prs_opened": 1,
+                "post_prs_opened": 3 if label else 1,
+                "delta_prs_opened": 2 if label else 0,
+                "pre_prs_merged": 1,
+                "delta_prs_merged": 2 if label else 0,
+                "pre_merge_rate": 0.5,
+                "delta_merge_rate": 0.1 if label else 0,
+                "pre_median_hours_to_merge": 2,
+                "delta_median_hours_to_merge": -1 if label else 0,
+            }
+        )
+    df = pd.DataFrame(rows)
+
+    results = build_sensitivity_results(df, max_prs_per_account=300)
+
+    assert set(results["spec"]) >= {"main", "uncapped_only", "nonzero_prs_only", "both_prepost_activity", "drop_zero_pre", "high_conf_treated_only"}
+    assert set(results["metric"]) >= {"prs_opened", "prs_merged", "merge_rate", "median_hours_to_merge"}
