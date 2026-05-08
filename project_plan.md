@@ -4,7 +4,7 @@
 
 ---
 
-## Project Status: Phase 2 — Robustness Checks Done, Paper Revision Pending (April 25, 2026)
+## Project Status: Phase 2 — PR Outcome Extension Drafted, Paper Revision Pending (May 8, 2026)
 
 **Where we are:**
 - Classifier is done and validated (AUC 0.940, Aider generalisation confirmed).
@@ -12,10 +12,10 @@
   53 countries, 102 country-quarter groups with >=15 accounts.
 - Adoption table built: `data/country_quarter_ai_adoption_v3.csv`.
 - `build_panel_v2.py` ran clean. Headline numbers (April 25):
-  - Regression A (Phase 1, Oxford IV): coef=0.067, p=0.46, N=88 — null
-  - Regression C (per-country IV + baseline): coef=-5.14, p=0.25, N=72 — null, NEGATIVE
-  - Regression C-W (weighted): coef=-7.56, p=0.055 — borderline NEGATIVE
-  - Regression D (parallel trends): p=0.62 — passes
+  - Regression A (Phase 1, Oxford IV): coef=0.067, p=0.46, N=88, null
+  - Regression C (per-country IV + baseline): coef=-5.14, p=0.25, N=72, null, NEGATIVE
+  - Regression C-W (weighted): coef=-7.56, p=0.055, borderline NEGATIVE
+  - Regression D (parallel trends): p=0.62, passes
 - Country trim analysis completed: dropping 16 low-value countries (54 → 38 panel).
   See `country_trim_analysis.md` for full rationale.
 - v3 incorporates: 5-minute sleep cap, proactive /rate_limit checks, abuse detection
@@ -23,10 +23,14 @@
 - Pre-period placebo test completed (`scripts/classifier_placebo_test.py`):
   **RESULT: 6/8 pre-existing metrics significantly differ (p<0.05). Classifier captures
   pre-existing developer conscientiousness, not purely AI adoption.** Mitigation:
-  `baseline_log_commits` control added to panel regression — but robustness checks
+  `baseline_log_commits` control added to panel regression, but robustness checks
   (April 25) confirmed it is fully absorbed by entity FE and contributes nothing.
 - Classifier retrained with 41 expansion positives: 74 pos + 202 neg = 276 accounts.
   AUC 0.936 (±0.031), stable vs original 0.940. Saved as `classifier_model_expanded.pkl`.
+- **PR outcome extension drafted May 8:** `scripts/pr_outcome_metrics.py` scrapes authored
+  PRs across repositories via GitHub issue search, caches per-account PR details in
+  `data/pr_outcome_cache/`, builds `data/account_pr_outcomes.csv`, and writes
+  `data/account_pr_did_results.txt`. Tests live in `tests/test_pr_outcome_metrics.py`.
 
 **Critical scrape blocker: RESOLVED.** v3 hit 53 countries, well above the >=25
 threshold. Regression C now runs cleanly with N=72 and 34 countries.
@@ -642,10 +646,19 @@ The story is no longer "null result, panel too thin." It is now:
 5. **Build the notebook**: `notebooks/paper.ipynb`, regenerable end-to-end from
    `data/` files. Each section computes its own numbers from source rather than
    hand-coding values.
-6. **Generate figures inline**: country-level scatter (adoption × productivity, both
+6. **Run PR outcome extension before final paper tables**:
+   - Scrape authored PRs for the classifier cohort with:
+     `GITHUB_TOKEN=... uv run --with pandas --with statsmodels scripts/pr_outcome_metrics.py --scrape --analyse`
+   - Smoke-test first with `--max-accounts 5 --max-prs-per-account 25`.
+   - Outputs: `data/pr_outcome_cache/`, `data/account_pr_outcomes.csv`,
+     `data/account_pr_did_results.txt`.
+   - Main account-level PR outcomes: PRs opened/month, PRs merged/month, merge rate,
+     closed-unmerged rate, time-to-merge, PR size, review comments, commits per PR.
+   - Use these as accepted-output metrics to interpret the commit/PR divergence.
+7. **Generate figures inline**: country-level scatter (adoption × productivity, both
    DVs side by side), DV heterogeneity coefficient plot, account-level pre/post
-   density of commit message length.
-7. **Caveats discipline**: every quantitative claim ties back to a robustness row.
+   density of commit message length, and PR outcome coefficient plot if scrape succeeds.
+8. **Caveats discipline**: every quantitative claim ties back to a robustness row.
    No floating effect sizes without the spec they came from.
 
 ### Analytical improvements made (cumulative)
