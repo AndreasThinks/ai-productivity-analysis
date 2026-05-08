@@ -12,7 +12,7 @@ Two-phase study. Phase 1 built a country-level panel regression linking AI readi
 
 **Phase 2 — in progress.** Building a classifier to label individual GitHub accounts as AI coding tool users or not. Ground truth from explicit artefacts (CLAUDE.md files, co-author commit trailers). Behavioural features: commit message length delta, PR description completeness, test co-write rate, conventional commit adoption. Early signal is strong — message length delta ~16x larger for confirmed AI users vs. controls. Classifier trained (RF AUC 0.940), Aider validation passed (0.727).
 
-**Population scrape v3 — running.** Scores random GitHub accounts across 38 countries to build per-country AI adoption fractions. v1 completed 2,048/3,000 before stalling; v3 fixes the rate-limit retry spiral with capped backoff, proactive quota checks, and jitter. Country trim dropped 16 low-value countries (see `country_trim_analysis.md`). Systemd service + cron check-in every 3 hours.
+**Population scrape v3 - complete.** Scores random GitHub accounts across the trimmed country panel to build per-country AI adoption fractions. v3 completed April 25 with 2,999 accounts scored across 53 countries, fixing the earlier rate-limit retry spiral with capped backoff, proactive quota checks, and jitter. Country trim dropped 16 low-value countries (see `country_trim_analysis.md`).
 
 **New analytical tools:**
 - `scripts/classifier_placebo_test.py` — tests whether the classifier captures pre-existing developer conscientiousness rather than AI adoption. **Result: significant confound detected (6/8 pre-existing metrics, p<0.05).**
@@ -73,6 +73,41 @@ Two test scrapes completed (scraper v1 and v2.0, 40 accounts each). Both-window 
 | Test co-write rate | +0.19 | -0.01 | ~15x |
 
 **Coverage caveat:** only 4 of 20 positive accounts pass the both-window threshold. Code Search (`filename:CLAUDE.md`) systematically surfaces recent adopters with thin pre-adoption history. Scraper v2.1 addresses this with multi-hour GH Archive co-author discovery (earlier adopters, more pre-window history) and a `marker_confidence` field to stratify by temporal split reliability. Full run (200 pos / 200 neg) pending.
+
+---
+
+### PR Outcome Extension (May 2026)
+
+Country-level PRs are too coarse to answer whether AI users ship more accepted work.
+The account-level extension adds authored PR outcomes for the existing classifier cohort:
+
+- `scripts/pr_outcome_metrics.py` uses GitHub issue search with `type:pr author:<login>`
+  to find PRs across repositories, not just repos owned by the account.
+- Per-account cache: `data/pr_outcome_cache/<login>.json`.
+- Outcome table: `data/account_pr_outcomes.csv`.
+- Regression report: `data/account_pr_did_results.txt`.
+- Metrics: PRs opened/month, PRs merged/month, merge rate, closed-unmerged rate,
+  time-to-merge, PR size, review comments, and commits per PR.
+
+Smoke run:
+
+```bash
+GITHUB_TOKEN=your_pat_here uv run --with pandas --with statsmodels \
+  scripts/pr_outcome_metrics.py --scrape --analyse --max-accounts 5 --max-prs-per-account 25
+```
+
+Full run:
+
+```bash
+GITHUB_TOKEN=your_pat_here uv run --with pandas --with statsmodels \
+  scripts/pr_outcome_metrics.py --scrape --analyse
+```
+
+Analysis-only rerun from existing cache:
+
+```bash
+uv run --with pandas --with statsmodels scripts/pr_outcome_metrics.py --analyse
+```
 
 ---
 
@@ -143,7 +178,10 @@ ai_productivity_analysis/
 │   ├── classifier_model_expanded.pkl       ← retrained RF classifier (74 pos)
 │   ├── classifier_predictions_expanded.csv ← CV predictions for expanded model
 │   ├── placebo_test_results.csv            ← pre-period placebo test output
-│   ├── population_scores_v3.csv            ← v3 population scores (in progress)
+│   ├── population_scores_v3.csv            ← v3 population scores (complete)
+│   ├── account_pr_outcomes.csv             ← account-level PR outcome table, generated
+│   ├── account_pr_did_results.txt          ← PR outcome DiD report, generated
+│   ├── pr_outcome_cache/                   ← per-account authored PR cache, generated
 │   ├── figures/
 │   │   ├── correlation_matrix.png
 │   │   └── scatter_ai_vs_productivity.png
@@ -158,6 +196,7 @@ ai_productivity_analysis/
     ├── scrape_classifier_full.py           ← Phase 2 full scraper (200+200 accounts)
     ├── scrape_expanded_positives.py        ← Expansion positive discovery
     ├── scrape_population_v3.py             ← Population scorer (38 countries, 3k target)
+    ├── pr_outcome_metrics.py               ← Account-level authored PR outcomes + DiD
     ├── classifier_placebo_test.py          ← Pre-period classifier validation
     ├── retrain_classifier_expanded.py      ← Merge expansion + retrain classifier
     └── train_classifier.py                 ← RF classifier training
