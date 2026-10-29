@@ -1,238 +1,106 @@
 # AI Adoption & Developer Productivity
 
-Does AI coding tool adoption causally increase developer productivity? This project tries to find out — using GitHub as the lab.
-
-Two-phase study. Phase 1 built a country-level panel regression linking AI readiness to GitHub activity metrics. Phase 2 (current) is building an account-level binary classifier to identify AI coding tool users from observable behavioural signals — commit patterns, message length, PR quality — without relying on explicit markers.
-
----
-
-## Status
-
-**Phase 1 — complete (null result).** Fixed-effects panel regression across 51 countries, 2022–2024. AI readiness coefficient p = 0.497 — not significant. Root cause: Oxford Insights measures government AI policy readiness, not whether developers are actually using Claude Code or Copilot today. Wrong independent variable.
-
-**Phase 2 — in progress.** Building a classifier to label individual GitHub accounts as AI coding tool users or not. Ground truth from explicit artefacts (CLAUDE.md files, co-author commit trailers). Behavioural features: commit message length delta, PR description completeness, test co-write rate, conventional commit adoption. Early signal is strong — message length delta ~16x larger for confirmed AI users vs. controls. Classifier trained (RF AUC 0.940), Aider validation passed (0.727).
-
-**Population scrape v3 - complete.** Scores random GitHub accounts across the trimmed country panel to build per-country AI adoption fractions. v3 completed April 25 with 2,999 accounts scored across 53 countries, fixing the earlier rate-limit retry spiral with capped backoff, proactive quota checks, and jitter. Country trim dropped 16 low-value countries (see `country_trim_analysis.md`).
-
-**New analytical tools:**
-- `scripts/classifier_placebo_test.py` — tests whether the classifier captures pre-existing developer conscientiousness rather than AI adoption. **Result: significant confound detected (6/8 pre-existing metrics, p<0.05).**
-- `scripts/build_panel_v2.py` — now supports weighted regression (by n_developers), minimum-N thresholds, parallel trends diagnostics, and pre-period productivity controls.
-- `scripts/retrain_classifier_expanded.py` — merges 41 expansion positives into training set. New model: 74 pos / 202 neg, AUC 0.936.
-- `methodology_decisions.md` — living document recording every non-obvious analytical choice with rationale and alternatives considered.
+Do developers who adopt agentic AI coding tools ship more accepted work? This project
+uses public GitHub data to find out. The paper lives in
+`notebooks/research_paper_v3.ipynb` and is published at
+[andreasthinks.me/papers/ai-productivity](https://andreasthinks.me/papers/ai-productivity/).
 
 ---
 
-## Research Design
+## Status (29 October 2026)
 
-### Phase 1 — Country Panel
+**Pull-request outcomes: stand, with caveats.** Confirmed Claude Code and Aider adopters
+open and merge more pull requests than randomly sampled controls (+46 opened, +43 merged,
+p < 0.001; +55 and +51 without the 12 adopters whose markers predate Claude Code). This
+analysis splits every account at 1 January 2024. Adopters were found through recent
+activity and merged PRs include self-merges, so the estimates are likely upper bounds.
 
-Fixed-effects regression on a country × quarter panel, Q4 2022 – Q4 2024:
+**Commit tempo, classifier and country panel: withdrawn pending v4.** The v2.7 scraper
+split 25 of the 33 adopters at a commit from March 2026, days before the scrape, giving
+them a 2–3 week post-period against about two years for controls. That produced the
+reported tempo effects and most of the classifier's 0.94 AUC (post-period active weeks
+alone gives 0.89). See `methodology_decisions.md`, Decision 7, and the correction at the
+top of the paper.
 
-```
-log(commits_per_dev) ~ ai_readiness_score + country_FE + time_FE
-```
-
-- **Country FE** absorb stable confounders (ecosystem maturity, developer culture)
-- **Time FE** absorb global growth trends
-- Productivity measured via GH Archive: commits, PRs, repo creation, per located developer
-- AI adoption measured via Oxford Insights Government AI Readiness Index
-
-**Results:** 88 country-year observations, 51 countries. Coefficient = 0.115, p = 0.497. Null. The independent variable is the problem — government readiness is three steps removed from a developer opening a coding agent.
-
-### Phase 2 — Account-Level Classifier
-
-A difference-in-differences design at the account level.
-
-**Ground truth labelling:** GitHub Code Search for `CLAUDE.md` files + GH Archive scan for `Co-Authored-By: Claude` commit trailers → confirmed positive accounts.
-
-**Behavioural features (no label leakage):**
-- Δ commit message length (pre vs. post Nov 2023)
-- Δ fraction of conventional commits
-- Δ PR description completeness
-- Δ test co-write rate
-- Δ multiline commit fraction
-- Burst commit patterns, hour-of-day entropy
-
-**Explicit markers explicitly excluded from features** — CLAUDE.md presence, co-author trailer content, keyword matches on "Claude"/"Anthropic". These create the labels; they cannot also be classifier inputs.
-
-**Model:** logistic regression first (interpretability), then gradient boosted trees.
-
-**Integration:** replace `ai_readiness_score` in Phase 1 panel with fraction of located developers classified as AI users per country-quarter. Rerun PanelOLS.
-
----
-
-## Preliminary Results (Phase 2 Test Runs — March 2026)
-
-Two test scrapes completed (scraper v1 and v2.0, 40 accounts each). Both-window comparison (≥10 commits pre and post adoption): 4 positives, 20 negatives.
-
-| Feature | AI users (Δ) | Controls (Δ) | Ratio |
-|---------|-------------|--------------|-------|
-| Mean message length | +53.8 chars | -3.4 chars | ~16x |
-| Frac conventional commits | +0.26 | +0.02 | ~15x |
-| Frac PR has body | +0.69 | +0.05 | ~15x |
-| Test co-write rate | +0.19 | -0.01 | ~15x |
-
-**Coverage caveat:** only 4 of 20 positive accounts pass the both-window threshold. Code Search (`filename:CLAUDE.md`) systematically surfaces recent adopters with thin pre-adoption history. Scraper v2.1 addresses this with multi-hour GH Archive co-author discovery (earlier adopters, more pre-window history) and a `marker_confidence` field to stratify by temporal split reliability. Full run (200 pos / 200 neg) pending.
-
----
-
-### PR Outcome Extension (May 2026)
-
-Country-level PRs are too coarse to answer whether AI users ship more accepted work.
-The account-level extension adds authored PR outcomes for the existing classifier cohort:
-
-- `scripts/pr_outcome_metrics.py` uses GitHub issue search with `type:pr author:<login>`
-  to find PRs across repositories, not just repos owned by the account.
-- Per-account cache: `data/pr_outcome_cache/<login>.json`.
-- Outcome table: `data/account_pr_outcomes.csv`.
-- Regression report: `data/account_pr_did_results.txt`.
-- Status log: `data/pr_outcome_status.csv` records one flushed row per account.
-- Metrics: PRs opened/month, PRs merged/month, merge rate, closed-unmerged rate,
-  time-to-merge, PR size, review comments, and commits per PR.
-
-Smoke run:
-
-```bash
-GITHUB_TOKEN=your_pat_here uv run --with pandas --with statsmodels \
-  scripts/pr_outcome_metrics.py --scrape --analyse --max-accounts 5 --max-prs-per-account 25
-```
-
-Full run:
-
-```bash
-GITHUB_TOKEN=your_pat_here uv run --with pandas --with statsmodels \
-  scripts/pr_outcome_metrics.py --scrape --analyse
-```
-
-Durable full run under systemd:
-
-```bash
-systemd-run --user \
-  --unit=ai-productivity-pr-outcome-scrape \
-  --description="AI productivity PR outcome scrape" \
-  --collect \
-  --property=Restart=on-failure \
-  --property=RestartSec=120 \
-  --property=KillMode=control-group \
-  --working-directory=/home/avery/projects/ai_productivity_analysis \
-  /home/avery/projects/ai_productivity_analysis/run_pr_outcome_scrape.sh
-
-./check_pr_outcome_scrape.sh
-```
-
-Analysis-only rerun from existing cache:
-
-```bash
-uv run --with pandas --with statsmodels scripts/pr_outcome_metrics.py --analyse
-```
-
----
-
-## Data
-
-### GitHub Productivity (GH Archive + GitHub API)
-
-- 9 quarterly windows, Q4 2022 – Q4 2024
-- 500 developers sampled per window; 26.3% location hit rate
-- 54 countries covered
-- Events: PushEvent (commits), PullRequestEvent, CreateEvent, IssueCommentEvent, ReleaseEvent
-- All metrics normalised per located developer
-
-### AI Adoption (Phase 1)
-
-- Oxford Insights Government AI Readiness Index, 2021–2023
-- Stanford HAI AI Index (supplementary)
-
-Oxford Insights data is **not included** in this repo — download from [oxfordinsights.com](https://oxfordinsights.com/ai-readiness/ai-readiness-index/). Stanford HAI CSVs are included under `data/stanford_hai/`.
-
-### GH Archive Cache
-
-Cached scrape files (`data/classifier_cache*/`, `data/gharchive_*.jsonl`) are **not committed** — too large and keyed to specific run dates. Re-run the scraper scripts to reproduce.
+**v4 re-collection: code ready, not yet run.** `scripts/rescrape_v4.py` uses equal
+26-week windows around each account's first agent-attributed commit, placebo dates for
+controls, all public repositories, and stored commit authorship so agent-written commits
+can be separated from human ones. `scripts/analyse_v4.py` produces the DiD and classifier
+results from its caches.
 
 ---
 
 ## Reproducing
 
-### Requirements
+Dependencies are pinned with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-# All scripts use uv — install from https://docs.astral.sh/uv/
-uv run scripts/scrape_github_panel.py   # Phase 1 panel scrape
-uv run scripts/build_panel.py           # Merge GH data + AI readiness index
-uv run scripts/run_analysis.py          # Fixed-effects regression
-
-uv run scripts/scrape_classifier_full.py  # Phase 2 classifier scrape v2.1 (TEST_RUN=False for full run)
+uv sync
+uv run pytest                                   # unit tests
+uv run jupyter nbconvert --to notebook --execute notebooks/research_paper_v3.ipynb
 ```
 
-### Environment variables
+The notebook reads `data/` next to it, or wherever `AI_PRODUCTIVITY_DATA` points.
+
+### Running the v4 re-collection
+
+It needs a GitHub personal access token and the real account list, which is not in the
+repo (see Data and privacy below). Search is limited to 30 requests a minute, so expect
+roughly 40 seconds per account, about 3–4 hours for all 311.
 
 ```bash
-export GITHUB_TOKEN=your_pat_here   # GitHub personal access token (5000 req/hr)
+export GITHUB_TOKEN=...                          # classic PAT, public_repo scope is enough
+mkdir -p private && cp /path/to/accounts_v4.csv private/
+uv run scripts/rescrape_v4.py --limit 3         # smoke test: 3 adopters, 3 controls
+uv run scripts/rescrape_v4.py                    # full run; safe to restart
+uv run scripts/analyse_v4.py                     # writes data/v4_*.csv and data/v4_results.md
 ```
 
-No other credentials required. Oxford Insights data must be downloaded separately and placed in `data/oxford_insights/`.
+`private/accounts_v4.csv` has columns `login`, `group` (`adopter` or `control`) and
+`tool` (`claude`, `aider` or empty). `private/pseudonym_salt.txt` must be the same salt
+used for the committed data so that `account_id` values line up.
 
 ---
 
-## File Structure
+## Data and privacy
 
-```
-ai_productivity_analysis/
-├── README.md
-├── project_plan.md                         ← detailed methodology + findings (living doc)
-├── country_trim_analysis.md                ← data-driven country drop recommendations
-├── methodology_decisions.md                ← audit trail of analytical choices
-├── data_source_assessment.md               ← AI adoption data source evaluation
-├── analysis_results_march2026.md           ← full Phase 1 write-up
-├── data/
-│   ├── panel_dataset.csv                   ← 88 obs × 9 cols, Phase 1 panel
-│   ├── github_panel_flat.csv               ← 347 rows, country × quarter
-│   ├── regression_results.txt              ← OLS summary
-│   ├── regression_results_v2.txt           ← PanelOLS with classifier IV
-│   ├── classifier_test_features.csv        ← Phase 2 test run features (40 accounts)
-│   ├── classifier_full_features.csv        ← Phase 2 full run features (235 accounts)
-│   ├── classifier_model.pkl                ← trained RF classifier (33 pos)
-│   ├── classifier_model_expanded.pkl       ← retrained RF classifier (74 pos)
-│   ├── classifier_predictions_expanded.csv ← CV predictions for expanded model
-│   ├── placebo_test_results.csv            ← pre-period placebo test output
-│   ├── population_scores_v3.csv            ← v3 population scores (complete)
-│   ├── account_pr_outcomes.csv             ← account-level PR outcome table, generated
-│   ├── account_pr_did_results.txt          ← PR outcome DiD report, generated
-│   ├── pr_outcome_status.csv               ← PR scrape status log, generated
-│   ├── pr_outcome_cache/                   ← per-account authored PR cache, generated
-│   ├── figures/
-│   │   ├── correlation_matrix.png
-│   │   └── scatter_ai_vs_productivity.png
-│   ├── oxford_insights/                    ← not committed — download separately
-│   └── stanford_hai/                       ← HAI Index CSVs, 2023–2024
-├── run_pr_outcome_scrape.sh                ← Durable systemd launcher for PR scrape
-├── check_pr_outcome_scrape.sh              ← PR scrape progress/stall check
-└── scripts/
-    ├── scrape_github_panel.py              ← Phase 1 panel scraper
-    ├── build_panel.py                      ← merge pipeline
-    ├── build_panel_v2.py                   ← Phase 2 panel + classifier IV
-    ├── run_analysis.py                     ← regression + figures
-    ├── scrape_classifier_sample.py         ← Phase 2 subsample scraper
-    ├── scrape_classifier_full.py           ← Phase 2 full scraper (200+200 accounts)
-    ├── scrape_expanded_positives.py        ← Expansion positive discovery
-    ├── scrape_population_v3.py             ← Population scorer (38 countries, 3k target)
-    ├── pr_outcome_metrics.py               ← Account-level authored PR outcomes + DiD
-    ├── classifier_placebo_test.py          ← Pre-period classifier validation
-    ├── retrain_classifier_expanded.py      ← Merge expansion + retrain classifier
-    └── train_classifier.py                 ← RF classifier training
-```
+Committed data are pseudonymised: GitHub logins are replaced by `account_id`, a salted
+SHA-256 hash (`scripts/pseudonymise.py`). Raw caches with commit messages and profile
+locations, the login list, the salt and the login key live in `private/`, which is
+gitignored. Earlier commits in this repository's history still contain raw data until the
+history is rewritten.
+
+Oxford Insights data is not redistributable; download it from
+[oxfordinsights.com](https://oxfordinsights.com/ai-readiness/ai-readiness-index/) into
+`data/oxford_insights/`. Stanford HAI CSVs are included under `data/stanford_hai/`.
+
+The legacy scrapers (`scrape_*.py`, `validate_aider.py`, `pr_outcome_metrics.py --scrape`)
+expect real logins and so only run against the private data.
 
 ---
 
-## Known Issues
+## File structure
 
-- **Classifier confound (CRITICAL):** Placebo test shows 6/8 pre-existing metrics differ significantly between high/low pre-only score quartiles. Confirmed positives score 0.418 pre-only vs 0.033 for negatives (p<0.0001). The classifier captures developer conscientiousness, not purely AI adoption. **Mitigation:** `baseline_log_commits` control added to panel regression. **Limitation:** residual confounding may remain at account level within countries.
-- **US undercounting:** state abbreviations (CA, NY, TX) in GitHub location fields aren't reliably mapped to country. US developer count is likely understated.
-- **Location hit rate ~26%:** the visible subsample may not be representative. Sensitivity analysis needed.
-- **Both-window coverage thin for positives:** Claude Code accounts skew recent (post-2023), limiting pre-adoption baseline data.
-- **Commit velocity confounded by sampling:** negative accounts selected from active GH Archive windows skew toward prolific committers. Velocity features unreliable without controlling for baseline.
-- **Rate-limit resilience:** v1/v2 scrapers could enter multi-hour sleep spirals on GitHub 403s. Fixed in v3 with capped backoff and proactive quota checks.
-- **Panel thinness:** median 2 developers per country-year even after minimum-N filtering. Weighted regression mitigates but doesn't eliminate this.
+```
+├── notebooks/research_paper_v3.ipynb     the paper; single source for the website copy
+├── methodology_decisions.md               log of analytical choices (Decision 7: v4 design)
+├── pyproject.toml, uv.lock                pinned dependencies
+├── scripts/
+│   ├── paths.py                           data and private directories (env-overridable)
+│   ├── rescrape_v4.py                     v4 event-time collection
+│   ├── analyse_v4.py                      v4 features, DiD and classifier
+│   ├── pseudonymise.py                    login -> account_id
+│   ├── pr_outcome_metrics.py              PR outcome DiD (v3)
+│   ├── train_classifier.py, retrain_classifier_expanded.py, validate_aider.py
+│   ├── scrape_*.py, build_panel*.py, run_analysis.py, robustness_checks.py
+├── data/                                  pseudonymised derived data used by the paper
+├── private/                               not committed: logins, salt, raw caches
+└── tests/
+```
+
+Older working documents (`project_plan.md`, `analysis_results_march2026.md`,
+`data_source_assessment.md`, `country_trim_analysis.md`, `octopus/`) describe earlier
+phases and predate the October 2026 correction.
 
 ---
 
