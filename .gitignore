@@ -45,3 +45,7 @@ venv/
 *.log
 nohup.out
 AGENTS.md
+
+# Private material: real logins, the pseudonymisation salt and key, raw caches
+# with commit messages. See scripts/paths.py and scripts/pseudonymise.py.
+private/
