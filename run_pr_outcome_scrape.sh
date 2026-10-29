@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT=/home/avery/projects/ai_productivity_analysis
+PROJECT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOCK=/tmp/ai-productivity-pr-outcome-scrape.lock
 LOG=/tmp/pr_outcome_scrape.log
 

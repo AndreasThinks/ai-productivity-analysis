@@ -42,7 +42,7 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 if not GITHUB_TOKEN:
     raise ValueError("GITHUB_TOKEN environment variable not set")
 
-PROJECT_ROOT = Path("/home/avery/projects/ai_productivity_analysis")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR     = PROJECT_ROOT / "data"
 
 POP_CACHE_DIR = DATA_DIR / "population_cache_v2"

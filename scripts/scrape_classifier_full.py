@@ -62,7 +62,7 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 if not GITHUB_TOKEN:
     raise ValueError("GITHUB_TOKEN environment variable not set")
 
-PROJECT_ROOT = Path("/home/avery/projects/ai_productivity_analysis")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data"
 
 # ---------------------------------------------------------------------------
@@ -142,7 +142,10 @@ PRE_START   = datetime(2022, 1, 1)
 # [v2.5]: Date sanity bounds for commit search results. Commits with dates
 # outside this range are rejected — either from misconfigured clocks (future)
 # or from pre-Claude-Code era (a human named Claude, not the tool).
-CLAUDE_LAUNCH = datetime(2023, 11, 1)  # Claude Code first available
+# Claude Code's research preview launched on 24 February 2025. v2.7 ran with
+# 2023-11-01 here, which let pre-launch "Claude" markers into the expansion
+# sample; scripts/rescrape_v4.py replaces this scraper.
+CLAUDE_LAUNCH = datetime(2025, 2, 24)
 DATE_SANITY_MAX = datetime(2027, 1, 1)  # generous upper bound for clock drift
 
 # Both-window threshold
