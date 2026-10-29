@@ -1,31 +1,31 @@
-login,discovery_method,first_marker_date,marker_type,marker_confidence
-Shlomob,code_search,,CLAUDE.md,low
-ACComputing,code_search,,CLAUDE.md,low
-Hisn00w,code_search,,CLAUDE.md,low
-hyunolike,code_search,,CLAUDE.md,low
-awps,code_search,,CLAUDE.md,low
-adhi-thirumala,code_search,,CLAUDE.md,low
-burningion,code_search,,CLAUDE.md,low
-LIN0304,code_search,,CLAUDE.md,low
-maximiliamus,code_search,,CLAUDE.md,low
-Badrivinayakmishra,code_search,,CLAUDE.md,low
-co3k,commit_search_coauthor,2022-10-11T18:44:00.000+09:00,Co-Authored-By: Claude (commit search),high
-rashidiy,commit_search_coauthor,2023-03-02T19:34:23.000+05:00,Co-Authored-By: Claude (commit search),high
-jstarace,commit_search_coauthor,2024-04-06T07:55:28.000-07:00,Co-Authored-By: Claude (commit search),high
-DiegoRodriguez93,commit_search_coauthor,2024-07-01T10:00:00.000-03:00,Co-Authored-By: Claude (commit search),high
-denniswon,commit_search_coauthor,2024-08-01T06:01:26.000-07:00,Co-Authored-By: Claude (commit search),high
-mpsm,commit_search_coauthor,2024-08-03T23:42:17.000+02:00,Co-Authored-By: Claude (commit search),high
-Gaku52,commit_search_coauthor,2024-10-23T23:57:36.000+09:00,Co-Authored-By: Claude (commit search),high
-dsp-ant,commit_search_coauthor,2024-11-21T18:57:14.000Z,Co-Authored-By: Claude (commit search),high
-wolffiex,commit_search_coauthor,2024-12-07T17:38:13.000-08:00,Co-Authored-By: Claude (commit search),high
-choinashil,commit_search_coauthor,2024-11-30T15:35:00.000+09:00,Co-Authored-By: Claude (commit search),high
-8enmann,commit_search_coauthor,2024-12-08T21:15:34.000+02:00,Co-Authored-By: Claude (commit search),high
-alexlamas,commit_search_coauthor,2024-12-15T19:23:23.000Z,Co-Authored-By: Claude (commit search),high
-talltree-eng,commit_search_coauthor,2024-12-21T00:41:59.000Z,Co-Authored-By: Claude (commit search),high
-dseisun,commit_search_coauthor,2024-12-28T22:31:14.000-05:00,Co-Authored-By: Claude (commit search),high
-robgreenlee,commit_search_coauthor,2025-01-02T09:43:45.000-08:00,Co-Authored-By: Claude (commit search),high
-wlsdks,commit_search_coauthor,2025-01-03T23:00:00.000+09:00,Co-Authored-By: Claude (commit search),high
-star-blink05,commit_search_coauthor,2025-01-04T00:24:28.000-08:00,Co-Authored-By: Claude (commit search),high
-bedomax,commit_search_coauthor,2025-01-06T23:59:59.000-05:00,Co-Authored-By: Claude (commit search),high
-flexboni,commit_search_coauthor,2025-01-09T14:20:00.000+09:00,Co-Authored-By: Claude (commit search),high
-ddjukic,commit_search_coauthor,2025-01-24T23:01:00.000+01:00,Co-Authored-By: Claude (commit search),high
+account_id,discovery_method,first_marker_date,marker_type,marker_confidence
+acct_20572bef792b,code_search,,CLAUDE.md,low
+acct_931c8b14e995,code_search,,CLAUDE.md,low
+acct_8b6e0f3fddc0,code_search,,CLAUDE.md,low
+acct_42da2347e118,code_search,,CLAUDE.md,low
+acct_bd5c797b4121,code_search,,CLAUDE.md,low
+acct_478d6ec9c8b5,code_search,,CLAUDE.md,low
+acct_ec0e74842fd0,code_search,,CLAUDE.md,low
+acct_0e749a228c34,code_search,,CLAUDE.md,low
+acct_c64346fec5f0,code_search,,CLAUDE.md,low
+acct_db9a7b7b6f79,code_search,,CLAUDE.md,low
+acct_c66774f2e1d5,commit_search_coauthor,2022-10-11T18:44:00.000+09:00,Co-Authored-By: Claude (commit search),high
+acct_4b83582b528e,commit_search_coauthor,2023-03-02T19:34:23.000+05:00,Co-Authored-By: Claude (commit search),high
+acct_7907b056788e,commit_search_coauthor,2024-04-06T07:55:28.000-07:00,Co-Authored-By: Claude (commit search),high
+acct_08a6e3926f5a,commit_search_coauthor,2024-07-01T10:00:00.000-03:00,Co-Authored-By: Claude (commit search),high
+acct_19b5f51ec02c,commit_search_coauthor,2024-08-01T06:01:26.000-07:00,Co-Authored-By: Claude (commit search),high
+acct_9653216e5480,commit_search_coauthor,2024-08-03T23:42:17.000+02:00,Co-Authored-By: Claude (commit search),high
+acct_b97774feea26,commit_search_coauthor,2024-10-23T23:57:36.000+09:00,Co-Authored-By: Claude (commit search),high
+acct_f581f1d97c2f,commit_search_coauthor,2024-11-21T18:57:14.000Z,Co-Authored-By: Claude (commit search),high
+acct_88fba4779fe7,commit_search_coauthor,2024-12-07T17:38:13.000-08:00,Co-Authored-By: Claude (commit search),high
+acct_e6e3b2f446fb,commit_search_coauthor,2024-11-30T15:35:00.000+09:00,Co-Authored-By: Claude (commit search),high
+acct_faccb02c77d7,commit_search_coauthor,2024-12-08T21:15:34.000+02:00,Co-Authored-By: Claude (commit search),high
+acct_472e090172d7,commit_search_coauthor,2024-12-15T19:23:23.000Z,Co-Authored-By: Claude (commit search),high
+acct_70ea7a9c988f,commit_search_coauthor,2024-12-21T00:41:59.000Z,Co-Authored-By: Claude (commit search),high
+acct_bc786d210a5e,commit_search_coauthor,2024-12-28T22:31:14.000-05:00,Co-Authored-By: Claude (commit search),high
+acct_ec5ac1787380,commit_search_coauthor,2025-01-02T09:43:45.000-08:00,Co-Authored-By: Claude (commit search),high
+acct_7b5ac806de93,commit_search_coauthor,2025-01-03T23:00:00.000+09:00,Co-Authored-By: Claude (commit search),high
+acct_18e77d83b80d,commit_search_coauthor,2025-01-04T00:24:28.000-08:00,Co-Authored-By: Claude (commit search),high
+acct_596573d1a13a,commit_search_coauthor,2025-01-06T23:59:59.000-05:00,Co-Authored-By: Claude (commit search),high
+acct_6304e5ec0c5c,commit_search_coauthor,2025-01-09T14:20:00.000+09:00,Co-Authored-By: Claude (commit search),high
+acct_182894b56cff,commit_search_coauthor,2025-01-24T23:01:00.000+01:00,Co-Authored-By: Claude (commit search),high

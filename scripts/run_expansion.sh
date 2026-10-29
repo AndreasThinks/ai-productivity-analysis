@@ -3,14 +3,14 @@
 # Sources .env, activates uv, writes logs to data/expansion_run.log
 
 set -a
-source /home/avery/.hermes/.env
+[ -f "${ENV_FILE:-.env}" ] && source "${ENV_FILE:-.env}"
 set +a
 
 export PYTHONUNBUFFERED=1
 
-cd /home/avery/projects/ai_productivity_analysis
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-LOG=/home/avery/projects/ai_productivity_analysis/data/expansion_run.log
+LOG=data/expansion_run.log
 
 echo "=== Expansion scraper started: $(date) ===" >> "$LOG"
 uv run python -u scripts/scrape_expanded_positives.py >> "$LOG" 2>&1

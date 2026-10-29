@@ -297,6 +297,66 @@ Reviewer reproducibility and rollback safety. If the expanded model performs wor
 
 ---
 
+## Decision 7: Event-Time Windows of Equal Length (v4) — 29 October 2026
+
+### Context
+
+An October 2026 review found that the v2.7 scraper split the 25 high-confidence
+adopters at the date of a Claude-attributed commit returned by a newest-first commit
+search. All 25 dates fall between 9 and 27 March 2026, days before the 28–30 March
+scrape, so those adopters had post-windows of 2–3 weeks while controls (split at
+1 January 2024) had about two years. `validate_aider.py` did the same for Aider users.
+On the committed features, post-period active weeks alone separates adopters from
+controls at AUC 0.89, and with only the 8 low-confidence adopters (same split as
+controls) none of the commit-tempo DiD effects is significant. A second bug set
+`CLAUDE_LAUNCH` to 2023-11-01, letting 12 pre-Claude-Code "Claude" markers into the
+41 expansion positives.
+
+### Decision
+
+Re-collect with `scripts/rescrape_v4.py` and analyse with `scripts/analyse_v4.py`:
+
+1. Adoption date = earliest commit carrying the tool's trailer (oldest-first search).
+   Claude markers before 24 February 2025 are flagged `pre_launch` and excluded.
+2. Every account gets 182 days before and after its date. Only dates at least 182
+   days before the scrape are eligible.
+3. Controls get placebo dates drawn from the adopters' dates and snapped to their
+   nearest commit, so both groups are anchored on an active day. Controls with any
+   agent marker before the end of their post-window are excluded.
+4. Commits come from commit search across all public repositories, split into
+   smaller date ranges until no query hits the 1,000-result cap.
+5. Author, committer and message are stored; agent commits (Claude Code, Aider,
+   Copilot agent, Cursor agent, Codex, Devin) are detected and every tempo outcome is
+   also reported on human-only commits.
+6. PRs are counted per window as opened, merged, and merged into repositories the
+   author does not own.
+7. The activity floor (5 commits) applies to the pre-window only, for both groups.
+
+### Rationale
+
+Equal windows remove the mechanical link between window length and the tempo
+features. Anchoring controls on an active day matches the way adopters are found.
+Separating agent commits answers the auto-commit objection directly.
+
+### Impact
+
+The v2.7 commit-tempo DiD, the classifier AUC, the Aider check and the country panel
+are withdrawn pending v4 results. The PR DiD used a global January 2024 split for all
+accounts and stands, with the pre-launch adopters dropped as a sensitivity check
+(+55 opened, +51 merged, p < 0.001).
+
+---
+
+## Decision 8: Pseudonymised Public Data — 29 October 2026
+
+Committed CSVs replace `login` with `account_id` (salted SHA-256, `scripts/pseudonymise.py`).
+Raw caches with commit messages and locations, the salt and the login key live in the
+gitignored `private/` directory. The paper labels identifiable people by likely AI tool
+use, and its data statement already said raw individual-level data would not be shared.
+Earlier commits still contain the raw data until the history is rewritten.
+
+---
+
 ## Outstanding Decisions (To Be Made)
 
 1. **Quarterly vs annual aggregation:** If v3 produces enough data, should we switch from country-year to country-quarter panel? More time variation but thinner per-quarter observations.

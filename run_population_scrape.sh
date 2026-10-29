@@ -18,7 +18,7 @@ if [ -f "$LOCKFILE" ]; then
     fi
 fi
 
-cd /home/avery/projects/ai_productivity_analysis
+cd "$(dirname "${BASH_SOURCE[0]}")"
 
 # Pull token from git credential store (works with clean HTTPS remotes)
 GITHUB_TOKEN=$(printf 'protocol=https\nhost=github.com\n' | git credential fill | grep '^password=' | cut -d= -f2-)
@@ -36,5 +36,5 @@ export GITHUB_TOKEN
 echo $$ > "$LOCKFILE"
 trap "rm -f $LOCKFILE" EXIT
 
-exec /home/avery/.local/bin/uv run --with scikit-learn --with joblib \
+exec uv run --with scikit-learn --with joblib \
     python3 -u scripts/scrape_population.py

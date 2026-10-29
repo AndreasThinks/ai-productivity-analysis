@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT=/home/avery/projects/ai_productivity_analysis
+PROJECT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 UNIT=ai-productivity-pr-outcome-scrape.service
 LOG=/tmp/pr_outcome_scrape.log
 CACHE_DIR="$PROJECT/data/pr_outcome_cache"
